@@ -1,15 +1,10 @@
-There are many cases where using BASH to code ends up
-overcomplicating things. But due to it's portability (BASH is everywhere)
-there are plenty of cases where it makes sense to use BASH over other more
-dependcy-heavy languages.
-
-When I do hack up a BASH script, I often find there are some
+When hacking up BASH scripts, I often find there are some
 higherlevel things like logging, configuration, commandline argument
-parsing that
+parsing that:
 
  - I need everytime
- - take quite some effort to get right, and
- - keep you from your actual work.
+ - Take quite some effort to get right
+ - Keep you from your actual work
 
 Here's an attempt to bundle those things in a generalized way so that
 they are reusable as-is in most of my (and hopefully your, if not ping
@@ -54,22 +49,24 @@ so no duplication needed)
 ## Conventions
 
 It's the task of the script's **caller** to:
- - redirect the output to appropriate locations
- - correctly set the PATH variable (think [cronjobs](http://kvz.io/blog/2007/07/29/schedule-tasks-on-linux-using-crontab/))
+ - Redirect the output to appropriate locations
+ - Correctly set the PATH variable (think [cronjobs](http://kvz.io/blog/2007/07/29/schedule-tasks-on-linux-using-crontab/))
 
 ## Recommendations
 
-- using spaces vs tabs so you can copy-paste parts directly into
+- Use spaces vs tabs so you can copy-paste parts directly into
 the console, without BASH's automcomplete firing on every tab
 character
-- using `set -eu`, so it will break on every error
-and undefined variable. if you're expecting an error, add ||true
+- Use `set -eu`, so it will break on every error
+and undefined variable. if you're expecting an error, add `||true`
 to your command.
-- checkout [The 10 Commandments of Logging](http://www.masterzen.fr/2013/01/13/the-10-commandments-of-logging/)
+Using `set -eu` over the interpreter `#!/bin/bash -eu` makes
+sure the flags are respected even when your script is called like `bash main.sh`.
+- Checkout [The 10 Commandments of Logging](http://www.masterzen.fr/2013/01/13/the-10-commandments-of-logging/)
 
 ## Notes
 
-- use `emergency` to exit with 1
+- Use `emergency` to exit with 1
 
 ## Compile
 

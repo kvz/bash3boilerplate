@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Template to write better bash scripts. More info: http://kvz.io
-# Version 0.01
+# Version 0.0.1
 #
 # Usage:
 #  LOG_LEVEL=7 ./template.sh first_arg second_arg
