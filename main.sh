@@ -1,27 +1,28 @@
 #!/bin/bash
 #
 # Template to write better bash scripts. More info: http://kvz.io
-# Version 0.0.1
+# Version 0.0.2
 #
 # Usage:
-#  LOG_LEVEL=7 ./template.sh first_arg second_arg
+#  LOG_LEVEL=7 ./template.sh -f /tmp/foo -d 
 #
 # Licensed under MIT
 # Copyright (c) 2013 Kevin van Zonneveld
 # http://twitter.com/kvz
 #
 
+
 ### Configuration
 #####################################################################
 
 # Environment variables
-[ -z "${LOG_LEVEL}" ] && LOG_LEVEL="6" # 7 = debug -> 0 = emergency
+[ -z "${LOG_LEVEL}" ] && LOG_LEVEL="6" # 7 = debug, 0 = emergency
 
 # Commandline options. This defines the usage page, and is used to parse cli opts & defaults from.
-# the parsing is unforgiving so be precise in your syntax:
+# Parsing is unforgiving so be precise in your syntax:
 read -r -d '' usage <<-'EOF'
-  -f   [arg] Filename to process.
-  -t   [arg] Location of tempfile. Default="/tmp/x"
+  -f   [arg] Filename to process. Required.
+  -t   [arg] Location of tempfile. Default="/tmp/bar"
   -d         Enables debug mode
   -h         This page
 EOF
@@ -46,12 +47,11 @@ function _fmt ()      {
   color_reset="\x1b[0m"
   if [ "${TERM}" != "xterm" ] || [ -t 1 ]; then
     # Don't use colors on pipes or non-recognized terminals
-    color=""
-    color_reset=""
+    color=""; color_reset=""
   fi
   echo -e "$(date -u +"%Y-%m-%d %H:%M:%S UTC") ${color}$(printf "[%9s]" ${1})${color_reset}";
 }
-function emergency () { echo "$(_fmt emergency) ${@}" || true; exit 1; }
+function emergency () {                             echo "$(_fmt emergency) ${@}" || true; exit 1; }
 function alert ()     { [ "${LOG_LEVEL}" -ge 1 ] && echo "$(_fmt alert) ${@}" || true; }
 function critical ()  { [ "${LOG_LEVEL}" -ge 2 ] && echo "$(_fmt critical) ${@}" || true; }
 function error ()     { [ "${LOG_LEVEL}" -ge 3 ] && echo "$(_fmt error) ${@}" || true; }
@@ -124,26 +124,29 @@ shift $((OPTIND-1))
 [ "$1" = "--" ] && shift
 
 
-### Switches
+### Switches (like -d for debugmdoe, -h for showing helppage)
 #####################################################################
 
 # debug mode
 if [ "${arg_d}" = "1" ]; then
+  # turn on tracing
   set -x
+  # output debug messages
   LOG_LEVEL="7"
 fi
 
 # help mode
 if [ "${arg_h}" = "1" ]; then
+  # Help exists with code 1
   help "Help using ${0}"
 fi
 
 
-### Validation
+### Validation (decide what's required for running your script and error out)
 #####################################################################
 
-[ -z "${arg_f}" ]     && help   "Setting a filename with -f is required"
-[ -z "${LOG_LEVEL}" ] && emergency "Cannot continue without loglevel. "
+[ -z "${arg_f}" ]     && help      "Setting a filename with -f is required"
+[ -z "${LOG_LEVEL}" ] && emergency "Cannot continue without LOG_LEVEL. "
 
 
 ### Runtime
@@ -152,7 +155,7 @@ fi
 # Exit on error. Append ||true if you expect an error.
 # set -e is safer than #!/bin/bash -e because that is nutralised if
 # someone runs your script like `bash yourscript.sh`
-set -e
+set -eu
 
 # Bash will remember & return the highest exitcode in a chain of pipes.
 # This way you can catch the error in case mysqldump fails in `mysqldump |gzip`
