@@ -20,7 +20,7 @@ before you start to avoid not seeing them merged.
 
 ## Versioning
 
-Discourse implements the Semantic Versioning guidelines.
+BASH3 Boilerplate implements the Semantic Versioning guidelines.
 
 Releases will be numbered with the following format:
 
