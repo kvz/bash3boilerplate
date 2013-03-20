@@ -14,9 +14,8 @@ An up to date [intro is found on my blog](http://kvz.io/blog/2013/02/26/introduc
 
 ## Contributing
 
-Feel free to fork this project. We will happily merge bug fixes or other small
-improvements. For bigger changes you should probably get in touch with us
-before you start to avoid not seeing them merged.
+Feel free to fork this project. We will happily merge bug fixes or other
+improvements.
 
 ## Versioning
 
