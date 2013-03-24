@@ -29,8 +29,8 @@ read -r -d '' usage <<-'EOF'
 EOF
 
 # Set magic variables for current FILE & DIR
-__FILE__="$(test -L "${0}" && readlink "${0}" || echo "${0}")"
-__DIR__="$(cd "$(dirname "${__FILE__}")"; echo $(pwd);)"
+__DIR__="$(cd "$(dirname "${0}")"; echo $(pwd))"
+__FILE__="${__DIR__}/$(basename "${0}")"
 
 
 ### Functions
