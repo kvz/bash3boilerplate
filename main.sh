@@ -1,11 +1,12 @@
 #!/bin/bash
 #
 # Template to write better bash scripts. More info: http://kvz.io
-# Version 0.0.2
+# Version 0.0.3
 #
 # Usage:
 #  LOG_LEVEL=7 ./template.sh -f /tmp/foo -d 
 #
+# Based on BASH3 Boilerplate v0.0.3 (https://github.com/kvz/bash3boilerplate)
 # Licensed under MIT
 # Copyright (c) 2013 Kevin van Zonneveld
 # http://twitter.com/kvz
