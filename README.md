@@ -14,12 +14,12 @@ An up to date [intro is found on my blog](http://kvz.io/blog/2013/02/26/introduc
 
 ## Contributing
 
-Feel free to fork this project. We will happily merge bug fixes or other
+Feel free to fork this project. I'll happily merge bug fixes or other
 improvements.
 
 ## Versioning
 
-BASH3 Boilerplate implements the Semantic Versioning guidelines.
+This project implements the Semantic Versioning guidelines.
 
 Releases will be numbered with the following format:
 
@@ -31,4 +31,4 @@ And constructed with the following guidelines:
 * New additions without breaking backward compatibility bumps the minor (and resets the patch)
 * Bug fixes and misc changes bumps the patch
 
-For more information on SemVer, please visit http://semver.org/.
+For more information on SemVer, please visit [http://semver.org/]().
