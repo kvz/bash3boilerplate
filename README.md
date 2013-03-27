@@ -30,5 +30,5 @@ For more information on SemVer, please visit [http://semver.org/]().
 
 ## License
 
-Copyright (c) 2013 Kevin van Zonneveld, [http://kvz.io]()
+Copyright (c) 2013 Kevin van Zonneveld, [http://kvz.io]()  
 Licensed under MIT: [http://kvz.mit-license.org]()
