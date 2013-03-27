@@ -12,11 +12,6 @@ me) programs.
 
 An up to date [intro is found on my blog](http://kvz.io/blog/2013/02/26/introducing-bash3boilerplate/).
 
-## Contributing
-
-Feel free to fork this project. I'll happily merge bug fixes or other
-improvements.
-
 ## Versioning
 
 This project implements the Semantic Versioning guidelines.
@@ -32,3 +27,8 @@ And constructed with the following guidelines:
 * Bug fixes and misc changes bumps the patch
 
 For more information on SemVer, please visit [http://semver.org/]().
+
+## License
+
+Copyright (c) 2013 Kevin van Zonneveld, [http://kvz.io]()
+Licensed under MIT: [http://kvz.mit-license.org]()
