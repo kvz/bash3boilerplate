@@ -26,9 +26,10 @@ And constructed with the following guidelines:
 * New additions without breaking backward compatibility bumps the minor (and resets the patch)
 * Bug fixes and misc changes bumps the patch
 
-For more information on SemVer, please visit [http://semver.org/]().
+
+For more information on SemVer, please visit [http://semver.org](http://semver.org).
 
 ## License
 
-Copyright (c) 2013 Kevin van Zonneveld, [http://kvz.io]()  
-Licensed under MIT: [http://kvz.mit-license.org]()
+Copyright (c) 2013 Kevin van Zonneveld, [http://kvz.io](http://kvz.io) 
+Licensed under MIT: [http://kvz.mit-license.org](http://kvz.mit-license.org)
