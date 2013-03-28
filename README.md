@@ -32,4 +32,4 @@ For more information on SemVer, please visit [http://semver.org](http://semver.o
 ## License
 
 Copyright (c) 2013 Kevin van Zonneveld, [http://kvz.io](http://kvz.io)  
-Licensed under MIT: [http://kvz.mit-license.org](http://kvz.mit-license.org)
+Licensed under MIT: [http://kvz.io/licenses/LICENSE-MIT](http://kvz.io/licenses/LICENSE-MIT)
