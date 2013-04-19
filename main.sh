@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # BASH3 Boilerplate
 # Version v0.1.0
