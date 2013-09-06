@@ -160,7 +160,7 @@ fi
 #####################################################################
 
 # Exit on error. Append ||true if you expect an error.
-# set -e is safer than #!/bin/bash -e because that is nutralised if
+# set -e is safer than #!/bin/bash -e because that is neutralised if
 # someone runs your script like `bash yourscript.sh`
 set -eu
 
