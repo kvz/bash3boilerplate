@@ -43,15 +43,15 @@ __FILE__="${__DIR__}/$(basename "${0}")"
 #####################################################################
 
 function _fmt ()      {
-  color_ok="\x1b[32m"
-  color_bad="\x1b[31m"
+  local color_ok="\x1b[32m"
+  local color_bad="\x1b[31m"
 
-  color="${color_bad}"
+  local color="${color_bad}"
   if [ "${1}" = "debug" ] || [ "${1}" = "info" ] || [ "${1}" = "notice" ]; then
     color="${color_ok}"
   fi
 
-  color_reset="\x1b[0m"
+  local color_reset="\x1b[0m"
   if [ "${TERM}" != "xterm" ] || [ -t 1 ]; then
     # Don't use colors on pipes or non-recognized terminals
     color=""; color_reset=""
