@@ -24,8 +24,8 @@
 ### Configuration
 #####################################################################
 
-# Environment variables
-[ -z "${LOG_LEVEL}" ] && LOG_LEVEL="6" # 7 = debug -> 0 = emergency
+# Environment variables and their defaults
+LOG_LEVEL="${LOG_LEVEL:-6}" # 7 = debug -> 0 = emergency
 
 # Commandline options. This defines the usage page, and is used to parse cli opts & defaults from.
 # the parsing is unforgiving so be precise in your syntax:
