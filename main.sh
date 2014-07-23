@@ -1,15 +1,25 @@
 #!/usr/bin/env bash
+# BASH3 Boilerplate
 #
-# Template to write better bash scripts. More info: http://kvz.io
 # Version 0.0.1
+# This file:
+#  - Is a template to write better bash scripts
+#  - Is delete-key friendly, in case you don't need e.g. command line option parsing
+#
+# More info:
+#  - https://github.com/kvz/bash3boilerplate
+#  - http://kvz.io/blog/2013/02/26/introducing-bash3boilerplate/
+#
+#
+# Authors:
+#  - Kevin van Zonneveld (http://kvz.io)
 #
 # Usage:
-#  LOG_LEVEL=7 ./template.sh first_arg second_arg
+#  LOG_LEVEL=7 ./main.sh first_arg second_arg
 #
 # Licensed under MIT
-# Copyright (c) 2013 Kevin van Zonneveld
-# http://twitter.com/kvz
-#
+# Copyright (c) 2013 Kevin van Zonneveld (http://kvz.io)
+
 
 ### Configuration
 #####################################################################
