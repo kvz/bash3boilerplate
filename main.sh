@@ -54,8 +54,8 @@ function _fmt ()      {
   fi
 
   color_reset="\x1b[0m"
-  if [ "${TERM}" != "xterm" ] || [ -t 1 ]; then
   local color_reset="\x1b[0m"
+  if [[ "${TERM}" != "xterm"* ]] || [ -t 1 ]; then
     # Don't use colors on pipes or non-recognized terminals
     color=""
     color_reset=""
