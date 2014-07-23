@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # Template to write better bash scripts. More info: http://kvz.io
 # Version 0.0.1
