@@ -27,8 +27,8 @@
 # Environment variables and their defaults
 LOG_LEVEL="${LOG_LEVEL:-6}" # 7 = debug -> 0 = emergency
 
-# Commandline options. This defines the usage page, and is used to parse cli opts & defaults from.
-# the parsing is unforgiving so be precise in your syntax:
+# Commandline options. This defines the usage page, and is used to parse cli
+# opts & defaults from. The parsing is unforgiving so be precise in your syntax
 read -r -d '' usage <<-'EOF'
   -f   [arg] Filename to process.
   -t   [arg] Location of tempfile. Default="/tmp/x"
