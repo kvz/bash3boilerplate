@@ -139,7 +139,7 @@ shift $((OPTIND-1))
 
 # debug mode
 if [ "${arg_d}" = "1" ]; then
-  set -x
+  set -o xtrace
   LOG_LEVEL="7"
 fi
 
@@ -162,7 +162,8 @@ fi
 # Exit on error. Append ||true if you expect an error.
 # set -e is safer than #!/bin/bash -e because that is nutralised if
 # someone runs your script like `bash yourscript.sh`
-set -e
+set -o errexit
+set -o nounset
 
 # Bash will remember & return the highest exitcode in a chain of pipes.
 # This way you can catch the error in case mysqldump fails in `mysqldump |gzip`
