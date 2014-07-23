@@ -15,7 +15,7 @@
 #  - Kevin van Zonneveld (http://kvz.io)
 #
 # Usage:
-#  LOG_LEVEL=7 ./main.sh first_arg second_arg
+#  LOG_LEVEL=7 ./main.sh -f /tmp/x -d
 #
 # Licensed under MIT
 # Copyright (c) 2013 Kevin van Zonneveld (http://kvz.io)
@@ -30,8 +30,8 @@ LOG_LEVEL="${LOG_LEVEL:-6}" # 7 = debug -> 0 = emergency
 # Commandline options. This defines the usage page, and is used to parse cli
 # opts & defaults from. The parsing is unforgiving so be precise in your syntax
 read -r -d '' usage <<-'EOF'
-  -f   [arg] Filename to process.
-  -t   [arg] Location of tempfile. Default="/tmp/x"
+  -f   [arg] Filename to process. Required.
+  -t   [arg] Location of tempfile. Default="/tmp/bar"
   -d         Enables debug mode
   -h         This page
 EOF
@@ -69,13 +69,12 @@ function notice ()    { [ "${LOG_LEVEL}" -ge 5 ] && echo "$(_fmt notice) ${@}" 1
 function info ()      { [ "${LOG_LEVEL}" -ge 6 ] && echo "$(_fmt info) ${@}" 1>&2 || true; }
 function debug ()     { [ "${LOG_LEVEL}" -ge 7 ] && echo "$(_fmt debug) ${@}" 1>&2 || true; }
 
-
 function help () {
-  echo ""
-  echo " ${@}"
-  echo ""
-  echo "  ${usage}"
-  echo ""
+  echo "" 1>&2
+  echo " ${@}" 1>&2
+  echo "" 1>&2
+  echo "  ${usage}" 1>&2
+  echo "" 1>&2
   exit 1
 }
 
@@ -134,7 +133,7 @@ shift $((OPTIND-1))
 [ "$1" = "--" ] && shift
 
 
-### Switches
+### Switches (like -d for debugmdoe, -h for showing helppage)
 #####################################################################
 
 # debug mode
@@ -145,22 +144,23 @@ fi
 
 # help mode
 if [ "${arg_h}" = "1" ]; then
+  # Help exists with code 1
   help "Help using ${0}"
 fi
 
 
-### Validation
+### Validation (decide what's required for running your script and error out)
 #####################################################################
 
-[ -z "${arg_f}" ]     && help   "Setting a filename with -f is required"
-[ -z "${LOG_LEVEL}" ] && emergency "Cannot continue without loglevel. "
+[ -z "${arg_f}" ]     && help      "Setting a filename with -f is required"
+[ -z "${LOG_LEVEL}" ] && emergency "Cannot continue without LOG_LEVEL. "
 
 
 ### Runtime
 #####################################################################
 
 # Exit on error. Append ||true if you expect an error.
-# set -e is safer than #!/bin/bash -e because that is nutralised if
+# set -e is safer than #!/bin/bash -e because that is neutralised if
 # someone runs your script like `bash yourscript.sh`
 set -o errexit
 set -o nounset
