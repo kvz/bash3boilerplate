@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # BASH3 Boilerplate
 #
-# Version 0.0.1
 # This file:
 #  - Is a template to write better bash scripts
 #  - Is delete-key friendly, in case you don't need e.g. command line option parsing
@@ -10,6 +9,7 @@
 #  - https://github.com/kvz/bash3boilerplate
 #  - http://kvz.io/blog/2013/02/26/introducing-bash3boilerplate/
 #
+# Version 1.0.0
 #
 # Authors:
 #  - Kevin van Zonneveld (http://kvz.io)
