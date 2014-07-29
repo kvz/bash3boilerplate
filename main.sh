@@ -169,6 +169,10 @@ set -o nounset
 # This way you can catch the error in case mysqldump fails in `mysqldump |gzip`
 set -o pipefail
 
+if [[ "${OSTYPE}" == "darwin"* ]]; then
+  info "You are on OSX"
+fi
+
 debug "Info useful to developers for debugging the application, not useful during operations."
 info "Normal operational messages - may be harvested for reporting, measuring throughput, etc. - no action required."
 notice "Events that are unusual but not error conditions - might be summarized in an email to developers or admins to spot potential problems - no immediate action required."
