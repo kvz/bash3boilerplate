@@ -1,4 +1,5 @@
 {
   "name": "bash3boilerplate",
+  "description": "Copypastable templates to write better bash scripts",
   "version": "1.0.3"
 }
