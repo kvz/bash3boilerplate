@@ -22,6 +22,16 @@ me) programs.
 
 An up to date [intro is found on my blog](http://kvz.io/blog/2013/02/26/introducing-bash3boilerplate/).
 
+## Installation
+
+There are 3 ways you can install (parts of) b3bp:
+
+ 1. Just get the main template: `wget https://raw.githubusercontent.com/kvz/bash3boilerplate/master/main.sh`
+ 2. Clone the entire project: `git clone git@github.com:kvz/bash3boilerplate.git`
+ 3. As of `v1.0.3`, b3bp can be installed as a `package.json` dependency via: `npm install --save bash3boilerplate`
+
+Although `3` introduces a node.js dependency, this does allow for easy version pinning & distrubtions in environments that already have this prerequisite. But nothing prevents you from just using `curl` and keep your project or build system low on external dependencies.
+
 ## Versioning
 
 This project implements the Semantic Versioning guidelines.
@@ -38,6 +48,41 @@ And constructed with the following guidelines:
 
 
 For more information on SemVer, please visit [http://semver.org](http://semver.org).
+
+## Best practices
+
+As of `v1.0.3`, b3bp adds some nice re-usable libraries in `./src`. Later on we'll be using snippets inside this directory to build custom packages. In order to make the snippets in `./src` more useful, we recommend these guidelines.
+
+### Library exports
+
+It's nice to have a bash package that can be used in the terminal and also be invoked as a command line function. To achieve this the exporting of your functionality *should* follow this pattern:
+
+```bash
+if [ "${BASH_SOURCE[0]}" != ${0} ]; then
+  export -f my_script
+else
+  my_script "${@}"
+  exit $?
+fi
+```
+
+This allows a user to `source` your script or invoke as a script.
+
+```bash
+# Running as a script
+$ ./my_script.sh some args --blah
+# Sourcing the script
+$ source my_script.sh
+$ my_script some more args --blah
+```
+
+(taken from the [bpkg](https://raw.githubusercontent.com/bpkg/bpkg/master/README.md) project)
+
+## Todo
+
+ - [ ] Make `src` libs adhere to Best practices
+ - [ ] `make build` system for generating custom builds
+ - [ ] tests & releases via Travis
 
 ## License
 
