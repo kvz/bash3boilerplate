@@ -38,7 +38,7 @@ EOF
 
 # Set magic variables for current FILE & DIR
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-__file="${__dir}/$(basename "${0}")"
+__file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
 
 
 ### Functions
