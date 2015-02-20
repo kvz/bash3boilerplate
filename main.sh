@@ -133,7 +133,7 @@ shift $((OPTIND-1))
 [ "$1" = "--" ] && shift
 
 
-### Switches (like -d for debugmdoe, -h for showing helppage)
+### Switches (like -d for debugmode, -h for showing helppage)
 #####################################################################
 
 # debug mode
