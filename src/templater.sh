@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
 # Copyright (c) 2014, Transloadit Ltd.
 #
-# This file
+# This file:
 #  - takes a source (template) & destination (config) filepath argument
 #  - and then replaces placeholders with variables found in the environment
+#
+# Run as:
+#
+#  ALLOW_REMAINDERS=1 templater.sh input.cfg output.cfg
 #
 # Authors:
 #  - Kevin van Zonneveld <kevin@transloadit.com>
@@ -16,6 +20,8 @@ set -o errexit
 sed=""
 [ -n "$(which sed)" ]  && sed="$(which sed)"
 [ -n "$(which gsed)" ] && sed="$(which gsed)"
+
+ALLOW_REMAINDERS="${ALLOW_REMAINDERS:-0}"
 
 templateSrc="${1}"
 templateDst="${2}"
@@ -36,7 +42,7 @@ done
 
 # cat "${templateDst}"
 
-if grep '${' ${templateDst}; then
+if grep '${' ${templateDst} && [ "${ALLOW_REMAINDERS}" == "0" ]; then
    echo "ERROR: Unable to replace the above template vars"
    exit 1
 fi
