@@ -9,7 +9,7 @@
 #  - https://github.com/kvz/bash3boilerplate
 #  - http://kvz.io/blog/2013/02/26/introducing-bash3boilerplate/
 #
-# Version 1.0.0
+# Version 1.1.0
 #
 # Authors:
 #  - Kevin van Zonneveld (http://kvz.io)
@@ -36,7 +36,9 @@ read -r -d '' usage <<-'EOF'
   -h         This page
 EOF
 
-# Set magic variables for current FILE & DIR
+# Set magic variables for current file and its directory. 
+# BASH_SOURCE[0] is used so we can display the current file even if it is sourced by a parent script.
+# If you need the script that was executed, consider using $0 instead.
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 __file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
 
@@ -160,8 +162,8 @@ fi
 #####################################################################
 
 # Exit on error. Append ||true if you expect an error.
-# set -e is safer than #!/bin/bash -e because that is neutralised if
-# someone runs your script like `bash yourscript.sh`
+# `set` is safer than relying on a shebang like `#!/bin/bash -e` because that is neutralized
+# when someone runs your script as `bash yourscript.sh`
 set -o errexit
 set -o nounset
 
