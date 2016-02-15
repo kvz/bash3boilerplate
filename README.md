@@ -1,5 +1,3 @@
-# bash3boilerplate
-
 When hacking up BASH scripts, I often find there are some
 higherlevel things like logging, configuration, commandline argument
 parsing that:
@@ -12,7 +10,24 @@ Here's an attempt to bundle those things in a generalized way so that
 they are reusable as-is in most of my (and hopefully your, if not ping
 me) programs.
 
-An up to date [intro is found on my blog](http://kvz.io/blog/2013/02/26/introducing-bash3boilerplate/).
+## Goals
+
+Delete-key-friendly. I propose people use `main.sh` as a base and remove the
+parts they don't need, rather than introducing a ton of packages, includes, compilers, etc.
+
+Aiming for portability, I'm targeting Bash 3 (OSX still ships
+with 3 for instance). If you're going to ask people to install
+Bash 4 first, you might as well pick a more advanced language as a
+dependency.
+
+## Features
+
+- Structure
+- Configuration by environment variables
+- Configuration by command-line arguments (definitions parsed from help info,
+  so no duplication needed)
+- Magic variables like `__file__` and `__dir__`
+- Logging that supports colors and is compatible with [Syslog Severity levels](http://en.wikipedia.org/wiki/Syslog#Severity_levels)
 
 ## Installation
 
@@ -37,7 +52,6 @@ And constructed with the following guidelines:
 * Breaking backward compatibility bumps the major (and resets the minor and patch)
 * New additions without breaking backward compatibility bumps the minor (and resets the patch)
 * Bug fixes and misc changes bumps the patch
-
 
 For more information on SemVer, please visit [http://semver.org](http://semver.org).
 
@@ -76,7 +90,7 @@ $ my_script some more args --blah
  - [ ] `make build` system for generating custom builds
  - [ ] tests & releases via Travis
 
-## Want to encourage development via sponsoring?
+## Sponsoring
 
 <!-- badges/ -->
 [![Gittip donate button](http://img.shields.io/gittip/kvz.png)](https://www.gittip.com/kvz/ "Sponsor the development of bash3boilerplate via Gittip")
