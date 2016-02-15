@@ -1,8 +1,8 @@
 When hacking up BASH scripts, I often find there are some
-higherlevel things like logging, configuration, commandline argument
+higher level things like logging, configuration, command-line argument
 parsing that:
 
- - I need everytime
+ - I need every time
  - Take quite some effort to get right
  - Keep you from your actual work
 
