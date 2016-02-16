@@ -2,4 +2,6 @@ language: node_js
 node_js:
   - "4.2.1"
 script: npm run test
-sudo: false
+# For some reason, this breaks nvm. Tried two times:
+# https://s3.amazonaws.com/archive.travis-ci.org/jobs/109619626/log.txt
+# sudo: false
