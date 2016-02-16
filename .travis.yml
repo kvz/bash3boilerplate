@@ -2,6 +2,6 @@ language: node_js
 node_js:
   - "4.2.1"
 script: npm run test
-# For some reason, this breaks nvm. Tried two times:
+# For some reason, `sudo: false` broke nvm. Tried this build two times:
 # https://s3.amazonaws.com/archive.travis-ci.org/jobs/109619626/log.txt
-# sudo: false
+sudo: false
