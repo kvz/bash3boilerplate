@@ -69,7 +69,7 @@ For more information on SemVer, please visit [http://semver.org](http://semver.o
 ### v1.1.0 (2015-06-29)
 
 - Add `ALLOW_REMAINDERS` configuration to templater
-- Fix typo: debugmdoe -> debugmode (thanks @jokajak)
+- Fix typo: 'debugmdoe' to 'debugmode' (thanks @jokajak)
 - Use `${BASH_SOURCE[0]}` for `__file` instead of `${0}`
 
 ### v1.0.3 (2014-11-02)
