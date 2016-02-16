@@ -59,7 +59,9 @@ For more information on SemVer, please visit [http://semver.org](http://semver.o
 
 ## Changelog
 
-### v1.2.0 (Unreleased)
+### master (Unreleased)
+
+### v1.2.0 (2016-02-16)
 
 - Allow disabling colors via `NO_COLOR` environment variable
 - Enable errexit, nounset and pipefail at the top
