@@ -14,6 +14,7 @@
 # Authors:
 #  - Kevin van Zonneveld (http://kvz.io)
 #  - Izaak Beekman (https://izaakbeekman.com/)
+#  - Alexander Rathai (Alexander.Rathai@gmail.com)
 #
 # Usage:
 #  LOG_LEVEL=7 ./main.sh -f /tmp/x -d
@@ -59,14 +60,17 @@ __file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
 #####################################################################
 
 function _fmt ()      {
-  local color_ok="\x1b[32m"
-  local color_bad="\x1b[31m"
+  local color_debug="\x1b[35m"
+  local color_info="\x1b[32m"
+  local color_notice="\x1b[34m"
+  local color_warning="\x1b[33m"
+  local color_error="\x1b[31m"
+  local color_critical="\x1b[1;31m"
+  local color_alert="\x1b[1;33;41m"
+  local color_emergency="\x1b[1;4;5;33;41m"
+  local colorvar=color_$1
 
-  local color="${color_bad}"
-  if [ "${1}" = "debug" ] || [ "${1}" = "info" ] || [ "${1}" = "notice" ]; then
-    color="${color_ok}"
-  fi
-
+  local color="${!colorvar:-$color_error}"
   local color_reset="\x1b[0m"
   if [[ "${TERM:-}" != "xterm"* ]] || [ -t 1 ]; then
     # Don't use colors on pipes or non-recognized terminals
