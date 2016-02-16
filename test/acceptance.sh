@@ -162,5 +162,5 @@ for scenario in $(echo ${scenarios}); do
       echo "✓"
     done
 
-  popd "${__dir}/scenario/${scenario}" > /dev/null
+  popd > /dev/null
 done
