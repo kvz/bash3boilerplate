@@ -28,7 +28,7 @@ dependency.
 - Configuration by environment variables
 - Configuration by command-line arguments (definitions parsed from help info,
   so no duplication needed)
-- Magic variables like `__file__` and `__dir__`
+- Magic variables like `__file` and `__dir`
 - Logging that supports colors and is compatible with [Syslog Severity levels](http://en.wikipedia.org/wiki/Syslog#Severity_levels)
 
 ## Installation
@@ -56,6 +56,25 @@ And constructed with the following guidelines:
 * Bug fixes and misc changes bumps the patch
 
 For more information on SemVer, please visit [http://semver.org](http://semver.org).
+
+## Changelog
+
+### v1.2.0 (Unreleased)
+
+- Add Changelog
+- Enable long, GNU style options (thanks @zbeekman)
+
+### v1.1.0 (2015-06-29)
+
+- Add `ALLOW_REMAINDERS` configuration to templater
+- Fix typo: debugmdoe -> debugmode (thanks @jokajak)
+- Use `${BASH_SOURCE[0]}` for `__file` instead of `${0}`
+
+### v1.0.3 (2014-11-02)
+
+- Add `ini_val`, `megamount`, `parse_url`
+- Add re-usable libraries in `./src`
+- Use npm for distribution
 
 ## Best practices
 
