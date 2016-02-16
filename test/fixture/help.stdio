@@ -3,7 +3,7 @@ B3BP:STDIO_REPLACE_DATETIMES
  Help using {root}/main.sh
 
   -f   [arg] Filename to process. Required.
-  -t   [arg] Location of tempfile. Default="/tmp/bar"
+  -t   [arg] Location of tempfile. Default="{tmpdir}/bar"
   -d         Enables debug mode
   -h         This page
 
