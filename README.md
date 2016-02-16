@@ -64,6 +64,7 @@ For more information on SemVer, please visit [http://semver.org](http://semver.o
 - Enable errexit, nounset and pipefail at the top
 - More refined colors (thanks @arathai)
 - Add Changelog
+- Add `__os` magic var
 - Add `__base` magic var
 - Enable long, GNU style options (thanks @zbeekman)
 
