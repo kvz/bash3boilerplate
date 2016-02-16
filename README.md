@@ -14,8 +14,8 @@ me) programs.
 
 ## Goals
 
-Delete-key-friendly. I propose people use `main.sh` as a base and remove the
-parts they don't need, rather than introducing a ton of packages, includes, compilers, etc.
+Delete-key-friendly. I propose using `main.sh` as a base and removing the
+parts you don't need, rather than introducing a ton of packages, includes, compilers, etc.
 
 Aiming for portability, I'm targeting Bash 3 (OSX still ships
 with 3 for instance). If you're going to ask people to install
@@ -25,6 +25,7 @@ dependency.
 ## Features
 
 - Structure
+- Safe defaults (break on error, pipefail, etc)
 - Configuration by environment variables
 - Configuration by command-line arguments (definitions parsed from help info,
   so no duplication needed)
@@ -39,7 +40,7 @@ There are 3 ways you can install (parts of) b3bp:
 2. Clone the entire project: `git clone git@github.com:kvz/bash3boilerplate.git`
 3. As of `v1.0.3`, b3bp can be installed as a `package.json` dependency via: `npm install --save bash3boilerplate`
 
-Although `3` introduces a node.js dependency, this does allow for easy version pinning & distrubtions in environments that already have this prerequisite. But nothing prevents you from just using `curl` and keep your project or build system low on external dependencies.
+Although *3* introduces a node.js dependency, this does allow for easy version pinning and distribution in environments that already have this prerequisite. But nothing prevents you from just using `curl` and keep your project or build system low on external dependencies.
 
 ## Versioning
 
@@ -64,11 +65,11 @@ For more information on SemVer, please visit [http://semver.org](http://semver.o
 ### v1.2.0 (2016-02-16)
 
 - Allow disabling colors via `NO_COLOR` environment variable
-- Enable errexit, nounset and pipefail at the top
+- Enable `errexit`, `nounset` and `pipefail` options at the top of the script already
 - More refined colors (thanks @arathai)
-- Add Changelog
-- Add `__os` magic var
-- Add `__base` magic var
+- Add a changelog to the README
+- Add `__os` magic var (limited to discovering OSX and defaulting to Linux for now)
+- Add `__base` magic var (`main`, if the source script is `main.sh`)
 - Enable long, GNU style options (thanks @zbeekman)
 
 ### v1.1.0 (2015-06-29)
@@ -81,7 +82,7 @@ For more information on SemVer, please visit [http://semver.org](http://semver.o
 
 - Add `ini_val`, `megamount`, `parse_url`
 - Add re-usable libraries in `./src`
-- Use npm for distribution
+- Use npm as an additional distribution channel
 
 ## Best practices
 
@@ -116,7 +117,7 @@ $ my_script some more args --blah
 
 - [ ] Make `src` libs adhere to Best practices
 - [ ] `make build` system for generating custom builds
-- [ ] tests & releases via Travis
+- [x] tests via Travis
 
 ## Sponsoring
 
