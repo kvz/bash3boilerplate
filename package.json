@@ -9,5 +9,11 @@
     "test": "test/acceptance.sh",
     "save:fixtures": "cross-env SAVE_FIXTURES=true npm run test",
     "release": "npm version ${SEMANTIC:-patch} -m \"Release %s\" && git push --tags && npm publish"
+  },
+  "dependencies": {
+    "fakefile": "0.0.6"
+  },
+  "devDependencies": {
+    "cross-env": "1.0.7"
   }
 }
