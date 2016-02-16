@@ -24,16 +24,27 @@
 ### Configuration
 #####################################################################
 
+# Exit on error. Append ||true if you expect an error.
+# `set` is safer than relying on a shebang like `#!/bin/bash -e` because that is neutralized
+# when someone runs your script as `bash yourscript.sh`
+set -o errexit
+set -o nounset
+
+# Bash will remember & return the highest exitcode in a chain of pipes.
+# This way you can catch the error in case mysqldump fails in `mysqldump |gzip`
+set -o pipefail
+
 # Environment variables and their defaults
 LOG_LEVEL="${LOG_LEVEL:-6}" # 7 = debug -> 0 = emergency
 
 # Commandline options. This defines the usage page, and is used to parse cli
 # opts & defaults from. The parsing is unforgiving so be precise in your syntax
-read -r -d '' usage <<-'EOF'
-  -f   [arg] Filename to process. Required.
-  -t   [arg] Location of tempfile. Default="/tmp/bar"
-  -d         Enables debug mode
-  -h         This page
+read -r -d '' usage <<-'EOF' || true # exits non-zero when EOF encountered
+  -f --file  [arg] Filename to process. Required.
+  -t --temp  [arg] Location of tempfile. Default="/tmp/bar"
+  -v               Enable verbose mode, print script as it is executed
+  -d --debug       Enables debug mode
+  -h --help        This page
 EOF
 
 # Set magic variables for current file and its directory.
@@ -56,7 +67,7 @@ function _fmt ()      {
   fi
 
   local color_reset="\x1b[0m"
-  if [[ "${TERM}" != "xterm"* ]] || [ -t 1 ]; then
+  if [[ "${TERM:-}" != "xterm"* ]] || [ -t 1 ]; then
     # Don't use colors on pipes or non-recognized terminals
     color=""; color_reset=""
   fi
@@ -91,14 +102,26 @@ trap cleanup_before_exit EXIT
 
 # Translate usage string -> getopts arguments, and set $arg_<flag> defaults
 while read line; do
-  opt="$(echo "${line}" |awk '{print $1}' |sed -e 's#^-##')"
+  # fetch single character version of option sting
+  opt="$(echo "${line}" |awk 'match($1,"^-.",a){print substr(a[0],2,1)}')"
+
+  # fetch long version if present
+  long_opt="$(echo "${line}" |awk 'match($2,"^--.*",a){print substr(a[0],3)}')"
+  # map long name back to short name
+  varname="short_opt_${long_opt}"
+  eval "${varname}=\"${opt}\""
+
+  # check if option takes an argument
+  varname="has_arg_${opt}"
   if ! echo "${line}" |egrep '\[.*\]' >/dev/null 2>&1; then
     init="0" # it's a flag. init with 0
+    eval "${varname}=0"
   else
     opt="${opt}:" # add : if opt has arg
     init=""  # it has an arg. init with ""
+    eval "${varname}=1"
   fi
-  opts="${opts}${opt}"
+  opts="${opts:-}${opt}"
 
   varname="arg_${opt:0:1}"
   if ! echo "${line}" |egrep '\. Default=' >/dev/null 2>&1; then
@@ -109,30 +132,44 @@ while read line; do
   fi
 done <<< "${usage}"
 
+# Allow long options like --this
+opts="${opts}-:"
+
 # Reset in case getopts has been used previously in the shell.
 OPTIND=1
 
 # Overwrite $arg_<flag> defaults with the actual CLI options
 while getopts "${opts}" opt; do
-  line="$(echo "${usage}" |grep "\-${opt}")"
-
-
   [ "${opt}" = "?" ] && help "Invalid use of script: ${@} "
-  varname="arg_${opt:0:1}"
-  default="${!varname}"
 
-  value="${OPTARG}"
-  if [ -z "${OPTARG}" ] && [ "${default}" = "0" ]; then
-    value="1"
+  if [ "${opt}" = "-" ]; then #OPTARG is long-option-name or long-option=value
+    if [[ "${OPTARG}" =~ .*=.* ]]; then # --key=value format
+      long=${OPTARG/=*/}
+      eval "opt=\"\${short_opt_${long}}\"" # Set opt to the short option corresponding to the long option
+      OPTARG=${OPTARG#*=}
+    else # --key value format
+      eval "opt=\"\${short_opt_${OPTARG}}\"" # Map long name to short version of option
+      eval "OPTARG=\"\${@:OPTIND:\${has_arg_${opt}}}\"" # Only assign OPTARG if option takes an argument
+      ((OPTIND+=has_arg_${opt})) # shift over the argument if argument is expected
+    fi
+    # we have set opt/OPTARG to the short value and the argument as OPTARG if it exists
+  else
+    varname="arg_${opt:0:1}"
+    default="${!varname}"
+
+    value="${OPTARG:-}"
+    if [ -z "${OPTARG:-}" ] && [ "${default}" = "0" ]; then
+      value="1"
+    fi
+
+    eval "${varname}=\"${value}\""
+    debug "cli arg ${varname} = ($default) -> ${!varname}"
   fi
-
-  eval "${varname}=\"${value}\""
-  debug "cli arg ${varname} = ($default) -> ${!varname}"
 done
 
 shift $((OPTIND-1))
 
-[ "$1" = "--" ] && shift
+[ "${1:-}" = "--" ] && shift
 
 
 ### Switches (like -d for debugmode, -h for showing helppage)
@@ -142,6 +179,11 @@ shift $((OPTIND-1))
 if [ "${arg_d}" = "1" ]; then
   set -o xtrace
   LOG_LEVEL="7"
+fi
+
+# verbose mode
+if [ "${arg_v}" = "1" ]; then
+  set -o verbose
 fi
 
 # help mode
@@ -154,24 +196,14 @@ fi
 ### Validation (decide what's required for running your script and error out)
 #####################################################################
 
-[ -z "${arg_f}" ]     && help      "Setting a filename with -f is required"
-[ -z "${LOG_LEVEL}" ] && emergency "Cannot continue without LOG_LEVEL. "
+[ -z "${arg_f:-}" ]     && help      "Setting a filename with -f or --file is required"
+[ -z "${LOG_LEVEL:-}" ] && emergency "Cannot continue without LOG_LEVEL. "
 
 
 ### Runtime
 #####################################################################
 
-# Exit on error. Append ||true if you expect an error.
-# `set` is safer than relying on a shebang like `#!/bin/bash -e` because that is neutralized
-# when someone runs your script as `bash yourscript.sh`
-set -o errexit
-set -o nounset
-
-# Bash will remember & return the highest exitcode in a chain of pipes.
-# This way you can catch the error in case mysqldump fails in `mysqldump |gzip`
-set -o pipefail
-
-if [[ "${OSTYPE}" == "darwin"* ]]; then
+if [[ "${OSTYPE:-}" == "darwin"* ]]; then
   info "You are on OSX"
 else
   info "You are on Linux"
