@@ -154,15 +154,22 @@ OPTIND=1
 while getopts "${opts}" opt; do
   [ "${opt}" = "?" ] && help "Invalid use of script: ${@} "
 
-  if [ "${opt}" = "-" ]; then #OPTARG is long-option-name or long-option=value
-    if [[ "${OPTARG}" =~ .*=.* ]]; then # --key=value format
+  if [ "${opt}" = "-" ]; then
+    # OPTARG is long-option-name or long-option=value
+    if [[ "${OPTARG}" =~ .*=.* ]]; then
+      # --key=value format
       long=${OPTARG/=*/}
-      eval "opt=\"\${short_opt_${long}}\"" # Set opt to the short option corresponding to the long option
+      # Set opt to the short option corresponding to the long option
+      eval "opt=\"\${short_opt_${long}}\""
       OPTARG=${OPTARG#*=}
-    else # --key value format
-      eval "opt=\"\${short_opt_${OPTARG}}\"" # Map long name to short version of option
-      eval "OPTARG=\"\${@:OPTIND:\${has_arg_${opt}}}\"" # Only assign OPTARG if option takes an argument
-      ((OPTIND+=has_arg_${opt})) # shift over the argument if argument is expected
+    else
+      # --key value format
+      # Map long name to short version of option
+      eval "opt=\"\${short_opt_${OPTARG}}\""
+      # Only assign OPTARG if option takes an argument
+      eval "OPTARG=\"\${@:OPTIND:\${has_arg_${opt}}}\""
+      # shift over the argument if argument is expected
+      ((OPTIND+=has_arg_${opt}))
     fi
     # we have set opt/OPTARG to the short value and the argument as OPTARG if it exists
   fi
