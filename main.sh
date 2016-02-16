@@ -217,6 +217,11 @@ else
   info "You are on Linux"
 fi
 
+info "arg_f: ${arg_f}"
+info "arg_d: ${arg_d}"
+info "arg_v: ${arg_v}"
+info "arg_h: ${arg_h}"
+
 debug "Info useful to developers for debugging the application, not useful during operations."
 info "Normal operational messages - may be harvested for reporting, measuring throughput, etc. - no action required."
 notice "Events that are unusual but not error conditions - might be summarized in an email to developers or admins to spot potential problems - no immediate action required."
