@@ -1,7 +1,20 @@
-language: node_js
-node_js:
-  - "4.2.1"
+language: generic
+env:
+  global:
+    - NODE_VERSION='4.2.1'
+matrix:
+  include:
+    - os: linux
+      sudo: false
+    - os: osx
+install:
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then which gsed || brew install gnu-sed; fi
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then which gtimeout || brew install coreutils; fi
+  - rm -rf ~/.nvm
+  - git clone https://github.com/creationix/nvm.git ~/.nvm
+  - source ~/.nvm/nvm.sh
+  - nvm install $NODE_VERSION
+  - node --version
+  - npm install
 script: npm run test
-# For some reason, `sudo: false` broke nvm. Tried this build two times:
-# https://s3.amazonaws.com/archive.travis-ci.org/jobs/109619626/log.txt
-sudo: false
