@@ -36,7 +36,7 @@ read -r -d '' usage <<-'EOF'
   -h         This page
 EOF
 
-# Set magic variables for current file and its directory. 
+# Set magic variables for current file and its directory.
 # BASH_SOURCE[0] is used so we can display the current file even if it is sourced by a parent script.
 # If you need the script that was executed, consider using $0 instead.
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -173,6 +173,8 @@ set -o pipefail
 
 if [[ "${OSTYPE}" == "darwin"* ]]; then
   info "You are on OSX"
+else
+  info "You are on Linux"
 fi
 
 debug "Info useful to developers for debugging the application, not useful during operations."
