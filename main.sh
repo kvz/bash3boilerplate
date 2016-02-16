@@ -39,6 +39,7 @@ set -o pipefail
 
 # Environment variables and their defaults
 LOG_LEVEL="${LOG_LEVEL:-6}" # 7 = debug -> 0 = emergency
+NO_COLOR="${NO_COLOR:-}"    # true = disable color. otherwise autodetected
 
 # Commandline options. This defines the usage page, and is used to parse cli
 # opts & defaults from. The parsing is unforgiving so be precise in your syntax
@@ -80,7 +81,7 @@ function _fmt ()      {
 
   local color="${!colorvar:-$color_error}"
   local color_reset="\x1b[0m"
-  if [[ "${TERM:-}" != "xterm"* ]] || [ -t 1 ]; then
+  if [ "${NO_COLOR}" = "true" ] || [[ "${TERM:-}" != "xterm"* ]] || [ -t 1 ]; then
     # Don't use colors on pipes or non-recognized terminals
     color=""; color_reset=""
   fi
