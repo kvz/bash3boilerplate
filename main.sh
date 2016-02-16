@@ -35,6 +35,7 @@ set -o nounset
 # Bash will remember & return the highest exitcode in a chain of pipes.
 # This way you can catch the error in case mysqldump fails in `mysqldump |gzip`
 set -o pipefail
+# set -o xtrace
 
 # Environment variables and their defaults
 LOG_LEVEL="${LOG_LEVEL:-6}" # 7 = debug -> 0 = emergency
@@ -110,10 +111,11 @@ trap cleanup_before_exit EXIT
 # Translate usage string -> getopts arguments, and set $arg_<flag> defaults
 while read line; do
   # fetch single character version of option sting
-  opt="$(echo "${line}" |awk 'match($1,"^-.",a){print substr(a[0],2,1)}')"
+  opt="$(echo "${line}" |awk '{print $1}' |sed -e 's#^-##')"
 
   # fetch long version if present
-  long_opt="$(echo "${line}" |awk 'match($2,"^--.*",a){print substr(a[0],3)}')"
+  long_opt="$(echo "${line}" |awk '/\-\-/ {print $2}' |sed -e 's#^--##')"
+
   # map long name back to short name
   varname="short_opt_${long_opt}"
   eval "${varname}=\"${opt}\""
@@ -160,18 +162,17 @@ while getopts "${opts}" opt; do
       ((OPTIND+=has_arg_${opt})) # shift over the argument if argument is expected
     fi
     # we have set opt/OPTARG to the short value and the argument as OPTARG if it exists
-  else
-    varname="arg_${opt:0:1}"
-    default="${!varname}"
-
-    value="${OPTARG:-}"
-    if [ -z "${OPTARG:-}" ] && [ "${default}" = "0" ]; then
-      value="1"
-    fi
-
-    eval "${varname}=\"${value}\""
-    debug "cli arg ${varname} = ($default) -> ${!varname}"
   fi
+  varname="arg_${opt:0:1}"
+  default="${!varname}"
+
+  value="${OPTARG:-}"
+  if [ -z "${OPTARG:-}" ] && [ "${default}" = "0" ]; then
+    value="1"
+  fi
+
+  eval "${varname}=\"${value}\""
+  debug "cli arg ${varname} = ($default) -> ${!varname}"
 done
 
 shift $((OPTIND-1))
