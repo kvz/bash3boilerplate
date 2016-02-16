@@ -1,5 +1,13 @@
 {
   "name": "bash3boilerplate",
   "description": "Copypastable templates to write better bash scripts",
-  "version": "1.1.0"
+  "version": "1.1.0",
+  "scripts": {
+    "release:major": "env SEMANTIC=major npm run release",
+    "release:minor": "env SEMANTIC=minor npm run release",
+    "release:patch": "env SEMANTIC=patch npm run release",
+    "test": "test/acceptance.sh",
+    "save:fixtures": "cross-env SAVE_FIXTURES=true npm run test",
+    "release": "npm version ${SEMANTIC:-patch} -m \"Release %s\" && git push --tags && npm publish"
+  }
 }

@@ -1,0 +1,10 @@
+B3BP:STDIO_REPLACE_DATETIMES
+
+ Help using {root}/main.sh
+
+  -f   [arg] Filename to process. Required.
+  -t   [arg] Location of tempfile. Default="/tmp/bar"
+  -d         Enables debug mode
+  -h         This page
+
+{datetime} UTC [32m[     info][0m Cleaning up. Done
