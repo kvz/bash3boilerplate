@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/kvz/bash3boilerplate.svg?branch=master)](https://travis-ci.org/kvz/bash3boilerplate)
+
 When hacking up BASH scripts, I often find there are some
 higher level things like logging, configuration, command-line argument
 parsing that:
