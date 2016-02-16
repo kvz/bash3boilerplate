@@ -64,6 +64,7 @@ for scenario in $(echo ${scenarios}); do
         -e "s@${__node}@{node}@g" "${curFile}" \
         -e "s@${__root}@{root}@g" "${curFile}" \
         -e "s@${__sysTmpDir}@{tmpdir}@g" "${curFile}" \
+        -e "s@/tmp@{tmpdir}@g" "${curFile}" \
         -e "s@${HOME:-/home/travis}@{home}@g" "${curFile}" \
         -e "s@${USER:-travis}@{user}@g" "${curFile}" \
         -e "s@travis@{user}@g" "${curFile}" \
