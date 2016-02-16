@@ -54,6 +54,8 @@ EOF
 # If you need the script that was executed, consider using $0 instead.
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 __file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
+__base="$(basename ${__file} .sh)"
+
 
 
 ### Functions

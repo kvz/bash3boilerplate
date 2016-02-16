@@ -63,6 +63,7 @@ For more information on SemVer, please visit [http://semver.org](http://semver.o
 
 - More refined colors (thanks @arathai)
 - Add Changelog
+- Add `__base` magic var
 - Enable long, GNU style options (thanks @zbeekman)
 
 ### v1.1.0 (2015-06-29)
