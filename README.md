@@ -35,9 +35,9 @@ dependency.
 
 There are 3 ways you can install (parts of) b3bp:
 
- 1. Just get the main template: `wget https://raw.githubusercontent.com/kvz/bash3boilerplate/master/main.sh`
- 2. Clone the entire project: `git clone git@github.com:kvz/bash3boilerplate.git`
- 3. As of `v1.0.3`, b3bp can be installed as a `package.json` dependency via: `npm install --save bash3boilerplate`
+1. Just get the main template: `wget https://raw.githubusercontent.com/kvz/bash3boilerplate/master/main.sh`
+2. Clone the entire project: `git clone git@github.com:kvz/bash3boilerplate.git`
+3. As of `v1.0.3`, b3bp can be installed as a `package.json` dependency via: `npm install --save bash3boilerplate`
 
 Although `3` introduces a node.js dependency, this does allow for easy version pinning & distrubtions in environments that already have this prerequisite. But nothing prevents you from just using `curl` and keep your project or build system low on external dependencies.
 
@@ -51,9 +51,9 @@ Releases will be numbered with the following format:
 
 And constructed with the following guidelines:
 
-* Breaking backward compatibility bumps the major (and resets the minor and patch)
-* New additions without breaking backward compatibility bumps the minor (and resets the patch)
-* Bug fixes and misc changes bumps the patch
+- Breaking backward compatibility bumps the major (and resets the minor and patch)
+- New additions without breaking backward compatibility bumps the minor (and resets the patch)
+- Bug fixes and misc changes bumps the patch
 
 For more information on SemVer, please visit [http://semver.org](http://semver.org).
 
@@ -61,6 +61,7 @@ For more information on SemVer, please visit [http://semver.org](http://semver.o
 
 ### v1.2.0 (Unreleased)
 
+- More refined colors (thanks @arathai)
 - Add Changelog
 - Enable long, GNU style options (thanks @zbeekman)
 
@@ -107,17 +108,17 @@ $ my_script some more args --blah
 
 ## Todo
 
- - [ ] Make `src` libs adhere to Best practices
- - [ ] `make build` system for generating custom builds
- - [ ] tests & releases via Travis
+- [ ] Make `src` libs adhere to Best practices
+- [ ] `make build` system for generating custom builds
+- [ ] tests & releases via Travis
 
 ## Sponsoring
 
 <!-- badges/ -->
 [![Gittip donate button](http://img.shields.io/gittip/kvz.png)](https://www.gittip.com/kvz/ "Sponsor the development of bash3boilerplate via Gittip")
-[![Flattr donate button](http://img.shields.io/flattr/donate.png?color=yellow)](https://flattr.com/submit/auto?user_id=kvz&url=https://github.com/kvz/bash3boilerplate&title=bash3boilerplate&language=&tags=github&category=software "Sponsor the development of bash3boilerplate via Flattr")
-[![PayPayl donate button](http://img.shields.io/paypal/donate.png?color=yellow)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=kevin%40vanzonneveld%2enet&lc=NL&item_name=Open%20source%20donation%20to%20Kevin%20van%20Zonneveld&currency_code=USD&bn=PP-DonationsBF%3abtn_donate_SM%2egif%3aNonHosted "Sponsor the development of bash3boilerplate via Paypal")
-[![BitCoin donate button](http://img.shields.io/bitcoin/donate.png?color=yellow)](https://coinbase.com/checkouts/19BtCjLCboRgTAXiaEvnvkdoRyjd843Dg2 "Sponsor the development of bash3boilerplate via BitCoin")
+[![Flattr donate button](http://img.shields.io/flattr/donate.png?color=green)](https://flattr.com/submit/auto?user_id=kvz&url=https://github.com/kvz/bash3boilerplate&title=bash3boilerplate&language=&tags=github&category=software "Sponsor the development of bash3boilerplate via Flattr")
+[![PayPayl donate button](http://img.shields.io/paypal/donate.png?color=green)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=kevin%40vanzonneveld%2enet&lc=NL&item_name=Open%20source%20donation%20to%20Kevin%20van%20Zonneveld&currency_code=USD&bn=PP-DonationsBF%3abtn_donate_SM%2egif%3aNonHosted "Sponsor the development of bash3boilerplate via Paypal")
+[![BitCoin donate button](http://img.shields.io/bitcoin/donate.png?color=green)](https://coinbase.com/checkouts/19BtCjLCboRgTAXiaEvnvkdoRyjd843Dg2 "Sponsor the development of bash3boilerplate via BitCoin")
 <!-- /badges -->
 
 ## License
