@@ -13,6 +13,7 @@
 #
 # Authors:
 #  - Kevin van Zonneveld (http://kvz.io)
+#  - Izaak Beekman (https://izaakbeekman.com/)
 #
 # Usage:
 #  LOG_LEVEL=7 ./main.sh -f /tmp/x -d
