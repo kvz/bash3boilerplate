@@ -51,6 +51,7 @@ Although *3* introduces a node.js dependency, this does allow for easy version p
 
 ### master (Unreleased)
 
+- Add tests for `templater` and follow Library export best practices
 - Add tests for `ini_val` and follow Library export best practices
 - Add tests for `parse_url` and follow Library export best practices
 

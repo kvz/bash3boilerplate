@@ -1,0 +1,14 @@
+--
+[connection]
+host = 127.0.0.1
+--
+[connection]
+host = 127.0.0.1
+--
+port = ${I_DONT_EXIST}
+[connection]
+host = 127.0.0.1
+port = ${I_DONT_EXIST}
+--
+port = ${I_DONT_EXIST}
+ERROR: Unable to replace the above template vars
