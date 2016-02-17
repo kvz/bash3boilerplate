@@ -51,10 +51,14 @@ Although *3* introduces a node.js dependency, this does allow for easy version p
 
 ### master (Unreleased)
 
+### v2.0.0 (Unreleased)
+
 - Add tests for `templater` and follow Library export best practices
 - Add tests for `ini_val` and follow Library export best practices
 - Add tests for `parse_url` and follow Library export best practices
 - Add tests for `megamount` and follow Library export best practices
+- Remove `bump` from `src` (BREAKING)
+- Remove `semver` from `src` (BREAKING)
 
 ### v1.2.1 (2016-02-17)
 
