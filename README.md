@@ -54,6 +54,7 @@ Although *3* introduces a node.js dependency, this does allow for easy version p
 - Add tests for `templater` and follow Library export best practices
 - Add tests for `ini_val` and follow Library export best practices
 - Add tests for `parse_url` and follow Library export best practices
+- Add tests for `megamount` and follow Library export best practices
 
 ### v1.2.1 (2016-02-17)
 
@@ -111,11 +112,10 @@ $ my_script some more args --blah
 
 (taken from the [bpkg](https://raw.githubusercontent.com/bpkg/bpkg/master/README.md) project)
 
-## Todo
+### Miscellaneous
 
-- [ ] Make `src` libs adhere to Best practices
-- [ ] `make build` system for generating custom builds
-- [x] tests via Travis
+- In functions, use `local` before every variable declaration
+- This project settles on two spaces for tabs
 
 ## Authors
 
