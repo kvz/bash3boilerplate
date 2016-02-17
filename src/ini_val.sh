@@ -17,6 +17,7 @@
 # Version: 2.0.0
 #
 # Authors:
+#
 #  - Kevin van Zonneveld (http://kvz.io)
 #
 # Usage as a function:

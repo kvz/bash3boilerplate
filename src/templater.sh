@@ -20,7 +20,8 @@
 # Usage as a function:
 #
 #  source templater.sh
-#  NAME=kevin templater input.cfg output.cfg
+#  export NAME=kevin
+#  templater input.cfg output.cfg
 #
 # Usage as a command:
 #

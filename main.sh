@@ -2,21 +2,25 @@
 # BASH3 Boilerplate
 #
 # This file:
+#
 #  - Is a template to write better bash scripts
 #  - Is delete-key friendly, in case you don't need e.g. command line option parsing
 #
 # More info:
+#
 #  - https://github.com/kvz/bash3boilerplate
 #  - http://kvz.io/blog/2013/02/26/introducing-bash3boilerplate/
 #
 # Version: 2.0.0
 #
 # Authors:
+#
 #  - Kevin van Zonneveld (http://kvz.io)
 #  - Izaak Beekman (https://izaakbeekman.com/)
 #  - Alexander Rathai (Alexander.Rathai@gmail.com)
 #
 # Usage:
+#
 #  LOG_LEVEL=7 ./main.sh -f /tmp/x -d
 #
 # Licensed under MIT
