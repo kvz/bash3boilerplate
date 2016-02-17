@@ -11,4 +11,5 @@ install:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then which gtimeout || brew install coreutils; fi
   # Show versions used
   - bash --version
+  - awk --version
 script: test/acceptance.sh

@@ -6,9 +6,9 @@
     "release:major": "env SEMANTIC=major npm run release",
     "release:minor": "env SEMANTIC=minor npm run release",
     "release:patch": "env SEMANTIC=patch npm run release",
-    "test": "test/acceptance.sh",
+    "release": "npm version ${SEMANTIC:-patch} -m \"Release %s\" && git push && git push --tags && npm publish",
     "save:fixtures": "cross-env SAVE_FIXTURES=true npm run test",
-    "release": "npm version ${SEMANTIC:-patch} -m \"Release %s\" && git push --tags && npm publish"
+    "test": "test/acceptance.sh"
   },
   "dependencies": {
     "fakefile": "0.0.6"

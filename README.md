@@ -22,6 +22,11 @@ with 3 for instance). If you're going to ask people to install
 Bash 4 first, you might as well pick a more advanced language as a
 dependency.
 
+We're automatically testing bash3boilerplate and it's proven to work on:
+
+- [Linux](https://travis-ci.org/kvz/bash3boilerplate/jobs/109804166#L91) `GNU bash, version 4.2.25(1)-release (x86_64-pc-linux-gnu)`
+- [OSX](https://travis-ci.org/kvz/bash3boilerplate/jobs/109804167#L2453) `GNU bash, version 3.2.51(1)-release (x86_64-apple-darwin13)`
+
 ## Features
 
 - Structure
