@@ -13,7 +13,7 @@
 #
 #  - http://stackoverflow.com/a/6174447/151666
 #
-# Version: 1.2.1
+# Version: 2.0.0
 #
 # Authors:
 #  - Kevin van Zonneveld (http://kvz.io)
