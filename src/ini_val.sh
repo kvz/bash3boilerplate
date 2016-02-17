@@ -2,12 +2,15 @@
 # BASH3 Boilerplate: ini_val
 #
 # This file:
+#
 #  - Can read and write .ini files using pure bash
 #
 # Limitations:
+#
 #  - All keys inside the .ini file must be unique, regardless of the use of sections
 #
 # More info:
+#
 #  - https://github.com/kvz/bash3boilerplate
 #  - http://kvz.io/blog/2013/02/26/introducing-bash3boilerplate/
 #
@@ -15,8 +18,6 @@
 #
 # Authors:
 #  - Kevin van Zonneveld (http://kvz.io)
-#  - Izaak Beekman (https://izaakbeekman.com/)
-#  - Alexander Rathai (Alexander.Rathai@gmail.com)
 #
 # Usage as a function:
 #
