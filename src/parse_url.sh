@@ -2,12 +2,15 @@
 # BASH3 Boilerplate: parse_url
 #
 # This file:
+#
 #  - Takes a URL and parses protocol, user, pass, host, port, path.
 #
 # More info:
+#
 #  - https://github.com/kvz/bash3boilerplate
 #
 # Based on:
+#
 #  - http://stackoverflow.com/a/6174447/151666
 #
 # Version: 1.2.1

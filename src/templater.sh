@@ -2,16 +2,19 @@
 # BASH3 Boilerplate: templater
 #
 # This file:
+#
 #  - takes a source (template) & destination (config) filepath argument
 #  - then replaces placeholders with variables found in the environment
 #
 # More info:
+#
 #  - https://github.com/kvz/bash3boilerplate
 #  - http://kvz.io/blog/2013/02/26/introducing-bash3boilerplate/
 #
 # Version: 1.2.1
 #
 # Authors:
+#
 #  - Kevin van Zonneveld (http://kvz.io)
 #
 # Usage as a function:
