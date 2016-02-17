@@ -51,6 +51,10 @@ Although *3* introduces a node.js dependency, this does allow for easy version p
 
 ### master (Unreleased)
 
+- tba
+
+### v1.2.1 (2016-02-17)
+
 - Add Travis CI automated testing for OSX (thanks @zbeekman)
 
 ### v1.2.0 (2016-02-16)
