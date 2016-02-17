@@ -6,7 +6,9 @@
     "release:major": "env SEMANTIC=major npm run release",
     "release:minor": "env SEMANTIC=minor npm run release",
     "release:patch": "env SEMANTIC=patch npm run release",
-    "release": "npm version ${SEMANTIC:-patch} -m \"Release %s\" && git push && git push --tags && npm publish",
+    "version:current": "node -e 'console.log(require(\"./package.json\").version)'",
+    "version:replace": "replace 'Version: \\d+\\.\\d+\\.\\d+' \"Version: $(npm run --silent version:current)\" main.sh",
+    "release": "npm version ${SEMANTIC:-patch} -m \"Release %s\" && npm run version:replace && git commit main.sh -m 'Update version' && git push && git push --tags && npm publish",
     "save:fixtures": "cross-env SAVE_FIXTURES=true npm run test",
     "test": "test/acceptance.sh"
   },
