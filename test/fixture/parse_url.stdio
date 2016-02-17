@@ -1,0 +1,24 @@
+abc123
+
+ Use second argument to return just 1 variable.
+ parse_url() demo: 
+
+   proto: http://
+   user:  johndoe
+   pass:  abc123
+   host:  example.com
+   port:  8080
+   path:  index.html
+
+abc123
+
+ Use second argument to return just 1 variable.
+ parse_url() demo: 
+
+   proto: http://
+   user:  johndoe
+   pass:  abc123
+   host:  example.com
+   port:  8080
+   path:  index.html
+
