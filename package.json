@@ -1,7 +1,7 @@
 {
   "name": "bash3boilerplate",
   "description": "Copypastable templates to write better bash scripts",
-  "version": "1.2.1",
+  "version": "2.0.0",
   "scripts": {
     "release:major": "env SEMANTIC=major npm run release",
     "release:minor": "env SEMANTIC=minor npm run release",
