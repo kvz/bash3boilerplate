@@ -9,7 +9,7 @@
 #  - https://github.com/kvz/bash3boilerplate
 #  - http://kvz.io/blog/2013/02/26/introducing-bash3boilerplate/
 #
-# Version: 1.2.1
+# Version: 2.0.0
 #
 # Authors:
 #  - Kevin van Zonneveld (http://kvz.io)
