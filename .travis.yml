@@ -1,3 +1,5 @@
+# We're installing nodejs by hand, as that's not supported on
+# Travis OSX testing yet. So language is generic here:
 language: generic
 env:
   global:
@@ -8,13 +10,19 @@ matrix:
       sudo: false
     - os: osx
 install:
+  # Install acceptance test dependencies
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update; fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then which gsed || brew install gnu-sed; fi
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then which gtimeout || brew install coreutils; fi
+  # Install nvm
   - rm -rf ~/.nvm
   - git clone https://github.com/creationix/nvm.git ~/.nvm
   - source ~/.nvm/nvm.sh
+  # Install Node.js
   - nvm install $NODE_VERSION
-  - node --version
+  # Install Node modules
   - npm install
+  # Show versions used
+  - node --version
+  - bash --version
 script: npm run test
