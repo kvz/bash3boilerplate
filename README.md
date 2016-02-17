@@ -51,7 +51,7 @@ Although *3* introduces a node.js dependency, this does allow for easy version p
 
 ### master (Unreleased)
 
-- tba
+- Add tests for `ini_val` and follow Library export best practices
 
 ### v1.2.1 (2016-02-17)
 
