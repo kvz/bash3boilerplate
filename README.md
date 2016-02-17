@@ -42,25 +42,11 @@ There are 3 ways you can install (parts of) b3bp:
 
 Although *3* introduces a node.js dependency, this does allow for easy version pinning and distribution in environments that already have this prerequisite. But nothing prevents you from just using `curl` and keep your project or build system low on external dependencies.
 
-## Versioning
-
-This project implements the Semantic Versioning guidelines.
-
-Releases will be numbered with the following format:
-
-`<major>.<minor>.<patch>`
-
-And constructed with the following guidelines:
-
-- Breaking backward compatibility bumps the major (and resets the minor and patch)
-- New additions without breaking backward compatibility bumps the minor (and resets the patch)
-- Bug fixes and misc changes bumps the patch
-
-For more information on SemVer, please visit [http://semver.org](http://semver.org).
-
 ## Changelog
 
 ### master (Unreleased)
+
+- Add Travis CI automated testing for OSX (thanks @zbeekman)
 
 ### v1.2.0 (2016-02-16)
 
@@ -71,6 +57,7 @@ For more information on SemVer, please visit [http://semver.org](http://semver.o
 - Add `__os` magic var (limited to discovering OSX and defaulting to Linux for now)
 - Add `__base` magic var (`main`, if the source script is `main.sh`)
 - Enable long, GNU style options (thanks @zbeekman)
+- Add Travis CI automated testing for Linux
 
 ### v1.1.0 (2015-06-29)
 
@@ -119,13 +106,16 @@ $ my_script some more args --blah
 - [ ] `make build` system for generating custom builds
 - [x] tests via Travis
 
+## Authors
+
+- Kevin van Zonneveld (<http://kvz.io>)
+- Izaak Beekman (<https://izaakbeekman.com/>)
+- Alexander Rathai (<Alexander.Rathai@gmail.com>)
+
 ## Sponsoring
 
 <!-- badges/ -->
-[![Gittip donate button](http://img.shields.io/gittip/kvz.png)](https://www.gittip.com/kvz/ "Sponsor the development of bash3boilerplate via Gittip")
 [![Flattr donate button](http://img.shields.io/flattr/donate.png?color=green)](https://flattr.com/submit/auto?user_id=kvz&url=https://github.com/kvz/bash3boilerplate&title=bash3boilerplate&language=&tags=github&category=software "Sponsor the development of bash3boilerplate via Flattr")
-[![PayPayl donate button](http://img.shields.io/paypal/donate.png?color=green)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=kevin%40vanzonneveld%2enet&lc=NL&item_name=Open%20source%20donation%20to%20Kevin%20van%20Zonneveld&currency_code=USD&bn=PP-DonationsBF%3abtn_donate_SM%2egif%3aNonHosted "Sponsor the development of bash3boilerplate via Paypal")
-[![BitCoin donate button](http://img.shields.io/bitcoin/donate.png?color=green)](https://coinbase.com/checkouts/19BtCjLCboRgTAXiaEvnvkdoRyjd843Dg2 "Sponsor the development of bash3boilerplate via BitCoin")
 <!-- /badges -->
 
 ## License
