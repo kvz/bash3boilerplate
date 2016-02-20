@@ -56,6 +56,8 @@ read -r -d '' usage <<-'EOF' || true # exits non-zero when EOF encountered
   -v               Enable verbose mode, print script as it is executed
   -d --debug       Enables debug mode
   -h --help        This page
+  -n --no-color    Disable color output
+  -1 --one         Do just one thing
 EOF
 
 # Set magic variables for current file and its directory.
@@ -120,14 +122,15 @@ trap cleanup_before_exit EXIT
 
 # Translate usage string -> getopts arguments, and set $arg_<flag> defaults
 while read line; do
-  # fetch single character version of option sting
+  # fetch single character version of option string
   opt="$(echo "${line}" |awk '{print $1}' |sed -e 's#^-##')"
 
   # fetch long version if present
   long_opt="$(echo "${line}" |awk '/\-\-/ {print $2}' |sed -e 's#^--##')"
+  long_opt_mangled="$(sed 's#-#_#g' <<< $long_opt)"
 
   # map long name back to short name
-  varname="short_opt_${long_opt}"
+  varname="short_opt_${long_opt_mangled}"
   eval "${varname}=\"${opt}\""
 
   # check if option takes an argument
@@ -157,6 +160,9 @@ opts="${opts}-:"
 # Reset in case getopts has been used previously in the shell.
 OPTIND=1
 
+# start parsing command line
+set +o nounset # unexpected arguments will cause unbound variables
+               # to be dereferenced
 # Overwrite $arg_<flag> defaults with the actual CLI options
 while getopts "${opts}" opt; do
   [ "${opt}" = "?" ] && help "Invalid use of script: ${@} "
@@ -166,13 +172,15 @@ while getopts "${opts}" opt; do
     if [[ "${OPTARG}" =~ .*=.* ]]; then
       # --key=value format
       long=${OPTARG/=*/}
+      long_mangled="$(sed 's#-#_#g' <<< $long)"
       # Set opt to the short option corresponding to the long option
-      eval "opt=\"\${short_opt_${long}}\""
+      eval "opt=\"\${short_opt_${long_mangled}}\""
       OPTARG=${OPTARG#*=}
     else
       # --key value format
       # Map long name to short version of option
-      eval "opt=\"\${short_opt_${OPTARG}}\""
+      long_mangled="$(sed 's#-#_#g' <<< $OPTARG)"
+      eval "opt=\"\${short_opt_${long_mangled}}\""
       # Only assign OPTARG if option takes an argument
       eval "OPTARG=\"\${@:OPTIND:\${has_arg_${opt}}}\""
       # shift over the argument if argument is expected
@@ -183,14 +191,15 @@ while getopts "${opts}" opt; do
   varname="arg_${opt:0:1}"
   default="${!varname}"
 
-  value="${OPTARG:-}"
-  if [ -z "${OPTARG:-}" ] && [ "${default}" = "0" ]; then
+  value="${OPTARG}"
+  if [ -z "${OPTARG}" ] && [ "${default}" = "0" ]; then
     value="1"
   fi
 
   eval "${varname}=\"${value}\""
   debug "cli arg ${varname} = ($default) -> ${!varname}"
 done
+set -o nounset # no more unbound variable references expected
 
 shift $((OPTIND-1))
 
