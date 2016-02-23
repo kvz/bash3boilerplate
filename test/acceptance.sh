@@ -147,17 +147,14 @@ for scenario in $(echo ${scenarios}); do
         fi
       fi
 
-      diff \
-        --strip-trailing-cr \
-        "${__dir}/fixture/${scenario}.${typ}" \
-        "${curFile}" || ( \
-        echo -e "\n\n==> MISMATCH OF: ${typ}";
-        echo -e "\n\n==> EXPECTED STDIO: ";
-        cat "${__dir}/fixture/${scenario}.stdio";
-        echo -e "\n\n==> ACTUAL STDIO: ";
-        cat "${__accptstTmpDir}/${scenario}.stdio";
-        exit 1; \
-      )
+      if ! diff --strip-trailing-cr "${__dir}/fixture/${scenario}.${typ}" "${curFile}"; then
+        echo -e "\n\n==> MISMATCH OF: ${scenario}.${typ} ---^"
+        echo -e "\n\n==> EXPECTED STDIO: "
+        cat "${__dir}/fixture/${scenario}.stdio" || true
+        echo -e "\n\n==> ACTUAL STDIO: "
+        cat "${__accptstTmpDir}/${scenario}.stdio" || true
+        exit 1
+      fi
 
       echo "✓"
     done
