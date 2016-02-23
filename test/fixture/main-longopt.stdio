@@ -1,4 +1,4 @@
-B3BP:STDIO_REPLACE_DATETIMES
+ACCPTST:STDIO_REPLACE_DATETIMES
 {datetime} UTC [32m[     info][0m arg_f: {tmpdir}/x
 {datetime} UTC [32m[     info][0m arg_f: {tmpdir}/x
 {datetime} UTC [32m[     info][0m arg_f: {tmpdir}/x

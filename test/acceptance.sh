@@ -15,8 +15,8 @@ scenarios="${1:-$(ls ${__dir}/scenario/|egrep -v ^prepare$)}"
 
 __sysTmpDir="${TMPDIR:-/tmp}"
 __sysTmpDir="${__sysTmpDir%/}" # <-- remove trailing slash on macosx
-__b3bpTmpDir="${__sysTmpDir}/b3bp"
-mkdir -p "${__b3bpTmpDir}"
+__accptstTmpDir="${__sysTmpDir}/accptst"
+mkdir -p "${__accptstTmpDir}"
 
 if [[ "${OSTYPE}" == "darwin"* ]]; then
   cmdSed=gsed
@@ -53,13 +53,13 @@ for scenario in $(echo ${scenarios}); do
 
     # Run scenario
     (${cmdTimeout} bash ./run.sh \
-      > "${__b3bpTmpDir}/${scenario}.stdio" 2>&1; \
-      echo "${?}" > "${__b3bpTmpDir}/${scenario}.exitcode" \
+      > "${__accptstTmpDir}/${scenario}.stdio" 2>&1; \
+      echo "${?}" > "${__accptstTmpDir}/${scenario}.exitcode" \
     ) || true
 
     # Clear out environmental specifics
     for typ in $(echo stdio exitcode); do
-      curFile="${__b3bpTmpDir}/${scenario}.${typ}"
+      curFile="${__accptstTmpDir}/${scenario}.${typ}"
       "${cmdSed}" -i \
         -e "s@${__node}@{node}@g" "${curFile}" \
         -e "s@${__root}@{root}@g" "${curFile}" \
@@ -78,7 +78,7 @@ for scenario in $(echo ${scenarios}); do
         -e "s@Linux@{os}@g" "${curFile}" \
       || false
 
-      if [ "$(cat "${curFile}" |grep 'B3BP:STDIO_REPLACE_IPS' |wc -l)" -gt 0 ]; then
+      if [ "$(cat "${curFile}" |grep 'ACCPTST:STDIO_REPLACE_IPS' |wc -l)" -gt 0 ]; then
         "${cmdSed}" -i \
           -r 's@[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}@{ip}@g' \
         "${curFile}"
@@ -89,45 +89,45 @@ for scenario in $(echo ${scenarios}); do
           -r 's@\{ip\}\s+@{ip} @g' \
         "${curFile}"
       fi
-      if [ "$(cat "${curFile}" |grep 'B3BP:STDIO_REPLACE_UUIDS' |wc -l)" -gt 0 ]; then
+      if [ "$(cat "${curFile}" |grep 'ACCPTST:STDIO_REPLACE_UUIDS' |wc -l)" -gt 0 ]; then
         "${cmdSed}" -i \
           -r 's@[0-9a-f\-]{32,40}@{uuid}@g' \
         "${curFile}"
       fi
-      if [ "$(cat "${curFile}" |grep 'B3BP:STDIO_REPLACE_BIGINTS' |wc -l)" -gt 0 ]; then
+      if [ "$(cat "${curFile}" |grep 'ACCPTST:STDIO_REPLACE_BIGINTS' |wc -l)" -gt 0 ]; then
         # Such as: 3811298194
         "${cmdSed}" -i \
           -r 's@[0-9]{7,64}@{bigint}@g' \
         "${curFile}"
       fi
-      if [ "$(cat "${curFile}" |grep 'B3BP:STDIO_REPLACE_DATETIMES' |wc -l)" -gt 0 ]; then
+      if [ "$(cat "${curFile}" |grep 'ACCPTST:STDIO_REPLACE_DATETIMES' |wc -l)" -gt 0 ]; then
         # Such as: 2016-02-10 15:38:44.420094
         "${cmdSed}" -i \
           -r 's@[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}@{datetime}@g' \
         "${curFile}"
       fi
-      if [ "$(cat "${curFile}" |grep 'B3BP:STDIO_REPLACE_LONGTIMES' |wc -l)" -gt 0 ]; then
+      if [ "$(cat "${curFile}" |grep 'ACCPTST:STDIO_REPLACE_LONGTIMES' |wc -l)" -gt 0 ]; then
         # Such as: 2016-02-10 15:38:44.420094
         "${cmdSed}" -i \
           -r 's@[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{6}@{longtime}@g' \
         "${curFile}"
       fi
-      if [ "$(cat "${curFile}" |grep 'B3BP:STDIO_REPLACE_DURATIONS' |wc -l)" -gt 0 ]; then
+      if [ "$(cat "${curFile}" |grep 'ACCPTST:STDIO_REPLACE_DURATIONS' |wc -l)" -gt 0 ]; then
         # Such as: 0:00:00.001991
         "${cmdSed}" -i \
           -r 's@[0-9]{1,2}:[0-9]{2}:[0-9]{2}.[0-9]{6}@{duration}@g' \
         "${curFile}"
       fi
-      if [ "$(cat "${curFile}" |grep 'B3BP:STDIO_REPLACE_REMOTE_EXEC' |wc -l)" -gt 0 ]; then
-        egrep -v 'remote-exec\): [ a-zA-Z]' "${curFile}" > "${__sysTmpDir}/b3bp-filtered.txt"
-        mv "${__sysTmpDir}/b3bp-filtered.txt" "${curFile}"
+      if [ "$(cat "${curFile}" |grep 'ACCPTST:STDIO_REPLACE_REMOTE_EXEC' |wc -l)" -gt 0 ]; then
+        egrep -v 'remote-exec\): [ a-zA-Z]' "${curFile}" > "${__sysTmpDir}/accptst-filtered.txt"
+        mv "${__sysTmpDir}/accptst-filtered.txt" "${curFile}"
       fi
     done
 
     # Save these as new fixtures?
     if [ "${SAVE_FIXTURES:-}" = "true" ]; then
       for typ in $(echo stdio exitcode); do
-        curFile="${__b3bpTmpDir}/${scenario}.${typ}"
+        curFile="${__accptstTmpDir}/${scenario}.${typ}"
         cp -f \
           "${curFile}" \
           "${__dir}/fixture/${scenario}.${typ}"
@@ -136,12 +136,12 @@ for scenario in $(echo ${scenarios}); do
 
     # Compare
     for typ in $(echo stdio exitcode); do
-      curFile="${__b3bpTmpDir}/${scenario}.${typ}"
+      curFile="${__accptstTmpDir}/${scenario}.${typ}"
 
       echo -n "    comparing ${typ}.. "
 
       if [ "${typ}" = "stdio" ]; then
-        if [ "$(cat "${curFile}" |grep 'B3BP:STDIO_SKIP_COMPARE' |wc -l)" -gt 0 ]; then
+        if [ "$(cat "${curFile}" |grep 'ACCPTST:STDIO_SKIP_COMPARE' |wc -l)" -gt 0 ]; then
           echo "skip"
           continue
         fi
@@ -155,7 +155,7 @@ for scenario in $(echo ${scenarios}); do
         echo -e "\n\n==> EXPECTED STDIO: ";
         cat "${__dir}/fixture/${scenario}.stdio";
         echo -e "\n\n==> ACTUAL STDIO: ";
-        cat "${__b3bpTmpDir}/${scenario}.stdio";
+        cat "${__accptstTmpDir}/${scenario}.stdio";
         exit 1; \
       )
 

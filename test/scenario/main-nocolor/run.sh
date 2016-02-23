@@ -10,6 +10,6 @@ __file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
 __base="$(basename ${__file} .sh)"
 __root="$(cd "$(dirname $(dirname $(dirname "${__dir}")))" && pwd)"
 
-echo "B3BP:STDIO_REPLACE_DATETIMES"
+echo "ACCPTST:STDIO_REPLACE_DATETIMES"
 
 env LOG_LEVEL=8 NO_COLOR=true bash "${__root}/main.sh" -f /tmp/x
