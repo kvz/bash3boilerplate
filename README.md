@@ -51,6 +51,7 @@ Although *3* introduces a node.js dependency, this does allow for easy version p
 
 ### master (Unreleased)
 
+- Fix Travis OSX testing (before, it would silently pass failures) (#10)
 - Enable dashes in long, GNU style options, as well as numbers (thanks @zbeekman)
 
 ### v2.0.0 (2016-02-17)
