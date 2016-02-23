@@ -7,5 +7,7 @@ B3BP:STDIO_REPLACE_DATETIMES
   -v               Enable verbose mode, print script as it is executed
   -d --debug       Enables debug mode
   -h --help        This page
+  -n --no-color    Disable color output
+  -1 --one         Do just one thing
 
 {datetime} UTC [32m[     info][0m Cleaning up. Done
