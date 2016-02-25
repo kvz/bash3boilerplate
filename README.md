@@ -1,4 +1,6 @@
+<!-- badges/ -->
 [![Build Status](https://travis-ci.org/kvz/bash3boilerplate.svg?branch=master)](https://travis-ci.org/kvz/bash3boilerplate)
+<!-- /badges -->
 
 When hacking up BASH scripts, I often find there are some
 higher level things like logging, configuration, command-line argument
