@@ -1,6 +1,23 @@
+[This document is formatted with GitHub-Flavored Markdown.     ]:#
+[For better viewing, including hyperlinks, read it online at   ]:#
+[https://github.com/kvz/bash3boilerplate/blob/master/README.md ]:#
+
 <!-- badges/ -->
 [![Build Status](https://travis-ci.org/kvz/bash3boilerplate.svg?branch=master)](https://travis-ci.org/kvz/bash3boilerplate)
 <!-- /badges -->
+
+* [Overview](#overview)
+* [Goals](#goals)
+* [Features](#features)
+* [Installation](#installation)
+* [ChangeLog](#changelog)
+* [Best Practices](#best-practices)
+* [Miscellaneous](#miscellaneous)
+* [Authors](#authors)
+* [Frequently Asked Questions](#frequently-asked-questions)
+* [Sponsoriong](#sponsoring)
+
+## Overview
 
 When hacking up BASH scripts, I often find there are some
 higher level things like logging, configuration, command-line argument
@@ -132,6 +149,14 @@ $ my_script some more args --blah
 - Izaak Beekman (<https://izaakbeekman.com/>)
 - Alexander Rathai (<Alexander.Rathai@gmail.com>)
 
+## Frequently Asked Questions
+
+* What is "cli"?
+* How do I add a command-line argument?
+* How do I access the value of a command-line argument?
+* What are [magic variables]?
+* What is a log level?
+
 ## Sponsoring
 
 <!-- badges/ -->
@@ -142,3 +167,15 @@ $ my_script some more args --blah
 
 Copyright (c) 2013 Kevin van Zonneveld, [http://kvz.io](http://kvz.io)  
 Licensed under MIT: [http://kvz.io/licenses/LICENSE-MIT](http://kvz.io/licenses/LICENSE-MIT)
+
+[Hyperlinks]:#
+
+[Overview]: #overview
+[Downloads]: #downloads
+[Compatibility]: #compatibility
+[Prerequisites]: #prerequisites
+[Installation]: #installation
+[Contributing]: #contributing
+[Acknowledgements]: #acknowledgements
+
+[magic variables]: https://github.com/kvz/bash3boilerplate/blob/master/main.sh#L63
