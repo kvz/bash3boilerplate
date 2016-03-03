@@ -32,7 +32,7 @@ me) programs.
 
 ## Goals
 
-Delete-key-friendly. I propose using [`main.sh`] as a base and removing the
+Delete-key-friendly. I propose using [`main.sh`](./main.sh) as a base and removing the
 parts you don't need, rather than introducing a ton of packages, includes, compilers, etc.
 
 Aiming for portability, I'm targeting Bash 3 (OSX still ships
@@ -162,5 +162,3 @@ Please see the [FAQ.md](./FAQ.md) file.
 
 Copyright (c) 2013 Kevin van Zonneveld, [http://kvz.io](http://kvz.io)  
 Licensed under MIT: [http://kvz.io/licenses/LICENSE-MIT](http://kvz.io/licenses/LICENSE-MIT)
-
-[main.sh]: ./main.sh
