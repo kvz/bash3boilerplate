@@ -46,14 +46,16 @@ Once the `main.sh` has been tailor-made for your project you could either append
 
 ### How do I access the value of a command-line argument?
 
-To evaluate the value of an argument, append the corresponding single-character flag to the text "$arg_".  For example, if the [read block]
+To evaluate the value of an argument, append the corresponding single-character flag to the text `$arg_`.  For example, if the [read block]
 contains the line
 ```bash
    -t --temp  [arg] Location of tempfile. Default="/tmp/bar"
 ```
-then you can evalute the correspondign argument and assign it to a variable as follows:
+
+then you can evaluate the corresponding argument and assign it to a variable as follows:
+
 ```bash
-   temp_file_name=$arg_t
+temp_file_name="${arg_t}"
 ```
 
 ### What is a magic variable?
