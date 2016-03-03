@@ -1,6 +1,22 @@
 <!-- badges/ -->
 [![Build Status](https://travis-ci.org/kvz/bash3boilerplate.svg?branch=master)](https://travis-ci.org/kvz/bash3boilerplate)
 <!-- /badges -->
+[This document is formatted with GitHub-Flavored Markdown.    ]:#
+[For better viewing, including hyperlinks, read it online at  ]:#
+[https://github.com/kvz/bash3boilerplate/blob/master/README.md]:#
+
+* [Overview](#overview)
+* [Goals](#goals)
+* [Features](#features)
+* [Installation](#installation)
+* [Changelog](#changelog)
+* [Best Practices](#best-practices)
+* [Frequently Asked Questions](#frequently-asked-questions)
+* [Authors](#authors)
+* [Sponsoring](#sponsoring)
+* [License](#license)
+
+## Overview
 
 When hacking up BASH scripts, I often find there are some
 higher level things like logging, configuration, command-line argument
@@ -16,7 +32,7 @@ me) programs.
 
 ## Goals
 
-Delete-key-friendly. I propose using `main.sh` as a base and removing the
+Delete-key-friendly. I propose using [`main.sh`] as a base and removing the
 parts you don't need, rather than introducing a ton of packages, includes, compilers, etc.
 
 Aiming for portability, I'm targeting Bash 3 (OSX still ships
@@ -126,11 +142,15 @@ $ my_script some more args --blah
 - In functions, use `local` before every variable declaration
 - This project settles on two spaces for tabs
 
+## Frequently Asked Questions
+
+Please see the [FAQ.md](./FAQ.md) file.
+
 ## Authors
 
-- Kevin van Zonneveld (<http://kvz.io>)
-- Izaak Beekman (<https://izaakbeekman.com/>)
-- Alexander Rathai (<Alexander.Rathai@gmail.com>)
+- [Kevin van Zonneveld](<http://kvz.io>)
+- [Izaak Beekman](<https://izaakbeekman.com/>)
+- [Alexander Rathai](mailto:<Alexander.Rathai@gmail.com>)
 
 ## Sponsoring
 
@@ -142,3 +162,5 @@ $ my_script some more args --blah
 
 Copyright (c) 2013 Kevin van Zonneveld, [http://kvz.io](http://kvz.io)  
 Licensed under MIT: [http://kvz.io/licenses/LICENSE-MIT](http://kvz.io/licenses/LICENSE-MIT)
+
+[main.sh]: ./main.sh
