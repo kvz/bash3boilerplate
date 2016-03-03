@@ -10,8 +10,8 @@
 * [How do I access the value of a command-line argument](#how-do-i-access-the-value-of-a-command-line-argument)?
 * [How do I incorporate bash3boilerplate into my own project](#how-do-i-incorporate-bash3boilerplate-into-my-own-project)?
 * [What is a magic variable](#what-is-a-magic-variable)?
-* [How do I incorporate bash3boilerplate into my own project](how-do-i-incorporate-bash3boilerplate-into-my-own-project)?
-* [How can I contribute to this project](how-can-i-contribute-to-this-project)?
+* [How do I incorporate bash3boilerplate into my own project](#how-do-i-incorporate-bash3boilerplate-into-my-own-project)?
+* [How can I contribute to this project](#how-can-i-contribute-to-this-project)?
 
 ### What is a cli?
 
