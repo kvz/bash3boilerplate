@@ -21,20 +21,28 @@ A 'cli' is a [command-line interface](https://en.wikipedia.org/wiki/Command-line
 
 You can incorporate bash3boilerplate into your project one of three ways:
 1. Copy the desired portions of [main.sh](./main.sh) into your own script.
-2. Copy [main.sh](./main.sh) into the same directory as your script and then edit and embed it into your script using bash's dot (".") include feature, e.g.
-    #!/usr/bin/env bash
-    . main.sh
-3. Source [main.sh](./main.sh) in your script or at the command line
-    source main.sh
-4. ... (add additional use cases here and descriptions of how to use other files in bash3boilerplate)
+1. Download [main.sh](./main.sh) and start pressing the delete-key for unwanted things
+
+Once the `main.sh` has been tailor-made for your project you could either append your own script in the same file, or source it:
+
+1. Copy [main.sh](./main.sh) into the same directory as your script and then edit and embed it into your script using bash's dot (`.`) include feature, e.g.
+```bash
+#!/usr/bin/env bash
+. main.sh
+```
+1. Source [main.sh](./main.sh) in your script or at the command line
+```bash
+#!/usr/bin/env bash
+. main.sh
+```
 
 ### How do I add a command-line flag?
 
 1. Copy the line the main.sh [read block](https://github.com/kvz/bash3boilerplate/blob/master/main.sh#L53) that most resembles the desired behavior and paste the line into the same block.
-2. Edit the single-character (e.g., -d) and, if present, the multi-character (e.g., --debug) versions of the flag in the copied line.  
-3. Omit the "[arg]" text in the copied line if the desired flag takes no arguments.
-4. Omit or edit the text after "Default:" to set or not set default values, respectively. 
-5. Omit the "Required." text if the flag is optional.
+1. Edit the single-character (e.g., -d) and, if present, the multi-character (e.g., --debug) versions of the flag in the copied line.  
+1. Omit the "[arg]" text in the copied line if the desired flag takes no arguments.
+1. Omit or edit the text after "Default:" to set or not set default values, respectively. 
+1. Omit the "Required." text if the flag is optional.
 
 ### How do I access the value of a command-line argument?
 
