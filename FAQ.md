@@ -50,7 +50,7 @@ then you can evalute the correspondign argument and assign it to a variable as f
 
 ### What is a magic variable?
 
-The [magic variables](https://github.com/kvz/bash3boilerplate/blob/master/main.sh#L63) in main.sh are special in that...
+The [magic variables](https://github.com/kvz/bash3boilerplate/blob/master/main.sh#L63) in `main.sh` are special in that they have a different value, depending on your environment. You can use `${__file}` to get a reference to your current script, `${__dir}` to get a reference to the directory it lives in. This is not to be confused with the location of the calling script that might be sourcing the `${__file}`, which is accessible via `${0}`, and the current directory of the administrator running the script, accessible via `$(pwd)`. Other magic variables are for instance `${__os}` which currently is limited to telling you wether you are on `OSX` and otherwise defaults to `Linux`.
 
 ### How do I submit an issue report?
 
