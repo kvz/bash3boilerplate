@@ -5,6 +5,7 @@
 # Frequently Asked Questions
 
 ## Contents
+
 * [What is a cli](#what-is-a-cli)?
 * [How do I add a command-line flag](#how-do-i-add-a-command-line-flag)?
 * [How do I access the value of a command-line argument](#how-do-i-access-the-value-of-a-command-line-argument)?
