@@ -69,6 +69,4 @@ Please visit our [Issues](https://github.com/kvz/bash3boilerplate/issues) page.
 ### How can I contribute to this project?
 
 Please fork this repository.  Then create a branch containing your suggested changes and submit a pull request based on the master branch
-of https://github.com/kvz/bash3boilerplate/.
-
-
+of https://github.com/kvz/bash3boilerplate/. We're a welcoming bunch, happy to accept your contributions!
