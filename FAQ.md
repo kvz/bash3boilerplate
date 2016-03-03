@@ -22,7 +22,7 @@ A 'cli' is a [command-line interface](https://en.wikipedia.org/wiki/Command-line
 You can incorporate bash3boilerplate into your project one of three ways:
 1. Copy the desired portions of [main.sh](./main.sh) into your own script.
 2. Copy [main.sh](./main.sh) into the same directory as your script and then edit and embed it into your script using bash's dot (".") include feature, e.g.
-    #!/bin/bash
+    #!/usr/bin/env bash
     . main.sh
 3. Source [main.sh](./main.sh) in your script or at the command line
     source main.sh
