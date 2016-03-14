@@ -1,0 +1,8 @@
+  -p --package [arg] Filename to process. Required.
+  -t --temp  [arg] Location of tempfile. Default="/tmp/bar"
+  -V               Enable verbose mode, print script as it is executed
+  -v --version     Print version number
+  -d --debug       Enables debug mode
+  -h --help        This page
+  -n --no-color    Disable color output
+  -1 --one         Do just one thing
