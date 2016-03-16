@@ -27,12 +27,13 @@
 # Licensed under MIT
 # Copyright (c) 2013 Kevin van Zonneveld (http://kvz.io)
 
+. set_environment_and_color
+
 # Incorporate the bash3boilerplate content that does not need to change from one use to the next
 # and designate the name of the file containing the current file's usage as the file with "-usage"
 # appended to the current file's name:
-# name followed by "-usage"
 __filename="$(basename "${BASH_SOURCE[0]}")"
-. bootstrap.sh -f ${__filename}-usage
+usage_page="${__filename}-usage"
 
 # Command-Line Interface (CLI) 
 # ----------------------------
@@ -44,6 +45,8 @@ __filename="$(basename "${BASH_SOURCE[0]}")"
 while IFS='' read -r line || [[ -n "$line" ]]; do
   usage="${usage:-}""${line}"$'\n'
 done < "${usage_page}"
+
+. define_functions
 
 # Set magic variables for current file and its directory.
 # BASH_SOURCE[0] is used so we can display the current file even if it is sourced by a parent script.
@@ -57,16 +60,14 @@ if [[ "${OSTYPE:-}" == "darwin"* ]]; then
 fi
 
 . parse_command_line
-parse_command_line $@
+parse $@
 
 . set_common_switches
 
 ### Validation (decide what's required for running your script and error out)
 #####################################################################
 
-[ -z "${arg_f:-}" ]     && help      "Setting a filename with -f or --file is required"
 [ -z "${LOG_LEVEL:-}" ] && emergency "Cannot continue without LOG_LEVEL. "
-
 
 ### Runtime
 #####################################################################
@@ -76,7 +77,7 @@ info "__dir: ${__dir}"
 info "__base: ${__base}"
 info "__os: ${__os}"
 
-info "arg_f: ${arg_f}"
+info "arg_p: ${arg_p}"
 info "arg_d: ${arg_d}"
 info "arg_v: ${arg_v}"
 info "arg_V: ${arg_V}"

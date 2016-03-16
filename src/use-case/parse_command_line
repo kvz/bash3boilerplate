@@ -29,7 +29,7 @@
 
 ### Parse commandline options
 #####################################################################
-function parse_command_line(){
+function parse(){
 
 # Translate usage string -> getopts arguments, and set $arg_<flag> defaults
 while read line; do
