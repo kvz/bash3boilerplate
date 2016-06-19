@@ -51,6 +51,8 @@ NO_COLOR="${NO_COLOR:-}"    # true = disable color. otherwise autodetected
 # - A short option must be preset for every long option; but every short option
 #   need not have a long option
 # - `--` is respected as the separator between options and arguments
+# - We do not bash-expand defaults, so setting '~/app' as a default will not resolve to ${HOME}.
+#   you can use bash variables to work around this (so use ${HOME} instead)
 read -r -d '' usage <<-'EOF' || true # exits non-zero when EOF encountered
   -f --file  [arg] Filename to process. Required.
   -t --temp  [arg] Location of tempfile. Default="/tmp/bar"
