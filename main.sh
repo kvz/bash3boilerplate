@@ -24,8 +24,10 @@
 #
 #  LOG_LEVEL=7 ./main.sh -f /tmp/x -d
 #
-# Licensed under MIT
-# Copyright (c) 2013 Kevin van Zonneveld (http://kvz.io)
+# Licensed under MIT with a less restrictive clause that excepts you of
+# redistributing the LICENSE file as long as you leave this comment in tact
+# (https://raw.githubusercontent.com/kvz/bash3boilerplate/master/LICENSE)
+# Copyright (c) 2013 Kevin van Zonneveld (http://kvz.io) and contributors
 
 
 ### Configuration
