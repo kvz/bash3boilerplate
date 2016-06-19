@@ -221,6 +221,11 @@ if [ "${arg_v}" = "1" ]; then
   set -o verbose
 fi
 
+# no color mode
+if [ "${arg_n}" = "1" ]; then
+  NO_COLOR="true"
+fi
+
 # help mode
 if [ "${arg_h}" = "1" ]; then
   # Help exists with code 1

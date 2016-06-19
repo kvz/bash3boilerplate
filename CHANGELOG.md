@@ -4,6 +4,7 @@ Please see the [CHANGELOG.md](./CHANGELOG.md) file.
 
 ## master (Unreleased)
 
+- Respect `--no-color` by setting the NO_COLOR flag in `main.sh` (#25, thx @gdevenyi)
 - Split out changelog into separate file
 - Added a [FAQ](./FAQ.md) (#15, #14, thanks @rouson)
 - Fix Travis OSX testing (before, it would silently pass failures) (#10)
