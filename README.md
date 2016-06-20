@@ -112,8 +112,9 @@ Please see the [FAQ.md](./FAQ.md) file.
 - [Kevin van Zonneveld](http://kvz.io)
 - [Izaak Beekman](https://izaakbeekman.com/)
 - [Alexander Rathai](mailto:<Alexander.Rathai@gmail.com>)
-- [Dr. Damian Rouson](http://www.sourceryinstitute.org/) (documentation)
+- [Dr. Damian Rouson](http://www.sourceryinstitute.org/) (documentation, feedback)
 - [Gabriel A. Devenyi](http://staticwave.ca/) (feedback)
+- [@bravo-kernel](https://github.com/bravo-kernel) (feedback)
 
 ## Sponsoring
 
