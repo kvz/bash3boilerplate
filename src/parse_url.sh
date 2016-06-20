@@ -28,8 +28,10 @@
 #
 #  parse_url.sh 'http://johndoe:abc123@example.com:8080/index.html'
 #
-# Licensed under MIT
-# Copyright (c) 2016 Kevin van Zonneveld (http://kvz.io)
+# Copyright (c) 2013 Kevin van Zonneveld and [contributors](https://github.com/kvz/bash3boilerplate#authors)
+# Licensed under [MIT](https://raw.githubusercontent.com/kvz/bash3boilerplate/master/LICENSE)
+# You are not obligated to bundle the LICENSE file with your b3bp projects as long
+# as you leave these references intact.
 
 function parse_url() {
   local parse="${1}"

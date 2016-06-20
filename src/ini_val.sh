@@ -29,8 +29,10 @@
 #
 #  ini_val.sh data.ini connection.host 127.0.0.1
 #
-# Licensed under MIT
-# Copyright (c) 2016 Kevin van Zonneveld (http://kvz.io)
+# Copyright (c) 2013 Kevin van Zonneveld and [contributors](https://github.com/kvz/bash3boilerplate#authors)
+# Licensed under [MIT](https://raw.githubusercontent.com/kvz/bash3boilerplate/master/LICENSE)
+# You are not obligated to bundle the LICENSE file with your b3bp projects as long
+# as you leave these references intact.
 
 function ini_val() {
   local file="${1:-}"

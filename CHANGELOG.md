@@ -4,6 +4,7 @@ Please see the [CHANGELOG.md](./CHANGELOG.md) file.
 
 ## master (Unreleased)
 
+- Make license more permissive by not requiring distribution of the LICENSE file if the copyright & attribution comments are left intact
 - Respect `--no-color` by setting the NO_COLOR flag in `main.sh` (#25, thx @gdevenyi)
 - Split out changelog into separate file
 - Added a [FAQ](./FAQ.md) (#15, #14, thanks @rouson)
