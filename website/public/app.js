@@ -29,7 +29,7 @@ window.onscroll = chooseMenuColor
 function chooseMenuColor() {
   var menuElement = document.getElementById('menu')
   var menuTopOffset = 45
-  window.innerHeight < window.pageYOffset + menuTopOffset ?
+  Math.floor(window.innerHeight * .20) < window.pageYOffset + menuTopOffset ?
     menuElement.classList.remove('over-header') :
     menuElement.classList.add('over-header')
 }

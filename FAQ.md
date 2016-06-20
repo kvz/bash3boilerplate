@@ -2,8 +2,6 @@
 [For better viewing, including hyperlinks, read it online at ]:#
 [https://github.com/kvz/bash3boilerplate/blob/master/FAQ.md  ]:#
 
-# Frequently Asked Questions
-
 ## Contents
 
 * [What is a cli](#what-is-a-cli)?
@@ -15,6 +13,8 @@
 * [How can I contribute to this project](#how-can-i-contribute-to-this-project)?
 
 <!--more-->
+
+# Frequently Asked Questions
 
 ## What is a cli?
 

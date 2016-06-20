@@ -10,7 +10,7 @@ body {
 #header-overlay {
   background: #131313 50% 100% no-repeat;
   background-size: cover;
-  height: 100vh;
+  height: 20vh;
   width: 100%;
   opacity: 0;
   -webkit-animation-name: overlay;
@@ -267,4 +267,13 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+hr {
+  margin: 1px;
+  border: none;
+  height: 1px;
+  /* Set the hr color */
+  color: gainsboro; /* old IE */
+  background-color: gainsboro; /* Modern Browsers */
 }
