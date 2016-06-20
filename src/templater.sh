@@ -27,8 +27,10 @@
 #
 #  ALLOW_REMAINDERS=1 templater.sh input.cfg output.cfg
 #
-# Licensed under MIT
-# Copyright (c) 2016 Kevin van Zonneveld (http://kvz.io)
+# Copyright (c) 2013 Kevin van Zonneveld (http://kvz.io) and contributors
+# Licensed under MIT: https://raw.githubusercontent.com/kvz/bash3boilerplate/master/LICENSE
+# You are not obligated to ship the license file with your b3bp projects as long
+# as you leave the above comments intact.
 
 function templater() {
   ALLOW_REMAINDERS="${ALLOW_REMAINDERS:-0}"
