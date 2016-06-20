@@ -10,6 +10,8 @@
     "version:replace": "replace 'Version: \\d+\\.\\d+\\.\\d+' \"Version: $(npm run --silent version:current)\" main.sh src/*.sh",
     "release": "npm version ${SEMANTIC:-patch} -m \"Release %s\" && npm run version:replace && git commit main.sh src/*.sh -m 'Update version' && git push && git push --tags && npm publish",
     "save:fixtures": "cross-env SAVE_FIXTURES=true npm run test",
+    "deploy": "website/_bin/travis-deploy.sh",
+    "preview": "cd website && bundle install --path ./_vendor && bundle exec jekyll serve --watch",
     "test": "test/acceptance.sh"
   },
   "dependencies": {
