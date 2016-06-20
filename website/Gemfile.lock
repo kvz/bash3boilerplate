@@ -124,6 +124,7 @@ PLATFORMS
 
 DEPENDENCIES
   github-pages
+  jekyll-redirect-from (= 0.10.0)
   stringex (= 2.6.0)
 
 BUNDLED WITH
