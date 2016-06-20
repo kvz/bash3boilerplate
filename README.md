@@ -18,7 +18,7 @@
 
 ## Overview
 
-When hacking up BASH scripts, I often find there are some
+When hacking up Bash scripts, I often find there are some
 higher level things like logging, configuration, command-line argument
 parsing that:
 
@@ -125,5 +125,7 @@ Please see the [FAQ.md](./FAQ.md) file.
 
 ## License
 
-Copyright (c) 2013 Kevin van Zonneveld, [http://kvz.io](http://kvz.io)  
-Licensed under MIT: [https://raw.githubusercontent.com/kvz/bash3boilerplate/master/LICENSE](https://raw.githubusercontent.com/kvz/bash3boilerplate/master/LICENSE)
+Copyright (c) 2013 Kevin van Zonneveld and [contributors](https://github.com/kvz/bash3boilerplate#authors)
+Licensed under [MIT](https://raw.githubusercontent.com/kvz/bash3boilerplate/master/LICENSE)
+You are not obligated to bundle the LICENSE file with your b3bp projects as long
+as you leave these references intact.

@@ -31,10 +31,10 @@
 #
 #  megamount.sh smb://janedoe:abc123@192.168.0.1/documents /mnt/documents
 #
-# Copyright (c) 2013 Kevin van Zonneveld (http://kvz.io) and contributors
-# Licensed under MIT: https://raw.githubusercontent.com/kvz/bash3boilerplate/master/LICENSE
-# You are not obligated to ship the license file with your b3bp projects as long
-# as you leave the above comments intact.
+# Copyright (c) 2013 Kevin van Zonneveld and [contributors](https://github.com/kvz/bash3boilerplate#authors)
+# Licensed under [MIT](https://raw.githubusercontent.com/kvz/bash3boilerplate/master/LICENSE)
+# You are not obligated to bundle the LICENSE file with your b3bp projects as long
+# as you leave these references intact.
 
 __dir=$(cd `dirname "${BASH_SOURCE[0]}"` && pwd)
 source "${__dir}/parse_url.sh"
