@@ -15,10 +15,10 @@
 #
 # Authors:
 #
-#  - Kevin van Zonneveld (http://kvz.io)
-#  - Izaak Beekman (https://izaakbeekman.com/)
-#  - Alexander Rathai (Alexander.Rathai@gmail.com)
-#  - Dr. Damian Rouson (http://www.sourceryinstitute.org/) (documentation)
+# - [Kevin van Zonneveld](http://kvz.io)
+# - [Izaak Beekman](https://izaakbeekman.com/)
+# - [Alexander Rathai](mailto:<Alexander.Rathai@gmail.com>)
+# - [Dr. Damian Rouson](http://www.sourceryinstitute.org/) (documentation)
 #
 # Usage:
 #

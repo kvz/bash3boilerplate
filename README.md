@@ -113,6 +113,7 @@ Please see the [FAQ.md](./FAQ.md) file.
 - [Izaak Beekman](https://izaakbeekman.com/)
 - [Alexander Rathai](mailto:<Alexander.Rathai@gmail.com>)
 - [Dr. Damian Rouson](http://www.sourceryinstitute.org/) (documentation)
+- [Gabriel A. Devenyi](http://staticwave.ca/) (feedback)
 
 ## Sponsoring
 
