@@ -2,6 +2,8 @@
 
 Please see the [CHANGELOG.md](./CHANGELOG.md) file.
 
+<!--more-->
+
 ## master (Unreleased)
 
 - Make license more permissive by not requiring distribution of the LICENSE file if the copyright & attribution comments are left intact

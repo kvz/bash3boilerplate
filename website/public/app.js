@@ -1,5 +1,6 @@
 // Backgrounds.
-var backgrounds = [1,2,3,4,5,6]
+// var backgrounds = [1,2,3,4,5,6]
+var backgrounds = [1]
 
 // Highlighting.
 hljs.initHighlighting()
@@ -19,10 +20,10 @@ if (!background) {
 
 // Body class for background.
 var el = document.getElementById('header-overlay')
-el.style.backgroundImage = 'url(public/images/'+background+'.jpg)'
+el.style.backgroundImage = 'url(/public/images/' + background + '.jpg)'
 
 // Attach class to #menu element depending on page offset.
-document.addEventListener("DOMContentLoaded", chooseMenuColor)
+document.addEventListener('DOMContentLoaded', chooseMenuColor)
 window.onscroll = chooseMenuColor
 
 function chooseMenuColor() {
@@ -43,12 +44,12 @@ var container = $get('#menu-items')
 
 if (location.pathname !== '/') {
   var li = document.createElement('li');
-  li.innerHTML = "<a href='/'>&laquo; Home</a>";
+  li.innerHTML = '<a href="/">&laquo; Home</a>';
   container.appendChild(li);
 }
 
 $all('#content h2').forEach(function(el) {
   var li = document.createElement('li');
-  li.innerHTML = "<a href='#"+el.id+"'>" + el.innerHTML + "</a>";
+  li.innerHTML = '<a href="#' + el.id + '">' + el.innerHTML + '</a>';
   container.appendChild(li);
 })
