@@ -52,8 +52,8 @@ We're automatically testing bash3boilerplate and it's proven to work on:
 - Configuration by environment variables
 - Configuration by command-line arguments (definitions parsed from help info,
   so no duplication needed)
-- Magic variables like `__file` and `__dir`
-- Logging that supports colors and is compatible with [Syslog Severity levels](http://en.wikipedia.org/wiki/Syslog#Severity_levels)
+- Magic variables like `__file`, `__dir`, and `__os`
+- Logging that supports colors and is compatible with [Syslog Severity levels](http://en.wikipedia.org/wiki/Syslog#Severity_levels) as well as the [The twelve-factor app](http://12factor.net/)
 
 ## Installation
 
@@ -117,15 +117,9 @@ Please see the [FAQ.md](./FAQ.md) file.
 - [Gabriel A. Devenyi](http://staticwave.ca/) (feedback)
 - [@bravo-kernel](https://github.com/bravo-kernel) (feedback)
 
-## Sponsoring
-
-<!-- badges/ -->
-[![Flattr donate button](http://img.shields.io/flattr/donate.png?color=green)](https://flattr.com/submit/auto?user_id=kvz&url=https://github.com/kvz/bash3boilerplate&title=bash3boilerplate&language=&tags=github&category=software "Sponsor the development of bash3boilerplate via Flattr")
-<!-- /badges -->
-
 ## License
 
-Copyright (c) 2013 Kevin van Zonneveld and [contributors](https://github.com/kvz/bash3boilerplate#authors)
-Licensed under [MIT](https://raw.githubusercontent.com/kvz/bash3boilerplate/master/LICENSE)
+Copyright (c) 2013 Kevin van Zonneveld and [contributors](https://github.com/kvz/bash3boilerplate#authors).
+Licensed under [MIT](https://raw.githubusercontent.com/kvz/bash3boilerplate/master/LICENSE).
 You are not obligated to bundle the LICENSE file with your b3bp projects as long
 as you leave these references intact.
