@@ -4,6 +4,7 @@
 
 Released: Unreleased. [Commit log](https://github.com/kvz/bash3boilerplate/compare/v2.0.0...master)
 
+- For delete-key-friendliness, bundle the commandline definition block along with its parser
 - Less verbose header comments
 - For delete-key-friendliness, don't crash on undeclared help vars
 - Introduce `errtrace`, which is on by default (BREAKING)
