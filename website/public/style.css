@@ -278,6 +278,15 @@ hr {
   background-color: gainsboro; /* Modern Browsers */
 }
 
+.Social {
+  margin: 0 auto;
+  text-align: center;
+}
+.Social > * {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
 
 .on-the-githubs {
   -webkit-margin-before: 1em;

@@ -1,6 +1,5 @@
-<!-- badges/ -->
 [![Build Status](https://travis-ci.org/kvz/bash3boilerplate.svg?branch=master)](https://travis-ci.org/kvz/bash3boilerplate)
-<!-- /badges -->
+
 [This document is formatted with GitHub-Flavored Markdown.    ]:#
 [For better viewing, including hyperlinks, read it online at  ]:#
 [https://github.com/kvz/bash3boilerplate/blob/master/README.md]:#
@@ -19,11 +18,11 @@
 
 <!--more-->
 
-When hacking up Bash scripts, there are often higher level things like logging, 
-configuration, command-line argument parsing that:
+When hacking up Bash scripts, there are often things like logging, command-line argument parsing,
+safer execution that:
 
  - You need every time
- - Come with a number of pitfalls to avoid
+ - Come with a number of pitfalls you'll want to avoid
  - Keep you from your actual work
 
 Here's an attempt to bundle those things in a generalized way so that
