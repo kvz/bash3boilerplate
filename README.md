@@ -55,6 +55,14 @@ We're automatically testing BASH3 Boilerplate and it's proven to work on:
 - Helpful magic variables like `__file`, `__dir`, and `__os`
 - Logging that supports colors and is compatible with [Syslog Severity levels](http://en.wikipedia.org/wiki/Syslog#Severity_levels) as well as the [twelve-factor](http://12factor.net/) guidelines
 
+## Who uses b3bp?
+
+- [Transloadit](https://transloadit.com)
+- [OpenCoarrays](http://www.opencoarrays.org)
+- [Sourcery Institute](http://www.sourceryinstitute.org)
+- [The Douglas Brain Imaging Centre](http://www.douglas.qc.ca/page/bic)
+- [Computational Brain Anatomy Laboratory](http://cobralab.ca/)
+
 ## Installation
 
 There are 3 different ways you can install b3bp:
