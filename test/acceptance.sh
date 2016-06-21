@@ -1,15 +1,39 @@
 #!/usr/bin/env bash
+# This file:
+#
+#  - Executes one (or all) test scenarios
+#  - Replaces dynamic things like hostnames, IPs, dates, etc
+#  - Optionally saves the results as fixtures, that later runs will be compared against
+#
+# Usage:
+#
+#  ./deploy.sh
+#
+# Based on a template by BASH3 Boilerplate v2.0.0
+# Copyright (c) 2013 Kevin van Zonneveld and contributors
+# http://bash3boilerplate.sh/#authors
 
-set -o pipefail
+# Exit on error. Append || true if you expect an error.
 set -o errexit
+# Exit on error inside any functions or subshells.
+set -o errtrace
+# Do not allow use of undefined vars. Use ${VAR:-} to use an undefined VAR
 set -o nounset
+# Catch the error in case mysqldump fails (but gzip succeeds) in `mysqldump |gzip`
+set -o pipefail
+# Turn on traces, useful while debugging but commented out by default
 # set -o xtrace
 
-# Set magic variables for current FILE & DIR
+# Set magic variables for current file, directory, os, etc.
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 __file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
 __base="$(basename ${__file} .sh)"
 __root="$(cd "$(dirname "${__dir}")" && pwd)"
+__os="Linux"
+if [[ "${OSTYPE:-}" == "darwin"* ]]; then
+  __os="OSX"
+fi
+
 
 scenarios="${1:-$(ls ${__dir}/scenario/|egrep -v ^prepare$)}"
 
