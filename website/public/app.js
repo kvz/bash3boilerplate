@@ -42,11 +42,11 @@ function $all(selector) {
 
 var container = $get('#menu-items')
 
-if (location.pathname !== '/') {
-  var li = document.createElement('li');
-  li.innerHTML = '<a href="/">&laquo; Home</a>';
-  container.appendChild(li);
-}
+// if (location.pathname !== '/') {
+//   var li = document.createElement('li');
+//   li.innerHTML = '<a href="/">&laquo; Home</a>';
+//   container.appendChild(li);
+// }
 
 $all('#content h2').forEach(function(el) {
   var li = document.createElement('li');

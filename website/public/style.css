@@ -226,15 +226,15 @@ h5      { font-size: 0.83em;    /* 0.83*16 = 13.28 */   }
 h6      { font-size: 0.75em;    /* 0.75*16 = 12 */      }
 
 h1 {
-  margin-top: 75px;
+  /*margin-top: 75px;*/
 }
 
 h1::before {
-  display: block;
+  /*display: block;
   content: ' ';
   border-top: 1px dotted #eee;
   width: 35%;
-  margin: 0 auto 75px auto;
+  margin: 0 auto 75px auto;*/
 }
 
 h2 {

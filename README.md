@@ -31,10 +31,11 @@ they are reusable as-is in most scripts.
 
 ## Goals
 
-**Delete-key-friendly**. We propose using [`main.sh`](./main.sh) as a base and removing the
-parts you don't need, rather than introducing packages, includes, compilers, etc.
+Delete-Key-**Friendly**. We propose using [`main.sh`](https://github.com/kvz/bash3boilerplate/blob/master/main.sh) 
+as a base and removing the parts you don't need, rather than introducing packages, includes, compilers, etc.
+This may feel a bit archaic at first, but that is exactly the strength of Bash scripts that we want to embrace.
 
-**Portability**. We're targeting Bash 3 (OSX still ships
+**Portable**. We're targeting Bash 3 (OSX still ships
 with 3 for instance). If you're going to ask people to install
 Bash 4 first, you might as well pick a more advanced language as a
 dependency.
@@ -46,23 +47,44 @@ We're automatically testing BASH3 Boilerplate and it's proven to work on:
 
 ## Features
 
-- Structure
-- Safe defaults (break on error, pipefail, etc)
+- Conventions so that after a while, all your scripts will follow the same, battle-tested structure
+- Safe by default (break on error, pipefail, etc)
 - Configuration by environment variables
-- Configuration by command-line arguments (definitions parsed from help info,
-  so no duplication needed)
-- Magic variables like `__file`, `__dir`, and `__os`
-- Logging that supports colors and is compatible with [Syslog Severity levels](http://en.wikipedia.org/wiki/Syslog#Severity_levels) as well as the [The twelve-factor app](http://12factor.net/)
+- Simple command-line argument parsing that requires no external dependencies. Definitions are parsed from help info,
+  so there is no duplication
+- Helpful magic variables like `__file`, `__dir`, and `__os`
+- Logging that supports colors and is compatible with [Syslog Severity levels](http://en.wikipedia.org/wiki/Syslog#Severity_levels) as well as the [twelve-factor](http://12factor.net/) guidelines
 
 ## Installation
 
-There are 3 ways you can install (parts of) b3bp:
+There are 3 different ways you can install b3bp:
 
-1. Just get the main template: `wget https://raw.githubusercontent.com/kvz/bash3boilerplate/master/main.sh`
-2. Clone the entire project: `git clone git@github.com:kvz/bash3boilerplate.git`
-3. As of `v1.0.3`, b3bp can be installed as a `package.json` dependency via: `npm install --save bash3boilerplate`
+### option 1: Download the main template
 
-Although *3* introduces a node.js dependency, this does allow for easy version pinning and distribution in environments that already have this prerequisite. But nothing prevents you from just using `curl` and keep your project or build system low on external dependencies.
+Use curl or wget to download the source, save as your script, and start deleting the unwanted bits, and adding your own logic.
+
+```bash
+wget https://raw.githubusercontent.com/kvz/bash3boilerplate/master/main.sh
+vim main.sh
+```
+
+### option 2: Clone the entire project
+
+Besides `main.sh`, this will get you the entire b3bp repository including a few extra functions that we keep in the `./src` directory.
+
+```bash
+git clone git@github.com:kvz/bash3boilerplate.git
+```
+
+### option 3: Require via npm
+
+As of `v1.0.3`, b3bp can also be installed as a node module so you define it as a dependency in `package.json` via:
+
+```bash
+npm init && npm install --save --save-exact bash3boilerplate
+```
+
+Although this last option introduces a Node.js dependency, this does allow for easy version pinning and distribution in environments that already have this prerequisite. But this is optional and nothing prevents you from just using `curl` and keep your project or build system low on external dependencies.
 
 ## Changelog
 
