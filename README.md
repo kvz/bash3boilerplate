@@ -23,7 +23,7 @@ When hacking up Bash scripts, there are often higher level things like logging,
 configuration, command-line argument parsing that:
 
  - You need every time
- - Come with a number of pitfalls to get right
+ - Come with a number of pitfalls to avoid
  - Keep you from your actual work
 
 Here's an attempt to bundle those things in a generalized way so that
@@ -31,10 +31,10 @@ they are reusable as-is in most scripts.
 
 ## Goals
 
-Delete-key-friendly. I propose using [`main.sh`](./main.sh) as a base and removing the
-parts you don't need, rather than introducing a ton of packages, includes, compilers, etc.
+**Delete-key-friendly**. We propose using [`main.sh`](./main.sh) as a base and removing the
+parts you don't need, rather than introducing packages, includes, compilers, etc.
 
-Aiming for portability, I'm targeting Bash 3 (OSX still ships
+**Portability**. We're targeting Bash 3 (OSX still ships
 with 3 for instance). If you're going to ask people to install
 Bash 4 first, you might as well pick a more advanced language as a
 dependency.
@@ -102,7 +102,7 @@ $ my_script some more args --blah
 - In functions, use `local` before every variable declaration
 - This project settles on two spaces for tabs
 - Use `UPPERCASE_VARS` to indicate environment variables that can be controlled outside your script
-- Use `__double_underscore_prefixed_vars` to indicate global variables that are solely controlled inside your script
+- Use `__double_underscore_prefixed_vars` to indicate global variables that are solely controlled inside your script, with the exception of arguments wich are already prefixed with `arg_`, and functions, over which b3bp poses no restrictions.
 
 ## Frequently Asked Questions
 

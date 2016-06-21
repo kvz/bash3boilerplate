@@ -58,7 +58,7 @@ contains the line
 then you can evaluate the corresponding argument and assign it to a variable as follows:
 
 ```bash
-temp_file_name="${arg_t}"
+__temp_file_name="${arg_t}"
 ```
 
 ## What is a magic variable?
