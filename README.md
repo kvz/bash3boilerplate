@@ -59,7 +59,6 @@ We're automatically testing BASH3 Boilerplate and it's proven to work on:
 - [Transloadit](https://transloadit.com)
 - [OpenCoarrays](http://www.opencoarrays.org)
 - [Sourcery Institute](http://www.sourceryinstitute.org)
-- [The Douglas Brain Imaging Centre](http://www.douglas.qc.ca/page/bic)
 - [Computational Brain Anatomy Laboratory](http://cobralab.ca/)
 
 We're looking for endorsement! Are you also using b3bp? [Let us know](https://github.com/kvz/bash3boilerplate/issues/new?title=I%20use%20b3bp) and get listed.
