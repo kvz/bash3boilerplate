@@ -13,22 +13,21 @@
 * [Best Practices](#best-practices)
 * [Frequently Asked Questions](#frequently-asked-questions)
 * [Authors](#authors)
-* [Sponsoring](#sponsoring)
 * [License](#license)
 
 ## Overview
 
-When hacking up Bash scripts, I often find there are some
-higher level things like logging, configuration, command-line argument
-parsing that:
+<!--more-->
 
- - I need every time
- - Take quite some effort to get right
+When hacking up Bash scripts, there are often higher level things like logging, 
+configuration, command-line argument parsing that:
+
+ - You need every time
+ - Come with a number of pitfalls to get right
  - Keep you from your actual work
 
 Here's an attempt to bundle those things in a generalized way so that
-they are reusable as-is in most of my (and hopefully your, if not ping
-me) programs.
+they are reusable as-is in most scripts.
 
 ## Goals
 
@@ -40,7 +39,7 @@ with 3 for instance). If you're going to ask people to install
 Bash 4 first, you might as well pick a more advanced language as a
 dependency.
 
-We're automatically testing bash3boilerplate and it's proven to work on:
+We're automatically testing BASH3 Boilerplate and it's proven to work on:
 
 - [Linux](https://travis-ci.org/kvz/bash3boilerplate/jobs/109804166#L91) `GNU bash, version 4.2.25(1)-release (x86_64-pc-linux-gnu)`
 - [OSX](https://travis-ci.org/kvz/bash3boilerplate/jobs/109804167#L2453) `GNU bash, version 3.2.51(1)-release (x86_64-apple-darwin13)`

@@ -4,6 +4,9 @@ matrix:
     - os: linux
       sudo: false
     - os: osx
+env:
+  global:
+    - secure: "LBDI3qOC+d2kmPSS8W6L9UF7HFiu1JC4HwK4j0sjGBh+gjRMpCRxFX7p51pbHd480ItDucN/0CMKy+e0umIRR/xrZSbuQqxby68eoT1tQ5nG9gpDTTEgu1n7Z3vPl9aEitMPlP1ovqRRSViBsYU3E5DRb7Vw2lDpCOj/lqAZT0Y="
 install:
   # Install acceptance test dependencies for OSX
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update; fi
@@ -13,3 +16,11 @@ install:
   - bash --version
   - awk --version
 script: test/acceptance.sh
+# Travis docs: Note that pull request builds skip deployment step altogether.
+# https://docs.travis-ci.com/user/deployment/#Conditional-Releases-with-on
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: website/_bin/deploy.sh
+  on:
+    branch: master

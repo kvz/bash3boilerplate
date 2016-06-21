@@ -1,6 +1,6 @@
-# Changelog
+<!--more-->
 
-Please see the [CHANGELOG.md](./CHANGELOG.md) file.
+# Changelog
 
 ## master (Unreleased)
 

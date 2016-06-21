@@ -2,3 +2,15 @@ npm-debug.log
 node_modules
 
 test/scenario/templater/break.cfg
+
+website/index.md
+website/_site/
+website/_vendor/
+
+website/changelog.md
+
+website/faq.md
+
+website/.jekyll-metadata
+
+env.sh
