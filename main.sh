@@ -64,6 +64,11 @@ read -r -d '' __usage <<-'EOF' || true # exits non-zero when EOF encountered
   -n --no-color    Disable color output
   -1 --one         Do just one thing
 EOF
+read -r -d '' __helptext <<-'EOF' || true # exits non-zero when EOF encountered
+ This is Bash3 Boilerplate's help text. Feel free to add any description of your
+ program or elaborate more on command-line arguments. This section is not
+ parsed and will be added as-is to the help.
+EOF
 
 # Set magic variables for current file and its directory.
 # BASH_SOURCE[0] is used so we can display the current file even if it is sourced by a parent script.
@@ -112,6 +117,8 @@ function help () {
   echo " ${@}" 1>&2
   echo "" 1>&2
   echo "  ${__usage}" 1>&2
+  echo "" 1>&2
+  echo " ${__helptext}" 1>&2
   echo "" 1>&2
   exit 1
 }
