@@ -81,3 +81,26 @@ This project's name however is "BASH3 Boilerplate" as a reference to
 "[HTML5 Boilerplate](https://html5boilerplate.com/)", which was founded to serve a similar purpose, 
 only for crafting webpages. 
 Somewhat inconsistent but true to Unix ancestry, the abbreviation for our project is "b3bp".
+
+## How can I locally develop and preview the b3bp website?
+
+You should have a working Node.js >=10 and Ruby >=2 install on your workstation. Afterwards, you can run:
+
+```bash
+npm run web:preview
+```
+
+This will install and start all required services and automatically open a webbrowser that reloads as soon as you make any changes to the source.
+
+The source mainly consists of:
+
+- `./README.md` Front page
+- `./FAQ.md` FAQ page
+- `./CHANGELOG.md` Changelog page
+- `./website/_layouts/default.html` Design in which all pages are rendered
+- `./website/public/app.js` Main JS file
+- `./website/public/style.css` Main CSS file
+
+The rest is dark magic you should probably steer clear from : )
+
+Any changes should be proposed as PRs. Anything added to `master` is automatically deployed using a combination of Travis CI and GitHub Pages.
