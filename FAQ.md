@@ -77,5 +77,7 @@ of <https://github.com/kvz/bash3boilerplate/>. We're a welcoming bunch, happy to
 ## Why are you typing BASH in all caps?
 
 As an acronym, Bash stands for Bourne-again shell, and is usually written with one uppercase. 
-This project's name however is "BASH3 Boilerplate" as a reference to "[HTML5 Boilerplate](https://html5boilerplate.com/)", which
-was founded to serve a similar purpose, only for crafting webpages.
+This project's name however is "BASH3 Boilerplate" as a reference to 
+"[HTML5 Boilerplate](https://html5boilerplate.com/)", which was founded to serve a similar purpose, 
+only for crafting webpages. 
+Somewhat inconsistent but true to Unix ancestry, the abbreviation for our project is "b3bp".
