@@ -22,35 +22,7 @@ set -o pipefail
 # Turn on traces, useful while debugging but commented out by default
 # set -o xtrace
 
-# Environment variables and their defaults
-LOG_LEVEL="${LOG_LEVEL:-6}" # 7 = debug -> 0 = emergency
-NO_COLOR="${NO_COLOR:-}"    # true = disable color. otherwise autodetected
-
-# Commandline options. This defines the usage page, and is used to parse cli
-# opts & defaults from. The parsing is unforgiving so be precise in your syntax
-# - A short option must be preset for every long option; but every short option
-#   need not have a long option
-# - `--` is respected as the separator between options and arguments
-# - We do not bash-expand defaults, so setting '~/app' as a default will not resolve to ${HOME}.
-#   you can use bash variables to work around this (so use ${HOME} instead)
-read -r -d '' __usage <<-'EOF' || true # exits non-zero when EOF encountered
-  -f --file  [arg] Filename to process. Required.
-  -t --temp  [arg] Location of tempfile. Default="/tmp/bar"
-  -v               Enable verbose mode, print script as it is executed
-  -d --debug       Enables debug mode
-  -h --help        This page
-  -n --no-color    Disable color output
-  -1 --one         Do just one thing
-EOF
-read -r -d '' __helptext <<-'EOF' || true # exits non-zero when EOF encountered
- This is Bash3 Boilerplate's help text. Feel free to add any description of your
- program or elaborate more on command-line arguments. This section is not
- parsed and will be added as-is to the help.
-EOF
-
-# Set magic variables for current file and its directory.
-# BASH_SOURCE[0] is used so we can display the current file even if it is sourced by a parent script.
-# If you need the script that was executed, consider using $0 instead.
+# Set magic variables for current file, directory, os, etc.
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 __file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
 __base="$(basename ${__file} .sh)"
@@ -59,8 +31,13 @@ if [[ "${OSTYPE:-}" == "darwin"* ]]; then
   __os="OSX"
 fi
 
+# Define the environment variables (and their defaults) that this script depends on
+LOG_LEVEL="${LOG_LEVEL:-6}" # 7 = debug -> 0 = emergency
+NO_COLOR="${NO_COLOR:-}"    # true = disable color. otherwise autodetected
+
+
 ### Functions
-#####################################################################
+##############################################################################
 
 function _fmt ()      {
   local color_debug="\x1b[35m"
@@ -108,7 +85,29 @@ trap cleanup_before_exit EXIT
 
 
 ### Parse commandline options
-#####################################################################
+##############################################################################
+
+# Commandline options. This defines the usage page, and is used to parse cli
+# opts & defaults from. The parsing is unforgiving so be precise in your syntax
+# - A short option must be preset for every long option; but every short option
+#   need not have a long option
+# - `--` is respected as the separator between options and arguments
+# - We do not bash-expand defaults, so setting '~/app' as a default will not resolve to ${HOME}.
+#   you can use bash variables to work around this (so use ${HOME} instead)
+read -r -d '' __usage <<-'EOF' || true # exits non-zero when EOF encountered
+  -f --file  [arg] Filename to process. Required.
+  -t --temp  [arg] Location of tempfile. Default="/tmp/bar"
+  -v               Enable verbose mode, print script as it is executed
+  -d --debug       Enables debug mode
+  -h --help        This page
+  -n --no-color    Disable color output
+  -1 --one         Do just one thing
+EOF
+read -r -d '' __helptext <<-'EOF' || true # exits non-zero when EOF encountered
+ This is Bash3 Boilerplate's help text. Feel free to add any description of your
+ program or elaborate more on command-line arguments. This section is not
+ parsed and will be added as-is to the help.
+EOF
 
 # Translate usage string -> getopts arguments, and set $arg_<flag> defaults
 while read line; do
@@ -196,8 +195,8 @@ shift $((OPTIND-1))
 [ "${1:-}" = "--" ] && shift
 
 
-### Switches (like -d for debugmode, -h for showing helppage)
-#####################################################################
+### Command-line argument switches (like -d for debugmode, -h for showing helppage)
+##############################################################################
 
 # debug mode
 if [ "${arg_d}" = "1" ]; then
@@ -222,15 +221,15 @@ if [ "${arg_h}" = "1" ]; then
 fi
 
 
-### Validation (decide what's required for running your script and error out)
-#####################################################################
+### Validation. Error out if the things required for your script are not present
+##############################################################################
 
 [ -z "${arg_f:-}" ]     && help      "Setting a filename with -f or --file is required"
 [ -z "${LOG_LEVEL:-}" ] && emergency "Cannot continue without LOG_LEVEL. "
 
 
 ### Runtime
-#####################################################################
+##############################################################################
 
 info "__file: ${__file}"
 info "__dir: ${__dir}"
