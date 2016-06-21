@@ -118,9 +118,9 @@ function help () {
   echo "" 1>&2
   echo " ${@}" 1>&2
   echo "" 1>&2
-  echo "  ${__usage}" 1>&2
+  echo "  ${__usage:-No usage available}" 1>&2
   echo "" 1>&2
-  echo " ${__helptext}" 1>&2
+  echo " ${__helptext:-}" 1>&2
   echo "" 1>&2
   exit 1
 }
