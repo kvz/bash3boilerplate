@@ -12,7 +12,7 @@
     "save:fixtures": "cross-env SAVE_FIXTURES=true npm run test",
     "test": "test/acceptance.sh",
     "version:current": "node -e 'console.log(require(\"./package.json\").version)'",
-    "version:replace": "replace 'Version: \\d+\\.\\d+\\.\\d+' \"Version: $(npm run --silent version:current)\" main.sh src/*.sh",
+    "version:replace": "replace 'v\\d+\\.\\d+\\.\\d+' \"v$(npm run --silent version:current)\" main.sh src/*.sh",
     "web:build": "cd website && bundle exec jekyll build --incremental",
     "web:inject": "./website/_bin/inject.sh",
     "web:install": "npm install && cd website && bundle install --path ./_vendor",
