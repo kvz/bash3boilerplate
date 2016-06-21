@@ -15,7 +15,7 @@ ghpages_url=${GHPAGES_URL:-"git@github.com:${ghpages_repo}.git"}
 
 echo "--> Deploying to GitHub pages.."
 
-${__dir}/build.sh
+${__dir}/inject.sh
 
 if [ "${TRAVIS:-}" = "true" ]; then
   git config --global user.name 'lekevbot'

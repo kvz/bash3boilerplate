@@ -3,21 +3,30 @@
   "description": "Copypastable templates to write better bash scripts",
   "version": "2.0.0",
   "scripts": {
+    "deploy": "website/_bin/travis-deploy.sh",
+    "preview": "cd website && bundle install --path ./_vendor && bundle exec jekyll serve --watch",
     "release:major": "env SEMANTIC=major npm run release",
     "release:minor": "env SEMANTIC=minor npm run release",
     "release:patch": "env SEMANTIC=patch npm run release",
-    "version:current": "node -e 'console.log(require(\"./package.json\").version)'",
-    "version:replace": "replace 'Version: \\d+\\.\\d+\\.\\d+' \"Version: $(npm run --silent version:current)\" main.sh src/*.sh",
     "release": "npm version ${SEMANTIC:-patch} -m \"Release %s\" && npm run version:replace && git commit main.sh src/*.sh -m 'Update version' && git push && git push --tags && npm publish",
     "save:fixtures": "cross-env SAVE_FIXTURES=true npm run test",
-    "deploy": "website/_bin/travis-deploy.sh",
-    "preview": "cd website && bundle install --path ./_vendor && bundle exec jekyll serve --watch",
-    "test": "test/acceptance.sh"
+    "test": "test/acceptance.sh",
+    "version:current": "node -e 'console.log(require(\"./package.json\").version)'",
+    "version:replace": "replace 'Version: \\d+\\.\\d+\\.\\d+' \"Version: $(npm run --silent version:current)\" main.sh src/*.sh",
+    "web:build": "cd website && bundle exec jekyll build --incremental",
+    "web:inject": "./website/_bin/inject.sh",
+    "web:install": "cd website && bundle install --path ./_vendor",
+    "web:preview": "npm-run-all --parallel web:watch web:serve",
+    "web:serve": "cd website/_site && browser-sync start --server --files .",
+    "web:watch": "nodemon --verbose --watch ./  --ignore 'website/*.md' --ignore 'website/_site/*' --ext json,md,js,css,png,jpg --exec 'npm-run-all web:inject web:build'"
   },
   "dependencies": {
     "fakefile": "0.0.6"
   },
   "devDependencies": {
-    "cross-env": "1.0.7"
+    "cross-env": "1.0.7",
+    "browser-sync": "2.11.0",
+    "nodemon": "1.8.1",
+    "npm-run-all": "2.1.1"
   }
 }
