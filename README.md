@@ -19,17 +19,15 @@
 
 <!--more-->
 
-When hacking up Bash scripts, I often find there are some
-higher level things like logging, configuration, command-line argument
-parsing that:
+When hacking up Bash scripts, there are often higher level things like logging, 
+configuration, command-line argument parsing that:
 
- - I need every time
- - Take quite some effort to get right
+ - You need every time
+ - Come with a number of pitfalls to get right
  - Keep you from your actual work
 
 Here's an attempt to bundle those things in a generalized way so that
-they are reusable as-is in most of my (and hopefully your, if not ping
-me) programs.
+they are reusable as-is in most scripts.
 
 ## Goals
 
