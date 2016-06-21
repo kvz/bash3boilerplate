@@ -81,7 +81,8 @@ git clone git@github.com:kvz/bash3boilerplate.git
 As of `v1.0.3`, b3bp can also be installed as a node module so you define it as a dependency in `package.json` via:
 
 ```bash
-npm init && npm install --save --save-exact bash3boilerplate
+npm init
+npm install --save --save-exact bash3boilerplate
 ```
 
 Although this last option introduces a Node.js dependency, this does allow for easy version pinning and distribution in environments that already have this prerequisite. But this is optional and nothing prevents you from just using `curl` and keep your project or build system low on external dependencies.
@@ -92,7 +93,7 @@ Please see the [CHANGELOG.md](./CHANGELOG.md) file.
 
 ## Best practices
 
-As of `v1.0.3`, b3bp adds some nice re-usable libraries in `./src`. Later on we'll be using snippets inside this directory to build custom packages. In order to make the snippets in `./src` more useful, we recommend these guidelines.
+As of `v1.0.3`, b3bp adds some nice re-usable libraries in `./src`. In order to make the snippets in `./src` more useful, we recommend these guidelines.
 
 ### Library exports
 
