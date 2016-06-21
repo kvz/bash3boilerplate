@@ -4,6 +4,7 @@
 
 Released: Unreleased. [Commit log](https://github.com/kvz/bash3boilerplate/compare/v2.0.0...master)
 
+- Add a configurable `helptext` that is left alone by the parses and allows you to have a richer help
 - Add a simple documentation website
 - Add best practice of using `__double_underscore_prefixed_vars` to indicate global variables that are solely controlled inside your script
 - Make license more permissive by not requiring distribution of the LICENSE file if the copyright & attribution comments are left intact
