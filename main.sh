@@ -55,7 +55,7 @@ NO_COLOR="${NO_COLOR:-}"    # true = disable color. otherwise autodetected
 # - `--` is respected as the separator between options and arguments
 # - We do not bash-expand defaults, so setting '~/app' as a default will not resolve to ${HOME}.
 #   you can use bash variables to work around this (so use ${HOME} instead)
-read -r -d '' usage <<-'EOF' || true # exits non-zero when EOF encountered
+read -r -d '' __usage <<-'EOF' || true # exits non-zero when EOF encountered
   -f --file  [arg] Filename to process. Required.
   -t --temp  [arg] Location of tempfile. Default="/tmp/bar"
   -v               Enable verbose mode, print script as it is executed
@@ -111,7 +111,7 @@ function help () {
   echo "" 1>&2
   echo " ${@}" 1>&2
   echo "" 1>&2
-  echo "  ${usage}" 1>&2
+  echo "  ${__usage}" 1>&2
   echo "" 1>&2
   exit 1
 }
@@ -157,7 +157,7 @@ while read line; do
     match="$(echo "${line}" |sed 's#^.*Default=\(\)#\1#g')"
     eval "${varname}=\"${match}\""
   fi
-done <<< "${usage}"
+done <<< "${__usage}"
 
 # Allow long options like --this
 opts="${opts}-:"

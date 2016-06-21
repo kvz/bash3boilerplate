@@ -101,6 +101,8 @@ $ my_script some more args --blah
 
 - In functions, use `local` before every variable declaration
 - This project settles on two spaces for tabs
+- Use `UPPERCASE_VARS` to indicate environment variables that can be controlled outside your script
+- Use `__double_underscore_prefixed_vars` to indicate global variables that are solely controlled inside your script
 
 ## Frequently Asked Questions
 

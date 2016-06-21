@@ -4,6 +4,7 @@
 
 ## master (Unreleased)
 
+- Add best practice of using `__double_underscore_prefixed_vars` to indicate global variables that are solely controlled inside your script
 - Make license more permissive by not requiring distribution of the LICENSE file if the copyright & attribution comments are left intact
 - Respect `--no-color` by setting the NO_COLOR flag in `main.sh` (#25, thx @gdevenyi)
 - Split out changelog into separate file
