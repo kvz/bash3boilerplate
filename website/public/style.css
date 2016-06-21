@@ -277,3 +277,53 @@ hr {
   color: gainsboro; /* old IE */
   background-color: gainsboro; /* Modern Browsers */
 }
+
+
+.on-the-githubs {
+  -webkit-margin-before: 1em;
+  -webkit-margin-after: 1em;
+}
+.on-the-githubs:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+.on-the-githubs > li {
+  list-style-type: none;
+  margin: 0;
+  padding: 5px 0;
+  position: relative;
+  border-bottom: 1px solid rgba(gainsboro, 0.3);
+  margin-bottom: 10px;
+}
+.on-the-githubs > li:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.on-the-githubs > li p {
+  font-size: 15px;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  float: left;
+  max-width: 550px;
+}
+.on-the-githubs > li abbr {
+  position: absolute;
+  right: 0;
+  float: left;
+  text-align: right;
+}
+.on-the-githubs > li a {
+  font-weight: normal;
+  text-decoration: underline;
+}
+.on-the-githubs > li img {
+  float: left;
+  margin: 0 5px 0 0;
+  border-radius: 10px;
+  width: 20px;
+  height: 20px;
+}
