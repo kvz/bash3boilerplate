@@ -11,17 +11,6 @@
 #
 #  - ./parse_url.sh
 #
-# More info:
-#
-#  - https://github.com/kvz/bash3boilerplate
-#  - http://kvz.io/blog/2013/02/26/introducing-bash3boilerplate/
-#
-# Version: 2.0.0
-#
-# Authors:
-#
-#  - Kevin van Zonneveld (http://kvz.io)
-#
 # Usage as a function:
 #
 #  source megamount.sh
@@ -31,10 +20,9 @@
 #
 #  megamount.sh smb://janedoe:abc123@192.168.0.1/documents /mnt/documents
 #
-# Copyright (c) 2013 Kevin van Zonneveld and [contributors](https://github.com/kvz/bash3boilerplate#authors)
-# Licensed under [MIT](https://raw.githubusercontent.com/kvz/bash3boilerplate/master/LICENSE)
-# You are not obligated to bundle the LICENSE file with your b3bp projects as long
-# as you leave these references intact.
+# Based on a template by BASH3 Boilerplate v2.0.0
+# Copyright (c) 2013 Kevin van Zonneveld and contributors
+# http://bash3boilerplate.sh/#authors
 
 __dir=$(cd `dirname "${BASH_SOURCE[0]}"` && pwd)
 source "${__dir}/parse_url.sh"

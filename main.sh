@@ -1,37 +1,15 @@
 #!/usr/bin/env bash
-# BASH3 Boilerplate
-#
 # This file:
 #
-#  - Is a template to write better bash scripts
-#  - Is delete-key friendly, in case you don't need e.g. command line option parsing
-#
-# More info:
-#
-#  - https://github.com/kvz/bash3boilerplate
-#  - http://kvz.io/blog/2013/02/26/introducing-bash3boilerplate/
-#
-# Version: 2.0.0
-#
-# Authors:
-#
-# - [Kevin van Zonneveld](http://kvz.io)
-# - [Izaak Beekman](https://izaakbeekman.com/)
-# - [Alexander Rathai](mailto:<Alexander.Rathai@gmail.com>)
-# - [Dr. Damian Rouson](http://www.sourceryinstitute.org/) (documentation)
+#  - Demos BASH3 Boilerplate (change this for your script)
 #
 # Usage:
 #
-#  LOG_LEVEL=7 ./main.sh -f /tmp/x -d
+#  LOG_LEVEL=7 ./main.sh -f /tmp/x -d (change this for your script)
 #
-# Copyright (c) 2013 Kevin van Zonneveld (http://kvz.io) and contributors
-# Licensed under MIT: https://raw.githubusercontent.com/kvz/bash3boilerplate/master/LICENSE
-# You are not obligated to ship the license file with your b3bp projects as long
-# as you leave the above comments intact.
-
-
-### Configuration
-#####################################################################
+# Based on a template by BASH3 Boilerplate v2.0.0
+# Copyright (c) 2013 Kevin van Zonneveld and contributors
+# http://bash3boilerplate.sh/#authors
 
 # Exit on error. Append ||true if you expect an error.
 # `set` is safer than relying on a shebang like `#!/bin/bash -e` because that is neutralized

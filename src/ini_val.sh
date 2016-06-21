@@ -9,17 +9,6 @@
 #
 #  - All keys inside the .ini file must be unique, regardless of the use of sections
 #
-# More info:
-#
-#  - https://github.com/kvz/bash3boilerplate
-#  - http://kvz.io/blog/2013/02/26/introducing-bash3boilerplate/
-#
-# Version: 2.0.0
-#
-# Authors:
-#
-#  - Kevin van Zonneveld (http://kvz.io)
-#
 # Usage as a function:
 #
 #  source ini_val.sh
@@ -29,10 +18,9 @@
 #
 #  ini_val.sh data.ini connection.host 127.0.0.1
 #
-# Copyright (c) 2013 Kevin van Zonneveld and [contributors](https://github.com/kvz/bash3boilerplate#authors)
-# Licensed under [MIT](https://raw.githubusercontent.com/kvz/bash3boilerplate/master/LICENSE)
-# You are not obligated to bundle the LICENSE file with your b3bp projects as long
-# as you leave these references intact.
+# Based on a template by BASH3 Boilerplate v2.0.0
+# Copyright (c) 2013 Kevin van Zonneveld and contributors
+# http://bash3boilerplate.sh/#authors
 
 function ini_val() {
   local file="${1:-}"

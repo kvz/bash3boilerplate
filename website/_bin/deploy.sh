@@ -1,13 +1,38 @@
 #!/usr/bin/env bash
-set -o pipefail
+# This file:
+#
+#  - Let's inject.sh inject markdown files into the ./website directory
+#  - Syncs that to a temporary directory along with a git init
+#  - (in case of Travis CI) assumes a Git bot identity, and uses an overriden GHPAGES_URL containing its token thanks to `travis encrypt`
+#  - Force pushes that to the gh-pages branch
+#
+# Usage:
+#
+#  ./deploy.sh
+#
+# Based on a template by BASH3 Boilerplate v2.0.0
+# Copyright (c) 2013 Kevin van Zonneveld and contributors
+# http://bash3boilerplate.sh/#authors
+
+# Exit on error. Append || true if you expect an error.
 set -o errexit
+# Exit on error inside any functions or subshells.
+set -o errtrace
+# Do not allow use of undefined vars. Use ${VAR:-} to use an undefined VAR
 set -o nounset
+# Catch the error in case mysqldump fails (but gzip succeeds) in `mysqldump |gzip`
+set -o pipefail
+# Turn on traces, useful while debugging but commented out by default
 # set -o xtrace
 
-# Set magic variables for current file & dir
+# Set magic variables for current file, directory, os, etc.
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 __file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
 __base="$(basename ${__file} .sh)"
+__os="Linux"
+if [[ "${OSTYPE:-}" == "darwin"* ]]; then
+  __os="OSX"
+fi
 
 ghpages_repo=${GHPAGES_REPO:-"kvz/bash3boilerplate"}
 ghpages_branch=${GHPAGES_BRANCH:-"gh-pages"}
