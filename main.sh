@@ -11,17 +11,15 @@
 # Copyright (c) 2013 Kevin van Zonneveld and contributors
 # http://bash3boilerplate.sh/#authors
 
-# Exit on error. Append ||true if you expect an error.
-# `set` is safer than relying on a shebang like `#!/bin/bash -e` because that is neutralized
-# when someone runs your script as `bash yourscript.sh`
+# Exit on error. Append || true if you expect an error.
 set -o errexit
 # Exit on error inside any functions or subshells.
 set -o errtrace
+# Do not allow use of undefined vars. Use ${VAR:-} to use an undefined VAR
 set -o nounset
-
-# Bash will remember & return the highest exitcode in a chain of pipes.
-# This way you can catch the error in case mysqldump fails in `mysqldump |gzip`
+# Catch the error in case mysqldump fails (but gzip succeeds) in `mysqldump |gzip`
 set -o pipefail
+# Turn on traces, useful while debugging but commented out by default
 # set -o xtrace
 
 # Environment variables and their defaults
