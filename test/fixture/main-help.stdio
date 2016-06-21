@@ -10,4 +10,8 @@ ACCPTST:STDIO_REPLACE_DATETIMES
   -n --no-color    Disable color output
   -1 --one         Do just one thing
 
+ This is Bash3 Boilerplate's help text. Feel free to add any description of your
+ program or elaborate more on command-line arguments. This section is not
+ parsed and will be added as-is to the help.
+
 {datetime} UTC [32m[     info][0m Cleaning up. Done
