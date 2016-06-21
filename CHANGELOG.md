@@ -4,6 +4,7 @@
 
 Released: Unreleased. [Commit log](https://github.com/kvz/bash3boilerplate/compare/v2.0.0...master)
 
+- Introduce `errtrace`, which is on by default (BREAKING)
 - Add a configurable `helptext` that is left alone by the parses and allows you to have a richer help
 - Add a simple documentation website
 - Add best practice of using `__double_underscore_prefixed_vars` to indicate global variables that are solely controlled inside your script

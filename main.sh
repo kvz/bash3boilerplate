@@ -37,6 +37,8 @@
 # `set` is safer than relying on a shebang like `#!/bin/bash -e` because that is neutralized
 # when someone runs your script as `bash yourscript.sh`
 set -o errexit
+# Exit on error inside any functions or subshells.
+set -o errtrace
 set -o nounset
 
 # Bash will remember & return the highest exitcode in a chain of pipes.
