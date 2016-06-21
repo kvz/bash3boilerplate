@@ -16,7 +16,7 @@
     "web:build": "cd website && bundle exec jekyll build --incremental",
     "web:inject": "./website/_bin/inject.sh",
     "web:install": "cd website && bundle install --path ./_vendor",
-    "web:preview": "npm-run-all --parallel web:watch web:serve",
+    "web:preview": "npm-run-all web:install --parallel web:watch web:serve",
     "web:serve": "cd website/_site && browser-sync start --server --files .",
     "web:watch": "nodemon --verbose --watch ./  --ignore 'website/*.md' --ignore 'website/_site/*' --ext json,md,js,css,png,jpg --exec 'npm-run-all web:inject web:build'"
   },
