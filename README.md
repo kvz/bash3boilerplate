@@ -18,13 +18,12 @@
 
 <!--more-->
 
-When hacking up Bash scripts, there are often things like logging, command-line argument parsing,
-safer execution that:
+When hacking up Bash scripts, there are often things such as logging or command-line argument parsing that:
 
  - You need every time
- - Come with a number of pitfalls you'll want to avoid
+ - Come with a number of pitfalls you want to avoid
  - Keep you from your actual work
-
+ 
 Here's an attempt to bundle those things in a generalized way so that
 they are reusable as-is in most scripts.
 
@@ -49,8 +48,7 @@ We're automatically testing BASH3 Boilerplate and it's proven to work on:
 - Conventions so that after a while, all your scripts will follow the same, battle-tested structure
 - Safe by default (break on error, pipefail, etc)
 - Configuration by environment variables
-- Simple command-line argument parsing that requires no external dependencies. Definitions are parsed from help info,
-  so there is no duplication
+- Simple command-line argument parsing that requires no external dependencies. Definitions are parsed from help info, so there is no duplication
 - Helpful magic variables like `__file`, `__dir`, and `__os`
 - Logging that supports colors and is compatible with [Syslog Severity levels](http://en.wikipedia.org/wiki/Syslog#Severity_levels) as well as the [twelve-factor](http://12factor.net/) guidelines
 
@@ -86,14 +84,14 @@ git clone git@github.com:kvz/bash3boilerplate.git
 
 ### option 3: Require via npm
 
-As of `v1.0.3`, b3bp can also be installed as a node module so you define it as a dependency in `package.json` via:
+As of `v1.0.3`, b3bp can also be installed as a Node module so you can define it as a dependency in `package.json` via:
 
 ```bash
 npm init
 npm install --save --save-exact bash3boilerplate
 ```
 
-Although this last option introduces a Node.js dependency, this does allow for easy version pinning and distribution in environments that already have this prerequisite. But this is optional and nothing prevents you from just using `curl` and keep your project or build system low on external dependencies.
+Although this option introduces a Node.js dependency, this does allow for easy version pinning and distribution in environments that already have this prerequisite. But, this is optional and nothing prevents you from ignoring this possibility.
 
 ## Changelog
 
