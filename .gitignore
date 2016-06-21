@@ -12,3 +12,5 @@ website/changelog.md
 website/faq.md
 
 website/.jekyll-metadata
+
+env.sh

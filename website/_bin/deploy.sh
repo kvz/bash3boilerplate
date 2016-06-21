@@ -18,8 +18,8 @@ echo "--> Deploying to GitHub pages.."
 ${__dir}/build.sh
 
 if [ "${TRAVIS:-}" = "true" ]; then
-  git config --global user.name 'B3BP Bot'
-  git config --global user.email 'bot@bash3boilerplate.sh'
+  git config --global user.name 'lekevbot'
+  git config --global user.email 'bot@kvz.io'
 fi
 
 mkdir -p /tmp/deploy-${ghpages_repo}

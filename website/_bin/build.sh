@@ -37,7 +37,9 @@ EOF
   echo "written website/${targetName}.md"
 done
 
-pushd "${__webroot}"
-  bundle install --path ./_vendor || bundle update --path ./_vendor
-  bundle exec jekyll build --incremental
-popd
+if [ "${TRAVIS:-}" = "true" ]; then
+  pushd "${__webroot}"
+    bundle install --path ./_vendor || bundle update --path ./_vendor
+    bundle exec jekyll build
+  popd
+fi
