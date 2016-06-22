@@ -140,7 +140,7 @@ $ my_script some more args --blah
 
 ### Safety and Portability
 
-1. Use `{}` to enclose your variables in. Otherwise Bash will try to access the `$ENVIRONMENT_app` variable in `/srv/$ENVIRONMENT_app`, whereas you probably intended `/srv/${ENVIRONMENT}_app`.
+1. Use `{}` to enclose your variables in. Otherwise Bash will try to access the `$ENVIRONMENT_app` variable in `/srv/$ENVIRONMENT_app`, whereas you probably intended `/srv/${ENVIRONMENT}_app`. Since it's easy to miss cases like this, we recommend making enclosing a habit.
 1. Use `set` rather than relying on a shebang like `#!/usr/bin/env bash -e` as that is neutralized when someone runs your script as `bash yourscript.sh`
 1. Use `#!/usr/bin/env bash` as it is more portable than `#!/bin/bash`.
 1. Use `${BASH_SOURCE[0]}` if you refer to current file even if it is sourced by a parent script. Otherwise use `${0}`
