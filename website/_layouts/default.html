@@ -33,19 +33,22 @@
 
       {{content}}
 
-      <h2 id="activity-feed">On GitHub</h2>
-      <p>
-        BASH3 Boilerplate is a friendly group of folks further developing our
-        re-usable templates as we go.
-        We'd love to hear what you think <a href="https://github.com/kvz/bash3boilerplate">on GitHub</a>.
-        Here's what's been going on recently.
-      </p>
-      <div class="on-the-githubs" data-event-source="repos/kvz/bash3boilerplate">Loading...</div>
-      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-      <script src="//kvz.github.io/on-the-githubs/js/jquery.on-the-githubs.min.js"></script>
-      <script type="text/javascript">
-        $('.on-the-githubs').onthegithubs();
-      </script>
+      <!-- {{ page.url }} -->
+      {% if page.url == "/index.html" %}
+        <h2 id="activity-feed">On GitHub</h2>
+        <p>
+          BASH3 Boilerplate is a friendly group of folks further developing our
+          re-usable templates as we go.
+          We'd love to hear what you think <a href="https://github.com/kvz/bash3boilerplate">on GitHub</a>.
+          Here's what's been going on recently.
+        </p>
+        <div class="on-the-githubs" data-event-source="repos/kvz/bash3boilerplate">Loading...</div>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="//kvz.github.io/on-the-githubs/js/jquery.on-the-githubs.min.js"></script>
+        <script type="text/javascript">
+          $('.on-the-githubs').onthegithubs();
+        </script>
+      {% endif %}
 
       <p>
         <small>
