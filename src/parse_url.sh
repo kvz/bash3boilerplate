@@ -62,7 +62,7 @@ function parse_url() {
   fi
 }
 
-if [ "${BASH_SOURCE[0]}" != ${0} ]; then
+if [ "${BASH_SOURCE[0]}" != "${0}" ]; then
   export -f parse_url
 else
   parse_url "${@}"

@@ -64,7 +64,7 @@ function ini_val() {
   fi
 }
 
-if [ "${BASH_SOURCE[0]}" != ${0} ]; then
+if [ "${BASH_SOURCE[0]}" != "${0}" ]; then
   export -f ini_val
 else
   ini_val "${@}"

@@ -57,7 +57,7 @@ function megamount () {
   ls -al "${target}/"
 }
 
-if [ "${BASH_SOURCE[0]}" != ${0} ]; then
+if [ "${BASH_SOURCE[0]}" != "${0}" ]; then
   export -f megamount
 else
   megamount "${@}"
