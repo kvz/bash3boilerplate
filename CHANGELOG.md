@@ -4,6 +4,8 @@
 
 Released: Unreleased. [Commit log](https://github.com/kvz/bash3boilerplate/compare/v2.0.0...master)
 
+- Improve README copy (#34, thx galaktos)
+- Fix unquoted variable access within (#34 thx galaktos)
 - For delete-key-friendliness, bundle the commandline definition block along with its parser
 - Less verbose header comments
 - For delete-key-friendliness, don't crash on undeclared help vars
