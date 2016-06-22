@@ -101,9 +101,9 @@ Please see the [CHANGELOG.md](./CHANGELOG.md) file.
 
 As of `v1.0.3`, b3bp adds some nice re-usable libraries in `./src`. In order to make the snippets in `./src` more useful, we recommend these guidelines.
 
-### Library exports
+### Function packaging
 
-It's nice to have a bash package that can be used in the terminal and also be invoked as a command line function. To achieve this the exporting of your functionality *should* follow this pattern:
+It's nice to have a Bash package that can be used in the terminal and also be invoked as a command line function. To achieve this the exporting of your functionality *should* follow this pattern:
 
 ```bash
 if [ "${BASH_SOURCE[0]}" != ${0} ]; then
@@ -126,19 +126,25 @@ $ my_script some more args --blah
 
 (taken from the [bpkg](https://raw.githubusercontent.com/bpkg/bpkg/master/README.md) project)
 
-### Miscellaneous
+### Scoping
 
-- In functions, use `local` before every variable declaration
-- This project settles on two spaces for tabs
-- Use `UPPERCASE_VARS` to indicate environment variables that can be controlled outside your script
-- Use `__double_underscore_prefixed_vars` to indicate global variables that are solely controlled inside your script, with the exception of arguments wich are already prefixed with `arg_`, and functions, over which b3bp poses no restrictions.
-- Use `set` rather than relying on a shebang like `#!/usr/bin/env bash -e` as that is neutralized when someone runs your script as `bash yourscript.sh`
-- Use `BASH_SOURCE[0]` if you refer to current file even if it is sourced by a parent script. Otherwise use `${0}`
-- Use `:-` if you want to test variables that could be undeclared. For instance: `if [ "${NAME:-}" = "Kevin" ]` will set `$NAME` to be empty if it's not declared instead of throwing an error. You can also set it to `noname` like so `if [ "${NAME:-noname}" = "Kevin" ]`
-- Use long options (`logger --priority` vs `logger -p`). If you're on cli, abbreviations make sense for efficiency. but when you're writing reusable scripts a few extra keystrokes will pay off in readability and avoid ventures into man pages in the future by you or your collaborators.
-- `#!/usr/bin/env bash` is more portable than `#!/bin/bash`.
-- Surround your variables with `{}`. Otherwise bash will try to access the `$ENVIRONMENT_app` variable in `/srv/$ENVIRONMENT_app`, whereas you probably intended `/srv/${ENVIRONMENT}_app`.
-- You don't need two equal signs when checking `if [ "${NAME}" = "Kevin" ]`.
+1. In functions, use `local` before every variable declaration
+1. Use `UPPERCASE_VARS` to indicate environment variables that can be controlled outside your script
+1. Use `__double_underscore_prefixed_vars` to indicate global variables that are solely controlled inside your script, with the exception of arguments wich are already prefixed with `arg_`, and functions, over which b3bp poses no restrictions.
+
+### Coding style
+
+1. Use two spaces for tabs
+1. Use long options (`logger --priority` vs `logger -p`). If you're on cli, abbreviations make sense for efficiency. but when you're writing reusable scripts a few extra keystrokes will pay off in readability and avoid ventures into man pages in the future by you or your collaborators. Similarly, we prefer `set -o nounset` over `set -u`.
+1. Use a single equal sign when checking `if [ "${NAME}" = "Kevin" ]`, double or triple signs are not needed in Bash
+
+### Safety and Portability
+
+1. Use `{}` to enclose your variables in. Otherwise Bash will try to access the `$ENVIRONMENT_app` variable in `/srv/$ENVIRONMENT_app`, whereas you probably intended `/srv/${ENVIRONMENT}_app`.
+1. Use `set` rather than relying on a shebang like `#!/usr/bin/env bash -e` as that is neutralized when someone runs your script as `bash yourscript.sh`
+1. Use `#!/usr/bin/env bash` as it is more portable than `#!/bin/bash`.
+1. Use `${BASH_SOURCE[0]}` if you refer to current file even if it is sourced by a parent script. Otherwise use `${0}`
+1. Use `:-` if you want to test variables that could be undeclared. For instance: `if [ "${NAME:-}" = "Kevin" ]` will set `$NAME` to be empty if it's not declared instead of throwing an error. You can also set it to `noname` like so `if [ "${NAME:-noname}" = "Kevin" ]`
 
 ## Frequently Asked Questions
 
