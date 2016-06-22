@@ -153,6 +153,7 @@ Please see the [FAQ.md](./FAQ.md) file.
 - [@jokajak](https://github.com/jokajak) (documentation)
 - [Gabriel A. Devenyi](http://staticwave.ca/) (feedback)
 - [@bravo-kernel](https://github.com/bravo-kernel) (feedback)
+- [@skanga](https://github.com/skanga) (feedback)
 
 ## License
 

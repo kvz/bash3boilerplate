@@ -30,6 +30,10 @@ __os="Linux"
 if [[ "${OSTYPE:-}" == "darwin"* ]]; then
   __os="OSX"
 fi
+if [[ "${OSTYPE:-}" == "msys"* ]]; then
+  # This could accomodate Git Bash but we're welcoming more input at https://github.com/kvz/bash3boilerplate/issues/32
+  __os="Windows"
+fi
 
 # Define the environment variables (and their defaults) that this script depends on
 LOG_LEVEL="${LOG_LEVEL:-6}" # 7 = debug -> 0 = emergency
