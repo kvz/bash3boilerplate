@@ -144,7 +144,7 @@ $ my_script some more args --blah
 1. Use `set` rather than relying on a shebang like `#!/usr/bin/env bash -e` as that is neutralized when someone runs your script as `bash yourscript.sh`
 1. Use `#!/usr/bin/env bash` as it is more portable than `#!/bin/bash`.
 1. Use `${BASH_SOURCE[0]}` if you refer to current file even if it is sourced by a parent script. Otherwise use `${0}`
-1. Use `:-` if you want to test variables that could be undeclared. For instance: `if [ "${NAME:-}" = "Kevin" ]` will set `$NAME` to be empty if it's not declared instead of throwing an error. You can also set it to `noname` like so `if [ "${NAME:-noname}" = "Kevin" ]`
+1. Use `:-` if you want to test variables that could be undeclared. For instance with `if [ "${NAME:-}" = "Kevin" ]`, `$NAME` will evaluate to `Kevin` if the variable is empty. The variable itself will remain unchanged. The syntax to assign a default value is `${NAME:=Kevin}`.
 
 ## Frequently Asked Questions
 
