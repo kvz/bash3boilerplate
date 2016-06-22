@@ -136,7 +136,7 @@ $ my_script some more args --blah
 
 1. Use two spaces for tabs
 1. Use long options (`logger --priority` vs `logger -p`). If you're on cli, abbreviations make sense for efficiency. but when you're writing reusable scripts a few extra keystrokes will pay off in readability and avoid ventures into man pages in the future by you or your collaborators. Similarly, we prefer `set -o nounset` over `set -u`.
-1. Use a single equal sign when checking `if [ "${NAME}" = "Kevin" ]`, double or triple signs are not needed in Bash
+1. Use a single equal sign when checking `if [ "${NAME}" = "Kevin" ]`, double or triple signs are not needed.
 
 ### Safety and Portability
 
