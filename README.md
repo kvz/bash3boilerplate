@@ -130,7 +130,7 @@ $ my_script some more args --blah
 
 1. In functions, use `local` before every variable declaration
 1. Use `UPPERCASE_VARS` to indicate environment variables that can be controlled outside your script
-1. Use `__double_underscore_prefixed_vars` to indicate global variables that are solely controlled inside your script, with the exception of arguments wich are already prefixed with `arg_`, and functions, over which b3bp poses no restrictions.
+1. Use `__double_underscore_prefixed_vars` to indicate global variables that are solely controlled inside your script, with the exception of arguments which are already prefixed with `arg_`, and functions, over which b3bp poses no restrictions.
 
 ### Coding style
 
