@@ -26,15 +26,16 @@
       </span>
     </header>
     <section id="content">
-      <div class="Social">
-        <iframe src="http://ghbtns.com/github-btn.html?user=kvz&repo=bash3boilerplate&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100" height="20"></iframe>
-        <a href="https://travis-ci.org/kvz/bash3boilerplate"><img src="https://travis-ci.org/kvz/bash3boilerplate.svg" alt="Build Status"></a>
-      </div>
+      {% if page.url == "/" %}
+        <div class="Social">
+          <iframe src="http://ghbtns.com/github-btn.html?user=kvz&repo=bash3boilerplate&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100" height="20"></iframe>
+          <a href="https://travis-ci.org/kvz/bash3boilerplate"><img src="https://travis-ci.org/kvz/bash3boilerplate.svg" alt="Build Status"></a>
+        </div>
+      {% endif %}
 
       {{content}}
 
-      <!-- {{ page.url }} -->
-      {% if page.url == "/index.html" or page.url == "/" %}
+      {% if page.url == "/" %}
         <h2 id="activity-feed">On GitHub</h2>
         <p>
           BASH3 Boilerplate is a friendly group of folks further developing our
@@ -49,6 +50,10 @@
           $('.on-the-githubs').onthegithubs();
         </script>
       {% endif %}
+
+      <div class="Social">
+        <iframe src="http://ghbtns.com/github-btn.html?user=kvz&repo=bash3boilerplate&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100" height="20"></iframe>
+      </div>
 
       <p>
         <small>
