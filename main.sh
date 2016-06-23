@@ -26,13 +26,20 @@ set -o pipefail
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 __file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
 __base="$(basename ${__file} .sh)"
-__os="Linux"
-if [[ "${OSTYPE:-}" == "darwin"* ]]; then
+
+# The __os magic variable that b3bp offers is a dumbed down version of OSTYPE, aimed at
+# simple use cases. For more specific os information use ${OSTYPE}, or uname directly.
+if [[ "${OSTYPE:-}" == "linux"* ]]; then
+  __os="Linux"
+elif [[ "${OSTYPE:-}" == "darwin"* ]]; then
   __os="OSX"
-fi
-if [[ "${OSTYPE:-}" == "msys"* ]]; then
+elif [[ "${OSTYPE:-}" == "msys" ]]; then
   # This could accomodate Git Bash but we're welcoming more input at https://github.com/kvz/bash3boilerplate/issues/32
   __os="Windows"
+elif [[ "${OSTYPE:-}" == *"bsd"* ]]; then
+  __os="BSD"
+else
+  __os="b3bp_unsupported"
 fi
 
 # Define the environment variables (and their defaults) that this script depends on

@@ -156,6 +156,7 @@ Please see the [FAQ.md](./FAQ.md) file.
 - [@bravo-kernel](https://github.com/bravo-kernel) (feedback)
 - [@skanga](https://github.com/skanga) (feedback)
 - [galaktos](https://www.reddit.com/user/galaktos) (feedback)
+- [@moviuro](https://github.com/moviuro) (feedback)
 
 ## License
 
