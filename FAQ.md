@@ -104,3 +104,17 @@ The source mainly consists of:
 The rest is dark magic you should probably steer clear from : )
 
 Any changes should be proposed as PRs. Anything added to `master` is automatically deployed using a combination of Travis CI and GitHub Pages.
+
+## You're saying you are portable - why won't b3bp code run in dash / busybox / posh / ksh / mksh / zsh?
+
+When we say _portable_, we mean across Bash versions. Bash is widespread and most systems
+offer at least version 3 of it. Make sure you have that available, and b3bp will work for you.
+
+We run automated tests to make sure that it will, here's proof for the following platforms:
+
+- [Linux](https://travis-ci.org/kvz/bash3boilerplate/jobs/109804166#L91) `GNU bash, version 4.2.25(1)-release (x86_64-pc-linux-gnu)`
+- [OSX](https://travis-ci.org/kvz/bash3boilerplate/jobs/109804167#L2453) `GNU bash, version 3.2.51(1)-release (x86_64-apple-darwin13)`
+
+This portability however does not mean we try to be compatible with 
+KornShell, Zsh, posh, yash, dash or other shells. We allow syntax that would explode if 
+you pasted it in anything but Bash 3 and up.
