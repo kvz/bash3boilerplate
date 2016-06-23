@@ -4,6 +4,7 @@
   "version": "2.0.0",
   "scripts": {
     "deploy": "website/_bin/travis-deploy.sh",
+    "lint": "shellcheck --shell=bash $(find . -name '*.sh' -maxdepth 2)",
     "release:major": "env SEMANTIC=major npm run release",
     "release:minor": "env SEMANTIC=minor npm run release",
     "release:patch": "env SEMANTIC=patch npm run release",
