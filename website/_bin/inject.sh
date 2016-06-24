@@ -32,6 +32,8 @@ if [[ "${OSTYPE:-}" == "darwin"* ]]; then
   __os="OSX"
 fi
 
+# Offer the main template for download as http://bash3boilerplate.sh/main.sh
+cp -v main.sh website/
 
 for doc in "README" "FAQ" "CHANGELOG"; do
   targetName="$(echo "${doc}" | awk '{print tolower($0)}')"

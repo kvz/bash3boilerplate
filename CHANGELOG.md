@@ -4,6 +4,7 @@
 
 Released: Unreleased. [Commit log](https://github.com/kvz/bash3boilerplate/compare/v2.0.0...master)
 
+- Offer the main template for download as http://bash3boilerplate.sh/main.sh
 - Better OS detection (#38, thx @moviuro)
 - Improve README copy (#34, thx galaktos)
 - Fix unquoted variable access within (#34 thx galaktos)
