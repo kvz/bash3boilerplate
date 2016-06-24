@@ -44,7 +44,7 @@ dependency.
 - Safe by default (break on error, pipefail, etc)
 - Configuration by environment variables
 - Simple command-line argument parsing that requires no external dependencies. Definitions are parsed from help info, so there is no duplication
-- Helpful magic variables like `__file`, `__dir`, and `__os`
+- Helpful magic variables like `__file` and `__dir`
 - Logging that supports colors and is compatible with [Syslog Severity levels](http://en.wikipedia.org/wiki/Syslog#Severity_levels) as well as the [twelve-factor](http://12factor.net/) guidelines
 
 ## Who uses b3bp?

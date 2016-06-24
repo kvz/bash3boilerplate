@@ -27,21 +27,6 @@ __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 __file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
 __base="$(basename ${__file} .sh)"
 
-# The __os magic variable that b3bp offers is a dumbed down version of OSTYPE, aimed at
-# simple use cases. For more specific os information use ${OSTYPE}, or uname directly.
-if [[ "${OSTYPE:-}" == "linux"* ]]; then
-  __os="Linux"
-elif [[ "${OSTYPE:-}" == "darwin"* ]]; then
-  __os="OSX"
-elif [[ "${OSTYPE:-}" == "msys" ]]; then
-  # This could accomodate Git Bash but we're welcoming more input at https://github.com/kvz/bash3boilerplate/issues/32
-  __os="Windows"
-elif [[ "${OSTYPE:-}" == *"bsd"* ]]; then
-  __os="BSD"
-else
-  __os="b3bp_unsupported"
-fi
-
 # Define the environment variables (and their defaults) that this script depends on
 LOG_LEVEL="${LOG_LEVEL:-6}" # 7 = debug -> 0 = emergency
 NO_COLOR="${NO_COLOR:-}"    # true = disable color. otherwise autodetected
@@ -245,7 +230,7 @@ fi
 info "__file: ${__file}"
 info "__dir: ${__dir}"
 info "__base: ${__base}"
-info "__os: ${__os}"
+info "OSTYPE: ${OSTYPE}"
 
 info "arg_f: ${arg_f}"
 info "arg_d: ${arg_d}"

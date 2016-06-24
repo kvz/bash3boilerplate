@@ -29,11 +29,6 @@ __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 __file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
 __base="$(basename ${__file} .sh)"
 __root="$(cd "$(dirname "${__dir}")" && pwd)"
-__os="Linux"
-if [[ "${OSTYPE:-}" == "darwin"* ]]; then
-  __os="OSX"
-fi
-
 
 scenarios="${1:-$(ls ${__dir}/scenario/|egrep -v ^prepare$)}"
 
@@ -55,11 +50,6 @@ else
 fi
 
 __node="$(which node)"
-
-__os="linux"
-if [[ "${OSTYPE}" == "darwin"* ]]; then
-  __os="darwin"
-fi
 __arch="amd64"
 
 
@@ -96,8 +86,8 @@ for scenario in $(echo ${scenarios}); do
         -e "s@{root}/node_modules/\.bin/node@{node}@g" "${curFile}" \
         -e "s@{home}/build/{user}/fre{node}@{node}@g" "${curFile}" \
         -e "s@${HOSTNAME}@{hostname}@g" "${curFile}" \
-        -e "s@${__os}@{os}@g" "${curFile}" \
         -e "s@${__arch}@{arch}@g" "${curFile}" \
+        -e "s@${OSTYPE}@{OSTYPE}@g" "${curFile}" \
         -e "s@OSX@{os}@g" "${curFile}" \
         -e "s@Linux@{os}@g" "${curFile}" \
       || false
