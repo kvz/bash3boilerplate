@@ -23,17 +23,17 @@ A 'cli' is a [command-line interface](https://en.wikipedia.org/wiki/Command-line
 ## How do I incorporate BASH3 Boilerplate into my own project?
 
 You can incorporate BASH3 Boilerplate into your project one of three ways:
-1. Copy the desired portions of [main.sh](./main.sh) into your own script.
-1. Download [main.sh](./main.sh) and start pressing the delete-key for unwanted things
+1. Copy the desired portions of [main.sh](https://github.com/kvz/bash3boilerplate/blob/master/main.sh) into your own script.
+1. Download [main.sh](https://github.com/kvz/bash3boilerplate/blob/master/main.sh) and start pressing the delete-key for unwanted things
 
 Once the `main.sh` has been tailor-made for your project you could either append your own script in the same file, or source it:
 
-1. Copy [main.sh](./main.sh) into the same directory as your script and then edit and embed it into your script using bash's dot (`.`) include feature, e.g.
+1. Copy [main.sh](https://github.com/kvz/bash3boilerplate/blob/master/main.sh) into the same directory as your script and then edit and embed it into your script using bash's dot (`.`) include feature, e.g.
 ```bash
 #!/usr/bin/env bash
 . main.sh
 ```
-1. Source [main.sh](./main.sh) in your script or at the command line
+1. Source [main.sh](https://github.com/kvz/bash3boilerplate/blob/master/main.sh) in your script or at the command line
 ```bash
 #!/usr/bin/env bash
 . main.sh
@@ -63,7 +63,7 @@ __temp_file_name="${arg_t}"
 
 ## What is a magic variable?
 
-The [magic variables](https://github.com/kvz/bash3boilerplate/blob/master/main.sh#L63) in `main.sh` are special in that they have a different value, depending on your environment. You can use `${__file}` to get a reference to your current script, `${__dir}` to get a reference to the directory it lives in. This is not to be confused with the location of the calling script that might be sourcing the `${__file}`, which is accessible via `${0}`, and the current directory of the administrator running the script, accessible via `$(pwd)`. Other magic variables are for instance `${__os}` which currently is limited to telling you wether you are on `OSX` and otherwise defaults to `Linux`.
+The [magic variables](https://github.com/kvz/bash3boilerplate/blob/master/main.sh#L63) in `main.sh` are special in that they have a different value, depending on your environment. You can use `${__file}` to get a reference to your current script, `${__dir}` to get a reference to the directory it lives in. This is not to be confused with the location of the calling script that might be sourcing the `${__file}`, which is accessible via `${0}`, and the current directory of the administrator running the script, accessible via `$(pwd)`.
 
 ## How do I submit an issue report?
 
@@ -118,6 +118,33 @@ We run automated tests to make sure that it will, here's proof for the following
 This portability however does not mean we try to be compatible with 
 KornShell, Zsh, posh, yash, dash or other shells. We allow syntax that would explode if 
 you pasted it in anything but Bash 3 and up.
+
+## How do I do Operating System detection?
+
+We used to offer a magic `__os` variable, but quickly [discovered](https://github.com/kvz/bash3boilerplate/issues/38) that it would be hard
+to create a satisfactory abstraction that is correct, covers enough use-cases,
+and still has a relatively small footprint in `main.sh`.
+
+For simple OS detection, we recommend using the `${OSTYPE}` variable available in Bash as
+is demoed in [this stackoverflow post](http://stackoverflow.com/a/8597411/151666):
+
+```bash
+if [[ "${OSTYPE}" = "linux-gnu" ]]; then
+  echo "GNU Linux"
+elif [[ "${OSTYPE}" = "darwin"* ]]; then
+  echo "Mac OSX"
+elif [[ "${OSTYPE}" = "cygwin" ]]; then
+  echo "POSIX compatibility layer and Linux environment emulation for Windows"
+elif [[ "${OSTYPE}" = "msys" ]]; then
+  echo "Lightweight shell and GNU utilities compiled for Windows (part of MinGW)"
+elif [[ "${OSTYPE}" = "win32" ]]; then
+  echo "I'm not sure this can happen."
+elif [[ "${OSTYPE}" = "freebsd"* ]]; then
+  echo "..."
+else
+  echo "Unknown."
+fi
+```
 
 ## How do I access a potentially unset (environment) variable?
 

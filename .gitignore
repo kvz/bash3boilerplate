@@ -14,3 +14,5 @@ website/faq.md
 website/.jekyll-metadata
 
 env.sh
+
+website/main.sh

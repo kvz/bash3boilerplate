@@ -27,11 +27,9 @@ set -o pipefail
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 __file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
 __base="$(basename ${__file} .sh)"
-__os="Linux"
-if [[ "${OSTYPE:-}" == "darwin"* ]]; then
-  __os="OSX"
-fi
 
+# Offer the main template for download as http://bash3boilerplate.sh/main.sh
+cp -v main.sh website/
 
 for doc in "README" "FAQ" "CHANGELOG"; do
   targetName="$(echo "${doc}" | awk '{print tolower($0)}')"

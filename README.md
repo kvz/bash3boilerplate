@@ -29,7 +29,7 @@ they are reusable as-is in most scripts.
 
 ## Goals
 
-Delete-Key-**Friendly**. We propose using [`main.sh`](https://github.com/kvz/bash3boilerplate/blob/master/main.sh) 
+Delete-Key-**Friendly**. We propose using [`main.sh`](http://bash3boilerplate.sh/main.sh) 
 as a base and removing the parts you don't need, rather than introducing packages, includes, compilers, etc.
 This may feel a bit archaic at first, but that is exactly the strength of Bash scripts that we want to embrace.
 
@@ -44,7 +44,7 @@ dependency.
 - Safe by default (break on error, pipefail, etc)
 - Configuration by environment variables
 - Simple command-line argument parsing that requires no external dependencies. Definitions are parsed from help info, so there is no duplication
-- Helpful magic variables like `__file`, `__dir`, and `__os`
+- Helpful magic variables like `__file` and `__dir`
 - Logging that supports colors and is compatible with [Syslog Severity levels](http://en.wikipedia.org/wiki/Syslog#Severity_levels) as well as the [twelve-factor](http://12factor.net/) guidelines
 
 ## Who uses b3bp?
@@ -65,7 +65,7 @@ There are 3 different ways you can install b3bp:
 Use curl or wget to download the source, save as your script, and start deleting the unwanted bits, and adding your own logic.
 
 ```bash
-wget https://raw.githubusercontent.com/kvz/bash3boilerplate/master/main.sh
+wget http://bash3boilerplate.sh/main.sh
 vim main.sh
 ```
 
