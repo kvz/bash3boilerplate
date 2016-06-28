@@ -33,13 +33,13 @@ Delete-Key-**Friendly**. In stead of introducing packages, includes, compilers, 
 While this may feel a bit archaic at first, it is exactly the strength of Bash scripts that we should want to embrace.
 
 **Portable**. We are targeting Bash 3 (OSX still ships
-with 3 for instance). If you are going to ask people to install
+with 3, for instance). If you are going to ask people to install
 Bash 4 first, you might as well pick a more advanced language as a
 dependency.
 
 ## Features
 
-- Conventions that will make sure that all your scripts will follow the same, battle-tested structure
+- Conventions that will make sure that all your scripts follow the same, battle-tested structure
 - Safe by default (break on error, pipefail, etc.)
 - Configuration by environment variables
 - Simple command-line argument parsing that requires no external dependencies. Definitions are parsed from help info, ensuring there will be no duplication
@@ -134,7 +134,7 @@ $ my_script some more args --blah
 
 ### Safety and Portability
 
-1. Use `{}` to enclose your variables. Otherwise, Bash will try to access the `$ENVIRONMENT_app` variable in `/srv/$ENVIRONMENT_app`, whereas you probably intended `/srv/${ENVIRONMENT}_app`. Since it is easy to miss cases like this, we recommend to make enclosing a habit.
+1. Use `{}` to enclose your variables. Otherwise, Bash will try to access the `$ENVIRONMENT_app` variable in `/srv/$ENVIRONMENT_app`, whereas you probably intended `/srv/${ENVIRONMENT}_app`. Since it is easy to miss cases like this, we recommend that you make enclosing a habit.
 1. Use `set`, rather than relying on a shebang like `#!/usr/bin/env bash -e`, since that is neutralized when someone runs your script as `bash yourscript.sh`.
 1. Use `#!/usr/bin/env bash`, as it is more portable than `#!/bin/bash`.
 1. Use `${BASH_SOURCE[0]}` if you refer to current file, even if it is sourced by a parent script. In other cases, use `${0}`.
