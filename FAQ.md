@@ -22,7 +22,7 @@ A 'cli' is a [command-line interface](https://en.wikipedia.org/wiki/Command-line
 
 ## How do I incorporate BASH3 Boilerplate into my own project?
 
-You can incorporate BASH3 Boilerplate into your project in one of three ways:
+You can incorporate BASH3 Boilerplate into your project in one of two ways:
 1. Copy the desired portions of [main.sh](https://github.com/kvz/bash3boilerplate/blob/master/main.sh) into your own script.
 1. Download [main.sh](https://github.com/kvz/bash3boilerplate/blob/master/main.sh) and start pressing the delete-key for unwanted things
 
