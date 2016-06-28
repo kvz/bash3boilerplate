@@ -24,16 +24,16 @@ A 'cli' is a [command-line interface](https://en.wikipedia.org/wiki/Command-line
 
 You can incorporate BASH3 Boilerplate into your project in one of two ways:
 1. Copy the desired portions of [main.sh](https://github.com/kvz/bash3boilerplate/blob/master/main.sh) into your own script.
-1. Download [main.sh](https://github.com/kvz/bash3boilerplate/blob/master/main.sh) and start pressing the delete-key for unwanted things
+1. Download [main.sh](https://github.com/kvz/bash3boilerplate/blob/master/main.sh) and start pressing the delete-key to remove unwanted things
 
-Once the `main.sh` has been tailor-made for your project you could either append your own script in the same file, or source it:
+Once the `main.sh` has been tailor-made for your project, you can either append your own script in the same file, or source it in the following ways:
 
-1. Copy [main.sh](https://github.com/kvz/bash3boilerplate/blob/master/main.sh) into the same directory as your script and then edit and embed it into your script using Bash's `source` include feature, e.g.
+1. Copy [main.sh](https://github.com/kvz/bash3boilerplate/blob/master/main.sh) into the same directory as your script and then edit and embed it into your script using Bash's `source` include feature, e.g.:
 ```bash
 #!/usr/bin/env bash
 source main.sh
 ```
-1. Source [main.sh](https://github.com/kvz/bash3boilerplate/blob/master/main.sh) in your script or at the command line
+1. Source [main.sh](https://github.com/kvz/bash3boilerplate/blob/master/main.sh) in your script or at the command line:
 ```bash
 #!/usr/bin/env bash
 source main.sh
@@ -41,7 +41,7 @@ source main.sh
 
 ## How do I add a command-line flag?
 
-1. Copy the line the main.sh [read block](https://github.com/kvz/bash3boilerplate/blob/master/main.sh#L53) that most resembles the desired behavior and paste the line into the same block.
+1. Copy the line from the main.sh [read block](https://github.com/kvz/bash3boilerplate/blob/master/main.sh#L53) that most resembles the desired behavior and paste the line into the same block.
 1. Edit the single-character (e.g., `-d`) and, if present, the multi-character (e.g., `--debug`) versions of the flag in the copied line.  
 1. Omit the `[arg]` text in the copied line, if the desired flag takes no arguments.
 1. Omit or edit the text after `Default:` to set or not set default values, respectively. 
