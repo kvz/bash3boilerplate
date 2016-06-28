@@ -42,10 +42,10 @@ source main.sh
 ## How do I add a command-line flag?
 
 1. Copy the line the main.sh [read block](https://github.com/kvz/bash3boilerplate/blob/master/main.sh#L53) that most resembles the desired behavior and paste the line into the same block.
-1. Edit the single-character (e.g., -d) and, if present, the multi-character (e.g., --debug) versions of the flag in the copied line.  
-1. Omit the "[arg]" text in the copied line, if the desired flag takes no arguments.
-1. Omit or edit the text after "Default:" to set or not set default values, respectively. 
-1. Omit the "Required." text, if the flag is optional.
+1. Edit the single-character (e.g., `-d`) and, if present, the multi-character (e.g., `--debug`) versions of the flag in the copied line.  
+1. Omit the `[arg]` text in the copied line, if the desired flag takes no arguments.
+1. Omit or edit the text after `Default:` to set or not set default values, respectively. 
+1. Omit the `Required.` text, if the flag is optional.
 
 ## How do I access the value of a command-line argument?
 
