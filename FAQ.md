@@ -28,15 +28,15 @@ You can incorporate BASH3 Boilerplate into your project in one of two ways:
 
 Once the `main.sh` has been tailor-made for your project you could either append your own script in the same file, or source it:
 
-1. Copy [main.sh](https://github.com/kvz/bash3boilerplate/blob/master/main.sh) into the same directory as your script and then edit and embed it into your script using bash's dot (`.`) include feature, e.g.
+1. Copy [main.sh](https://github.com/kvz/bash3boilerplate/blob/master/main.sh) into the same directory as your script and then edit and embed it into your script using Bash's `source` include feature, e.g.
 ```bash
 #!/usr/bin/env bash
-. main.sh
+source main.sh
 ```
 1. Source [main.sh](https://github.com/kvz/bash3boilerplate/blob/master/main.sh) in your script or at the command line
 ```bash
 #!/usr/bin/env bash
-. main.sh
+source main.sh
 ```
 
 ## How do I add a command-line flag?
