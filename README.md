@@ -29,7 +29,7 @@ they are reusable as-is in most scripts.
 
 ## Goals
 
-Delete-Key-**Friendly**. In stead of introducing packages, includes, compilers, etc., we propose using [`main.sh`](http://bash3boilerplate.sh/main.sh) as a base and removing the parts you don't need. 
+Delete-Key-**Friendly**. In stead of introducing packages, compilers, etc., we propose using [`main.sh`](http://bash3boilerplate.sh/main.sh) as a base and removing the parts you don't need. 
 While this may feel a bit archaic at first, it is exactly the strength of Bash scripts that we should want to embrace.
 
 **Portable**. We are targeting Bash 3 (OSX still ships
@@ -76,7 +76,7 @@ Besides `main.sh`, this will also get you the entire b3bp repository. This inclu
 git clone git@github.com:kvz/bash3boilerplate.git
 ```
 
-### option 3: Require via npm0
+### option 3: Require via npm
 
 As of `v1.0.3`, b3bp can also be installed as a Node module, meaning you can define it as a dependency in `package.json` via:
 

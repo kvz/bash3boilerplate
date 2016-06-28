@@ -22,18 +22,22 @@ A 'cli' is a [command-line interface](https://en.wikipedia.org/wiki/Command-line
 
 ## How do I incorporate BASH3 Boilerplate into my own project?
 
-You can incorporate BASH3 Boilerplate into your project in one of two ways:
+After [installing b3bp](http://bash3boilerplate.sh/#installation), you can incorporate it into your project in one of two ways:
+
 1. Copy the desired portions of [main.sh](https://github.com/kvz/bash3boilerplate/blob/master/main.sh) into your own script.
-1. Download [main.sh](https://github.com/kvz/bash3boilerplate/blob/master/main.sh) and start pressing the delete-key for unwanted things
+2. Use [main.sh](https://github.com/kvz/bash3boilerplate/blob/master/main.sh) as a template and start pressing the delete-key for unwanted things
 
 Once the `main.sh` has been tailor-made for your project you could either append your own script in the same file, or source it:
 
 1. Copy [main.sh](https://github.com/kvz/bash3boilerplate/blob/master/main.sh) into the same directory as your script and then edit and embed it into your script using Bash's `source` include feature, e.g.
+
 ```bash
 #!/usr/bin/env bash
 source main.sh
 ```
-1. Source [main.sh](https://github.com/kvz/bash3boilerplate/blob/master/main.sh) in your script or at the command line
+
+2. Source [main.sh](https://github.com/kvz/bash3boilerplate/blob/master/main.sh) in your script or at the command line
+
 ```bash
 #!/usr/bin/env bash
 source main.sh
@@ -41,7 +45,7 @@ source main.sh
 
 ## How do I add a command-line flag?
 
-1. Copy the line the main.sh [read block](https://github.com/kvz/bash3boilerplate/blob/master/main.sh#L53) that most resembles the desired behavior and paste the line into the same block.
+1. Copy the line the `main.sh` [read block](https://github.com/kvz/bash3boilerplate/blob/master/main.sh#L53) that most resembles the desired behavior and paste the line into the same block.
 1. Edit the single-character (e.g., `-d`) and, if present, the multi-character (e.g., `--debug`) versions of the flag in the copied line.  
 1. Omit the `[arg]` text in the copied line, if the desired flag takes no arguments.
 1. Omit or edit the text after `Default:` to set or not set default values, respectively. 
@@ -49,8 +53,8 @@ source main.sh
 
 ## How do I access the value of a command-line argument?
 
-To find out the value of an argument, append the corresponding single-character flag to the text `$arg_`.  For example, if the [read block]
-contains the line
+To find out the value of an argument, append the corresponding single-character flag to `$arg_`.  For example, if the [read block] contains the line
+
 ```bash
    -t --temp  [arg] Location of tempfile. Default="/tmp/bar"
 ```
@@ -58,7 +62,7 @@ contains the line
 then you can evaluate the corresponding argument and assign it to a variable as follows:
 
 ```bash
-__temp_file_name="${arg_t}"
+__temp_filename="${arg_t}"
 ```
 
 ## What is a magic variable?
