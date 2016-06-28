@@ -27,7 +27,7 @@ After [installing b3bp](http://bash3boilerplate.sh/#installation), you can incor
 1. Copy the desired portions of [main.sh](https://github.com/kvz/bash3boilerplate/blob/master/main.sh) into your own script.
 2. Use [main.sh](https://github.com/kvz/bash3boilerplate/blob/master/main.sh) as a template and start pressing the delete-key for unwanted things
 
-Once the `main.sh` has been tailor-made for your project you could either append your own script in the same file, or source it:
+Once the `main.sh` has been tailor-made for your project, you can either append your own script in the same file, or source it in the following ways:
 
 1. Copy [main.sh](https://github.com/kvz/bash3boilerplate/blob/master/main.sh) into the same directory as your script and then edit and embed it into your script using Bash's `source` include feature, e.g.
 
@@ -45,7 +45,7 @@ source main.sh
 
 ## How do I add a command-line flag?
 
-1. Copy the line the `main.sh` [read block](https://github.com/kvz/bash3boilerplate/blob/master/main.sh#L53) that most resembles the desired behavior and paste the line into the same block.
+1. Copy the line from the main.sh [read block](https://github.com/kvz/bash3boilerplate/blob/master/main.sh#L53) that most resembles the desired behavior and paste the line into the same block.
 1. Edit the single-character (e.g., `-d`) and, if present, the multi-character (e.g., `--debug`) versions of the flag in the copied line.  
 1. Omit the `[arg]` text in the copied line, if the desired flag takes no arguments.
 1. Omit or edit the text after `Default:` to set or not set default values, respectively. 
