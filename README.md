@@ -29,7 +29,7 @@ they are reusable as-is in most scripts.
 
 ## Goals
 
-Delete-Key-**Friendly**. In stead of introducing packages, includes, compilers, etc., we propose using [`main.sh`](http://bash3boilerplate.sh/main.sh) as a base and removing the parts you don't need. 
+Delete-Key-**Friendly**. Instead of introducing packages, includes, compilers, etc., we propose using [`main.sh`](http://bash3boilerplate.sh/main.sh) as a base and removing the parts you don't need. 
 While this may feel a bit archaic at first, it is exactly the strength of Bash scripts that we should want to embrace.
 
 **Portable**. We are targeting Bash 3 (OSX still ships
