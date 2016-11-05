@@ -69,11 +69,10 @@ function _fmt () {
   # split string into lines by \n only
   IFS=$'\n' log_lines=(${log_lines[@]})
 
-  local log_level_uc="$(echo "${log_level}" | tr '[:lower:]' '[:upper:]')"
   local log_line=""
 
   for log_line in "${log_lines[@]:-}"; do
-    echo -e "$(date -u +"%Y-%m-%d %H:%M:%S UTC") ${color}$(printf "[%9s]" ${log_level_uc})${color_reset} $log_line" 1>&2
+    echo -e "$(date -u +"%Y-%m-%d %H:%M:%S UTC") ${color}$(printf "[%9s]" ${log_level})${color_reset} $log_line" 1>&2
   done
 }
 
