@@ -35,7 +35,7 @@ NO_COLOR="${NO_COLOR:-}"    # true = disable color. otherwise autodetected
 ### Functions
 ##############################################################################
 
-function _fmt () {
+function __b3bp_log () {
   local log_level="${1}"
   shift
 
@@ -76,14 +76,14 @@ function _fmt () {
   done
 }
 
-function emergency () {                                $(_fmt emergency "${@}") || true; exit 1; }
-function alert ()     { [ "${LOG_LEVEL:-0}" -ge 1 ] && $(_fmt alert "${@}") || true; }
-function critical ()  { [ "${LOG_LEVEL:-0}" -ge 2 ] && $(_fmt critical "${@}") || true; }
-function error ()     { [ "${LOG_LEVEL:-0}" -ge 3 ] && $(_fmt error "${@}") || true; }
-function warning ()   { [ "${LOG_LEVEL:-0}" -ge 4 ] && $(_fmt warning "${@}") || true; }
-function notice ()    { [ "${LOG_LEVEL:-0}" -ge 5 ] && $(_fmt notice "${@}") || true; }
-function info ()      { [ "${LOG_LEVEL:-0}" -ge 6 ] && $(_fmt info "${@}") || true; }
-function debug ()     { [ "${LOG_LEVEL:-0}" -ge 7 ] && $(_fmt debug "${@}") || true; }
+function emergency () {                                $(__b3bp_log emergency "${@}") || true; exit 1; }
+function alert ()     { [ "${LOG_LEVEL:-0}" -ge 1 ] && $(__b3bp_log alert "${@}") || true; }
+function critical ()  { [ "${LOG_LEVEL:-0}" -ge 2 ] && $(__b3bp_log critical "${@}") || true; }
+function error ()     { [ "${LOG_LEVEL:-0}" -ge 3 ] && $(__b3bp_log error "${@}") || true; }
+function warning ()   { [ "${LOG_LEVEL:-0}" -ge 4 ] && $(__b3bp_log warning "${@}") || true; }
+function notice ()    { [ "${LOG_LEVEL:-0}" -ge 5 ] && $(__b3bp_log notice "${@}") || true; }
+function info ()      { [ "${LOG_LEVEL:-0}" -ge 6 ] && $(__b3bp_log info "${@}") || true; }
+function debug ()     { [ "${LOG_LEVEL:-0}" -ge 7 ] && $(__b3bp_log debug "${@}") || true; }
 
 function help () {
   echo "" 1>&2
