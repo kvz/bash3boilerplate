@@ -35,7 +35,10 @@ NO_COLOR="${NO_COLOR:-}"    # true = disable color. otherwise autodetected
 ### Functions
 ##############################################################################
 
-function _fmt ()      {
+function _fmt () {
+  local log_level="${1}"
+  shift
+
   local color_debug="\x1b[35m"
   local color_info="\x1b[32m"
   local color_notice="\x1b[34m"
@@ -44,24 +47,44 @@ function _fmt ()      {
   local color_critical="\x1b[1;31m"
   local color_alert="\x1b[1;33;41m"
   local color_emergency="\x1b[1;4;5;33;41m"
-  local colorvar=color_$1
+  local colorvar="color_${log_level}"
 
   local color="${!colorvar:-$color_error}"
   local color_reset="\x1b[0m"
+
   if [ "${NO_COLOR}" = "true" ] || [[ "${TERM:-}" != "xterm"* ]] || [ -t 1 ]; then
     # Don't use colors on pipes or non-recognized terminals
     color=""; color_reset=""
   fi
-  echo -e "$(date -u +"%Y-%m-%d %H:%M:%S UTC") ${color}$(printf "[%9s]" ${1})${color_reset}";
+
+  # all remaining arguments are to be printed
+  local log_lines=("$@")
+
+  # empty lines in the beginning and in the middle should be printed as-is
+  # put a space at the end so the splitting by line later on doesn't drop it
+  for (( i=0; i < ${#log_lines[@]}; i++ )); do
+    log_lines[$i]="${log_lines[$i]//$'\n'/ $'\n'}"
+  done
+
+  # split string into lines by \n only
+  IFS=$'\n' log_lines=(${log_lines[@]})
+
+  local log_level_uc="$(echo "${log_level}" | tr '[:lower:]' '[:upper:]')"
+  local log_line=""
+
+  for log_line in "${log_lines[@]:-}"; do
+    echo -e "$(date -u +"%Y-%m-%d %H:%M:%S UTC") ${color}$(printf "[%9s]" ${log_level_uc})${color_reset} $log_line" 1>&2
+  done
 }
-function emergency () {                             echo "$(_fmt emergency) ${@}" 1>&2 || true; exit 1; }
-function alert ()     { [ "${LOG_LEVEL}" -ge 1 ] && echo "$(_fmt alert) ${@}" 1>&2 || true; }
-function critical ()  { [ "${LOG_LEVEL}" -ge 2 ] && echo "$(_fmt critical) ${@}" 1>&2 || true; }
-function error ()     { [ "${LOG_LEVEL}" -ge 3 ] && echo "$(_fmt error) ${@}" 1>&2 || true; }
-function warning ()   { [ "${LOG_LEVEL}" -ge 4 ] && echo "$(_fmt warning) ${@}" 1>&2 || true; }
-function notice ()    { [ "${LOG_LEVEL}" -ge 5 ] && echo "$(_fmt notice) ${@}" 1>&2 || true; }
-function info ()      { [ "${LOG_LEVEL}" -ge 6 ] && echo "$(_fmt info) ${@}" 1>&2 || true; }
-function debug ()     { [ "${LOG_LEVEL}" -ge 7 ] && echo "$(_fmt debug) ${@}" 1>&2 || true; }
+
+function emergency () {                                $(_fmt emergency "${@}") || true; exit 1; }
+function alert ()     { [ "${LOG_LEVEL:-0}" -ge 1 ] && $(_fmt alert "${@}") || true; }
+function critical ()  { [ "${LOG_LEVEL:-0}" -ge 2 ] && $(_fmt critical "${@}") || true; }
+function error ()     { [ "${LOG_LEVEL:-0}" -ge 3 ] && $(_fmt error "${@}") || true; }
+function warning ()   { [ "${LOG_LEVEL:-0}" -ge 4 ] && $(_fmt warning "${@}") || true; }
+function notice ()    { [ "${LOG_LEVEL:-0}" -ge 5 ] && $(_fmt notice "${@}") || true; }
+function info ()      { [ "${LOG_LEVEL:-0}" -ge 6 ] && $(_fmt info "${@}") || true; }
+function debug ()     { [ "${LOG_LEVEL:-0}" -ge 7 ] && $(_fmt debug "${@}") || true; }
 
 function help () {
   echo "" 1>&2
