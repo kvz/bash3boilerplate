@@ -58,22 +58,11 @@ function __b3bp_log () {
   fi
 
   # all remaining arguments are to be printed
-  local log_lines=("$@")
-
-  # empty lines in the beginning and in the middle should be printed as-is
-  # put a space at the end so the splitting by line later on doesn't drop it
-  for (( i=0; i < ${#log_lines[@]}; i++ )); do
-    log_lines[$i]="${log_lines[$i]//$'\n'/ $'\n'}"
-  done
-
-  # split string into lines by \n only
-  IFS=$'\n' log_lines=(${log_lines[@]})
-
   local log_line=""
 
-  for log_line in "${log_lines[@]:-}"; do
+  while IFS=$'\n' read -r log_line; do
     echo -e "$(date -u +"%Y-%m-%d %H:%M:%S UTC") ${color}$(printf "[%9s]" ${log_level})${color_reset} $log_line" 1>&2
-  done
+  done <<< "${@:-}"
 }
 
 function emergency () {                                $(__b3bp_log emergency "${@}") || true; exit 1; }
