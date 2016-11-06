@@ -259,6 +259,8 @@ info "arg_d: ${arg_d}"
 info "arg_v: ${arg_v}"
 info "arg_h: ${arg_h}"
 
+info "$(echo -e "multiple lines example - line #1\nmultiple lines example - line #2\nimagine logging the output of 'ls -al /path/'")"
+
 # All of these go to STDERR, so you can use STDOUT for piping machine readable information to other software
 debug "Info useful to developers for debugging the application, not useful during operations."
 info "Normal operational messages - may be harvested for reporting, measuring throughput, etc. - no action required."
