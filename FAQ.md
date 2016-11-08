@@ -145,3 +145,20 @@ else
   echo "Unknown."
 fi
 ```
+
+## How do I access a potentially unset (environment) variable?
+
+The set -o nounset line in main.sh causes error termination when an unset environment variables is detected as unbound. There are multiple ways to avoid this.
+
+Some code to illustrate:
+
+```bash
+# method 1
+echo ${NAME1:-Damian} # echos Damian, $NAME1 is still unset
+# method 2
+echo ${NAME2:=Damian} # echos Damian, $NAME2 is set to Damian
+# method 3
+NAME3=${NAME3:-Damian}; echo ${NAME3} # echos Damian, $NAME3 is set to Damian
+```
+
+This subject is briefly touched on as well in the Safety and Portability section under point 5. b3bp currently uses [method 1](https://github.com/kvz/bash3boilerplate/blob/master/main.sh#L85) when we want to access a variable that could be undeclared, and [method 3](https://github.com/kvz/bash3boilerplate/blob/master/main.sh#L46) when we also want to set a default to an undeclared variable, because we feel it is more readable than method 2. We feel `:=` is easily overlooked, and not very beginner friendly. Method 3 seems more explicit in that regard in our humble opinion.
