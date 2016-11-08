@@ -35,7 +35,10 @@ NO_COLOR="${NO_COLOR:-}"    # true = disable color. otherwise autodetected
 ### Functions
 ##############################################################################
 
-function _fmt ()      {
+function __b3bp_log () {
+  local log_level="${1}"
+  shift
+
   local color_debug="\x1b[35m"
   local color_info="\x1b[32m"
   local color_notice="\x1b[34m"
@@ -44,24 +47,32 @@ function _fmt ()      {
   local color_critical="\x1b[1;31m"
   local color_alert="\x1b[1;33;41m"
   local color_emergency="\x1b[1;4;5;33;41m"
-  local colorvar=color_$1
+  local colorvar="color_${log_level}"
 
   local color="${!colorvar:-$color_error}"
   local color_reset="\x1b[0m"
+
   if [ "${NO_COLOR}" = "true" ] || [[ "${TERM:-}" != "xterm"* ]] || [ -t 1 ]; then
     # Don't use colors on pipes or non-recognized terminals
     color=""; color_reset=""
   fi
-  echo -e "$(date -u +"%Y-%m-%d %H:%M:%S UTC") ${color}$(printf "[%9s]" ${1})${color_reset}";
+
+  # all remaining arguments are to be printed
+  local log_line=""
+
+  while IFS=$'\n' read -r log_line; do
+    echo -e "$(date -u +"%Y-%m-%d %H:%M:%S UTC") ${color}$(printf "[%9s]" ${log_level})${color_reset} $log_line" 1>&2
+  done <<< "${@:-}"
 }
-function emergency () {                             echo "$(_fmt emergency) ${@}" 1>&2 || true; exit 1; }
-function alert ()     { [ "${LOG_LEVEL}" -ge 1 ] && echo "$(_fmt alert) ${@}" 1>&2 || true; }
-function critical ()  { [ "${LOG_LEVEL}" -ge 2 ] && echo "$(_fmt critical) ${@}" 1>&2 || true; }
-function error ()     { [ "${LOG_LEVEL}" -ge 3 ] && echo "$(_fmt error) ${@}" 1>&2 || true; }
-function warning ()   { [ "${LOG_LEVEL}" -ge 4 ] && echo "$(_fmt warning) ${@}" 1>&2 || true; }
-function notice ()    { [ "${LOG_LEVEL}" -ge 5 ] && echo "$(_fmt notice) ${@}" 1>&2 || true; }
-function info ()      { [ "${LOG_LEVEL}" -ge 6 ] && echo "$(_fmt info) ${@}" 1>&2 || true; }
-function debug ()     { [ "${LOG_LEVEL}" -ge 7 ] && echo "$(_fmt debug) ${@}" 1>&2 || true; }
+
+function emergency () {                                $(__b3bp_log emergency "${@}") || true; exit 1; }
+function alert ()     { [ "${LOG_LEVEL:-0}" -ge 1 ] && $(__b3bp_log alert "${@}") || true; }
+function critical ()  { [ "${LOG_LEVEL:-0}" -ge 2 ] && $(__b3bp_log critical "${@}") || true; }
+function error ()     { [ "${LOG_LEVEL:-0}" -ge 3 ] && $(__b3bp_log error "${@}") || true; }
+function warning ()   { [ "${LOG_LEVEL:-0}" -ge 4 ] && $(__b3bp_log warning "${@}") || true; }
+function notice ()    { [ "${LOG_LEVEL:-0}" -ge 5 ] && $(__b3bp_log notice "${@}") || true; }
+function info ()      { [ "${LOG_LEVEL:-0}" -ge 6 ] && $(__b3bp_log info "${@}") || true; }
+function debug ()     { [ "${LOG_LEVEL:-0}" -ge 7 ] && $(__b3bp_log debug "${@}") || true; }
 
 function help () {
   echo "" 1>&2
@@ -253,6 +264,8 @@ info "arg_f: ${arg_f}"
 info "arg_d: ${arg_d}"
 info "arg_v: ${arg_v}"
 info "arg_h: ${arg_h}"
+
+info "$(echo -e "multiple lines example - line #1\nmultiple lines example - line #2\nimagine logging the output of 'ls -al /path/'")"
 
 # All of these go to STDERR, so you can use STDOUT for piping machine readable information to other software
 debug "Info useful to developers for debugging the application, not useful during operations."

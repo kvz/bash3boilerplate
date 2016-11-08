@@ -8,6 +8,9 @@ ACCPTST:STDIO_REPLACE_DATETIMES
 {datetime} UTC [32m[     info][0m arg_d: 0
 {datetime} UTC [32m[     info][0m arg_v: 0
 {datetime} UTC [32m[     info][0m arg_h: 0
+{datetime} UTC [32m[     info][0m multiple lines example - line #1
+{datetime} UTC [32m[     info][0m multiple lines example - line #2
+{datetime} UTC [32m[     info][0m imagine logging the output of 'ls -al /path/'
 {datetime} UTC [35m[    debug][0m Info useful to developers for debugging the application, not useful during operations.
 {datetime} UTC [32m[     info][0m Normal operational messages - may be harvested for reporting, measuring throughput, etc. - no action required.
 {datetime} UTC [34m[   notice][0m Events that are unusual but not error conditions - might be summarized in an email to developers or admins to spot potential problems - no immediate action required.
