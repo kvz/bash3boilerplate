@@ -23,6 +23,14 @@ Released: Unreleased. [Commit log](https://github.com/kvz/bash3boilerplate/compa
 - Fix Travis OSX testing (before, it would silently pass failures) (#10)
 - Enable dashes in long, GNU style options, as well as numbers (thanks @zbeekman)
 
+## v2.1.0
+
+Released: 2016-11-08. [Commit log](https://github.com/kvz/bash3boilerplate/compare/v2.0.0...v2.1.0)
+
+- Cleanup b3bp variables (adds prefixes across the board) (thanks @mstreuhofer)
+- Add multi-line logging support (thanks @mstreuhofer)
+- Mangle long-option names to allow dashes (thanks @zbeekman)
+
 ## v2.0.0
 
 Released: 2016-02-17. [Commit log](https://github.com/kvz/bash3boilerplate/compare/v1.2.1...v2.0.0)
