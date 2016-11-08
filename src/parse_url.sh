@@ -18,7 +18,7 @@
 #
 #  parse_url.sh 'http://johndoe:abc123@example.com:8080/index.html'
 #
-# Based on a template by BASH3 Boilerplate v2.0.0
+# Based on a template by BASH3 Boilerplate v2.1.0
 # Copyright (c) 2013 Kevin van Zonneveld and contributors
 # http://bash3boilerplate.sh/#authors
 

@@ -18,7 +18,7 @@
 #
 #  ini_val.sh data.ini connection.host 127.0.0.1
 #
-# Based on a template by BASH3 Boilerplate v2.0.0
+# Based on a template by BASH3 Boilerplate v2.1.0
 # Copyright (c) 2013 Kevin van Zonneveld and contributors
 # http://bash3boilerplate.sh/#authors
 
