@@ -1,7 +1,7 @@
 {
   "name": "bash3boilerplate",
   "description": "Copypastable templates to write better bash scripts",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "scripts": {
     "deploy": "website/_bin/travis-deploy.sh",
     "lint": "shellcheck --shell=bash $(find . -name '*.sh' -maxdepth 2)",
