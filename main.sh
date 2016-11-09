@@ -43,7 +43,8 @@ __base="$(basename ${__file} .sh)"
 
 # Define the environment variables (and their defaults) that this script depends on
 LOG_LEVEL="${LOG_LEVEL:-6}" # 7 = debug -> 0 = emergency
-NO_COLOR="${NO_COLOR:-}"    # true = disable color. otherwise autodetected
+NO_COLOR="${NO_COLOR:-}" # true = disable color. otherwise autodetected
+USAGE_VALIDATION="${USAGE_VALIDATION:-}" # true = check for all required arguments
 
 
 ### Functions
@@ -138,9 +139,13 @@ while read __b3bp_tmp_line; do
   __b3bp_tmp_long_opt="$(echo "${__b3bp_tmp_line}" |awk '/\-\-/ {print $2}' |sed -e 's#^--##')"
   __b3bp_tmp_long_opt_mangled="$(sed 's#-#_#g' <<< $__b3bp_tmp_long_opt)"
 
-  # map long name back to short name
-  __b3bp_tmp_varname="__b3bp_tmp_short_opt_${__b3bp_tmp_long_opt_mangled}"
+  # map opt long name to short name
+  __b3bp_tmp_varname="__b3bp_tmp_opt_long2short_${__b3bp_tmp_long_opt_mangled}"
   eval "${__b3bp_tmp_varname}=\"${__b3bp_tmp_opt}\""
+
+  # map opt short name to long name
+  __b3bp_tmp_varname="__b3bp_tmp_opt_short2long_${__b3bp_tmp_opt}"
+  eval "${__b3bp_tmp_varname}=\"${__b3bp_tmp_long_opt_mangled}\""
 
   # check if option takes an argument
   __b3bp_tmp_varname="__b3bp_tmp_has_arg_${__b3bp_tmp_opt}"
@@ -173,7 +178,7 @@ if [ -n "${__b3bp_tmp_opts:-}" ]; then
 
   # start parsing command line
   set +o nounset # unexpected arguments will cause unbound variables
-		 # to be dereferenced
+                 # to be dereferenced
   # Overwrite $arg_<flag> defaults with the actual CLI options
   while getopts "${__b3bp_tmp_opts}" __b3bp_tmp_opt; do
     [ "${__b3bp_tmp_opt}" = "?" ] && help "Invalid use of script: ${@} "
@@ -181,21 +186,21 @@ if [ -n "${__b3bp_tmp_opts:-}" ]; then
     if [ "${__b3bp_tmp_opt}" = "-" ]; then
       # OPTARG is long-option-name or long-option=value
       if [[ "${OPTARG}" =~ .*=.* ]]; then
-	# --key=value format
-	__b3bp_tmp_long_opt=${OPTARG/=*/}
-	__b3bp_tmp_long_opt_mangled="$(sed 's#-#_#g' <<< $__b3bp_tmp_long_opt)"
-	# Set opt to the short option corresponding to the long option
-	eval "__b3bp_tmp_opt=\"\${__b3bp_tmp_short_opt_${__b3bp_tmp_long_opt_mangled}}\""
-	OPTARG=${OPTARG#*=}
+        # --key=value format
+        __b3bp_tmp_long_opt=${OPTARG/=*/}
+        __b3bp_tmp_long_opt_mangled="$(sed 's#-#_#g' <<< $__b3bp_tmp_long_opt)"
+        # Set opt to the short option corresponding to the long option
+        eval "__b3bp_tmp_opt=\"\${__b3bp_tmp_opt_long2short_${__b3bp_tmp_long_opt_mangled}}\""
+        OPTARG=${OPTARG#*=}
       else
-	# --key value format
-	# Map long name to short version of option
-	__b3bp_tmp_long_opt_mangled="$(sed 's#-#_#g' <<< $OPTARG)"
-	eval "__b3bp_tmp_opt=\"\${__b3bp_tmp_short_opt_${__b3bp_tmp_long_opt_mangled}}\""
-	# Only assign OPTARG if option takes an argument
-	eval "OPTARG=\"\${@:OPTIND:\${__b3bp_tmp_has_arg_${__b3bp_tmp_opt}}}\""
-	# shift over the argument if argument is expected
-	((OPTIND+=__b3bp_tmp_has_arg_${__b3bp_tmp_opt}))
+        # --key value format
+        # Map long name to short version of option
+        __b3bp_tmp_long_opt_mangled="$(sed 's#-#_#g' <<< $OPTARG)"
+        eval "__b3bp_tmp_opt=\"\${__b3bp_tmp_opt_long2short_${__b3bp_tmp_long_opt_mangled}}\""
+        # Only assign OPTARG if option takes an argument
+        eval "OPTARG=\"\${@:OPTIND:\${__b3bp_tmp_has_arg_${__b3bp_tmp_opt}}}\""
+        # shift over the argument if argument is expected
+        ((OPTIND+=__b3bp_tmp_has_arg_${__b3bp_tmp_opt}))
       fi
       # we have set opt/OPTARG to the short value and the argument as OPTARG if it exists
     fi
@@ -215,6 +220,29 @@ if [ -n "${__b3bp_tmp_opts:-}" ]; then
   shift $((OPTIND-1))
 
   [ "${1:-}" = "--" ] && shift
+fi
+
+
+### Automatic validation of option arguments (only if explicitly requested)
+##############################################################################
+
+if [ "${USAGE_VALIDATION:-}" = "true" ]; then
+  for __b3bp_tmp_varname in ${!__b3bp_tmp_has_arg_*}; do
+    __b3bp_tmp_opt_short="${__b3bp_tmp_varname##*_}"
+    eval "__b3bp_tmp_opt_long=\"\${__b3bp_tmp_opt_short2long_${__b3bp_tmp_opt_short}}\""
+
+    __b3bp_tmp_varname="__b3bp_tmp_has_arg_${__b3bp_tmp_opt_short}"
+    eval "__b3bp_tmp_opt_has_arg=\"\$${__b3bp_tmp_varname}\""
+
+    __b3bp_tmp_varname="arg_${__b3bp_tmp_opt_short}"
+    eval "__b3bp_tmp_opt_arg_value=\"\$${__b3bp_tmp_varname}\""
+
+    if [ "${__b3bp_tmp_opt_has_arg}" = "1" -a -z "${__b3bp_tmp_opt_arg_value}" ]; then
+      __b3bp_tmp_opt_long_mangled="$(sed 's#_#-#g' <<< $__b3bp_tmp_opt_long)"
+      [ -n "${__b3bp_tmp_opt_long}" ] && __b3bp_tmp_opt_long_mangled=" (--${__b3bp_tmp_opt_long_mangled})"
+      help "Option -${__b3bp_tmp_opt_short}${__b3bp_tmp_opt_long_mangled} requires an argument"
+    fi
+  done
 fi
 
 
