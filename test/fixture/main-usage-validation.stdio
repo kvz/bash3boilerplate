@@ -1,0 +1,16 @@
+ACCPTST:STDIO_REPLACE_DATETIMES
+
+ Option -f (--file) requires an argument
+
+  -f --file  [arg] Filename to process. Required.
+  -t --temp  [arg] Location of tempfile. Default="{tmpdir}/bar"
+  -v               Enable verbose mode, print script as it is executed
+  -d --debug       Enables debug mode
+  -h --help        This page
+  -n --no-color    Disable color output
+  -1 --one         Do just one thing
+
+ This is Bash3 Boilerplate's help text. Feel free to add any description of your
+ program or elaborate more on command-line arguments. This section is not
+ parsed and will be added as-is to the help.
+
