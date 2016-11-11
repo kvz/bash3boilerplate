@@ -53,9 +53,10 @@ body.background-4 #header-overlay {
 
 #logo {
   display: block;
-  background: url(images/logo.png) center;
+  background: url(images/b3bp-logo.png) center;
+  background-repeat: no-repeat;
   background-size: contain;
-  width: 200px;
+  width: 180px;
   height: 120px;
   position: absolute;
   top: 50%;
