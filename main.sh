@@ -131,36 +131,44 @@ EOF
 
 # Translate usage string -> getopts arguments, and set $arg_<flag> defaults
 while read __b3bp_tmp_line; do
-  # fetch single character version of option string
-  __b3bp_tmp_opt="$(echo "${__b3bp_tmp_line}" |awk '{print $1}' |sed -e 's#^-##')"
+  if echo "${__b3bp_tmp_line}" |egrep '^-' >/dev/null 2>&1; then
+    # fetch single character version of option string
+    __b3bp_tmp_opt="$(echo "${__b3bp_tmp_line}" |awk '{print $1}' |sed -e 's#^-##')"
 
-  # fetch long version if present
-  __b3bp_tmp_long_opt="$(echo "${__b3bp_tmp_line}" |awk '/\-\-/ {print $2}' |sed -e 's#^--##')"
-  __b3bp_tmp_long_opt_mangled="$(sed 's#-#_#g' <<< $__b3bp_tmp_long_opt)"
+    # fetch long version if present
+    __b3bp_tmp_long_opt="$(echo "${__b3bp_tmp_line}" |awk '/\-\-/ {print $2}' |sed -e 's#^--##')"
+    __b3bp_tmp_long_opt_mangled="$(sed 's#-#_#g' <<< $__b3bp_tmp_long_opt)"
 
-  # map long name back to short name
-  __b3bp_tmp_varname="__b3bp_tmp_short_opt_${__b3bp_tmp_long_opt_mangled}"
-  eval "${__b3bp_tmp_varname}=\"${__b3bp_tmp_opt}\""
+    # map long name back to short name
+    __b3bp_tmp_varname="__b3bp_tmp_short_opt_${__b3bp_tmp_long_opt_mangled}"
+    eval "${__b3bp_tmp_varname}=\"${__b3bp_tmp_opt}\""
 
-  # check if option takes an argument
-  __b3bp_tmp_varname="__b3bp_tmp_has_arg_${__b3bp_tmp_opt}"
-  if ! echo "${__b3bp_tmp_line}" |egrep '\[.*\]' >/dev/null 2>&1; then
-    __b3bp_tmp_init="0" # it's a flag. init with 0
-    eval "${__b3bp_tmp_varname}=0"
-  else
-    __b3bp_tmp_opt="${__b3bp_tmp_opt}:" # add : if opt has arg
-    __b3bp_tmp_init=""  # it has an arg. init with ""
-    eval "${__b3bp_tmp_varname}=1"
+    # check if option takes an argument
+    __b3bp_tmp_varname="__b3bp_tmp_has_arg_${__b3bp_tmp_opt}"
+    if ! echo "${__b3bp_tmp_line}" |egrep '\[.*\]' >/dev/null 2>&1; then
+      __b3bp_tmp_init="0" # it's a flag. init with 0
+      eval "${__b3bp_tmp_varname}=0"
+    else
+      __b3bp_tmp_opt="${__b3bp_tmp_opt}:" # add : if opt has arg
+      __b3bp_tmp_init=""  # it has an arg. init with ""
+      eval "${__b3bp_tmp_varname}=1"
+    fi
+    __b3bp_tmp_opts="${__b3bp_tmp_opts:-}${__b3bp_tmp_opt}"
   fi
-  __b3bp_tmp_opts="${__b3bp_tmp_opts:-}${__b3bp_tmp_opt}"
+
+  [ -z "${__b3bp_tmp_opt:-}" ] && continue
+
+  if echo "${__b3bp_tmp_line}" |egrep '\. Default=' >/dev/null 2>&1; then
+    # ignore default value if option does not have an argument
+    __b3bp_tmp_varname="__b3bp_tmp_has_arg_${__b3bp_tmp_opt:0:1}"
+
+    if [ "${!__b3bp_tmp_varname}" = "1" ]; then
+      __b3bp_tmp_init="$(echo "${__b3bp_tmp_line}" |sed 's#^.*Default=\(\)#\1#g')"
+    fi
+  fi
 
   __b3bp_tmp_varname="arg_${__b3bp_tmp_opt:0:1}"
-  if ! echo "${__b3bp_tmp_line}" |egrep '\. Default=' >/dev/null 2>&1; then
-    eval "${__b3bp_tmp_varname}=\"${__b3bp_tmp_init}\""
-  else
-    __b3bp_tmp_match="$(echo "${__b3bp_tmp_line}" |sed 's#^.*Default=\(\)#\1#g')"
-    eval "${__b3bp_tmp_varname}=\"${__b3bp_tmp_match}\""
-  fi
+  eval "${__b3bp_tmp_varname}=\"${__b3bp_tmp_init}\""
 done <<< "${__usage:-}"
 
 # run getopts only if options were specified in __usage
