@@ -1,0 +1,7 @@
+ACCPTST:STDIO_REPLACE_DATETIMES
+{datetime} UTC [32m[     info][0m arg_1: 0
+{datetime} UTC [32m[     info][0m arg_2: 0
+{datetime} UTC [32m[     info][0m arg_3: THREE
+{datetime} UTC [32m[     info][0m arg_4: FOUR
+{datetime} UTC [32m[     info][0m arg_5: OOOPS
+{datetime} UTC [32m[     info][0m arg_6: 
