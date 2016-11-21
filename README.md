@@ -9,8 +9,9 @@
 * [Features](#features)
 * [Installation](#installation)
 * [Changelog](#changelog)
-* [Best Practices](#best-practices)
 * [Frequently Asked Questions](#frequently-asked-questions)
+* [Best Practices](#best-practices)
+* [Who uses b3bp](#who-uses-b3bp)
 * [Authors](#authors)
 * [License](#license)
 
@@ -27,9 +28,11 @@ When hacking up Bash scripts, there are often things such as logging or command-
 Here's an attempt to bundle those things in a generalized way so that
 they are reusable as-is in most scripts.
 
+We call it "BASH3 Boilerplate" or b3bp for short.
+
 ## Goals
 
-Delete-Key-**Friendly**. Instead of introducing packages, includes, compilers, etc., we propose using [`main.sh`](http://bash3boilerplate.sh/main.sh) as a base and removing the parts you don't need. 
+Delete-Key-**Friendly**. Instead of introducing packages, includes, compilers, etc., we propose using [`main.sh`](http://bash3boilerplate.sh/main.sh) as a base and removing the parts you don't need.
 While this may feel a bit archaic at first, it is exactly the strength of Bash scripts that we should want to embrace.
 
 **Portable**. We are targeting Bash 3 (OSX still ships
@@ -46,20 +49,11 @@ dependency.
 - Helpful magic variables like `__file` and `__dir`
 - Logging that supports colors and is compatible with [Syslog Severity levels](http://en.wikipedia.org/wiki/Syslog#Severity_levels), as well as the [twelve-factor](http://12factor.net/) guidelines
 
-## Who uses b3bp?
-
-- [Transloadit](https://transloadit.com)
-- [OpenCoarrays](http://www.opencoarrays.org)
-- [Sourcery Institute](http://www.sourceryinstitute.org)
-- [Computational Brain Anatomy Laboratory](http://cobralab.ca/)
-
-We are looking for endorsements! Are you also using b3bp? [Let us know](https://github.com/kvz/bash3boilerplate/issues/new?title=I%20use%20b3bp) and get listed.
-
 ## Installation
 
 There are three different ways to install b3bp:
 
-### option 1: Download the main template
+### Option 1: Download the main template
 
 Use curl or wget to download the source and save it as your script. Then you can start deleting the unwanted bits, and adding your own logic.
 
@@ -68,7 +62,7 @@ wget http://bash3boilerplate.sh/main.sh
 vim main.sh
 ```
 
-### option 2: Clone the entire project
+### Option 2: Clone the entire project
 
 Besides `main.sh`, this will also get you the entire b3bp repository. This includes a few extra functions that we keep in the `./src` directory.
 
@@ -76,7 +70,7 @@ Besides `main.sh`, this will also get you the entire b3bp repository. This inclu
 git clone git@github.com:kvz/bash3boilerplate.git
 ```
 
-### option 3: Require via npm0
+### Option 3: Require via npm
 
 As of `v1.0.3`, b3bp can also be installed as a Node module, meaning you can define it as a dependency in `package.json` via:
 
@@ -90,6 +84,10 @@ Even though this option introduces a Node.js dependency, it does allow for easy 
 ## Changelog
 
 Please see the [CHANGELOG.md](./CHANGELOG.md) file.
+
+## Frequently Asked Questions
+
+Please see the [FAQ.md](./FAQ.md) file.
 
 ## Best practices
 
@@ -129,7 +127,7 @@ $ my_script some more args --blah
 ### Coding style
 
 1. Use two spaces for tabs.
-1. Use long options (`logger --priority` vs `logger -p`). If you are on cli, abbreviations make sense for efficiency. Nevertheless, when you are writing reusable scripts, a few extra keystrokes will pay off in readability and avoid ventures into man pages in the future, either by you or your collaborators. Similarly, we prefer `set -o nounset` over `set -u`.
+1. Use long options (`logger --priority` vs `logger -p`). If you are on the CLI, abbreviations make sense for efficiency. Nevertheless, when you are writing reusable scripts, a few extra keystrokes will pay off in readability and avoid ventures into man pages in the future, either by you or your collaborators. Similarly, we prefer `set -o nounset` over `set -u`.
 1. Use a single equal sign when checking `if [ "${NAME}" = "Kevin" ]`; double or triple signs are not needed.
 
 ### Safety and Portability
@@ -140,15 +138,21 @@ $ my_script some more args --blah
 1. Use `${BASH_SOURCE[0]}` if you refer to current file, even if it is sourced by a parent script. In other cases, use `${0}`.
 1. Use `:-` if you want to test variables that could be undeclared. For instance, with `if [ "${NAME:-}" = "Kevin" ]`, `$NAME` will evaluate to `Kevin` if the variable is empty. The variable itself will remain unchanged. The syntax to assign a default value is `${NAME:=Kevin}`.
 
-## Frequently Asked Questions
+## Who uses b3bp?
 
-Please see the [FAQ.md](./FAQ.md) file.
+- [Transloadit](https://transloadit.com)
+- [OpenCoarrays](http://www.opencoarrays.org)
+- [Sourcery Institute](http://www.sourceryinstitute.org)
+- [Computational Brain Anatomy Laboratory](http://cobralab.ca/)
+
+We are looking for endorsements! Are you also using b3bp? [Let us know](https://github.com/kvz/bash3boilerplate/issues/new?title=I%20use%20b3bp) and get listed.
 
 ## Authors
 
 - [Kevin van Zonneveld](http://kvz.io)
 - [Izaak Beekman](https://izaakbeekman.com/)
-- [Alexander Rathai](mailto:<Alexander.Rathai@gmail.com>)
+- [Manuel Streuhofer](https://github.com/mstreuhofer)
+- [Alexander Rathai](mailto:Alexander.Rathai@gmail.com)
 - [Dr. Damian Rouson](http://www.sourceryinstitute.org/) (documentation, feedback)
 - [@jokajak](https://github.com/jokajak) (documentation)
 - [Gabriel A. Devenyi](http://staticwave.ca/) (feedback)
