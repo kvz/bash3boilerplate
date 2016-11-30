@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "fakefile": "0.0.6",
-    "lanyon": "0.0.12"
+    "lanyon": "0.0.13"
   },
   "devDependencies": {
     "browser-sync": "2.11.0",
