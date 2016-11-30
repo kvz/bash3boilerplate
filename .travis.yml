@@ -1,4 +1,4 @@
-language: generic
+node_js: 6
 matrix:
   include:
   - os: linux

@@ -20,3 +20,6 @@ website/assets/build
 website/.lanyon
 website/.lanyon/vendor/bin
 website/.lanyon/bin
+assets/build
+.lanyon
+.lanyon/bin
