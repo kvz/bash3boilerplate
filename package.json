@@ -3,7 +3,6 @@
   "description": "Copypastable templates to write better bash scripts",
   "version": "2.1.0",
   "scripts": {
-    "deploy": "website/_scripts/deploy.sh",
     "lint": "shellcheck --shell=bash $(find . -name '*.sh' -maxdepth 2)",
     "release:major": "env SEMANTIC=major npm run release",
     "release:minor": "env SEMANTIC=minor npm run release",
@@ -16,6 +15,8 @@
     "web:build:production": "LANYON_ENV=production lanyon build",
     "web:serve:production": "LANYON_ENV=production lanyon serve",
     "web:build": "lanyon build",
+    "web:encrypt": "lanyon encrypt",
+    "web:deploy": "lanyon deploy",
     "web:inject": "./website/_scripts/inject.sh",
     "web:injecter": "nodemon --verbose --watch ./  --ignore 'website/*.md' --ignore website/_site --ignore website/.lanyon --ext html,json,md,js,css,png,jpg --exec 'npm run web:inject'",
     "web:start:production": "npm-run-all web:inject web:build:production web:serve:production",
