@@ -20,7 +20,7 @@ if (!background) {
 
 // Body class for background.
 var el = document.getElementById('header-overlay')
-el.style.backgroundImage = 'url(/public/images/' + background + '.jpg)'
+el.style.backgroundImage = 'url(/assets/images/' + background + '.jpg)'
 
 // Attach class to #menu element depending on page offset.
 document.addEventListener('DOMContentLoaded', chooseMenuColor)
