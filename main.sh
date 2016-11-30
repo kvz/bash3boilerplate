@@ -15,7 +15,7 @@
 # You are not obligated to bundle the LICENSE file with your b3bp projects as long
 # as you leave these references intact in the header comments of your source files.
 
-# Exit on error. Append || true if you expect an error.
+# Exit on error. Append "|| true" if you expect an error.
 set -o errexit
 # Exit on error inside any functions or subshells.
 set -o errtrace
@@ -27,19 +27,19 @@ set -o pipefail
 # set -o xtrace
 
 if [ "${BASH_SOURCE[0]}" != "${0}" ]; then
-  if [ ! -z ${__usage+x} ]; then
+  if [ ! -z "${__usage+x}" ]; then
     __b3bp_external_usage="true"
     __b3bp_tmp_source_idx=1
   fi
 else
-  [ ! -z ${__usage+x} ] && unset __usage
-  [ ! -z ${__helptext+x} ] && unset __helptext
+  [ ! -z "${__usage+x}" ] && unset __usage
+  [ ! -z "${__helptext+x}" ] && unset __helptext
 fi
 
 # Set magic variables for current file, directory, os, etc.
 __dir="$(cd "$(dirname "${BASH_SOURCE[${__b3bp_tmp_source_idx:-0}]}")" && pwd)"
 __file="${__dir}/$(basename "${BASH_SOURCE[${__b3bp_tmp_source_idx:-0}]}")"
-__base="$(basename ${__file} .sh)"
+__base="$(basename "${__file}" .sh)"
 
 # Define the environment variables (and their defaults) that this script depends on
 LOG_LEVEL="${LOG_LEVEL:-6}" # 7 = debug -> 0 = emergency
@@ -53,14 +53,23 @@ function __b3bp_log () {
   local log_level="${1}"
   shift
 
+  # shellcheck disable=SC2034
   local color_debug="\x1b[35m"
+  # shellcheck disable=SC2034
   local color_info="\x1b[32m"
+  # shellcheck disable=SC2034
   local color_notice="\x1b[34m"
+  # shellcheck disable=SC2034
   local color_warning="\x1b[33m"
+  # shellcheck disable=SC2034
   local color_error="\x1b[31m"
+  # shellcheck disable=SC2034
   local color_critical="\x1b[1;31m"
+  # shellcheck disable=SC2034
   local color_alert="\x1b[1;33;41m"
+  # shellcheck disable=SC2034
   local color_emergency="\x1b[1;4;5;33;41m"
+
   local colorvar="color_${log_level}"
 
   local color="${!colorvar:-$color_error}"
@@ -75,22 +84,22 @@ function __b3bp_log () {
   local log_line=""
 
   while IFS=$'\n' read -r log_line; do
-    echo -e "$(date -u +"%Y-%m-%d %H:%M:%S UTC") ${color}$(printf "[%9s]" ${log_level})${color_reset} $log_line" 1>&2
+    echo -e "$(date -u +"%Y-%m-%d %H:%M:%S UTC") ${color}$(printf "[%9s]" "${log_level}")${color_reset} $log_line" 1>&2
   done <<< "${@:-}"
 }
 
-function emergency () {                                $(__b3bp_log emergency "${@}") || true; exit 1; }
-function alert ()     { [ "${LOG_LEVEL:-0}" -ge 1 ] && $(__b3bp_log alert "${@}") || true; }
-function critical ()  { [ "${LOG_LEVEL:-0}" -ge 2 ] && $(__b3bp_log critical "${@}") || true; }
-function error ()     { [ "${LOG_LEVEL:-0}" -ge 3 ] && $(__b3bp_log error "${@}") || true; }
-function warning ()   { [ "${LOG_LEVEL:-0}" -ge 4 ] && $(__b3bp_log warning "${@}") || true; }
-function notice ()    { [ "${LOG_LEVEL:-0}" -ge 5 ] && $(__b3bp_log notice "${@}") || true; }
-function info ()      { [ "${LOG_LEVEL:-0}" -ge 6 ] && $(__b3bp_log info "${@}") || true; }
-function debug ()     { [ "${LOG_LEVEL:-0}" -ge 7 ] && $(__b3bp_log debug "${@}") || true; }
+function emergency () {                                $(__b3bp_log emergency "${@}"); exit 1; }
+function alert ()     { [ "${LOG_LEVEL:-0}" -ge 1 ] && $(__b3bp_log alert "${@}"); true; }
+function critical ()  { [ "${LOG_LEVEL:-0}" -ge 2 ] && $(__b3bp_log critical "${@}"); true; }
+function error ()     { [ "${LOG_LEVEL:-0}" -ge 3 ] && $(__b3bp_log error "${@}"); true; }
+function warning ()   { [ "${LOG_LEVEL:-0}" -ge 4 ] && $(__b3bp_log warning "${@}"); true; }
+function notice ()    { [ "${LOG_LEVEL:-0}" -ge 5 ] && $(__b3bp_log notice "${@}"); true; }
+function info ()      { [ "${LOG_LEVEL:-0}" -ge 6 ] && $(__b3bp_log info "${@}"); true; }
+function debug ()     { [ "${LOG_LEVEL:-0}" -ge 7 ] && $(__b3bp_log debug "${@}"); true; }
 
 function help () {
   echo "" 1>&2
-  echo " ${@}" 1>&2
+  echo " ${*}" 1>&2
   echo "" 1>&2
   echo "  ${__usage:-No usage available}" 1>&2
   echo "" 1>&2
@@ -114,7 +123,9 @@ function help () {
 # - `--` is respected as the separator between options and arguments
 # - We do not bash-expand defaults, so setting '~/app' as a default will not resolve to ${HOME}.
 #   you can use bash variables to work around this (so use ${HOME} instead)
-[ -z ${__usage+x} ] && read -r -d '' __usage <<-'EOF' || true # exits non-zero when EOF encountered
+
+# shellcheck disable=SC2015
+[ -z "${__usage+x}" ] && read -r -d '' __usage <<-'EOF' || true # exits non-zero when EOF encountered
   -f --file  [arg] Filename to process. Required.
   -t --temp  [arg] Location of tempfile. Default="/tmp/bar"
   -v               Enable verbose mode, print script as it is executed
@@ -123,21 +134,23 @@ function help () {
   -n --no-color    Disable color output
   -1 --one         Do just one thing
 EOF
-[ -z ${__helptext+x} ] && read -r -d '' __helptext <<-'EOF' || true # exits non-zero when EOF encountered
+
+# shellcheck disable=SC2015
+[ -z "${__helptext+x}" ] && read -r -d '' __helptext <<-'EOF' || true # exits non-zero when EOF encountered
  This is Bash3 Boilerplate's help text. Feel free to add any description of your
  program or elaborate more on command-line arguments. This section is not
  parsed and will be added as-is to the help.
 EOF
 
 # Translate usage string -> getopts arguments, and set $arg_<flag> defaults
-while read __b3bp_tmp_line; do
+while read -r __b3bp_tmp_line; do
   if echo "${__b3bp_tmp_line}" |egrep '^-' >/dev/null 2>&1; then
     # fetch single character version of option string
     __b3bp_tmp_opt="$(echo "${__b3bp_tmp_line}" |awk '{print $1}' |sed -e 's#^-##')"
 
     # fetch long version if present
     __b3bp_tmp_long_opt="$(echo "${__b3bp_tmp_line}" |awk '/\-\-/ {print $2}' |sed -e 's#^--##')"
-    __b3bp_tmp_long_opt_mangled="$(sed 's#-#_#g' <<< $__b3bp_tmp_long_opt)"
+    __b3bp_tmp_long_opt_mangled="$(sed 's#-#_#g' <<< "$__b3bp_tmp_long_opt")"
 
     # map long name back to short name
     __b3bp_tmp_varname="__b3bp_tmp_short_opt_${__b3bp_tmp_long_opt_mangled}"
@@ -184,21 +197,21 @@ if [ -n "${__b3bp_tmp_opts:-}" ]; then
 		 # to be dereferenced
   # Overwrite $arg_<flag> defaults with the actual CLI options
   while getopts "${__b3bp_tmp_opts}" __b3bp_tmp_opt; do
-    [ "${__b3bp_tmp_opt}" = "?" ] && help "Invalid use of script: ${@} "
+    [ "${__b3bp_tmp_opt}" = "?" ] && help "Invalid use of script: ${*} "
 
     if [ "${__b3bp_tmp_opt}" = "-" ]; then
       # OPTARG is long-option-name or long-option=value
       if [[ "${OPTARG}" =~ .*=.* ]]; then
 	# --key=value format
 	__b3bp_tmp_long_opt=${OPTARG/=*/}
-	__b3bp_tmp_long_opt_mangled="$(sed 's#-#_#g' <<< $__b3bp_tmp_long_opt)"
+	__b3bp_tmp_long_opt_mangled="$(sed 's#-#_#g' <<< "$__b3bp_tmp_long_opt")"
 	# Set opt to the short option corresponding to the long option
 	eval "__b3bp_tmp_opt=\"\${__b3bp_tmp_short_opt_${__b3bp_tmp_long_opt_mangled}}\""
 	OPTARG=${OPTARG#*=}
       else
 	# --key value format
 	# Map long name to short version of option
-	__b3bp_tmp_long_opt_mangled="$(sed 's#-#_#g' <<< $OPTARG)"
+	__b3bp_tmp_long_opt_mangled="$(sed 's#-#_#g' <<< "$OPTARG")"
 	eval "__b3bp_tmp_opt=\"\${__b3bp_tmp_short_opt_${__b3bp_tmp_long_opt_mangled}}\""
 	# Only assign OPTARG if option takes an argument
 	eval "OPTARG=\"\${@:OPTIND:\${__b3bp_tmp_has_arg_${__b3bp_tmp_opt}}}\""
@@ -249,23 +262,23 @@ fi
 ##############################################################################
 
 # debug mode
-if [ "${arg_d}" = "1" ]; then
+if [ "${arg_d:?}" = "1" ]; then
   set -o xtrace
   LOG_LEVEL="7"
 fi
 
 # verbose mode
-if [ "${arg_v}" = "1" ]; then
+if [ "${arg_v:?}" = "1" ]; then
   set -o verbose
 fi
 
 # no color mode
-if [ "${arg_n}" = "1" ]; then
+if [ "${arg_n:?}" = "1" ]; then
   NO_COLOR="true"
 fi
 
 # help mode
-if [ "${arg_h}" = "1" ]; then
+if [ "${arg_h:?}" = "1" ]; then
   # Help exists with code 1
   help "Help using ${0}"
 fi
