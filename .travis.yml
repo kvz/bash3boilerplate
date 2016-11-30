@@ -21,7 +21,7 @@ script: test/acceptance.sh
 deploy:
   skip_cleanup: true
   provider: script
-  script: website/_bin/deploy.sh
+  script: website/_scripts/deploy.sh
   on:
     branch: master
     condition: $TRAVIS_OS_NAME = linux

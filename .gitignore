@@ -16,3 +16,6 @@ website/.jekyll-metadata
 env.sh
 
 website/main.sh
+website/assets/build
+website/.lanyon
+website/.lanyon/vendor/bin

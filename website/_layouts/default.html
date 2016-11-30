@@ -2,13 +2,18 @@
 <html>
   <head>
     <meta charset="utf-8">
+    {% if page.url == "/" %}
+      <title>{{page.title}}</title>
+    {% else %}
+      <title>{{page.title}} | {{site.title}}</title>
+    {% endif %}
+
     <title>{{page.title}}</title>
     <meta name="keywords" content="bash, template, scripting, command-line">
     <meta name="description" content="BASH3 Boilerplate">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="/public/style.css" media="screen" charset="utf-8">
-    <link rel="stylesheet" href="/public/syntax.css" media="screen" charset="utf-8">
+    <link rel="stylesheet" href="/assets/build/app.css" media="screen" charset="utf-8">
   </head>
   <body>
     <header>
@@ -66,7 +71,7 @@
     </section>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/languages/bash.min.js"></script>
-    <script src="/public/app.js"></script>
+    <script src="/assets/build/app.js"></script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

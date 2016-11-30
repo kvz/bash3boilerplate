@@ -108,8 +108,8 @@ The source mainly consists of:
 - `./FAQ.md` (FAQ page)
 - `./CHANGELOG.md` (changelog page)
 - `./website/_layouts/default.html` (the design in which all pages are rendered)
-- `./website/public/app.js` (main JS file)
-- `./website/public/style.css` (main CSS file)
+- `./website/assets/app.js` (main JS file)
+- `./website/assets/style.css` (main CSS file)
 
 The rest is dark magic from which you should probably steer clear. : )
 

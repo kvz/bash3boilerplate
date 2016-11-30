@@ -3,7 +3,7 @@
   "description": "Copypastable templates to write better bash scripts",
   "version": "2.1.0",
   "scripts": {
-    "deploy": "website/_bin/travis-deploy.sh",
+    "deploy": "website/_scripts/deploy.sh",
     "lint": "shellcheck --shell=bash $(find . -name '*.sh' -maxdepth 2)",
     "release:major": "env SEMANTIC=major npm run release",
     "release:minor": "env SEMANTIC=minor npm run release",
@@ -13,19 +13,28 @@
     "test": "test/acceptance.sh",
     "version:current": "node -e 'console.log(require(\"./package.json\").version)'",
     "version:replace": "replace 'v\\d+\\.\\d+\\.\\d+' \"v$(npm run --silent version:current)\" main.sh src/*.sh",
-    "web:build": "cd website && bundle exec jekyll build --incremental",
-    "web:inject": "./website/_bin/inject.sh",
-    "web:install": "npm install && cd website && bundle install --path ./_vendor",
-    "web:preview": "npm-run-all web:install --parallel web:watch web:serve",
-    "web:serve": "cd website/_site && browser-sync start --server --files .",
-    "web:watch": "nodemon --verbose --watch ./  --ignore 'website/*.md' --ignore 'website/_site/*' --ext html,json,md,js,css,png,jpg --exec 'npm-run-all web:inject web:build'"
+    "web:build:production": "LANYON_ENV=production lanyon build",
+    "web:serve:production": "LANYON_ENV=production lanyon serve",
+    "web:build": "lanyon build",
+    "web:inject": "./website/_scripts/inject.sh",
+    "web:injecter": "nodemon --verbose --watch ./  --ignore 'website/*.md' --ignore website/_site --ignore website/.lanyon --ext html,json,md,js,css,png,jpg --exec 'npm run web:inject'",
+    "web:start:production": "npm-run-all web:inject web:build:production web:serve:production",
+    "web:starter": "lanyon start",
+    "web:start": "npm-run-all --parallel web:injecter web:starter"
+  },
+  "lanyon": {
+    "projectDir": "website",
+    "entries": [
+      "app"
+    ]
   },
   "dependencies": {
-    "fakefile": "0.0.6"
+    "fakefile": "0.0.6",
+    "lanyon": "0.0.12"
   },
   "devDependencies": {
-    "cross-env": "1.0.7",
     "browser-sync": "2.11.0",
+    "cross-env": "1.0.7",
     "nodemon": "1.8.1",
     "npm-run-all": "2.1.1"
   }
