@@ -1,3 +1,4 @@
+language: node_js
 node_js: 6
 matrix:
   include:
@@ -20,7 +21,7 @@ script: test/acceptance.sh
 deploy:
   skip_cleanup: true
   provider: script
-  script: website/.lanyon/vendor/bin/deploy
+  script: website/.lanyon/bin/deploy
   on:
     branch: master
     condition: $TRAVIS_OS_NAME = linux
