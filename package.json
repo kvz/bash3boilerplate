@@ -9,6 +9,7 @@
     "encrypt": "lanyon encrypt",
     "inject": "./website/_scripts/inject.sh",
     "injecter": "nodemon --verbose --watch ./  --ignore 'website/*.md' --ignore website/_site --ignore website/.lanyon --ext html,json,md,js,css,png,jpg --exec 'npm run inject'",
+    "install": "lanyon postinstall",
     "lint": "shellcheck --shell=bash $(find . -name '*.sh' -maxdepth 2)",
     "release:major": "env SEMANTIC=major npm run release",
     "release:minor": "env SEMANTIC=minor npm run release",
