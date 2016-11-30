@@ -30,11 +30,11 @@
   },
   "dependencies": {
     "fakefile": "0.0.6",
-    "lanyon": "0.0.10"
+    "lanyon": "0.0.11"
   },
   "devDependencies": {
-    "cross-env": "1.0.7",
     "browser-sync": "2.11.0",
+    "cross-env": "1.0.7",
     "nodemon": "1.8.1",
     "npm-run-all": "2.1.1"
   }
