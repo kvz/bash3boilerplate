@@ -1,3 +1,0 @@
----
-BUNDLE_PATH: "./_vendor"
-BUNDLE_DISABLE_SHARED_GEMS: "true"

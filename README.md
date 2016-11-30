@@ -19,8 +19,6 @@
 
 <!--more-->
 
-heyhey
-
 When hacking up Bash scripts, there are often things such as logging or command-line argument parsing that:
 
  - You need every time
