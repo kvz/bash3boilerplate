@@ -19,3 +19,4 @@ website/main.sh
 website/assets/build
 website/.lanyon
 website/.lanyon/vendor/bin
+website/.lanyon/bin

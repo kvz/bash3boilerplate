@@ -12,16 +12,16 @@
     "test": "test/acceptance.sh",
     "version:current": "node -e 'console.log(require(\"./package.json\").version)'",
     "version:replace": "replace 'v\\d+\\.\\d+\\.\\d+' \"v$(npm run --silent version:current)\" main.sh src/*.sh",
-    "web:build:production": "LANYON_ENV=production lanyon build",
-    "web:serve:production": "LANYON_ENV=production lanyon serve",
-    "web:build": "lanyon build",
-    "web:encrypt": "lanyon encrypt",
-    "web:deploy": "lanyon deploy",
-    "web:inject": "./website/_scripts/inject.sh",
-    "web:injecter": "nodemon --verbose --watch ./  --ignore 'website/*.md' --ignore website/_site --ignore website/.lanyon --ext html,json,md,js,css,png,jpg --exec 'npm run web:inject'",
-    "web:start:production": "npm-run-all web:inject web:build:production web:serve:production",
-    "web:starter": "lanyon start",
-    "web:start": "npm-run-all --parallel web:injecter web:starter"
+    "build:production": "LANYON_ENV=production lanyon build",
+    "serve:production": "LANYON_ENV=production lanyon serve",
+    "build": "lanyon build",
+    "encrypt": "lanyon encrypt",
+    "deploy": "lanyon deploy",
+    "inject": "./website/_scripts/inject.sh",
+    "injecter": "nodemon --verbose --watch ./  --ignore 'website/*.md' --ignore website/_site --ignore website/.lanyon --ext html,json,md,js,css,png,jpg --exec 'npm run inject'",
+    "start:production": "npm-run-all inject build:production serve:production",
+    "starter": "lanyon start",
+    "start": "npm-run-all --parallel injecter starter"
   },
   "lanyon": {
     "projectDir": "website",
@@ -31,9 +31,9 @@
   },
   "dependencies": {
     "fakefile": "0.0.6",
-    "lanyon": "0.0.13"
   },
   "devDependencies": {
+    "lanyon": "0.0.13",
     "browser-sync": "2.11.0",
     "cross-env": "1.0.7",
     "nodemon": "1.8.1",

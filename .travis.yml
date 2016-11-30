@@ -6,9 +6,9 @@ matrix:
   - os: osx
 env:
   global:
-  - secure: HlbJvT0tBn/SM4uWh05ZNaajN6WBeBwmoe97O3lGeIPrZYYqzjD2OqyIZiH/Qxvj/GvqbT8mxeVPW+8kOWeCA/Mud944v5N3IwMS0tl7J0Xs0X68jveDi2D5062n47b3j2zPCgY0bmsGTaEwelQ4ZHaR4xc2OCTkIpkcOStUAYs=
-  - secure: Z+i9DAetBkHpus+NnQllDpZ3Za7V4wpM2KKmnXy8n/1Ghcm6DdwgKqMQQdOiOaCtlEpZ28HcjVE9zariEbwzQ1kaI2vUVzNqCuFxczK87e0Zc9hs8KDRzrbsCkkXUj6G3YJBVhIsh8u1YOXLE5Yhr/ov2XlnfPMcXOfaugpAyAw=
-  - secure: CN9Lsqo2UHxvqr883F0yVuFsn99COawF3+5me9cFBxrKmE2fm933NucRh7jnVDI98xa4SEcw4126S0lvmxB4O33JDXsZ5wYpeLgTqkaytS/R5mPKXkuwHDnqjuqtqAn+bIZmBmlkcW6zhuGG2yN/VecVBG8t++seQg6iN8sUrYI=
+  - secure: BeM6mpPEATdeFcAr/222QBZ9vRkZtU2WOi9QQy3mxsuDbWfM8RxYESIEJLipyhW9kXGoe6HGMqm4Kz9B/c4jrzeSXPpKnW7mIfnyqN+hhq1ctW9qPSqodu+fYNhdDxXh5wylml7hnIJzU70vFGrFknZRE2FYk5XvyHg2ImIKDJw=
+  - secure: RJ5UpdXms9QkraylZ11OBfmcRrmKnb254Yj0yCDAvZmg+n+3jSTwMgGvPY8Ih8X/R1JeW3VTtFDkJXXPnjjfpNg1M91u4CAEUOMPciCudYcoF6GKb8psnOzneTTX5M7zuJSzknGdpv/foldxiPYxiY5Hn5bfjmikhAEl+QX/R0Y=
+  - secure: BXf2buPt/DA09M5ZUdp/LpOWtUuz1mfCBopLyxvHv3Sl3ln+Az57wWsM2+Re+77lUOgihR2f6lXYfNUmQuSUo157rZPunQCqM/DJhK69KhREEB6SJDaJF3FVlnGla+Cwwb1IQUtMopqX9pBYD7w/zyWQFJCi20O57JEVIdfZZS8=
 install:
 - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update; fi
 - if [ "$TRAVIS_OS_NAME" = "osx" ]; then which gsed || brew install gnu-sed; fi

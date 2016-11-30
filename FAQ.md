@@ -97,7 +97,7 @@ Somewhat inconsistent – but true to Unix ancestry – the abbreviation for our
 You should have a working Node.js >=10 and Ruby >=2 install on your workstation. When that is the case, you can run:
 
 ```bash
-npm run web:preview
+npm run start
 ```
 
 This will install and start all required services and automatically open a webbrowser that reloads as soon as you make any changes to the source.
