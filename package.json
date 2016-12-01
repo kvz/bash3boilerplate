@@ -33,7 +33,7 @@
   "devDependencies": {
     "browser-sync": "2.11.0",
     "cross-env": "1.0.7",
-    "lanyon": "0.0.26",
+    "lanyon": "0.0.32",
     "nodemon": "1.8.1",
     "npm-run-all": "2.1.1"
   }
