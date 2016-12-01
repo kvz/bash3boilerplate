@@ -2342,6 +2342,12 @@ find-up@^1.0.0:
     path-exists "^2.0.0"
     pinkie-promise "^2.0.0"
 
+find-up@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/find-up/-/find-up-2.0.0.tgz#71e6dc2dad9222143cfc0fa5de7ab739e7320c05"
+  dependencies:
+    path-exists "^2.0.0"
+
 flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
@@ -3150,9 +3156,9 @@ klaw@^1.0.0:
   optionalDependencies:
     graceful-fs "^4.1.9"
 
-lanyon@0.0.25:
-  version "0.0.25"
-  resolved "https://registry.yarnpkg.com/lanyon/-/lanyon-0.0.25.tgz#cc1efeb2e3e9084c4dab36bf46cde16b28e2c2e9"
+lanyon@0.0.26:
+  version "0.0.26"
+  resolved "https://registry.yarnpkg.com/lanyon/-/lanyon-0.0.26.tgz#ac74114d08e0f5b6b261588b3bf58ef39df3654c"
   dependencies:
     autoprefixer "6.5.3"
     babel-core "6.18.2"
@@ -3171,6 +3177,7 @@ lanyon@0.0.25:
     extract-text-webpack-plugin "1.0.1"
     fakefile "0.0.8"
     file-loader "^0.9.0"
+    find-up "^2.0.0"
     font-awesome "^4.7.0"
     font-awesome-loader "1.0.1"
     http-server "0.9.0"
