@@ -3,7 +3,7 @@
   "description": "Copypastable templates to write better bash scripts",
   "version": "2.1.0",
   "scripts": {
-    "build:production": "LANYON_ENV=production lanyon build",
+    "build:production": "npm run inject && LANYON_ENV=production lanyon build",
     "build": "lanyon build",
     "deploy": "lanyon deploy",
     "encrypt": "lanyon encrypt",
