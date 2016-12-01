@@ -17,6 +17,12 @@ install:
   fi
 - bash --version
 - awk --version
+- npm install
+cache:
+  apt: true
+  directories:
+  - node_modules
+  - .lanyon
 script: test/acceptance.sh
 deploy:
   skip_cleanup: true
