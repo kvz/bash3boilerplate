@@ -25,10 +25,7 @@
     "version:replace": "replace 'v\\d+\\.\\d+\\.\\d+' \"v$(npm run --silent version:current)\" main.sh src/*.sh"
   },
   "lanyon": {
-    "projectDir": "website",
-    "entries": [
-      "app"
-    ]
+    "projectDir": "website"
   },
   "dependencies": {
     "fakefile": "0.0.6"
