@@ -18,6 +18,8 @@ install:
 - bash --version
 - awk --version
 - npm install
+before_cache:
+  - rm -f ./node_modules/.bin/which # <-- workaround for https://github.com/travis-ci/travis-ci/issues/5092
 cache:
   apt: true
   directories:
