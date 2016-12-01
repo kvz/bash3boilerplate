@@ -22,7 +22,6 @@ before_cache:
 cache:
   apt: true
   directories:
-  - node_modules
   - .lanyon
 script: test/acceptance.sh
 deploy:
