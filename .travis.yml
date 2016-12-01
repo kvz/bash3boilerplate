@@ -1,10 +1,12 @@
-language: node_js
-node_js: 6
 matrix:
   include:
   - os: linux
     sudo: false
+    language: node_js
+    node_js: 6
   - os: osx
+    language: node_js
+    node_js: 6
 env:
   global:
   - secure: BeM6mpPEATdeFcAr/222QBZ9vRkZtU2WOi9QQy3mxsuDbWfM8RxYESIEJLipyhW9kXGoe6HGMqm4Kz9B/c4jrzeSXPpKnW7mIfnyqN+hhq1ctW9qPSqodu+fYNhdDxXh5wylml7hnIJzU70vFGrFknZRE2FYk5XvyHg2ImIKDJw=
