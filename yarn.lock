@@ -3150,9 +3150,9 @@ klaw@^1.0.0:
   optionalDependencies:
     graceful-fs "^4.1.9"
 
-lanyon@0.0.33:
-  version "0.0.33"
-  resolved "https://registry.yarnpkg.com/lanyon/-/lanyon-0.0.33.tgz#c64474ccaef8730b49ffebbcd8969f45de0c457c"
+lanyon@0.0.32:
+  version "0.0.32"
+  resolved "https://registry.yarnpkg.com/lanyon/-/lanyon-0.0.32.tgz#8e4a3eaba4b1b143db637bb58f20218ce0728c87"
   dependencies:
     autoprefixer "6.5.3"
     babel-core "6.18.2"
