@@ -75,9 +75,11 @@ function __b3bp_log () {
   local color="${!colorvar:-$color_error}"
   local color_reset="\x1b[0m"
 
-  if [ "${NO_COLOR}" = "true" ] || [[ "${TERM:-}" != "xterm"* ]] || [ -t 1 ]; then
-    # Don't use colors on pipes or non-recognized terminals
-    color=""; color_reset=""
+  if [ "${NO_COLOR:-}" = "true" ] || [[ "${TERM:-}" != "xterm"* ]] || [ ! -t 2 ]; then
+    if [ "${NO_COLOR:-}" != "false" ]; then
+      # Don't use colors on pipes or non-recognized terminals
+      color=""; color_reset=""
+    fi
   fi
 
   # all remaining arguments are to be printed
@@ -88,14 +90,14 @@ function __b3bp_log () {
   done <<< "${@:-}"
 }
 
-function emergency () {                                $(__b3bp_log emergency "${@}"); exit 1; }
-function alert ()     { [ "${LOG_LEVEL:-0}" -ge 1 ] && $(__b3bp_log alert "${@}"); true; }
-function critical ()  { [ "${LOG_LEVEL:-0}" -ge 2 ] && $(__b3bp_log critical "${@}"); true; }
-function error ()     { [ "${LOG_LEVEL:-0}" -ge 3 ] && $(__b3bp_log error "${@}"); true; }
-function warning ()   { [ "${LOG_LEVEL:-0}" -ge 4 ] && $(__b3bp_log warning "${@}"); true; }
-function notice ()    { [ "${LOG_LEVEL:-0}" -ge 5 ] && $(__b3bp_log notice "${@}"); true; }
-function info ()      { [ "${LOG_LEVEL:-0}" -ge 6 ] && $(__b3bp_log info "${@}"); true; }
-function debug ()     { [ "${LOG_LEVEL:-0}" -ge 7 ] && $(__b3bp_log debug "${@}"); true; }
+function emergency () {                                __b3bp_log emergency "${@}"; exit 1; }
+function alert ()     { [ "${LOG_LEVEL:-0}" -ge 1 ] && __b3bp_log alert "${@}"; true; }
+function critical ()  { [ "${LOG_LEVEL:-0}" -ge 2 ] && __b3bp_log critical "${@}"; true; }
+function error ()     { [ "${LOG_LEVEL:-0}" -ge 3 ] && __b3bp_log error "${@}"; true; }
+function warning ()   { [ "${LOG_LEVEL:-0}" -ge 4 ] && __b3bp_log warning "${@}"; true; }
+function notice ()    { [ "${LOG_LEVEL:-0}" -ge 5 ] && __b3bp_log notice "${@}"; true; }
+function info ()      { [ "${LOG_LEVEL:-0}" -ge 6 ] && __b3bp_log info "${@}"; true; }
+function debug ()     { [ "${LOG_LEVEL:-0}" -ge 7 ] && __b3bp_log debug "${@}"; true; }
 
 function help () {
   echo "" 1>&2
