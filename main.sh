@@ -32,8 +32,8 @@ if [ "${BASH_SOURCE[0]}" != "${0}" ]; then
     __b3bp_tmp_source_idx=1
   fi
 else
-  [ ! -z "${__usage+x}" ] && unset __usage
-  [ ! -z "${__helptext+x}" ] && unset __helptext
+  [ ! -z "${__usage+x}" ] && unset -v __usage
+  [ ! -z "${__helptext+x}" ] && unset -v __helptext
 fi
 
 # Set magic variables for current file, directory, os, etc.
@@ -159,21 +159,17 @@ while read -r __b3bp_tmp_line; do
       __b3bp_tmp_long_opt="${__b3bp_tmp_long_opt%% *}"
     fi
 
-    __b3bp_tmp_long_opt_mangled="${__b3bp_tmp_long_opt//-/_}"
-
     # map long name back to short name
-    __b3bp_tmp_varname="__b3bp_tmp_short_opt_${__b3bp_tmp_long_opt_mangled}"
-    eval "${__b3bp_tmp_varname}=\"${__b3bp_tmp_opt}\""
+    printf -v "__b3bp_tmp_short_opt_${__b3bp_tmp_long_opt//-/_}" '%s' "${__b3bp_tmp_opt}"
 
     # check if option takes an argument
-    __b3bp_tmp_varname="__b3bp_tmp_has_arg_${__b3bp_tmp_opt}"
     if [[ ! "${__b3bp_tmp_line}" =~ \[.*\] ]]; then
       __b3bp_tmp_init="0" # it's a flag. init with 0
-      eval "${__b3bp_tmp_varname}=0"
+      printf -v "__b3bp_tmp_has_arg_${__b3bp_tmp_opt:0:1}" '%s' "0"
     else
       __b3bp_tmp_opt="${__b3bp_tmp_opt}:" # add : if opt has arg
       __b3bp_tmp_init=""  # it has an arg. init with ""
-      eval "${__b3bp_tmp_varname}=1"
+      printf -v "__b3bp_tmp_has_arg_${__b3bp_tmp_opt:0:1}" '%s' "1"
     fi
     __b3bp_tmp_opts="${__b3bp_tmp_opts:-}${__b3bp_tmp_opt}"
   fi
@@ -186,11 +182,19 @@ while read -r __b3bp_tmp_line; do
 
     if [ "${!__b3bp_tmp_varname}" = "1" ]; then
       __b3bp_tmp_init="${__b3bp_tmp_line##*Default=}"
+      __b3bp_tmp_re='^"(.*)"$'
+      if [[ "${__b3bp_tmp_init}" =~ ${__b3bp_tmp_re} ]]; then
+        __b3bp_tmp_init="${BASH_REMATCH[1]}"
+      else
+        __b3bp_tmp_re="^'(.*)'$"
+        if [[ "${__b3bp_tmp_init}" =~ ${__b3bp_tmp_re} ]]; then
+	  __b3bp_tmp_init="${BASH_REMATCH[1]}"
+	fi
+      fi
     fi
   fi
 
-  __b3bp_tmp_varname="arg_${__b3bp_tmp_opt:0:1}"
-  eval "${__b3bp_tmp_varname}=\"${__b3bp_tmp_init}\""
+  printf -v "arg_${__b3bp_tmp_opt:0:1}" '%s' "${__b3bp_tmp_init}"
 done <<< "${__usage:-}"
 
 # run getopts only if options were specified in __usage
@@ -213,17 +217,18 @@ if [ -n "${__b3bp_tmp_opts:-}" ]; then
       if [[ "${OPTARG}" =~ .*=.* ]]; then
 	# --key=value format
 	__b3bp_tmp_long_opt=${OPTARG/=*/}
-	__b3bp_tmp_long_opt_mangled="${__b3bp_tmp_long_opt//-/_}"
 	# Set opt to the short option corresponding to the long option
-	eval "__b3bp_tmp_opt=\"\${__b3bp_tmp_short_opt_${__b3bp_tmp_long_opt_mangled}}\""
+	__b3bp_tmp_varname="__b3bp_tmp_short_opt_${__b3bp_tmp_long_opt//-/_}"
+	printf -v "__b3bp_tmp_opt" '%s' "${!__b3bp_tmp_varname}"
 	OPTARG=${OPTARG#*=}
       else
 	# --key value format
 	# Map long name to short version of option
-	__b3bp_tmp_long_opt_mangled="${OPTARG//-/_}"
-	eval "__b3bp_tmp_opt=\"\${__b3bp_tmp_short_opt_${__b3bp_tmp_long_opt_mangled}}\""
+	__b3bp_tmp_varname="__b3bp_tmp_short_opt_${OPTARG//-/_}"
+	printf -v "__b3bp_tmp_opt" '%s' "${!__b3bp_tmp_varname}"
 	# Only assign OPTARG if option takes an argument
-	eval "OPTARG=\"\${@:OPTIND:\${__b3bp_tmp_has_arg_${__b3bp_tmp_opt}}}\""
+	__b3bp_tmp_varname="__b3bp_tmp_has_arg_${__b3bp_tmp_opt}"
+	printf -v "OPTARG" '%s' "${@:OPTIND:${!__b3bp_tmp_varname}}"
 	# shift over the argument if argument is expected
 	((OPTIND+=__b3bp_tmp_has_arg_${__b3bp_tmp_opt}))
       fi
@@ -237,7 +242,7 @@ if [ -n "${__b3bp_tmp_opts:-}" ]; then
       __b3bp_tmp_value="1"
     fi
 
-    eval "${__b3bp_tmp_varname}=\"${__b3bp_tmp_value}\""
+    printf -v "${__b3bp_tmp_varname}" '%s' "${__b3bp_tmp_value}"
     debug "cli arg ${__b3bp_tmp_varname} = ($__b3bp_tmp_default) -> ${!__b3bp_tmp_varname}"
   done
   set -o nounset # no more unbound variable references expected
@@ -252,17 +257,17 @@ fi
 ##############################################################################
 
 for __tmp_varname in ${!__b3bp_tmp_*}; do
-  eval "unset ${__tmp_varname}"
+  unset -v "${__tmp_varname}"
 done
 
-unset __tmp_varname
+unset -v __tmp_varname
 
 
 ### Externally supplied __usage. Nothing else to do here
 ##############################################################################
 
 if [ "${__b3bp_external_usage:-}" = "true" ]; then
-  unset __b3bp_external_usage
+  unset -v __b3bp_external_usage
   return
 fi
 
