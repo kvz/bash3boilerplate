@@ -16,7 +16,7 @@ read -r -d '' __usage <<-'EOF' || true # exits non-zero when EOF encountered
                    More description.
   -2 --two         Do two things.
                    More description. Default="TWO"
-  -3 --three [arg] Do three things. Default="THREE"
+  -3 --three [arg] Do three things.  Default="THREE"
                    More description.
   -4 --four  [arg] Do four things.
                    More description. Default="FOUR"

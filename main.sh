@@ -161,32 +161,47 @@ while read -r __b3bp_tmp_line; do
 
     __b3bp_tmp_long_opt_mangled="${__b3bp_tmp_long_opt//-/_}"
 
-    # map long name back to short name
-    __b3bp_tmp_varname="__b3bp_tmp_short_opt_${__b3bp_tmp_long_opt_mangled}"
+    # map opt long name to short name
+    __b3bp_tmp_varname="__b3bp_tmp_opt_long2short_${__b3bp_tmp_long_opt_mangled}"
     eval "${__b3bp_tmp_varname}=\"${__b3bp_tmp_opt}\""
+
+    # map opt short name to long name
+    __b3bp_tmp_varname="__b3bp_tmp_opt_short2long_${__b3bp_tmp_opt}"
+    eval "${__b3bp_tmp_varname}=\"${__b3bp_tmp_long_opt_mangled}\""
 
     # check if option takes an argument
     __b3bp_tmp_varname="__b3bp_tmp_has_arg_${__b3bp_tmp_opt}"
-    if [[ ! "${__b3bp_tmp_line}" =~ \[.*\] ]]; then
-      __b3bp_tmp_init="0" # it's a flag. init with 0
-      eval "${__b3bp_tmp_varname}=0"
-    else
+    if [[ "${__b3bp_tmp_line}" =~ \[.*\] ]]; then
       __b3bp_tmp_opt="${__b3bp_tmp_opt}:" # add : if opt has arg
       __b3bp_tmp_init=""  # it has an arg. init with ""
       eval "${__b3bp_tmp_varname}=1"
+    elif [[ "${__b3bp_tmp_line}" =~ \{.*\} ]]; then
+      __b3bp_tmp_opt="${__b3bp_tmp_opt}:" # add : if opt has arg
+      __b3bp_tmp_init=""  # it has an arg. init with ""
+      # remember that this option requires an argument
+      eval "${__b3bp_tmp_varname}=2"
+    else
+      __b3bp_tmp_init="0" # it's a flag. init with 0
+      eval "${__b3bp_tmp_varname}=0"
     fi
     __b3bp_tmp_opts="${__b3bp_tmp_opts:-}${__b3bp_tmp_opt}"
   fi
 
   [ -z "${__b3bp_tmp_opt:-}" ] && continue
 
-  if [[ "${__b3bp_tmp_line}" =~ \.\ Default ]]; then
+  if [[ "${__b3bp_tmp_line}" =~ (^|\.\ *)Default= ]]; then
     # ignore default value if option does not have an argument
     __b3bp_tmp_varname="__b3bp_tmp_has_arg_${__b3bp_tmp_opt:0:1}"
 
-    if [ "${!__b3bp_tmp_varname}" = "1" ]; then
+    if [ "${!__b3bp_tmp_varname}" != "0" ]; then
       __b3bp_tmp_init="${__b3bp_tmp_line##*Default=}"
     fi
+  fi
+
+  if [[ "${__b3bp_tmp_line}" =~ (^|\.\ *)Required\. ]]; then
+    # remember that this option requires an argument
+    __b3bp_tmp_varname="__b3bp_tmp_has_arg_${__b3bp_tmp_opt:0:1}"
+    eval "${__b3bp_tmp_varname}=2"
   fi
 
   __b3bp_tmp_varname="arg_${__b3bp_tmp_opt:0:1}"
@@ -215,13 +230,13 @@ if [ -n "${__b3bp_tmp_opts:-}" ]; then
 	__b3bp_tmp_long_opt=${OPTARG/=*/}
 	__b3bp_tmp_long_opt_mangled="${__b3bp_tmp_long_opt//-/_}"
 	# Set opt to the short option corresponding to the long option
-	eval "__b3bp_tmp_opt=\"\${__b3bp_tmp_short_opt_${__b3bp_tmp_long_opt_mangled}}\""
+	eval "__b3bp_tmp_opt=\"\${__b3bp_tmp_opt_long2short_${__b3bp_tmp_long_opt_mangled}}\""
 	OPTARG=${OPTARG#*=}
       else
 	# --key value format
 	# Map long name to short version of option
 	__b3bp_tmp_long_opt_mangled="${OPTARG//-/_}"
-	eval "__b3bp_tmp_opt=\"\${__b3bp_tmp_short_opt_${__b3bp_tmp_long_opt_mangled}}\""
+	eval "__b3bp_tmp_opt=\"\${__b3bp_tmp_opt_long2short_${__b3bp_tmp_long_opt_mangled}}\""
 	# Only assign OPTARG if option takes an argument
 	eval "OPTARG=\"\${@:OPTIND:\${__b3bp_tmp_has_arg_${__b3bp_tmp_opt}}}\""
 	# shift over the argument if argument is expected
@@ -246,6 +261,25 @@ if [ -n "${__b3bp_tmp_opts:-}" ]; then
 
   [ "${1:-}" = "--" ] && shift
 fi
+
+
+### Automatic validation of required option arguments
+##############################################################################
+
+for __b3bp_tmp_varname in ${!__b3bp_tmp_has_arg_*}; do
+  # validate only options which required an argument
+  [ "${!__b3bp_tmp_varname}" = "2" ] || continue
+
+  __b3bp_tmp_opt_short="${__b3bp_tmp_varname##*_}"
+  __b3bp_tmp_varname="arg_${__b3bp_tmp_opt_short}"
+  [ -n "${!__b3bp_tmp_varname}" ] && continue
+
+  __b3bp_tmp_opt_long_mangled=""
+  eval "__b3bp_tmp_opt_long=\"\${__b3bp_tmp_opt_short2long_${__b3bp_tmp_opt_short}}\""
+  [ -n "${__b3bp_tmp_opt_long:-}" ] && __b3bp_tmp_opt_long_mangled=" (--${__b3bp_tmp_opt_long//_/-})"
+
+  help "Option -${__b3bp_tmp_opt_short}${__b3bp_tmp_opt_long_mangled:-} requires an argument"
+done
 
 
 ### Cleanup Environment variables
