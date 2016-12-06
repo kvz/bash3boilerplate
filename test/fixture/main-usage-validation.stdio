@@ -1,0 +1,155 @@
+ACCPTST:STDIO_REPLACE_DATETIMES
+# complain about -3
+
+ Option -3 (--three) requires an argument
+
+  -0 --zero        Do nothing.
+  -1 --one         Do one thing. Required.
+                   More description.
+  -2 --two         Do two things.
+                   More. Required. Description.
+  -3 --three [arg] Do three things.
+                   Required.
+  -4 --four  {arg} Do four things.
+  -5 --five  {arg} Do five things. Required. Maybe.
+  -6 --six   [arg] Do six things. Not Required.
+                   Required, it is not.
+  -7 --seven [arg] Required. Or bust.
+  -8 --eight [arg] Do eight things.
+                   More.Required.Description.
+  -a         [arg] Do A.   Required.
+                   Default="do-a"
+  -b         {arg} Do B.Default="do-b"
+  -c         [arg] Required.   Default="do-c"
+  -d         {arg} Default="do-d"
+
+ This is Bash3 Boilerplate's help text. Feel free to add any description of your
+ program or elaborate more on command-line arguments. This section is not
+ parsed and will be added as-is to the help.
+
+# complain about -4
+
+ Option -4 (--four) requires an argument
+
+  -0 --zero        Do nothing.
+  -1 --one         Do one thing. Required.
+                   More description.
+  -2 --two         Do two things.
+                   More. Required. Description.
+  -3 --three [arg] Do three things.
+                   Required.
+  -4 --four  {arg} Do four things.
+  -5 --five  {arg} Do five things. Required. Maybe.
+  -6 --six   [arg] Do six things. Not Required.
+                   Required, it is not.
+  -7 --seven [arg] Required. Or bust.
+  -8 --eight [arg] Do eight things.
+                   More.Required.Description.
+  -a         [arg] Do A.   Required.
+                   Default="do-a"
+  -b         {arg} Do B.Default="do-b"
+  -c         [arg] Required.   Default="do-c"
+  -d         {arg} Default="do-d"
+
+ This is Bash3 Boilerplate's help text. Feel free to add any description of your
+ program or elaborate more on command-line arguments. This section is not
+ parsed and will be added as-is to the help.
+
+# complain about -5
+
+ Option -5 (--five) requires an argument
+
+  -0 --zero        Do nothing.
+  -1 --one         Do one thing. Required.
+                   More description.
+  -2 --two         Do two things.
+                   More. Required. Description.
+  -3 --three [arg] Do three things.
+                   Required.
+  -4 --four  {arg} Do four things.
+  -5 --five  {arg} Do five things. Required. Maybe.
+  -6 --six   [arg] Do six things. Not Required.
+                   Required, it is not.
+  -7 --seven [arg] Required. Or bust.
+  -8 --eight [arg] Do eight things.
+                   More.Required.Description.
+  -a         [arg] Do A.   Required.
+                   Default="do-a"
+  -b         {arg} Do B.Default="do-b"
+  -c         [arg] Required.   Default="do-c"
+  -d         {arg} Default="do-d"
+
+ This is Bash3 Boilerplate's help text. Feel free to add any description of your
+ program or elaborate more on command-line arguments. This section is not
+ parsed and will be added as-is to the help.
+
+# complain about -8 (because -7 syntax is not supported)
+
+ Option -8 (--eight) requires an argument
+
+  -0 --zero        Do nothing.
+  -1 --one         Do one thing. Required.
+                   More description.
+  -2 --two         Do two things.
+                   More. Required. Description.
+  -3 --three [arg] Do three things.
+                   Required.
+  -4 --four  {arg} Do four things.
+  -5 --five  {arg} Do five things. Required. Maybe.
+  -6 --six   [arg] Do six things. Not Required.
+                   Required, it is not.
+  -7 --seven [arg] Required. Or bust.
+  -8 --eight [arg] Do eight things.
+                   More.Required.Description.
+  -a         [arg] Do A.   Required.
+                   Default="do-a"
+  -b         {arg} Do B.Default="do-b"
+  -c         [arg] Required.   Default="do-c"
+  -d         {arg} Default="do-d"
+
+ This is Bash3 Boilerplate's help text. Feel free to add any description of your
+ program or elaborate more on command-line arguments. This section is not
+ parsed and will be added as-is to the help.
+
+# complain about -d (because -d syntax is not supported)
+
+ Option -d requires an argument
+
+  -0 --zero        Do nothing.
+  -1 --one         Do one thing. Required.
+                   More description.
+  -2 --two         Do two things.
+                   More. Required. Description.
+  -3 --three [arg] Do three things.
+                   Required.
+  -4 --four  {arg} Do four things.
+  -5 --five  {arg} Do five things. Required. Maybe.
+  -6 --six   [arg] Do six things. Not Required.
+                   Required, it is not.
+  -7 --seven [arg] Required. Or bust.
+  -8 --eight [arg] Do eight things.
+                   More.Required.Description.
+  -a         [arg] Do A.   Required.
+                   Default="do-a"
+  -b         {arg} Do B.Default="do-b"
+  -c         [arg] Required.   Default="do-c"
+  -d         {arg} Default="do-d"
+
+ This is Bash3 Boilerplate's help text. Feel free to add any description of your
+ program or elaborate more on command-line arguments. This section is not
+ parsed and will be added as-is to the help.
+
+# complain about nothing
+{datetime} UTC [     info] arg_0: 0
+{datetime} UTC [     info] arg_1: 0
+{datetime} UTC [     info] arg_2: 0
+{datetime} UTC [     info] arg_3: arg3
+{datetime} UTC [     info] arg_4: arg4
+{datetime} UTC [     info] arg_5: arg5
+{datetime} UTC [     info] arg_6: 
+{datetime} UTC [     info] arg_7: 
+{datetime} UTC [     info] arg_8: arg8
+{datetime} UTC [     info] arg_a: do-a
+{datetime} UTC [     info] arg_b: do-b
+{datetime} UTC [     info] arg_c: do-c
+{datetime} UTC [     info] arg_d: argd
