@@ -12,4 +12,4 @@ __root="$(cd "$(dirname $(dirname $(dirname "${__dir}")))" && pwd)"
 
 echo "ACCPTST:STDIO_REPLACE_DATETIMES"
 
-bash "${__root}/main.sh" -h
+bash "${__root}/main.sh" -f /tmp/x -h
