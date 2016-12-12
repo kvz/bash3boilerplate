@@ -21,6 +21,7 @@
     "start": "npm-run-all --parallel injecter starter",
     "starter": "lanyon start",
     "test": "test/acceptance.sh",
+    "upgrade:modules": "next-update --keep true --tldr",
     "version:current": "node -e 'console.log(require(\"./package.json\").version)'",
     "version:replace": "replace 'v\\d+\\.\\d+\\.\\d+' \"v$(npm run --silent version:current)\" main.sh src/*.sh"
   },
@@ -29,13 +30,14 @@
     "prebuild": "npm run inject"
   },
   "dependencies": {
-    "fakefile": "0.0.6"
   },
   "devDependencies": {
-    "browser-sync": "2.11.0",
-    "cross-env": "1.0.7",
-    "lanyon": "0.0.32",
-    "nodemon": "1.8.1",
-    "npm-run-all": "2.1.1"
+    "browser-sync": "2.18.2",
+    "cross-env": "3.1.3",
+    "fakefile": "0.0.8",
+    "lanyon": "0.0.33",
+    "next-update": "1.5.1",
+    "nodemon": "1.11.0",
+    "npm-run-all": "3.1.2"
   }
 }
