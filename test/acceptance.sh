@@ -186,3 +186,36 @@ for scenario in $(echo ${scenarios}); do
 
   popd > /dev/null
 done
+
+# finally do some shellcheck linting
+if [[ "$(command -v shellcheck)" ]]; then
+  echo "==> Shellcheck"
+  pushd "${__root}" > /dev/null
+
+  failed="false"
+
+  while IFS=$'\n' read -r file; do
+    lint="false"
+    [[ "$file" = "./main.sh" ]] && lint="true"
+    [[ "$lint" != "true" ]] && continue
+
+    echo -n "    ${file}.. "
+
+    if ! shellcheck --shell=bash "$file" >> "${__accptstTmpDir}/shellcheck.err"; then
+      echo "✗"
+      failed="true"
+      continue
+    fi
+
+    echo "✓"
+  done <<< "$(find . -maxdepth 1 -type f -iname '*.sh')"
+
+  popd > /dev/null
+
+  if [[ "${failed}" = "true" ]]; then
+    cat "${__accptstTmpDir}/shellcheck.err"
+    exit 1
+  fi
+fi
+
+exit 0
