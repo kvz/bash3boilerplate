@@ -31,7 +31,7 @@ set -o pipefail
 # Set magic variables for current file, directory, os, etc.
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 __file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
-__base="$(basename ${__file} .sh)"
+__base="$(basename "${__file}" .sh)"
 __root="$(cd "$(dirname "${__dir}")" && pwd)"
 
 __sysTmpDir="${TMPDIR:-/tmp}"
@@ -70,9 +70,13 @@ export NO_COLOR="false"
 # Running prepare before other scenarios is important on Travis,
 # so that stdio can diverge - and we can enforce stricter
 # stdio comparison on all other tests.
-scenarios="${1:-$(ls ${__dir}/scenario/|egrep -v ^prepare$)}"
+while IFS=$'\n' read -r scenario; do
+  scenario="$(dirname "${scenario}")"
+  scenario="${scenario##${__dir}/scenario/}"
 
-for scenario in $(echo ${scenarios}); do
+  [[ "${scenario}" = "prepare" ]] && continue
+  [[ "${1:-}" ]] && [[ "${scenario}" != "${1}" ]] && continue
+
   echo "==> Scenario: ${scenario}"
   pushd "${__dir}/scenario/${scenario}" > /dev/null
 
@@ -83,7 +87,7 @@ for scenario in $(echo ${scenarios}); do
     ) || true
 
     # Clear out environmental specifics
-    for typ in $(echo stdio exitcode); do
+    for typ in stdio exitcode; do
       curFile="${__accptstTmpDir}/${scenario}.${typ}"
       "${cmdSed}" -i \
         -e "s@${__node}@{node}@g" "${curFile}" \
@@ -103,7 +107,7 @@ for scenario in $(echo ${scenarios}); do
         -e "s@Linux@{os}@g" "${curFile}" \
       || false
 
-      if [ "$(cat "${curFile}" |grep 'ACCPTST:STDIO_REPLACE_IPS' |wc -l)" -gt 0 ]; then
+      if grep -q 'ACCPTST:STDIO_REPLACE_IPS' "${curFile}"; then
         "${cmdSed}" -i \
           -r 's@[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}@{ip}@g' \
         "${curFile}"
@@ -114,36 +118,36 @@ for scenario in $(echo ${scenarios}); do
           -r 's@\{ip\}\s+@{ip} @g' \
         "${curFile}"
       fi
-      if [ "$(cat "${curFile}" |grep 'ACCPTST:STDIO_REPLACE_UUIDS' |wc -l)" -gt 0 ]; then
+      if grep -q 'ACCPTST:STDIO_REPLACE_UUIDS' "${curFile}"; then
         "${cmdSed}" -i \
           -r 's@[0-9a-f\-]{32,40}@{uuid}@g' \
         "${curFile}"
       fi
-      if [ "$(cat "${curFile}" |grep 'ACCPTST:STDIO_REPLACE_BIGINTS' |wc -l)" -gt 0 ]; then
+      if grep -q 'ACCPTST:STDIO_REPLACE_BIGINTS' "${curFile}"; then
         # Such as: 3811298194
         "${cmdSed}" -i \
           -r 's@[0-9]{7,64}@{bigint}@g' \
         "${curFile}"
       fi
-      if [ "$(cat "${curFile}" |grep 'ACCPTST:STDIO_REPLACE_DATETIMES' |wc -l)" -gt 0 ]; then
+      if grep -q 'ACCPTST:STDIO_REPLACE_DATETIMES' "${curFile}"; then
         # Such as: 2016-02-10 15:38:44.420094
         "${cmdSed}" -i \
           -r 's@[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}@{datetime}@g' \
         "${curFile}"
       fi
-      if [ "$(cat "${curFile}" |grep 'ACCPTST:STDIO_REPLACE_LONGTIMES' |wc -l)" -gt 0 ]; then
+      if grep -q 'ACCPTST:STDIO_REPLACE_LONGTIMES' "${curFile}"; then
         # Such as: 2016-02-10 15:38:44.420094
         "${cmdSed}" -i \
           -r 's@[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{6}@{longtime}@g' \
         "${curFile}"
       fi
-      if [ "$(cat "${curFile}" |grep 'ACCPTST:STDIO_REPLACE_DURATIONS' |wc -l)" -gt 0 ]; then
+      if grep -q 'ACCPTST:STDIO_REPLACE_DURATIONS' "${curFile}"; then
         # Such as: 0:00:00.001991
         "${cmdSed}" -i \
           -r 's@[0-9]{1,2}:[0-9]{2}:[0-9]{2}.[0-9]{6}@{duration}@g' \
         "${curFile}"
       fi
-      if [ "$(cat "${curFile}" |grep 'ACCPTST:STDIO_REPLACE_REMOTE_EXEC' |wc -l)" -gt 0 ]; then
+      if grep -q 'ACCPTST:STDIO_REPLACE_REMOTE_EXEC' "${curFile}"; then
         egrep -v 'remote-exec\): [ a-zA-Z]' "${curFile}" > "${__sysTmpDir}/accptst-filtered.txt"
         mv "${__sysTmpDir}/accptst-filtered.txt" "${curFile}"
       fi
@@ -151,7 +155,7 @@ for scenario in $(echo ${scenarios}); do
 
     # Save these as new fixtures?
     if [ "${SAVE_FIXTURES:-}" = "true" ]; then
-      for typ in $(echo stdio exitcode); do
+      for typ in stdio exitcode; do
         curFile="${__accptstTmpDir}/${scenario}.${typ}"
         cp -f \
           "${curFile}" \
@@ -160,13 +164,13 @@ for scenario in $(echo ${scenarios}); do
     fi
 
     # Compare
-    for typ in $(echo stdio exitcode); do
+    for typ in stdio exitcode; do
       curFile="${__accptstTmpDir}/${scenario}.${typ}"
 
       echo -n "    comparing ${typ}.. "
 
       if [ "${typ}" = "stdio" ]; then
-        if [ "$(cat "${curFile}" |grep 'ACCPTST:STDIO_SKIP_COMPARE' |wc -l)" -gt 0 ]; then
+        if grep -q 'ACCPTST:STDIO_SKIP_COMPARE' "${curFile}"; then
           echo "skip"
           continue
         fi
@@ -185,7 +189,9 @@ for scenario in $(echo ${scenarios}); do
     done
 
   popd > /dev/null
-done
+done <<< "$(find "${__dir}/scenario" -type f -iname 'run.sh')"
+
+[[ "${1:-}" ]] && exit 0
 
 # finally do some shellcheck linting
 if [[ "$(command -v shellcheck)" ]]; then
@@ -198,6 +204,7 @@ if [[ "$(command -v shellcheck)" ]]; then
     lint="false"
     [[ "$file" = "./main.sh" ]] && lint="true"
     [[ "$file" = "./example.sh" ]] && lint="true"
+    [[ "$file" = "./test/acceptance.sh" ]] && lint="true"
     [[ "$lint" != "true" ]] && continue
 
     echo -n "    ${file}.. "
@@ -209,7 +216,7 @@ if [[ "$(command -v shellcheck)" ]]; then
     fi
 
     echo "✓"
-  done <<< "$(find . -maxdepth 1 -type f -iname '*.sh')"
+  done <<< "$(find . -type f -iname '*.sh')"
 
   popd > /dev/null
 
