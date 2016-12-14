@@ -197,11 +197,12 @@ if [[ "$(command -v shellcheck)" ]]; then
   while IFS=$'\n' read -r file; do
     lint="false"
     [[ "$file" = "./main.sh" ]] && lint="true"
+    [[ "$file" = "./example.sh" ]] && lint="true"
     [[ "$lint" != "true" ]] && continue
 
     echo -n "    ${file}.. "
 
-    if ! shellcheck --shell=bash "$file" >> "${__accptstTmpDir}/shellcheck.err"; then
+    if ! shellcheck --shell=bash --external-sources "$file" >> "${__accptstTmpDir}/shellcheck.err"; then
       echo "✗"
       failed="true"
       continue
