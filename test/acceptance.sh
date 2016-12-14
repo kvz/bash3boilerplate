@@ -34,33 +34,33 @@ __file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
 __base="$(basename ${__file} .sh)"
 __root="$(cd "$(dirname "${__dir}")" && pwd)"
 
-scenarios="${1:-$(ls ${__dir}/scenario/|egrep -v ^prepare$)}"
-
 __sysTmpDir="${TMPDIR:-/tmp}"
 __sysTmpDir="${__sysTmpDir%/}" # <-- remove trailing slash on macosx
-__accptstTmpDir="${__sysTmpDir}/accptst"
-mkdir -p "${__accptstTmpDir}"
+__accptstTmpDir=$(mktemp -d "${__sysTmpDir}/${__base}.XXXXXX")
+
+function cleanup_before_exit () { rm -r "${__accptstTmpDir:?}"; }
+trap cleanup_before_exit EXIT
+
+cmdSed=sed
+cmdTimeout=timeout
 
 if [[ "${OSTYPE}" == "darwin"* ]]; then
   cmdSed=gsed
-else
-  cmdSed=sed
+  cmdTimeout=gtimeout
 fi
 
-if [[ "${OSTYPE}" == "darwin"* ]]; then
-  cmdTimeout="gtimeout --kill-after=6m 5m"
-else
-  cmdTimeout="timeout --kill-after=6m 5m"
+if [[ ! "$(command -v ${cmdSed})" ]]; then
+  echo "Please install ${cmdSed}"
+  exit 1
+fi
+
+if [[ ! "$(command -v ${cmdTimeout})" ]]; then
+  echo "Please install ${cmdTimeout}"
+  exit 1
 fi
 
 __node="$(which node)"
 __arch="amd64"
-
-
-if ! which "${cmdSed}" > /dev/null; then
-  echo "Please install ${cmdSed}"
-  exit 1
-fi
 
 # explicitly setting NO_COLOR to false will make b3bp ignore TERM
 # not being "xterm*" and STDERR not being connected to a terminal
@@ -70,12 +70,14 @@ export NO_COLOR="false"
 # Running prepare before other scenarios is important on Travis,
 # so that stdio can diverge - and we can enforce stricter
 # stdio comparison on all other tests.
+scenarios="${1:-$(ls ${__dir}/scenario/|egrep -v ^prepare$)}"
+
 for scenario in $(echo ${scenarios}); do
   echo "==> Scenario: ${scenario}"
   pushd "${__dir}/scenario/${scenario}" > /dev/null
 
     # Run scenario
-    (${cmdTimeout} bash ./run.sh \
+    (${cmdTimeout} --kill-after=6m 5m bash ./run.sh \
       > "${__accptstTmpDir}/${scenario}.stdio" 2>&1; \
       echo "${?}" > "${__accptstTmpDir}/${scenario}.exitcode" \
     ) || true
