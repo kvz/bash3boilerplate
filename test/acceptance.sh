@@ -154,7 +154,7 @@ while IFS=$'\n' read -r scenario; do
     done
 
     # Save these as new fixtures?
-    if [ "${SAVE_FIXTURES:-}" = "true" ]; then
+    if [[ "${SAVE_FIXTURES:-}" = "true" ]]; then
       for typ in stdio exitcode; do
         curFile="${__accptstTmpDir}/${scenario}.${typ}"
         cp -f \
@@ -169,7 +169,7 @@ while IFS=$'\n' read -r scenario; do
 
       echo -n "    comparing ${typ}.. "
 
-      if [ "${typ}" = "stdio" ]; then
+      if [[ "${typ}" = "stdio" ]]; then
         if grep -q 'ACCPTST:STDIO_SKIP_COMPARE' "${curFile}"; then
           echo "skip"
           continue
@@ -202,14 +202,14 @@ if [[ "$(command -v shellcheck)" ]]; then
 
   while IFS=$'\n' read -r file; do
     lint="false"
-    [[ "$file" = "./main.sh" ]] && lint="true"
-    [[ "$file" = "./example.sh" ]] && lint="true"
-    [[ "$file" = "./test/acceptance.sh" ]] && lint="true"
-    [[ "$lint" != "true" ]] && continue
+    [[ "${file}" = "./main.sh" ]] && lint="true"
+    [[ "${file}" = "./example.sh" ]] && lint="true"
+    [[ "${file}" = "./test/acceptance.sh" ]] && lint="true"
+    [[ "${lint}" != "true" ]] && continue
 
     echo -n "    ${file}.. "
 
-    if ! shellcheck --shell=bash --external-sources "$file" >> "${__accptstTmpDir}/shellcheck.err"; then
+    if ! shellcheck --shell=bash --external-sources "${file}" >> "${__accptstTmpDir}/shellcheck.err"; then
       echo "✗"
       failed="true"
       continue
