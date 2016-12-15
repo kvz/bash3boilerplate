@@ -43,6 +43,7 @@ read -r -d '' __helptext <<-'EOF' || true # exits non-zero when EOF encountered
  parsed and will be added as-is to the help.
 EOF
 
+# shellcheck source=./main.sh
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/main.sh"
 
 
@@ -50,23 +51,23 @@ source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/main.sh"
 ##############################################################################
 
 # debug mode
-if [ "${arg_d}" = "1" ]; then
+if [[ "${arg_d:?}" = "1" ]]; then
   set -o xtrace
   LOG_LEVEL="7"
 fi
 
 # verbose mode
-if [ "${arg_v}" = "1" ]; then
+if [[ "${arg_v:?}" = "1" ]]; then
   set -o verbose
 fi
 
 # no color mode
-if [ "${arg_n}" = "1" ]; then
+if [[ "${arg_n:?}" = "1" ]]; then
   NO_COLOR="true"
 fi
 
 # help mode
-if [ "${arg_h}" = "1" ]; then
+if [[ "${arg_h:?}" = "1" ]]; then
   # Help exists with code 1
   help "Help using ${0}"
 fi
@@ -75,8 +76,8 @@ fi
 ### Validation. Error out if the things required for your script are not present
 ##############################################################################
 
-[ -z "${arg_f:-}" ] && help "Setting a filename with -f or --file is required"
-[ -z "${LOG_LEVEL:-}" ] && emergency "Cannot continue without LOG_LEVEL. "
+[[ "${arg_f:-}" ]]     || help      "Setting a filename with -f or --file is required"
+[[ "${LOG_LEVEL:-}" ]] || emergency "Cannot continue without LOG_LEVEL. "
 
 
 ### Runtime

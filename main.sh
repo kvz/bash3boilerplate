@@ -26,14 +26,14 @@ set -o pipefail
 # Turn on traces, useful while debugging but commented out by default
 # set -o xtrace
 
-if [ "${BASH_SOURCE[0]}" != "${0}" ]; then
-  if [ ! -z "${__usage+x}" ]; then
+if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
+  if [[ "${__usage+x}" ]]; then
     __b3bp_external_usage="true"
     __b3bp_tmp_source_idx=1
   fi
 else
-  [ ! -z "${__usage+x}" ] && unset -v __usage
-  [ ! -z "${__helptext+x}" ] && unset -v __helptext
+  [[ "${__usage+x}" ]] && unset -v __usage
+  [[ "${__helptext+x}" ]] && unset -v __helptext
 fi
 
 # Set magic variables for current file, directory, os, etc.
@@ -72,11 +72,11 @@ function __b3bp_log () {
 
   local colorvar="color_${log_level}"
 
-  local color="${!colorvar:-$color_error}"
+  local color="${!colorvar:-${color_error}}"
   local color_reset="\x1b[0m"
 
-  if [ "${NO_COLOR:-}" = "true" ] || [[ "${TERM:-}" != "xterm"* ]] || [ ! -t 2 ]; then
-    if [ "${NO_COLOR:-}" != "false" ]; then
+  if [[ "${NO_COLOR:-}" = "true" ]] || [[ "${TERM:-}" != "xterm"* ]] || [[ ! -t 2 ]]; then
+    if [[ "${NO_COLOR:-}" != "false" ]]; then
       # Don't use colors on pipes or non-recognized terminals
       color=""; color_reset=""
     fi
@@ -86,18 +86,18 @@ function __b3bp_log () {
   local log_line=""
 
   while IFS=$'\n' read -r log_line; do
-    echo -e "$(date -u +"%Y-%m-%d %H:%M:%S UTC") ${color}$(printf "[%9s]" "${log_level}")${color_reset} $log_line" 1>&2
+    echo -e "$(date -u +"%Y-%m-%d %H:%M:%S UTC") ${color}$(printf "[%9s]" "${log_level}")${color_reset} ${log_line}" 1>&2
   done <<< "${@:-}"
 }
 
 function emergency () {                                __b3bp_log emergency "${@}"; exit 1; }
-function alert ()     { [ "${LOG_LEVEL:-0}" -ge 1 ] && __b3bp_log alert "${@}"; true; }
-function critical ()  { [ "${LOG_LEVEL:-0}" -ge 2 ] && __b3bp_log critical "${@}"; true; }
-function error ()     { [ "${LOG_LEVEL:-0}" -ge 3 ] && __b3bp_log error "${@}"; true; }
-function warning ()   { [ "${LOG_LEVEL:-0}" -ge 4 ] && __b3bp_log warning "${@}"; true; }
-function notice ()    { [ "${LOG_LEVEL:-0}" -ge 5 ] && __b3bp_log notice "${@}"; true; }
-function info ()      { [ "${LOG_LEVEL:-0}" -ge 6 ] && __b3bp_log info "${@}"; true; }
-function debug ()     { [ "${LOG_LEVEL:-0}" -ge 7 ] && __b3bp_log debug "${@}"; true; }
+function alert ()     { [[ "${LOG_LEVEL:-0}" -ge 1 ]] && __b3bp_log alert "${@}"; true; }
+function critical ()  { [[ "${LOG_LEVEL:-0}" -ge 2 ]] && __b3bp_log critical "${@}"; true; }
+function error ()     { [[ "${LOG_LEVEL:-0}" -ge 3 ]] && __b3bp_log error "${@}"; true; }
+function warning ()   { [[ "${LOG_LEVEL:-0}" -ge 4 ]] && __b3bp_log warning "${@}"; true; }
+function notice ()    { [[ "${LOG_LEVEL:-0}" -ge 5 ]] && __b3bp_log notice "${@}"; true; }
+function info ()      { [[ "${LOG_LEVEL:-0}" -ge 6 ]] && __b3bp_log info "${@}"; true; }
+function debug ()     { [[ "${LOG_LEVEL:-0}" -ge 7 ]] && __b3bp_log debug "${@}"; true; }
 
 function help () {
   echo "" 1>&2
@@ -106,7 +106,7 @@ function help () {
   echo "  ${__usage:-No usage available}" 1>&2
   echo "" 1>&2
 
-  if [ -n "${__helptext:-}" ]; then
+  if [[ "${__helptext:-}" ]]; then
     echo " ${__helptext}" 1>&2
     echo "" 1>&2
   fi
@@ -127,7 +127,7 @@ function help () {
 #   you can use bash variables to work around this (so use ${HOME} instead)
 
 # shellcheck disable=SC2015
-[ -z "${__usage+x}" ] && read -r -d '' __usage <<-'EOF' || true # exits non-zero when EOF encountered
+[[ "${__usage+x}" ]] || read -r -d '' __usage <<-'EOF' || true # exits non-zero when EOF encountered
   -f --file  [arg] Filename to process. Required.
   -t --temp  [arg] Location of tempfile. Default="/tmp/bar"
   -v               Enable verbose mode, print script as it is executed
@@ -138,7 +138,7 @@ function help () {
 EOF
 
 # shellcheck disable=SC2015
-[ -z "${__helptext+x}" ] && read -r -d '' __helptext <<-'EOF' || true # exits non-zero when EOF encountered
+[[ "${__helptext+x}" ]] || read -r -d '' __helptext <<-'EOF' || true # exits non-zero when EOF encountered
  This is Bash3 Boilerplate's help text. Feel free to add any description of your
  program or elaborate more on command-line arguments. This section is not
  parsed and will be added as-is to the help.
@@ -154,7 +154,7 @@ while read -r __b3bp_tmp_line; do
     # fetch long version if present
     __b3bp_tmp_long_opt=""
 
-    if [[ "${__b3bp_tmp_line}" == *"--"* ]]; then
+    if [[ "${__b3bp_tmp_line}" = *"--"* ]]; then
       __b3bp_tmp_long_opt="${__b3bp_tmp_line#*--}"
       __b3bp_tmp_long_opt="${__b3bp_tmp_long_opt%% *}"
     fi
@@ -180,13 +180,13 @@ while read -r __b3bp_tmp_line; do
     __b3bp_tmp_opts="${__b3bp_tmp_opts:-}${__b3bp_tmp_opt}"
   fi
 
-  [ -z "${__b3bp_tmp_opt:-}" ] && continue
+  [[ "${__b3bp_tmp_opt:-}" ]] || continue
 
   if [[ "${__b3bp_tmp_line}" =~ (^|\.\ *)Default= ]]; then
     # ignore default value if option does not have an argument
     __b3bp_tmp_varname="__b3bp_tmp_has_arg_${__b3bp_tmp_opt:0:1}"
 
-    if [ "${!__b3bp_tmp_varname}" != "0" ]; then
+    if [[ "${!__b3bp_tmp_varname}" != "0" ]]; then
       __b3bp_tmp_init="${__b3bp_tmp_line##*Default=}"
       __b3bp_tmp_re='^"(.*)"$'
       if [[ "${__b3bp_tmp_init}" =~ ${__b3bp_tmp_re} ]]; then
@@ -209,7 +209,7 @@ while read -r __b3bp_tmp_line; do
 done <<< "${__usage:-}"
 
 # run getopts only if options were specified in __usage
-if [ -n "${__b3bp_tmp_opts:-}" ]; then
+if [[ "${__b3bp_tmp_opts:-}" ]]; then
   # Allow long options like --this
   __b3bp_tmp_opts="${__b3bp_tmp_opts}-:"
 
@@ -221,9 +221,9 @@ if [ -n "${__b3bp_tmp_opts:-}" ]; then
 		 # to be dereferenced
   # Overwrite $arg_<flag> defaults with the actual CLI options
   while getopts "${__b3bp_tmp_opts}" __b3bp_tmp_opt; do
-    [ "${__b3bp_tmp_opt}" = "?" ] && help "Invalid use of script: ${*} "
+    [[ "${__b3bp_tmp_opt}" = "?" ]] && help "Invalid use of script: ${*} "
 
-    if [ "${__b3bp_tmp_opt}" = "-" ]; then
+    if [[ "${__b3bp_tmp_opt}" = "-" ]]; then
       # OPTARG is long-option-name or long-option=value
       if [[ "${OPTARG}" =~ .*=.* ]]; then
 	# --key=value format
@@ -249,18 +249,18 @@ if [ -n "${__b3bp_tmp_opts:-}" ]; then
     __b3bp_tmp_default="${!__b3bp_tmp_varname}"
 
     __b3bp_tmp_value="${OPTARG}"
-    if [ -z "${OPTARG}" ] && [ "${__b3bp_tmp_default}" = "0" ]; then
+    if [[ -z "${OPTARG}" ]] && [[ "${__b3bp_tmp_default}" = "0" ]]; then
       __b3bp_tmp_value="1"
     fi
 
     printf -v "${__b3bp_tmp_varname}" '%s' "${__b3bp_tmp_value}"
-    debug "cli arg ${__b3bp_tmp_varname} = ($__b3bp_tmp_default) -> ${!__b3bp_tmp_varname}"
+    debug "cli arg ${__b3bp_tmp_varname} = (${__b3bp_tmp_default}) -> ${!__b3bp_tmp_varname}"
   done
   set -o nounset # no more unbound variable references expected
 
   shift $((OPTIND-1))
 
-  [ "${1:-}" = "--" ] && shift
+  [[ "${1:-}" = "--" ]] && shift
 fi
 
 
@@ -269,15 +269,15 @@ fi
 
 for __b3bp_tmp_varname in ${!__b3bp_tmp_has_arg_*}; do
   # validate only options which required an argument
-  [ "${!__b3bp_tmp_varname}" = "2" ] || continue
+  [[ "${!__b3bp_tmp_varname}" = "2" ]] || continue
 
   __b3bp_tmp_opt_short="${__b3bp_tmp_varname##*_}"
   __b3bp_tmp_varname="arg_${__b3bp_tmp_opt_short}"
-  [ -n "${!__b3bp_tmp_varname}" ] && continue
+  [[ "${!__b3bp_tmp_varname}" ]] && continue
 
   __b3bp_tmp_varname="__b3bp_tmp_opt_short2long_${__b3bp_tmp_opt_short}"
   printf -v "__b3bp_tmp_opt_long" '%s' "${!__b3bp_tmp_varname}"
-  [ -n "${__b3bp_tmp_opt_long:-}" ] && __b3bp_tmp_opt_long=" (--${__b3bp_tmp_opt_long//_/-})"
+  [[ "${__b3bp_tmp_opt_long:-}" ]] && __b3bp_tmp_opt_long=" (--${__b3bp_tmp_opt_long//_/-})"
 
   help "Option -${__b3bp_tmp_opt_short}${__b3bp_tmp_opt_long:-} requires an argument"
 done
@@ -296,7 +296,7 @@ unset -v __tmp_varname
 ### Externally supplied __usage. Nothing else to do here
 ##############################################################################
 
-if [ "${__b3bp_external_usage:-}" = "true" ]; then
+if [[ "${__b3bp_external_usage:-}" = "true" ]]; then
   unset -v __b3bp_external_usage
   return
 fi
@@ -306,23 +306,23 @@ fi
 ##############################################################################
 
 # debug mode
-if [ "${arg_d:?}" = "1" ]; then
+if [[ "${arg_d:?}" = "1" ]]; then
   set -o xtrace
   LOG_LEVEL="7"
 fi
 
 # verbose mode
-if [ "${arg_v:?}" = "1" ]; then
+if [[ "${arg_v:?}" = "1" ]]; then
   set -o verbose
 fi
 
 # no color mode
-if [ "${arg_n:?}" = "1" ]; then
+if [[ "${arg_n:?}" = "1" ]]; then
   NO_COLOR="true"
 fi
 
 # help mode
-if [ "${arg_h:?}" = "1" ]; then
+if [[ "${arg_h:?}" = "1" ]]; then
   # Help exists with code 1
   help "Help using ${0}"
 fi
@@ -331,8 +331,8 @@ fi
 ### Validation. Error out if the things required for your script are not present
 ##############################################################################
 
-[ -z "${arg_f:-}" ]     && help      "Setting a filename with -f or --file is required"
-[ -z "${LOG_LEVEL:-}" ] && emergency "Cannot continue without LOG_LEVEL. "
+[[ "${arg_f:-}" ]]     || help      "Setting a filename with -f or --file is required"
+[[ "${LOG_LEVEL:-}" ]] || emergency "Cannot continue without LOG_LEVEL. "
 
 
 ### Runtime

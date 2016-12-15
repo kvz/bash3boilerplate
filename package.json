@@ -29,13 +29,16 @@
     "projectDir": "website",
     "prebuild": "npm run inject"
   },
+  "optionalDependencies": {
+    "fsevents": "*"
+  },
   "dependencies": {
   },
   "devDependencies": {
     "browser-sync": "2.18.2",
     "cross-env": "3.1.3",
     "fakefile": "0.0.8",
-    "lanyon": "0.0.33",
+    "lanyon": "0.0.44",
     "next-update": "1.5.1",
     "nodemon": "1.11.0",
     "npm-run-all": "3.1.2"
