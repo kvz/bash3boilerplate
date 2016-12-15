@@ -2522,7 +2522,7 @@ fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
 
-fsevents@^1.0.0:
+fsevents@*, fsevents@^1.0.0:
   version "1.0.15"
   resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-1.0.15.tgz#fa63f590f3c2ad91275e4972a6cea545fb0aae44"
   dependencies:
@@ -3374,9 +3374,9 @@ klaw@^1.0.0:
   optionalDependencies:
     graceful-fs "^4.1.9"
 
-lanyon@0.0.43:
-  version "0.0.43"
-  resolved "https://registry.yarnpkg.com/lanyon/-/lanyon-0.0.43.tgz#5ac80528f47a3b62e2c4e8172ca7e6fb21495a29"
+lanyon@0.0.44:
+  version "0.0.44"
+  resolved "https://registry.yarnpkg.com/lanyon/-/lanyon-0.0.44.tgz#4148a34b50d3ce52f2fe768db9815459756c959b"
   dependencies:
     assets-webpack-plugin "^3.5.0"
     autoprefixer "6.5.3"
