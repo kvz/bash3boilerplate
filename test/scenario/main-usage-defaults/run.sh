@@ -4,13 +4,9 @@ set -o errexit
 set -o nounset
 # set -o xtrace
 
-# Set magic variables for current FILE & DIR
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-__file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
-__base="$(basename ${__file} .sh)"
-__root="$(cd "$(dirname $(dirname $(dirname "${__dir}")))" && pwd)"
+__root="$(cd "$(dirname "$(dirname "$(dirname "${__dir}")")")" && pwd)"
 
-# Set __usage and source main.sh
 read -r -d '' __usage <<-'EOF' || true # exits non-zero when EOF encountered
   -1 --one         Do one thing. Default="ONE"
                    More description.
@@ -28,6 +24,7 @@ EOF
 
 echo "ACCPTST:STDIO_REPLACE_DATETIMES"
 
+# shellcheck source=main.sh
 source "${__root}/main.sh"
 
 for argument in ${!arg_*}; do info "${argument}: ${!argument}"; done
