@@ -12,6 +12,12 @@ env:
   - secure: BeM6mpPEATdeFcAr/222QBZ9vRkZtU2WOi9QQy3mxsuDbWfM8RxYESIEJLipyhW9kXGoe6HGMqm4Kz9B/c4jrzeSXPpKnW7mIfnyqN+hhq1ctW9qPSqodu+fYNhdDxXh5wylml7hnIJzU70vFGrFknZRE2FYk5XvyHg2ImIKDJw=
   - secure: RJ5UpdXms9QkraylZ11OBfmcRrmKnb254Yj0yCDAvZmg+n+3jSTwMgGvPY8Ih8X/R1JeW3VTtFDkJXXPnjjfpNg1M91u4CAEUOMPciCudYcoF6GKb8psnOzneTTX5M7zuJSzknGdpv/foldxiPYxiY5Hn5bfjmikhAEl+QX/R0Y=
   - secure: BXf2buPt/DA09M5ZUdp/LpOWtUuz1mfCBopLyxvHv3Sl3ln+Az57wWsM2+Re+77lUOgihR2f6lXYfNUmQuSUo157rZPunQCqM/DJhK69KhREEB6SJDaJF3FVlnGla+Cwwb1IQUtMopqX9pBYD7w/zyWQFJCi20O57JEVIdfZZS8=
+addons:
+  apt:
+    sources:
+    - debian-sid
+    packages:
+    - shellcheck
 install: npm install # <-- yarn still messes up nested bins: https://github.com/yarnpkg/yarn/issues/760
 before_install:
 - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update; fi
