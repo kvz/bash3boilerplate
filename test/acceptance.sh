@@ -201,6 +201,9 @@ if [[ "$(command -v shellcheck)" ]]; then
   failed="false"
 
   while IFS=$'\n' read -r file; do
+    [[ "${file}" =~ ^\./node_modules/ ]] && continue
+    [[ "${file}" =~ ^\./website/\.lanyon/ ]] && continue
+
     echo -n "    ${file}.. "
 
     if ! shellcheck --shell=bash --external-sources "${file}" >> "${__accptstTmpDir}/shellcheck.err"; then
