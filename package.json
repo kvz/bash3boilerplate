@@ -28,6 +28,9 @@
     "projectDir": "website",
     "prebuild": "npm run inject"
   },
+  "optionalDependencies": {
+    "fsevents": "*"
+  },
   "dependencies": {
     "fakefile": "0.0.6"
   },
