@@ -30,15 +30,25 @@ function parse_url() {
   local parse="${1}"
   local need="${2:-}"
 
-  local proto="$(echo $parse | grep :// | sed -e's,^\(.*://\).*,\1,g')"
-  local url="$(echo ${parse/$proto/})"
-  local userpass="$(echo $url | grep @ | cut -d@ -f1)"
-  local user="$(echo $userpass | grep : | cut -d: -f1)"
-  local pass="$(echo $userpass | grep : | cut -d: -f2)"
-  local hostport="$(echo ${url/$userpass@/} | cut -d/ -f1)"
-  local host="$(echo $hostport | grep : | cut -d: -f1)"
-  local port="$(echo $hostport | grep : | cut -d: -f2)"
-  local path="$(echo $url | grep / | cut -d/ -f2-)"
+  local proto
+  local url
+  local userpass
+  local user
+  local pass
+  local hostport
+  local host
+  local port
+  local path
+
+  proto="$(echo "$parse" | grep :// | sed -e's,^\(.*://\).*,\1,g')"
+  url="${parse/$proto/}"
+  userpass="$(echo "$url" | grep @ | cut -d@ -f1)"
+  user="$(echo "$userpass" | grep : | cut -d: -f1)"
+  pass="$(echo "$userpass" | grep : | cut -d: -f2)"
+  hostport="$(echo "${url/$userpass@/}" | cut -d/ -f1)"
+  host="$(echo "$hostport" | grep : | cut -d: -f1)"
+  port="$(echo "$hostport" | grep : | cut -d: -f2)"
+  path="$(echo "$url" | grep / | cut -d/ -f2-)"
 
   [ -z "${user}" ] && user="${userpass}"
   [ -z "${host}" ] && host="${hostport}"
@@ -50,7 +60,7 @@ function parse_url() {
   fi
 
   if [ -n "${need}" ]; then
-    echo ${!need}
+    echo "${!need}"
   else
     echo ""
     echo " Use second argument to return just 1 variable."

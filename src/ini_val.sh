@@ -35,13 +35,15 @@ function ini_val() {
   local key=""
 
   # Split on . for section. However, section is optional
-  read section key <<<$(IFS="."; echo ${sectionkey})
+  IFS='.' read -r section key <<< "${sectionkey}"
   if [ -z "${key}" ]; then
     key="${section}"
     section=""
   fi
 
-  local current=$(awk -F "${delim}" "/^${key}${delim}/ {for (i=2; i<NF; i++) printf \$i \" \"; print \$NF}" "${file}")
+  local current
+  current=$(awk -F "${delim}" "/^${key}${delim}/ {for (i=2; i<NF; i++) printf \$i \" \"; print \$NF}" "${file}")
+
   if [ -z "${val}" ]; then
     # get a value
     echo "${current}"
