@@ -1285,7 +1285,7 @@ charenc@~0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/charenc/-/charenc-0.0.1.tgz#004cff9feaf102382ed12db58dd6f962796d6e88"
 
-chokidar@1.4.1, chokidar@^1.2.0:
+chokidar@1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-1.4.1.tgz#df1d906769701a0f3df492c37dcc3cb35e6450e4"
   dependencies:
@@ -1833,13 +1833,13 @@ debug@0.7.4:
   version "0.7.4"
   resolved "https://registry.yarnpkg.com/debug/-/debug-0.7.4.tgz#06e1ea8082c2cb14e39806e22e2f6f757f92af39"
 
-debug@2.2.0, debug@~2.2.0:
+debug@2.2.0, debug@^2.2.0, debug@~2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.2.0.tgz#f87057e995b1a1f6ae6a4960664137bc56f039da"
   dependencies:
     ms "0.7.1"
 
-debug@2.3.3, debug@^2.1.1, debug@^2.2.0:
+debug@2.3.3, debug@^2.1.1:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.3.3.tgz#40c453e67e6e13c901ddec317af8986cda9eff8c"
   dependencies:
@@ -3374,9 +3374,9 @@ klaw@^1.0.0:
   optionalDependencies:
     graceful-fs "^4.1.9"
 
-lanyon@0.0.46:
-  version "0.0.46"
-  resolved "https://registry.yarnpkg.com/lanyon/-/lanyon-0.0.46.tgz#189bc8ea7c4da01566dc478e643a9111d7dada24"
+lanyon@0.0.47:
+  version "0.0.47"
+  resolved "https://registry.yarnpkg.com/lanyon/-/lanyon-0.0.47.tgz#ce55a1575a801c7a897b239315254f75a2165875"
   dependencies:
     assets-webpack-plugin "^3.5.0"
     autoprefixer "6.5.3"
@@ -4050,20 +4050,6 @@ nodemon@1.11.0:
     debug "^2.2.0"
     es6-promise "^3.0.2"
     ignore-by-default "^1.0.0"
-    lodash.defaults "^3.1.2"
-    minimatch "^3.0.0"
-    ps-tree "^1.0.1"
-    touch "1.0.0"
-    undefsafe "0.0.3"
-    update-notifier "0.5.0"
-
-nodemon@1.8.1:
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/nodemon/-/nodemon-1.8.1.tgz#75cfd7ac167e938cdab7313c839bc45a1859bb32"
-  dependencies:
-    chokidar "^1.2.0"
-    debug "^2.2.0"
-    es6-promise "^3.0.2"
     lodash.defaults "^3.1.2"
     minimatch "^3.0.0"
     ps-tree "^1.0.1"
