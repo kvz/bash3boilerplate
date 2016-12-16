@@ -48,6 +48,7 @@ function templater() {
 
   # cat "${templateDst}"
 
+  # shellcheck disable=SC2016
   if grep '${' "${templateDst}" && [ "${ALLOW_REMAINDERS}" = "0" ]; then
     echo "ERROR: Unable to replace the above template vars"
     exit 1

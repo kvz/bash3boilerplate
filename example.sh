@@ -43,7 +43,7 @@ read -r -d '' __helptext <<-'EOF' || true # exits non-zero when EOF encountered
  parsed and will be added as-is to the help.
 EOF
 
-# shellcheck source=./main.sh
+# shellcheck source=main.sh
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/main.sh"
 
 
