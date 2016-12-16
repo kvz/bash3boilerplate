@@ -7,8 +7,6 @@
     "build": "lanyon build",
     "deploy": "lanyon deploy",
     "encrypt": "lanyon encrypt",
-    "inject": "./website/_scripts/inject.sh",
-    "injecter": "nodemon --verbose --watch ./  --ignore 'website/*.md' --ignore website/_site --ignore website/.lanyon --ext html,json,md,js,css,png,jpg --exec 'npm run inject'",
     "install": "lanyon postinstall",
     "lint": "shellcheck --shell=bash $(find . -name '*.sh' -maxdepth 2)",
     "release:major": "env SEMANTIC=major npm run release",
@@ -17,16 +15,20 @@
     "release": "npm version ${SEMANTIC:-patch} -m \"Release %s\" && npm run version:replace && git commit main.sh src/*.sh -m 'Update version' && git push && git push --tags && npm publish",
     "save:fixtures": "cross-env SAVE_FIXTURES=true npm run test",
     "serve:production": "LANYON_ENV=production lanyon serve",
-    "start:production": "npm-run-all inject build:production serve:production",
-    "start": "npm-run-all --parallel injecter starter",
-    "starter": "lanyon start",
+    "start:production": "npm-run-all build:production serve:production",
+    "start": "lanyon start",
     "test": "test/acceptance.sh",
     "version:current": "node -e 'console.log(require(\"./package.json\").version)'",
     "version:replace": "replace 'v\\d+\\.\\d+\\.\\d+' \"v$(npm run --silent version:current)\" main.sh src/*.sh"
   },
   "lanyon": {
     "projectDir": "website",
-    "prebuild": "npm run inject"
+    "prebuild": "./_scripts/inject.sh",
+    "contentScandir": "../",
+    "contentIgnore": [
+      "website/*.md",
+      "website/main.sh"
+    ]
   },
   "optionalDependencies": {
     "fsevents": "*"
@@ -38,7 +40,6 @@
     "browser-sync": "2.11.0",
     "cross-env": "1.0.7",
     "lanyon": "0.0.46",
-    "nodemon": "1.8.1",
     "npm-run-all": "2.1.1"
   }
 }
