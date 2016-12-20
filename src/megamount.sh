@@ -28,19 +28,28 @@
 # You are not obligated to bundle the LICENSE file with your b3bp projects as long
 # as you leave these references intact in the header comments of your source files.
 
-__dir=$(cd `dirname "${BASH_SOURCE[0]}"` && pwd)
+__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# shellcheck source=src/parse_url.sh
 source "${__dir}/parse_url.sh"
 
 function megamount () {
   local url="${1}"
   local target="${2}"
 
-  local proto=$(parse_url "${url}" "proto")
-  local user=$(parse_url "${url}" "user")
-  local pass=$(parse_url "${url}" "pass")
-  local host=$(parse_url "${url}" "host")
-  local port=$(parse_url "${url}" "port")
-  local path=$(parse_url "${url}" "path")
+  local proto
+  local user
+  local pass
+  local host
+  local port
+  local path
+
+  proto=$(parse_url "${url}" "proto")
+  user=$(parse_url "${url}" "user")
+  pass=$(parse_url "${url}" "pass")
+  host=$(parse_url "${url}" "host")
+  port=$(parse_url "${url}" "port")
+  path=$(parse_url "${url}" "path")
 
   (umount -lf "${target}" || umount -f "${target}") > /dev/null 2>&1 || true
   mkdir -p "${target}"

@@ -1992,23 +1992,17 @@ debug@0.7.4:
   version "0.7.4"
   resolved "https://registry.yarnpkg.com/debug/-/debug-0.7.4.tgz#06e1ea8082c2cb14e39806e22e2f6f757f92af39"
 
-debug@2, debug@^2.1.1, debug@^2.2.0:
-  version "2.4.5"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-2.4.5.tgz#34c7b12a1ca96674428f41fe92c49b4ce7cd0607"
-  dependencies:
-    ms "0.7.2"
-
-debug@2.2.0, debug@~2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-2.2.0.tgz#f87057e995b1a1f6ae6a4960664137bc56f039da"
-  dependencies:
-    ms "0.7.1"
-
-debug@2.3.3:
+debug@2, debug@2.3.3:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.3.3.tgz#40c453e67e6e13c901ddec317af8986cda9eff8c"
   dependencies:
     ms "0.7.2"
+
+debug@2.2.0, debug@^2.1.1, debug@^2.2.0, debug@~2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-2.2.0.tgz#f87057e995b1a1f6ae6a4960664137bc56f039da"
+  dependencies:
+    ms "0.7.1"
 
 decamelize@^1.0.0, decamelize@^1.1.1, decamelize@^1.1.2:
   version "1.2.0"
@@ -3200,14 +3194,14 @@ http-proxy-middleware@~0.17.1:
     lodash "^4.17.2"
     micromatch "^2.3.11"
 
-http-proxy@1.15.1, http-proxy@^1.8.1:
+http-proxy@1.15.1:
   version "1.15.1"
   resolved "https://registry.yarnpkg.com/http-proxy/-/http-proxy-1.15.1.tgz#91a6088172e79bc0e821d5eb04ce702f32446393"
   dependencies:
     eventemitter3 "1.x.x"
     requires-port "1.x.x"
 
-http-proxy@1.15.2:
+http-proxy@1.15.2, http-proxy@^1.8.1:
   version "1.15.2"
   resolved "https://registry.yarnpkg.com/http-proxy/-/http-proxy-1.15.2.tgz#642fdcaffe52d3448d2bda3b0079e9409064da31"
   dependencies:
@@ -4243,13 +4237,17 @@ minimatch@~0.2.11, minimatch@~0.2.12:
     lru-cache "2"
     sigmund "~1.0.0"
 
-minimist@0.0.8, minimist@~0.0.1:
+minimist@0.0.8:
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.8.tgz#857fcabfc3397d2625b8228262e86aa7a011b05d"
 
 minimist@^1.1.0, minimist@^1.1.3, minimist@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
+
+minimist@~0.0.1:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.10.tgz#de3f98543dbf96082be48ad1a0c7cda836301dcf"
 
 mkdirp@0.3.0:
   version "0.3.0"
@@ -6387,11 +6385,11 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-ua-parser-js@0.7.10, ua-parser-js@^0.7.9:
+ua-parser-js@0.7.10:
   version "0.7.10"
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.10.tgz#917559ddcce07cbc09ece7d80495e4c268f4ef9f"
 
-ua-parser-js@0.7.12:
+ua-parser-js@0.7.12, ua-parser-js@^0.7.9:
   version "0.7.12"
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.12.tgz#04c81a99bdd5dc52263ea29d24c6bf8d4818a4bb"
 

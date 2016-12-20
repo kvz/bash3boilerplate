@@ -201,11 +201,8 @@ if [[ "$(command -v shellcheck)" ]]; then
   failed="false"
 
   while IFS=$'\n' read -r file; do
-    lint="false"
-    [[ "${file}" = "./main.sh" ]] && lint="true"
-    [[ "${file}" = "./example.sh" ]] && lint="true"
-    [[ "${file}" = "./test/acceptance.sh" ]] && lint="true"
-    [[ "${lint}" != "true" ]] && continue
+    [[ "${file}" =~ ^\./node_modules/ ]] && continue
+    [[ "${file}" =~ ^\./website/\.lanyon/ ]] && continue
 
     echo -n "    ${file}.. "
 
