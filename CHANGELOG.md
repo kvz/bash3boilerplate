@@ -6,15 +6,15 @@ Released: Unreleased. [Commit log](https://github.com/kvz/bash3boilerplate/compa
 
 ## v2.2.0
 
-Released: 2016-12-XX. [Commit log](https://github.com/kvz/bash3boilerplate/compare/v2.1.0...v2.2.0)
+Released: 2016-12-21. [Commit log](https://github.com/kvz/bash3boilerplate/compare/v2.1.0...v2.2.0)
 
-- run shellcheck as part of the acceptance test. Closes #79 (@mstreuhofer)
-- brace all variables, used `[[` instead of `[`. Closes #33 (@mstreuhofer)
-- added automatic usage validation for required args. Closes #22 (@mstreuhofer)
-- removed all usage of eval (@mstreuhofer)
-- get rid of awk, sed & egrep usage (@mstreuhofer)
-- fix auto-color-off code. Fixes #69 (@mstreuhofer)
-- used shellcheck to find and fix unclean code (@mstreuhofer)
+- Run shellcheck as part of the acceptance test. Closes #79 (@mstreuhofer)
+- Brace all variables, used `[[` instead of `[`. Closes #33 (@mstreuhofer)
+- Add automatic usage validation for required args. Closes #22 (@mstreuhofer)
+- Remove all usage of eval (@mstreuhofer)
+- Get rid of awk, sed & egrep usage (@mstreuhofer)
+- Fix auto-color-off code. Fixes #69 (@mstreuhofer)
+- Use shellcheck to find and fix unclean code (@mstreuhofer)
 - Allow for multiline opt description in `__usage`. Fixes #7 (@mstreuhofer)
 - Allow `__usage` and `__helptext` to be defined before sourcing `main.sh` thus makeing b3bp behave like a library (@mstreuhofer)
 - Add the same License text to each script header (@mstreuhofer)
