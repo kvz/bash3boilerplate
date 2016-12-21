@@ -1,7 +1,7 @@
 {
   "name": "bash3boilerplate",
   "description": "Copypastable templates to write better bash scripts",
-  "version": "2.2.0",
+  "version": "2.1.0",
   "scripts": {
     "build:production": "LANYON_ENV=production lanyon build",
     "build": "lanyon build",
@@ -41,6 +41,7 @@
     "fakefile": "0.0.8",
     "lanyon": "0.0.47",
     "next-update": "1.5.1",
-    "npm-run-all": "3.1.2"
+    "npm-run-all": "3.1.2",
+    "replace": "^0.3.0"
   }
 }
