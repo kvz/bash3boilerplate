@@ -53,13 +53,13 @@ function megamount () {
 
   (umount -lf "${target}" || umount -f "${target}") > /dev/null 2>&1 || true
   mkdir -p "${target}"
-  if [ "${proto}" = "smb://" ]; then
+  if [[ "${proto}" = "smb://" ]]; then
     mount -t cifs --verbose -o "username=${user},password=${pass},hard" "//${host}/${path}" "${target}"
-  elif [ "${proto}" = "afp://" ]; then
+  elif [[ "${proto}" = "afp://" ]]; then
     # start syslog-ng
     # afpfsd || echo "Unable to run afpfsd. Does /dev/log exist?" && exit 1
     mount_afp "${url}" "${target}"
-  elif [ "${proto}" = "nfs://" ]; then
+  elif [[ "${proto}" = "nfs://" ]]; then
     mount -t nfs --verbose -o "vers=3,nolock,soft,intr,rsize=32768,wsize=32768" "${host}:/${path}" "${target}"
   else
     echo "ERR: Unknown protocol: '${proto}'"
@@ -70,7 +70,7 @@ function megamount () {
   ls -al "${target}/"
 }
 
-if [ "${BASH_SOURCE[0]}" != "${0}" ]; then
+if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
   export -f megamount
 else
   megamount "${@}"

@@ -40,26 +40,26 @@ function parse_url() {
   local port
   local path
 
-  proto="$(echo "$parse" | grep :// | sed -e's,^\(.*://\).*,\1,g')"
-  url="${parse/$proto/}"
-  userpass="$(echo "$url" | grep @ | cut -d@ -f1)"
-  user="$(echo "$userpass" | grep : | cut -d: -f1)"
-  pass="$(echo "$userpass" | grep : | cut -d: -f2)"
-  hostport="$(echo "${url/$userpass@/}" | cut -d/ -f1)"
-  host="$(echo "$hostport" | grep : | cut -d: -f1)"
-  port="$(echo "$hostport" | grep : | cut -d: -f2)"
-  path="$(echo "$url" | grep / | cut -d/ -f2-)"
+  proto="$(echo "${parse}" | grep :// | sed -e's,^\(.*://\).*,\1,g')"
+  url="${parse/${proto}/}"
+  userpass="$(echo "${url}" | grep @ | cut -d@ -f1)"
+  user="$(echo "${userpass}" | grep : | cut -d: -f1)"
+  pass="$(echo "${userpass}" | grep : | cut -d: -f2)"
+  hostport="$(echo "${url/${userpass}@/}" | cut -d/ -f1)"
+  host="$(echo "${hostport}" | grep : | cut -d: -f1)"
+  port="$(echo "${hostport}" | grep : | cut -d: -f2)"
+  path="$(echo "${url}" | grep / | cut -d/ -f2-)"
 
-  [ -z "${user}" ] && user="${userpass}"
-  [ -z "${host}" ] && host="${hostport}"
-  if [ -z "${port}" ]; then
-    [ "${proto}" = "http://" ]  && port="80"
-    [ "${proto}" = "https://" ] && port="443"
-    [ "${proto}" = "mysql://" ] && port="3306"
-    [ "${proto}" = "redis://" ] && port="6379"
+  [[ ! "${user}" ]] && user="${userpass}"
+  [[ ! "${host}" ]] && host="${hostport}"
+  if [[ ! "${port}" ]]; then
+    [[ "${proto}" = "http://" ]]  && port="80"
+    [[ "${proto}" = "https://" ]] && port="443"
+    [[ "${proto}" = "mysql://" ]] && port="3306"
+    [[ "${proto}" = "redis://" ]] && port="6379"
   fi
 
-  if [ -n "${need}" ]; then
+  if [[ "${need}" ]]; then
     echo "${!need}"
   else
     echo ""
@@ -76,7 +76,7 @@ function parse_url() {
   fi
 }
 
-if [ "${BASH_SOURCE[0]}" != "${0}" ]; then
+if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
   export -f parse_url
 else
   parse_url "${@}"
