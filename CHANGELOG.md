@@ -2,8 +2,30 @@
 
 ## master
 
-Released: Unreleased. [Commit log](https://github.com/kvz/bash3boilerplate/compare/v2.0.0...master)
+Released: Unreleased. [Commit log](https://github.com/kvz/bash3boilerplate/compare/v2.2.0...master)
 
+## v2.2.0
+
+Released: 2016-12-XX. [Commit log](https://github.com/kvz/bash3boilerplate/compare/v2.1.0...v2.2.0)
+
+- run shellcheck as part of the acceptance test. Closes #79 (@mstreuhofer)
+- brace all variables, used `[[` instead of `[`. Closes #33 (@mstreuhofer)
+- added automatic usage validation for required args. Closes #22 (@mstreuhofer)
+- removed all usage of eval (@mstreuhofer)
+- get rid of awk, sed & egrep usage (@mstreuhofer)
+- fix auto-color-off code. Fixes #69 (@mstreuhofer)
+- used shellcheck to find and fix unclean code (@mstreuhofer)
+- Allow for multiline opt description in `__usage`. Fixes #7 (@mstreuhofer)
+- Allow `__usage` and `__helptext` to be defined before sourcing `main.sh` thus makeing b3bp behave like a library (@mstreuhofer)
+- Add the same License text to each script header (@mstreuhofer)
+
+## v2.1.0
+
+Released: 2016-11-08. [Commit log](https://github.com/kvz/bash3boilerplate/compare/v2.0.0...v2.1.0)
+
+- Cleanup b3bp variables (adds prefixes across the board) (thanks @mstreuhofer)
+- Add multi-line logging support (thanks @mstreuhofer)
+- Mangle long-option names to allow dashes (thanks @zbeekman)
 - Remove OS detection altogether (#38, thx @zbeekman)
 - Offer the main template for download as http://bash3boilerplate.sh/main.sh
 - Better OS detection (#38, thx @moviuro)
@@ -22,14 +44,6 @@ Released: Unreleased. [Commit log](https://github.com/kvz/bash3boilerplate/compa
 - Added a [FAQ](./FAQ.md) (#15, #14, thanks @rouson)
 - Fix Travis OSX testing (before, it would silently pass failures) (#10)
 - Enable dashes in long, GNU style options, as well as numbers (thanks @zbeekman)
-
-## v2.1.0
-
-Released: 2016-11-08. [Commit log](https://github.com/kvz/bash3boilerplate/compare/v2.0.0...v2.1.0)
-
-- Cleanup b3bp variables (adds prefixes across the board) (thanks @mstreuhofer)
-- Add multi-line logging support (thanks @mstreuhofer)
-- Mangle long-option names to allow dashes (thanks @zbeekman)
 
 ## v2.0.0
 
