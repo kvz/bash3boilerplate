@@ -36,7 +36,7 @@ function ini_val() {
 
   # Split on . for section. However, section is optional
   IFS='.' read -r section key <<< "${sectionkey}"
-  if [ -z "${key}" ]; then
+  if [[ ! "${key}" ]]; then
     key="${section}"
     section=""
   fi
@@ -44,15 +44,15 @@ function ini_val() {
   local current
   current=$(awk -F "${delim}" "/^${key}${delim}/ {for (i=2; i<NF; i++) printf \$i \" \"; print \$NF}" "${file}")
 
-  if [ -z "${val}" ]; then
+  if [[ ! "${val}" ]]; then
     # get a value
     echo "${current}"
   else
     # set a value
-    if [ -z "${current}" ]; then
+    if [[ ! "${current}" ]]; then
       # doesn't exist yet, add
 
-      if [ -z "${section}" ]; then
+      if [[ ! "${section}" ]]; then
         # no section was given, add to bottom of file
         echo "${key}${delim}${val}" >> "${file}"
       else
@@ -70,7 +70,7 @@ function ini_val() {
   fi
 }
 
-if [ "${BASH_SOURCE[0]}" != "${0}" ]; then
+if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
   export -f ini_val
 else
   ini_val "${@}"

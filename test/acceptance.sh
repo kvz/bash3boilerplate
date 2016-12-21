@@ -44,7 +44,7 @@ trap cleanup_before_exit EXIT
 cmdSed=sed
 cmdTimeout=timeout
 
-if [[ "${OSTYPE}" == "darwin"* ]]; then
+if [[ "${OSTYPE}" = "darwin"* ]]; then
   cmdSed=gsed
   cmdTimeout=gtimeout
 fi

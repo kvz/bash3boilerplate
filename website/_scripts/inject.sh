@@ -69,7 +69,7 @@ EOF
   fi
 
   # Add a "<- Back Home" link, if any
-  echo -e $backLink >> "website/${targetName}.md"
+  echo -e "${backLink}" >> "website/${targetName}.md"
 
   echo "--> written website/${targetName}.md"
 done
