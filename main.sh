@@ -194,8 +194,8 @@ while read -r __b3bp_tmp_line; do
       else
         __b3bp_tmp_re="^'(.*)'$"
         if [[ "${__b3bp_tmp_init}" =~ ${__b3bp_tmp_re} ]]; then
-	  __b3bp_tmp_init="${BASH_REMATCH[1]}"
-	fi
+          __b3bp_tmp_init="${BASH_REMATCH[1]}"
+        fi
       fi
     fi
   fi
@@ -218,7 +218,7 @@ if [[ "${__b3bp_tmp_opts:-}" ]]; then
 
   # start parsing command line
   set +o nounset # unexpected arguments will cause unbound variables
-		 # to be dereferenced
+                 # to be dereferenced
   # Overwrite $arg_<flag> defaults with the actual CLI options
   while getopts "${__b3bp_tmp_opts}" __b3bp_tmp_opt; do
     [[ "${__b3bp_tmp_opt}" = "?" ]] && help "Invalid use of script: ${*} "
@@ -226,22 +226,22 @@ if [[ "${__b3bp_tmp_opts:-}" ]]; then
     if [[ "${__b3bp_tmp_opt}" = "-" ]]; then
       # OPTARG is long-option-name or long-option=value
       if [[ "${OPTARG}" =~ .*=.* ]]; then
-	# --key=value format
-	__b3bp_tmp_long_opt=${OPTARG/=*/}
-	# Set opt to the short option corresponding to the long option
-	__b3bp_tmp_varname="__b3bp_tmp_opt_long2short_${__b3bp_tmp_long_opt//-/_}"
-	printf -v "__b3bp_tmp_opt" '%s' "${!__b3bp_tmp_varname}"
-	OPTARG=${OPTARG#*=}
+        # --key=value format
+        __b3bp_tmp_long_opt=${OPTARG/=*/}
+        # Set opt to the short option corresponding to the long option
+        __b3bp_tmp_varname="__b3bp_tmp_opt_long2short_${__b3bp_tmp_long_opt//-/_}"
+        printf -v "__b3bp_tmp_opt" '%s' "${!__b3bp_tmp_varname}"
+        OPTARG=${OPTARG#*=}
       else
-	# --key value format
-	# Map long name to short version of option
-	__b3bp_tmp_varname="__b3bp_tmp_opt_long2short_${OPTARG//-/_}"
-	printf -v "__b3bp_tmp_opt" '%s' "${!__b3bp_tmp_varname}"
-	# Only assign OPTARG if option takes an argument
-	__b3bp_tmp_varname="__b3bp_tmp_has_arg_${__b3bp_tmp_opt}"
-	printf -v "OPTARG" '%s' "${@:OPTIND:${!__b3bp_tmp_varname}}"
-	# shift over the argument if argument is expected
-	((OPTIND+=__b3bp_tmp_has_arg_${__b3bp_tmp_opt}))
+        # --key value format
+        # Map long name to short version of option
+        __b3bp_tmp_varname="__b3bp_tmp_opt_long2short_${OPTARG//-/_}"
+        printf -v "__b3bp_tmp_opt" '%s' "${!__b3bp_tmp_varname}"
+        # Only assign OPTARG if option takes an argument
+        __b3bp_tmp_varname="__b3bp_tmp_has_arg_${__b3bp_tmp_opt}"
+        printf -v "OPTARG" '%s' "${@:OPTIND:${!__b3bp_tmp_varname}}"
+        # shift over the argument if argument is expected
+        ((OPTIND+=__b3bp_tmp_has_arg_${__b3bp_tmp_opt}))
       fi
       # we have set opt/OPTARG to the short value and the argument as OPTARG if it exists
     fi
