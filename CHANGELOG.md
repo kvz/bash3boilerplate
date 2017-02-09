@@ -4,6 +4,8 @@
 
 Released: Unreleased. [Commit log](https://github.com/kvz/bash3boilerplate/compare/v2.2.0...master)
 
+- Add Pull Request template (#83)
+
 ## v2.2.0
 
 Released: 2016-12-21. [Commit log](https://github.com/kvz/bash3boilerplate/compare/v2.1.0...v2.2.0)
