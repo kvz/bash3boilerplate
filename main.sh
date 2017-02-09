@@ -40,6 +40,11 @@ fi
 __dir="$(cd "$(dirname "${BASH_SOURCE[${__b3bp_tmp_source_idx:-0}]}")" && pwd)"
 __file="${__dir}/$(basename "${BASH_SOURCE[${__b3bp_tmp_source_idx:-0}]}")"
 __base="$(basename "${__file}" .sh)"
+if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
+  __i_am_main_script="0" # false
+else
+  __i_am_main_script="1" # true
+fi
 
 # Define the environment variables (and their defaults) that this script depends on
 LOG_LEVEL="${LOG_LEVEL:-6}" # 7 = debug -> 0 = emergency
