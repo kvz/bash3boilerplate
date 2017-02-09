@@ -260,7 +260,9 @@ if [[ "${__b3bp_tmp_opts:-}" ]]; then
 
   shift $((OPTIND-1))
 
-  [[ "${1:-}" = "--" ]] && shift
+  if [[ "${1:-}" = "--" ]] ; then
+    shift
+  fi
 fi
 
 

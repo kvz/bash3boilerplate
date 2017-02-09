@@ -4,6 +4,7 @@
 
 Released: Unreleased. [Commit log](https://github.com/kvz/bash3boilerplate/compare/v2.2.0...master)
 
+- Ensure that shifting over `--` doesn't throw an errexit error (#21, @zbeekman)
 - Add Pull Request template (#83)
 
 ## v2.2.0
