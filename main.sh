@@ -27,11 +27,18 @@ set -o pipefail
 # set -o xtrace
 
 if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
+  __i_am_main_script="0" # false
+
   if [[ "${__usage+x}" ]]; then
+    if [[ "${BASH_SOURCE[1]}" = "${0}" ]]; then
+      __i_am_main_script="1" # true
+    fi
+
     __b3bp_external_usage="true"
     __b3bp_tmp_source_idx=1
   fi
 else
+  __i_am_main_script="1" # true
   [[ "${__usage+x}" ]] && unset -v __usage
   [[ "${__helptext+x}" ]] && unset -v __helptext
 fi
@@ -40,11 +47,7 @@ fi
 __dir="$(cd "$(dirname "${BASH_SOURCE[${__b3bp_tmp_source_idx:-0}]}")" && pwd)"
 __file="${__dir}/$(basename "${BASH_SOURCE[${__b3bp_tmp_source_idx:-0}]}")"
 __base="$(basename "${__file}" .sh)"
-if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
-  __i_am_main_script="0" # false
-else
-  __i_am_main_script="1" # true
-fi
+
 
 # Define the environment variables (and their defaults) that this script depends on
 LOG_LEVEL="${LOG_LEVEL:-6}" # 7 = debug -> 0 = emergency
@@ -308,6 +311,7 @@ if [[ "${__b3bp_external_usage:-}" = "true" ]]; then
   return
 fi
 
+
 ### Signal trapping and backtracing
 ##############################################################################
 
@@ -325,6 +329,7 @@ __b3bp_err_report() {
 }
 # Uncomment the following line for always providing an error backtrace
 # trap '__b3bp_err_report "${FUNCNAME:-.}" ${LINENO}' ERR
+
 
 ### Command-line argument switches (like -d for debugmode, -h for showing helppage)
 ##############################################################################
@@ -364,6 +369,7 @@ fi
 ### Runtime
 ##############################################################################
 
+info "__i_am_main_script: ${__i_am_main_script}"
 info "__file: ${__file}"
 info "__dir: ${__dir}"
 info "__base: ${__base}"

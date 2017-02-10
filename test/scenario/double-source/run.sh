@@ -7,6 +7,9 @@ set -o nounset
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 __root="$(cd "$(dirname "$(dirname "$(dirname "${__dir}")")")" && pwd)"
 
+export LOG_LEVEL=7
+
 echo "ACCPTST:STDIO_REPLACE_DATETIMES"
 
-env LOG_LEVEL=7 bash "${__root}/main.sh" -f /tmp/x
+# shellcheck source=example.sh
+source "${__root}/example.sh" -f /tmp/x

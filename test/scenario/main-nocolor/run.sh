@@ -9,4 +9,4 @@ __root="$(cd "$(dirname "$(dirname "$(dirname "${__dir}")")")" && pwd)"
 
 echo "ACCPTST:STDIO_REPLACE_DATETIMES"
 
-env LOG_LEVEL=8 NO_COLOR=true bash "${__root}/main.sh" -f /tmp/x
+env LOG_LEVEL=7 NO_COLOR=true bash "${__root}/main.sh" -f /tmp/x

@@ -1,5 +1,6 @@
 ACCPTST:STDIO_REPLACE_DATETIMES
 {datetime} UTC [    debug] cli arg arg_f = () -> {tmpdir}/x
+{datetime} UTC [     info] __i_am_main_script: 1
 {datetime} UTC [     info] __file: {root}/main.sh
 {datetime} UTC [     info] __dir: {root}
 {datetime} UTC [     info] __base: main
