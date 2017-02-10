@@ -96,9 +96,10 @@ Somewhat inconsistent – but true to Unix ancestry – the abbreviation for our
 
 ## How can I locally develop and preview the b3bp website?
 
-You should have a working Node.js >=10 and Ruby >=2 install on your workstation. When that is the case, you can run:
+You should have a working Node.js >=10, Ruby >=2 and [YARN](https://yarnpkg.com) install on your workstation. When that is the case, you can run:
 
 ```bash
+yarn install
 npm run start
 ```
 
