@@ -18,7 +18,7 @@
 #
 #  ini_val.sh data.ini connection.host 127.0.0.1
 #
-# Based on a template by BASH3 Boilerplate v2.2.0
+# Based on a template by BASH3 Boilerplate v2.3.0
 # http://bash3boilerplate.sh/#authors
 #
 # The MIT License (MIT)
