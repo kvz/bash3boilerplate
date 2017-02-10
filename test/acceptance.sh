@@ -208,9 +208,9 @@ if [[ "$(command -v shellcheck)" ]]; then
 
     if ! shellcheck --shell=bash --external-sources --color=always \
       "${file}" >> "${__accptstTmpDir}/shellcheck.err"; then
-	echo "✗"
-	failed="true"
-	continue
+        echo "✗"
+        failed="true"
+        continue
     fi
 
     echo "✓"

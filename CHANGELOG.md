@@ -4,6 +4,11 @@
 
 Released: Unreleased. [Commit log](https://github.com/kvz/bash3boilerplate/compare/v2.2.0...master)
 
+- Add magic variable `__i_am_main_script` to distinguish if b3bp is being sourced or called directly (#45, @zbeekman)
+- Add style checks for tab characters and trailing whitespace (@zbeekman)
+- Add backtracing to help localize errors (#44, @zbeekman)
+- Additional FAQ entries (#47, suggested by @gdevenyi, implemented by @zbeekman)
+- Ensure that shifting over `--` doesn't throw an errexit error (#21, @zbeekman)
 - Add Pull Request template (#83)
 
 ## v2.2.0

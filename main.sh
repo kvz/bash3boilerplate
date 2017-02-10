@@ -40,6 +40,11 @@ fi
 __dir="$(cd "$(dirname "${BASH_SOURCE[${__b3bp_tmp_source_idx:-0}]}")" && pwd)"
 __file="${__dir}/$(basename "${BASH_SOURCE[${__b3bp_tmp_source_idx:-0}]}")"
 __base="$(basename "${__file}" .sh)"
+if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
+  __i_am_main_script="0" # false
+else
+  __i_am_main_script="1" # true
+fi
 
 # Define the environment variables (and their defaults) that this script depends on
 LOG_LEVEL="${LOG_LEVEL:-6}" # 7 = debug -> 0 = emergency
@@ -194,8 +199,8 @@ while read -r __b3bp_tmp_line; do
       else
         __b3bp_tmp_re="^'(.*)'$"
         if [[ "${__b3bp_tmp_init}" =~ ${__b3bp_tmp_re} ]]; then
-	  __b3bp_tmp_init="${BASH_REMATCH[1]}"
-	fi
+          __b3bp_tmp_init="${BASH_REMATCH[1]}"
+        fi
       fi
     fi
   fi
@@ -218,7 +223,7 @@ if [[ "${__b3bp_tmp_opts:-}" ]]; then
 
   # start parsing command line
   set +o nounset # unexpected arguments will cause unbound variables
-		 # to be dereferenced
+                 # to be dereferenced
   # Overwrite $arg_<flag> defaults with the actual CLI options
   while getopts "${__b3bp_tmp_opts}" __b3bp_tmp_opt; do
     [[ "${__b3bp_tmp_opt}" = "?" ]] && help "Invalid use of script: ${*} "
@@ -226,22 +231,22 @@ if [[ "${__b3bp_tmp_opts:-}" ]]; then
     if [[ "${__b3bp_tmp_opt}" = "-" ]]; then
       # OPTARG is long-option-name or long-option=value
       if [[ "${OPTARG}" =~ .*=.* ]]; then
-	# --key=value format
-	__b3bp_tmp_long_opt=${OPTARG/=*/}
-	# Set opt to the short option corresponding to the long option
-	__b3bp_tmp_varname="__b3bp_tmp_opt_long2short_${__b3bp_tmp_long_opt//-/_}"
-	printf -v "__b3bp_tmp_opt" '%s' "${!__b3bp_tmp_varname}"
-	OPTARG=${OPTARG#*=}
+        # --key=value format
+        __b3bp_tmp_long_opt=${OPTARG/=*/}
+        # Set opt to the short option corresponding to the long option
+        __b3bp_tmp_varname="__b3bp_tmp_opt_long2short_${__b3bp_tmp_long_opt//-/_}"
+        printf -v "__b3bp_tmp_opt" '%s' "${!__b3bp_tmp_varname}"
+        OPTARG=${OPTARG#*=}
       else
-	# --key value format
-	# Map long name to short version of option
-	__b3bp_tmp_varname="__b3bp_tmp_opt_long2short_${OPTARG//-/_}"
-	printf -v "__b3bp_tmp_opt" '%s' "${!__b3bp_tmp_varname}"
-	# Only assign OPTARG if option takes an argument
-	__b3bp_tmp_varname="__b3bp_tmp_has_arg_${__b3bp_tmp_opt}"
-	printf -v "OPTARG" '%s' "${@:OPTIND:${!__b3bp_tmp_varname}}"
-	# shift over the argument if argument is expected
-	((OPTIND+=__b3bp_tmp_has_arg_${__b3bp_tmp_opt}))
+        # --key value format
+        # Map long name to short version of option
+        __b3bp_tmp_varname="__b3bp_tmp_opt_long2short_${OPTARG//-/_}"
+        printf -v "__b3bp_tmp_opt" '%s' "${!__b3bp_tmp_varname}"
+        # Only assign OPTARG if option takes an argument
+        __b3bp_tmp_varname="__b3bp_tmp_has_arg_${__b3bp_tmp_opt}"
+        printf -v "OPTARG" '%s' "${@:OPTIND:${!__b3bp_tmp_varname}}"
+        # shift over the argument if argument is expected
+        ((OPTIND+=__b3bp_tmp_has_arg_${__b3bp_tmp_opt}))
       fi
       # we have set opt/OPTARG to the short value and the argument as OPTARG if it exists
     fi
@@ -260,7 +265,9 @@ if [[ "${__b3bp_tmp_opts:-}" ]]; then
 
   shift $((OPTIND-1))
 
-  [[ "${1:-}" = "--" ]] && shift
+  if [[ "${1:-}" = "--" ]] ; then
+    shift
+  fi
 fi
 
 
@@ -301,6 +308,23 @@ if [[ "${__b3bp_external_usage:-}" = "true" ]]; then
   return
 fi
 
+### Signal trapping and backtracing
+##############################################################################
+
+function __b3bp_cleanup_before_exit () {
+  info "Cleaning up. Done"
+}
+trap __b3bp_cleanup_before_exit EXIT
+
+# requires `set -o errtrace`
+__b3bp_err_report() {
+    local error_code
+    error_code=${?}
+    error "Error in ${__file} in function ${1} on line ${2}"
+    exit ${error_code}
+}
+# Uncomment the following line for always providing an error backtrace
+# trap '__b3bp_err_report "${FUNCNAME:-.}" ${LINENO}' ERR
 
 ### Command-line argument switches (like -d for debugmode, -h for showing helppage)
 ##############################################################################
@@ -309,6 +333,8 @@ fi
 if [[ "${arg_d:?}" = "1" ]]; then
   set -o xtrace
   LOG_LEVEL="7"
+  # Enable error backtracing
+  trap '__b3bp_err_report "${FUNCNAME:-.}" ${LINENO}' ERR
 fi
 
 # verbose mode
@@ -337,11 +363,6 @@ fi
 
 ### Runtime
 ##############################################################################
-
-function cleanup_before_exit () {
-  info "Cleaning up. Done"
-}
-trap cleanup_before_exit EXIT
 
 info "__file: ${__file}"
 info "__dir: ${__dir}"

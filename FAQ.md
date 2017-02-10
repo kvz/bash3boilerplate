@@ -16,6 +16,8 @@
 * [You are saying you are portable, but why won't b3bp code run in dash / busybox / posh / ksh / mksh / zsh](#you-are-saying-you-are-portable-but-why-wont-b3bp-code-run-in-dash--busybox--posh--ksh--mksh--zsh)?
 * [How do I do Operating System detection](#how-do-i-do-operating-system-detection)?
 * [How do I access a potentially unset (environment) variable](#how-do-i-access-a-potentially-unset-environment-variable)?
+* [How can I detect or trap CTRL-C and other signals](#how-can-i-detect-or-trap-ctrl-c-and-other-signals)?
+* [How can I get the PID of my running script](how-can-i-get-the-pid-of-my-running-script)?
 
 <!--more-->
 
@@ -172,3 +174,22 @@ NAME3=${NAME3:-Damian}; echo ${NAME3} # echos Damian, $NAME3 is set to Damian
 ```
 
 This subject is briefly touched on as well in the [Safety and Portability section under point 5](README.md#safety-and-portability). b3bp currently uses [method 1](https://github.com/kvz/bash3boilerplate/blob/v2.1.0/main.sh#L252) when we want to access a variable that could be undeclared, and [method 3](https://github.com/kvz/bash3boilerplate/blob/v2.1.0/main.sh#L31) when we also want to set a default to an undeclared variable, because we feel it is more readable than method 2. We feel `:=` is easily overlooked, and not very beginner friendly. Method 3 seems more explicit in that regard in our humble opinion.
+
+## How can I detect or trap Ctrl-C and other signals?
+
+You can trap [Unix signals](https://en.wikipedia.org/wiki/Unix_signal) like [Ctrl-C](https://en.wikipedia.org/wiki/Control-C) with code similar to:
+
+```bash
+# trap ctrl-c and call ctrl_c()
+trap ctrl_c INT
+
+function ctrl_c() {
+        echo "** Trapped CTRL-C"
+}
+```
+
+See http://mywiki.wooledge.org/SignalTrap for a list of signals, examples, and an in depth discussion.
+
+## How can I get the PID of my running script?
+
+The PID of a running script is contained in the `${$}` variable. This is *not* the pid of any subshells. With Bash 4 you can get the PID of your subshell with `${BASHPID}`. For a comprehensive list of Bash built in variables see, e.g., http://www.tldp.org/LDP/abs/html/internalvariables.html

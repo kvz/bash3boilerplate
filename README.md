@@ -126,9 +126,11 @@ $ my_script some more args --blah
 
 ### Coding style
 
-1. Use two spaces for tabs.
+1. Use two spaces for tabs, do not use tab characters.
+1. Do not introduce whitespace at the end of lines or on blank lines as they obfuscate version control diffs.
 1. Use long options (`logger --priority` vs `logger -p`). If you are on the CLI, abbreviations make sense for efficiency. Nevertheless, when you are writing reusable scripts, a few extra keystrokes will pay off in readability and avoid ventures into man pages in the future, either by you or your collaborators. Similarly, we prefer `set -o nounset` over `set -u`.
-1. Use a single equal sign when checking `if [ "${NAME}" = "Kevin" ]`; double or triple signs are not needed.
+1. Use a single equal sign when checking `if [[ "${NAME}" = "Kevin" ]]`; double or triple signs are not needed.
+1. Use the new bash builtin test operator (`[[ ... ]]`) rather than the old single square bracket test operator or explicit call to `test`.
 
 ### Safety and Portability
 

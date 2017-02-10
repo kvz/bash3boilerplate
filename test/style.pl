@@ -30,6 +30,12 @@ while (<$fh>) {
   # highlight double equal sign
   $errors += s/(\[\[.*)(==)(.*\]\])/$1\033[31m$2\033[0m$3/g;
 
+  # highlight tabs mixed with whitespace at beginning of lines
+  $errors += s/^( *)(\t+ *)/\033[31m\[$2\]\033[0m/;
+
+  # highlight trailing whitespace
+  $errors += s/([ \t]+)$/\033[31m\[$1\]\033[0m/;
+
   next if (not $errors);
   print "${file}[$.]: $_";
   $rc = 1;
