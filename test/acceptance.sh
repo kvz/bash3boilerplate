@@ -193,7 +193,41 @@ done <<< "$(find "${__dir}/scenario" -type f -iname 'run.sh')"
 
 [[ "${1:-}" ]] && exit 0
 
-# finally do some shellcheck linting
+# Ensure correct syntax with all available bashes
+
+if bashes=($(which -a bash 2> /dev/null )); then
+  for bash in "${bashes[@]}"; do
+    # shellcheck disable=SC2016
+    echo "==> ${bash} -n $(${bash} -c 'echo "(${BASH_VERSION})"')"
+    pushd "${__root}" > /dev/null
+
+    failed="false"
+
+    while IFS=$'\n' read -r file; do
+      [[ "${file}" =~ ^\./node_modules/ ]] && continue
+      [[ "${file}" =~ ^\./website/\.lanyon/ ]] && continue
+
+      echo -n "    ${file}.. "
+
+      if ! "${bash}" -n "${file}" 2>> "${__accptstTmpDir}/${bash//\//.}.err"; then
+          echo "✗"
+          failed="true"
+          continue
+      fi
+
+      echo "✓"
+    done <<< "$(find . -type f -iname '*.sh')"
+
+    popd > /dev/null
+
+    if [[ "${failed}" = "true" ]]; then
+      cat "${__accptstTmpDir}/${bash//\//.}.err"
+      exit 1
+    fi
+  done
+fi
+
+# do some shellcheck linting
 if [[ "$(command -v shellcheck)" ]]; then
   echo "==> Shellcheck"
   pushd "${__root}" > /dev/null
