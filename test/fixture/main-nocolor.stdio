@@ -5,7 +5,6 @@ ACCPTST:STDIO_REPLACE_DATETIMES
 {datetime} UTC [     info] __dir: {root}
 {datetime} UTC [     info] __base: main
 {datetime} UTC [     info] OSTYPE: {OSTYPE}
-{datetime} UTC [     info] Script called directly? yes
 {datetime} UTC [     info] arg_f: {tmpdir}/x
 {datetime} UTC [     info] arg_d: 0
 {datetime} UTC [     info] arg_v: 0

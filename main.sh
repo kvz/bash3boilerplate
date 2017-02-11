@@ -374,7 +374,6 @@ info "__file: ${__file}"
 info "__dir: ${__dir}"
 info "__base: ${__base}"
 info "OSTYPE: ${OSTYPE}"
-info "Script called directly? $([[ "${__i_am_main_script}" = "1" ]] && echo "yes" || echo "no")"
 
 info "arg_f: ${arg_f}"
 info "arg_d: ${arg_d}"
