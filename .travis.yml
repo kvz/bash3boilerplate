@@ -18,14 +18,13 @@ addons:
     - debian-sid
     packages:
     - shellcheck
-    - bc
 install:
   - npm install # <-- yarn still messes up nested bins: https://github.com/yarnpkg/yarn/issues/760
   -
 before_install:
 - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update; fi
 - if [ "$TRAVIS_OS_NAME" = "osx" ]; then which gsed || brew install gnu-sed; fi
-- 'if [ "$TRAVIS_OS_NAME" = "linux" ] && [ "$(bc <<< "${TRAVIS_NODE_VERSION} >= 6")" -eq 1 ]; then npm run install:lanyon; fi'
+- if [ "$TRAVIS_OS_NAME" = "linux" ]; then npm run install:lanyon; fi
 - bash --version
 - awk --version
 before_cache:
