@@ -1,9 +1,9 @@
 ACCPTST:STDIO_REPLACE_DATETIMES
 {datetime} UTC [35m[    debug][0m cli arg arg_f = () -> {tmpdir}/x
-{datetime} UTC [32m[     info][0m __i_am_main_script: 1
-{datetime} UTC [32m[     info][0m __file: {root}/main.sh
+{datetime} UTC [32m[     info][0m __i_am_main_script: 0
+{datetime} UTC [32m[     info][0m __file: {root}/example.sh
 {datetime} UTC [32m[     info][0m __dir: {root}
-{datetime} UTC [32m[     info][0m __base: main
+{datetime} UTC [32m[     info][0m __base: example
 {datetime} UTC [32m[     info][0m OSTYPE: {OSTYPE}
 {datetime} UTC [32m[     info][0m arg_f: {tmpdir}/x
 {datetime} UTC [32m[     info][0m arg_d: 0

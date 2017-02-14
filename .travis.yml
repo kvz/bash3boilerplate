@@ -25,6 +25,8 @@ install:
 before_install:
 - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update; fi
 - if [ "$TRAVIS_OS_NAME" = "osx" ]; then which gsed || brew install gnu-sed; fi
+- if [ "$TRAVIS_OS_NAME" = "osx" ]; then which gtimeout || brew install coreutils; fi
+- if [ "$TRAVIS_OS_NAME" = "osx" ]; then which bundle || gem install bundler; fi
 - bash --version
 - awk --version
 before_cache:

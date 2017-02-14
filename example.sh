@@ -7,7 +7,7 @@
 #
 #  LOG_LEVEL=7 ./example.sh -f /tmp/x -d (change this for your script)
 #
-# Based on a template by BASH3 Boilerplate v2.2.0
+# Based on a template by BASH3 Boilerplate v2.3.0
 # http://bash3boilerplate.sh/#authors
 #
 # The MIT License (MIT)
@@ -47,6 +47,25 @@ EOF
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/main.sh"
 
 
+### Signal trapping and backtracing
+##############################################################################
+
+function __b3bp_cleanup_before_exit () {
+  info "Cleaning up. Done"
+}
+trap __b3bp_cleanup_before_exit EXIT
+
+# requires `set -o errtrace`
+__b3bp_err_report() {
+    local error_code
+    error_code=${?}
+    error "Error in ${__file} in function ${1} on line ${2}"
+    exit ${error_code}
+}
+# Uncomment the following line for always providing an error backtrace
+# trap '__b3bp_err_report "${FUNCNAME:-.}" ${LINENO}' ERR
+
+
 ### Command-line argument switches (like -d for debugmode, -h for showing helppage)
 ##############################################################################
 
@@ -54,6 +73,8 @@ source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/main.sh"
 if [[ "${arg_d:?}" = "1" ]]; then
   set -o xtrace
   LOG_LEVEL="7"
+  # Enable error backtracing
+  trap '__b3bp_err_report "${FUNCNAME:-.}" ${LINENO}' ERR
 fi
 
 # verbose mode
@@ -83,11 +104,7 @@ fi
 ### Runtime
 ##############################################################################
 
-function cleanup_before_exit () {
-  info "Cleaning up. Done"
-}
-trap cleanup_before_exit EXIT
-
+info "__i_am_main_script: ${__i_am_main_script}"
 info "__file: ${__file}"
 info "__dir: ${__dir}"
 info "__base: ${__base}"
