@@ -20,11 +20,10 @@ addons:
     - shellcheck
 install:
   - npm install # <-- yarn still messes up nested bins: https://github.com/yarnpkg/yarn/issues/760
-  -
+  - if [ "$TRAVIS_OS_NAME" = "linux" ]; then npm run install:lanyon; fi
 before_install:
 - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update; fi
 - if [ "$TRAVIS_OS_NAME" = "osx" ]; then which gsed || brew install gnu-sed; fi
-- if [ "$TRAVIS_OS_NAME" = "linux" ]; then npm run install:lanyon; fi
 - bash --version
 - awk --version
 before_cache:
