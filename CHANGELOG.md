@@ -11,7 +11,7 @@ Unplanned.
 ## master
 
 Released: TBA. 
-[Diff](https://github.com/kvz/bash3boilerplate/compare/v2.2.0...master).
+[Diff](https://github.com/kvz/bash3boilerplate/compare/v2.3.0...master).
 
 - [ ] Upgrade to `lanyon@0.0.55`
 
