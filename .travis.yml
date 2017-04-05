@@ -39,7 +39,7 @@ script: test/acceptance.sh
 deploy:
   skip_cleanup: true
   provider: script
-  script: website/.lanyon/bin/deploy
+  script: website/./node_modules/lanyon/scripts/ci-deploy.sh
   on:
     branch: master
     condition: $TRAVIS_OS_NAME = linux
