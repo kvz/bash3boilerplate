@@ -287,13 +287,13 @@ async@1.5.2, async@^1.5.2, async@~1.5:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/async/-/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
 
-async@2.1.4, async@^2.0.1, async@^2.1.2:
+async@2.1.4, async@^2.0.1:
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/async/-/async-2.1.4.tgz#2d2160c7788032e4dd6cbe2502f1f9a2c8f6cde4"
   dependencies:
     lodash "^4.14.0"
 
-async@^2.1.5, async@^2.3.0:
+async@^2.1.2, async@^2.1.5, async@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/async/-/async-2.3.0.tgz#1013d1051047dd320fe24e494d5c66ecaf6147d9"
   dependencies:
@@ -4136,9 +4136,9 @@ klaw@^1.0.0:
   optionalDependencies:
     graceful-fs "^4.1.9"
 
-lanyon@0.0.78:
-  version "0.0.78"
-  resolved "https://registry.yarnpkg.com/lanyon/-/lanyon-0.0.78.tgz#d76244a6cbf5d4686fbdeee18d6a7338b2649e91"
+lanyon@0.0.81:
+  version "0.0.81"
+  resolved "https://registry.yarnpkg.com/lanyon/-/lanyon-0.0.81.tgz#c0750be1656c1f73fa96711a4b8694accac11644"
   dependencies:
     assets-webpack-plugin "3.5.1"
     async "^2.3.0"
