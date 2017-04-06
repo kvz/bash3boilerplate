@@ -293,7 +293,7 @@ async@2.1.4, async@^2.0.1, async@^2.1.2:
   dependencies:
     lodash "^4.14.0"
 
-async@^2.1.5:
+async@^2.1.5, async@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/async/-/async-2.3.0.tgz#1013d1051047dd320fe24e494d5c66ecaf6147d9"
   dependencies:
@@ -4136,11 +4136,12 @@ klaw@^1.0.0:
   optionalDependencies:
     graceful-fs "^4.1.9"
 
-lanyon@0.0.73:
-  version "0.0.73"
-  resolved "https://registry.yarnpkg.com/lanyon/-/lanyon-0.0.73.tgz#da4f0632772420a35540e20472b2dee43cc0c5e5"
+lanyon@0.0.78:
+  version "0.0.78"
+  resolved "https://registry.yarnpkg.com/lanyon/-/lanyon-0.0.78.tgz#d76244a6cbf5d4686fbdeee18d6a7338b2649e91"
   dependencies:
     assets-webpack-plugin "3.5.1"
+    async "^2.3.0"
     autoprefixer "6.7.7"
     babel-cli "6.24.0"
     babel-core "6.24.0"
@@ -4188,6 +4189,7 @@ lanyon@0.0.73:
     npm-run-all "4.0.2"
     optimize-css-assets-webpack-plugin "1.3.0"
     os-tmpdir "1.0.2"
+    pad "^1.1.0"
     parallelshell "2.0.0"
     postcss-loader "1.3.3"
     react "15.4.2"
@@ -5409,6 +5411,10 @@ package-json@^1.0.0:
   dependencies:
     got "^3.2.0"
     registry-url "^3.0.0"
+
+pad@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/pad/-/pad-1.1.0.tgz#7a7d185200ebac32f9f12ee756c3a1d087b3190b"
 
 pako@~0.2.0:
   version "0.2.9"
