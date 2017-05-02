@@ -2634,6 +2634,10 @@ es6-iterator@~0.1.3:
     es5-ext "~0.10.5"
     es6-symbol "~2.0.1"
 
+es6-promise@4:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-4.1.0.tgz#dda03ca8f9f89bc597e689842929de7ba8cebdf0"
+
 es6-promise@^3.0.2, es6-promise@^3.1.2:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-3.3.1.tgz#a08cdde84ccdbf34d027a1451bc91d4bcd28a613"
@@ -4168,9 +4172,9 @@ klaw@^1.0.0:
   optionalDependencies:
     graceful-fs "^4.1.9"
 
-lanyon@0.0.85:
-  version "0.0.85"
-  resolved "https://registry.yarnpkg.com/lanyon/-/lanyon-0.0.85.tgz#daa1e88e3a503a02c0d0ad129789bdf7f02c552f"
+lanyon@0.0.86:
+  version "0.0.86"
+  resolved "https://registry.yarnpkg.com/lanyon/-/lanyon-0.0.86.tgz#208792b170dd5b020645769bb31a200485ba73c6"
   dependencies:
     assets-webpack-plugin "3.5.1"
     async "^2.3.0"
@@ -4200,6 +4204,7 @@ lanyon@0.0.85:
     common-tags "1.4.0"
     css-loader "0.28.0"
     depurar "0.3.0"
+    es6-promise "4"
     exports-loader "0.6.4"
     extract-text-webpack-plugin "2.1.0"
     fakefile "0.0.8"
