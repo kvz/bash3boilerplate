@@ -4,8 +4,8 @@
 # This file:
 #
 #  - Takes a URL (smb, nfs, afs) and tries to mount it at a given target directory
-#  - Forceully unmounts any active mount at the target directory first
-#  - Displays the mounts contents for verification
+#  - Forcefully unmounts any active mount at the target directory first
+#  - Displays the mount's contents for verification
 #
 # Depends on:
 #
