@@ -63,7 +63,7 @@ __node="$(which node)"
 __arch="amd64"
 
 # explicitly setting NO_COLOR to false will make b3bp ignore TERM
-# not being "xterm*" and STDERR not being connected to a terminal
+# not being "xterm*" or "screen*" and STDERR not being connected to a terminal
 # it's the opposite of NO_COLOR="true" - it forces color, no matter what
 export NO_COLOR="false"
 

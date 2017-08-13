@@ -15,6 +15,7 @@ Released: TBA.
 
 - [ ] Upgrade to `lanyon@0.0.55`
 - [x] Fix typos in megamount (thanks @gsaponaro)
+- [x] Enable color in screen or tmux (@gmasse)
 
 ## v2.3.0
 
