@@ -17,6 +17,7 @@ Released: TBA.
 - [x] Fix typos in megamount (thanks @gsaponaro)
 - [x] Enable color in screen or tmux (#92, @gmasse)
 - [x] Change `egrep` to `grep -E` in test and lib scripts to comply with ShellCheck (#92, @gmasse)
+- [x] Fix typo in FAQ (#92, @gmasse)
 
 ## v2.3.0
 
