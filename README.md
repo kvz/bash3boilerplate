@@ -163,6 +163,7 @@ We are looking for endorsements! Are you also using b3bp? [Let us know](https://
 - [galaktos](https://www.reddit.com/user/galaktos) (feedback)
 - [@moviuro](https://github.com/moviuro) (feedback)
 - [Giovanni Saponaro](https://github.com/gsaponaro) (feedback)
+- [Germain Masse](https://github.com/gmasse)
 
 ## License
 
