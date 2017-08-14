@@ -148,7 +148,7 @@ while IFS=$'\n' read -r scenario; do
         "${curFile}"
       fi
       if grep -q 'ACCPTST:STDIO_REPLACE_REMOTE_EXEC' "${curFile}"; then
-        egrep -v 'remote-exec\): [ a-zA-Z]' "${curFile}" > "${__sysTmpDir}/accptst-filtered.txt"
+        grep -Ev 'remote-exec\): [ a-zA-Z]' "${curFile}" > "${__sysTmpDir}/accptst-filtered.txt"
         mv "${__sysTmpDir}/accptst-filtered.txt" "${curFile}"
       fi
     done

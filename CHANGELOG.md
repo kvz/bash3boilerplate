@@ -15,7 +15,8 @@ Released: TBA.
 
 - [ ] Upgrade to `lanyon@0.0.55`
 - [x] Fix typos in megamount (thanks @gsaponaro)
-- [x] Enable color in screen or tmux (@gmasse)
+- [x] Enable color in screen or tmux (#92, @gmasse)
+- [x] Change `egrep` to `grep -E` in acceptance test script to comply with ShellCheck (#92, @gmasse)
 
 ## v2.3.0
 
