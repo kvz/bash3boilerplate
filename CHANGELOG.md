@@ -14,6 +14,7 @@ Released: TBA.
 [Diff](https://github.com/kvz/bash3boilerplate/compare/v2.3.0...master).
 
 - [ ] Upgrade to `lanyon@0.0.55`
+- [ ] Allow counting how many times an argument is used
 - [x] Fix typos in megamount (thanks @gsaponaro)
 - [x] Enable color in screen or tmux (#92, @gmasse)
 - [x] Change `egrep` to `grep -E` in test and lib scripts to comply with ShellCheck (#92, @gmasse)
