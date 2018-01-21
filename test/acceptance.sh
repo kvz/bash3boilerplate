@@ -41,8 +41,8 @@ __accptstTmpDir=$(mktemp -d "${__sysTmpDir}/${__base}.XXXXXX")
 function cleanup_before_exit () { rm -r "${__accptstTmpDir:?}"; }
 trap cleanup_before_exit EXIT
 
-cmdSed=sed
-cmdTimeout=timeout
+cmdSed="sed"
+cmdTimeout="timeout"
 
 if [[ "${OSTYPE}" = "darwin"* ]]; then
   cmdSed=gsed
@@ -98,7 +98,7 @@ while IFS=$'\n' read -r scenario; do
         -e "s@${USER:-travis}@{user}@g" "${curFile}" \
         -e "s@travis@{user}@g" "${curFile}" \
         -e "s@kvz@{user}@g" "${curFile}" \
-        -e "s@{root}/node_modules/\.bin/node@{node}@g" "${curFile}" \
+        -e "s@{root}/node_modules/\\.bin/node@{node}@g" "${curFile}" \
         -e "s@{home}/build/{user}/fre{node}@{node}@g" "${curFile}" \
         -e "s@${HOSTNAME}@{hostname}@g" "${curFile}" \
         -e "s@${__arch}@{arch}@g" "${curFile}" \
@@ -177,10 +177,10 @@ while IFS=$'\n' read -r scenario; do
       fi
 
       if ! diff --strip-trailing-cr "${__dir}/fixture/${scenario}.${typ}" "${curFile}"; then
-        echo -e "\n\n==> MISMATCH OF: ${scenario}.${typ} ---^"
-        echo -e "\n\n==> EXPECTED STDIO: "
+        echo -e "\\n\\n==> MISMATCH OF: ${scenario}.${typ} ---^"
+        echo -e "\\n\\n==> EXPECTED STDIO: "
         cat "${__dir}/fixture/${scenario}.stdio" || true
-        echo -e "\n\n==> ACTUAL STDIO: "
+        echo -e "\\n\\n==> ACTUAL STDIO: "
         cat "${__accptstTmpDir}/${scenario}.stdio" || true
         exit 1
       fi
@@ -195,37 +195,35 @@ done <<< "$(find "${__dir}/scenario" -type f -iname 'run.sh')"
 
 # Ensure correct syntax with all available bashes
 
-if bashes=($(which -a bash 2> /dev/null )); then
-  for bash in "${bashes[@]}"; do
-    # shellcheck disable=SC2016
-    echo "==> ${bash} -n $(${bash} -c 'echo "(${BASH_VERSION})"')"
-    pushd "${__root}" > /dev/null
+while IFS=$'\n' read -r bash; do
+  # shellcheck disable=SC2016
+  echo "==> ${bash} -n $(${bash} -c 'echo "(${BASH_VERSION})"')"
+  pushd "${__root}" > /dev/null
 
-    failed="false"
+  failed="false"
 
-    while IFS=$'\n' read -r file; do
-      [[ "${file}" =~ ^\./node_modules/ ]] && continue
-      [[ "${file}" =~ ^\./website/\.lanyon/ ]] && continue
+  while IFS=$'\n' read -r file; do
+    [[ "${file}" =~ ^\./node_modules/ ]] && continue
+    [[ "${file}" =~ ^\./website/\.lanyon/ ]] && continue
 
-      echo -n "    ${file}.. "
+    echo -n "    ${file}.. "
 
-      if ! "${bash}" -n "${file}" 2>> "${__accptstTmpDir}/${bash//\//.}.err"; then
-          echo "✗"
-          failed="true"
-          continue
-      fi
-
-      echo "✓"
-    done <<< "$(find . -type f -iname '*.sh')"
-
-    popd > /dev/null
-
-    if [[ "${failed}" = "true" ]]; then
-      cat "${__accptstTmpDir}/${bash//\//.}.err"
-      exit 1
+    if ! "${bash}" -n "${file}" 2>> "${__accptstTmpDir}/${bash//\//.}.err"; then
+      echo "✗"
+      failed="true"
+      continue
     fi
-  done
-fi
+
+    echo "✓"
+  done <<< "$(find . -type f -iname '*.sh')"
+
+  popd > /dev/null
+
+  if [[ "${failed}" = "true" ]]; then
+    cat "${__accptstTmpDir}/${bash//\//.}.err"
+    exit 1
+  fi
+done <<< "$(which -a bash 2>/dev/null)"
 
 # do some shellcheck linting
 if [[ "$(command -v shellcheck)" ]]; then

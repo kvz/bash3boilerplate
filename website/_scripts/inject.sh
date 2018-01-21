@@ -42,7 +42,7 @@ for doc in "README" "FAQ" "CHANGELOG"; do
   permalink="/${targetName}/"
   subtitle="$(tr '[:lower:]' '[:upper:]' <<< "${targetName:0:1}")${targetName:1} | "
   redirectFrom="/${doc}.md/"
-  backLink="\n\n<a href=\"/\">&laquo; Home</a>"
+  backLink='\n\n<a href="/">&laquo; Home</a>'
   if [[ "${doc}" = "README" ]]; then
     targetName="index"
     permalink="/"

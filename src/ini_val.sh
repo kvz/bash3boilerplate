@@ -57,7 +57,7 @@ function ini_val() {
         echo "${key}${delim}${val}" >> "${file}"
       else
         # add to section
-        sed -i.bak -e "/\[${section}\]/a ${key}${delim}${val}" "${file}"
+        sed -i.bak -e "/\\[${section}\\]/a ${key}${delim}${val}" "${file}"
         # this .bak dance is done for BSD/GNU portability: http://stackoverflow.com/a/22084103/151666
         rm -f "${file}.bak"
       fi

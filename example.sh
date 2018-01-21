@@ -27,6 +27,7 @@
 # - We do not bash-expand defaults, so setting '~/app' as a default will not resolve to ${HOME}.
 #   you can use bash variables to work around this (so use ${HOME} instead)
 
+# shellcheck disable=SC2034
 read -r -d '' __usage <<-'EOF' || true # exits non-zero when EOF encountered
   -f --file  [arg] Filename to process. Required.
   -t --temp  [arg] Location of tempfile. Default="/tmp/bar"
@@ -37,6 +38,7 @@ read -r -d '' __usage <<-'EOF' || true # exits non-zero when EOF encountered
   -1 --one         Do just one thing
 EOF
 
+# shellcheck disable=SC2034
 read -r -d '' __helptext <<-'EOF' || true # exits non-zero when EOF encountered
  This is Bash3 Boilerplate's help text. Feel free to add any description of your
  program or elaborate more on command-line arguments. This section is not
@@ -59,6 +61,7 @@ trap __b3bp_cleanup_before_exit EXIT
 __b3bp_err_report() {
     local error_code
     error_code=${?}
+    # shellcheck disable=SC2154
     error "Error in ${__file} in function ${1} on line ${2}"
     exit ${error_code}
 }
@@ -104,9 +107,13 @@ fi
 ### Runtime
 ##############################################################################
 
+# shellcheck disable=SC2154
 info "__i_am_main_script: ${__i_am_main_script}"
+# shellcheck disable=SC2154
 info "__file: ${__file}"
+# shellcheck disable=SC2154
 info "__dir: ${__dir}"
+# shellcheck disable=SC2154
 info "__base: ${__base}"
 info "OSTYPE: ${OSTYPE}"
 
@@ -115,7 +122,7 @@ info "arg_d: ${arg_d}"
 info "arg_v: ${arg_v}"
 info "arg_h: ${arg_h}"
 
-info "$(echo -e "multiple lines example - line #1\nmultiple lines example - line #2\nimagine logging the output of 'ls -al /path/'")"
+info "$(echo -e "multiple lines example - line #1\\nmultiple lines example - line #2\\nimagine logging the output of 'ls -al /path/'")"
 
 # All of these go to STDERR, so you can use STDOUT for piping machine readable information to other software
 debug "Info useful to developers for debugging the application, not useful during operations."

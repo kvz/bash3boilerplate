@@ -22,6 +22,8 @@ read -r -d '' __usage <<-'EOF' || true # exits non-zero when EOF encountered
                    More description.
 EOF
 
+export __usage
+
 echo "ACCPTST:STDIO_REPLACE_DATETIMES"
 
 # shellcheck source=main.sh

@@ -62,26 +62,26 @@ function __b3bp_log () {
   shift
 
   # shellcheck disable=SC2034
-  local color_debug="\x1b[35m"
+  local color_debug="\\x1b[35m"
   # shellcheck disable=SC2034
-  local color_info="\x1b[32m"
+  local color_info="\\x1b[32m"
   # shellcheck disable=SC2034
-  local color_notice="\x1b[34m"
+  local color_notice="\\x1b[34m"
   # shellcheck disable=SC2034
-  local color_warning="\x1b[33m"
+  local color_warning="\\x1b[33m"
   # shellcheck disable=SC2034
-  local color_error="\x1b[31m"
+  local color_error="\\x1b[31m"
   # shellcheck disable=SC2034
-  local color_critical="\x1b[1;31m"
+  local color_critical="\\x1b[1;31m"
   # shellcheck disable=SC2034
-  local color_alert="\x1b[1;33;41m"
+  local color_alert="\\x1b[1;33;41m"
   # shellcheck disable=SC2034
-  local color_emergency="\x1b[1;4;5;33;41m"
+  local color_emergency="\\x1b[1;4;5;33;41m"
 
   local colorvar="color_${log_level}"
 
   local color="${!colorvar:-${color_error}}"
-  local color_reset="\x1b[0m"
+  local color_reset="\\x1b[0m"
 
   if [[ "${NO_COLOR:-}" = "true" ]] || ( [[ "${TERM:-}" != "xterm"* ]] && [[ "${TERM:-}" != "screen"* ]] ) || [[ ! -t 2 ]]; then
     if [[ "${NO_COLOR:-}" != "false" ]]; then
@@ -190,7 +190,7 @@ while read -r __b3bp_tmp_line; do
 
   [[ "${__b3bp_tmp_opt:-}" ]] || continue
 
-  if [[ "${__b3bp_tmp_line}" =~ (^|\.\ *)Default= ]]; then
+  if [[ "${__b3bp_tmp_line}" =~ ^Default= ]] || [[ "${__b3bp_tmp_line}" =~ \.\ *Default= ]]; then
     # ignore default value if option does not have an argument
     __b3bp_tmp_varname="__b3bp_tmp_has_arg_${__b3bp_tmp_opt:0:1}"
 
@@ -208,7 +208,7 @@ while read -r __b3bp_tmp_line; do
     fi
   fi
 
-  if [[ "${__b3bp_tmp_line}" =~ (^|\.\ *)Required\. ]]; then
+  if [[ "${__b3bp_tmp_line}" =~ ^Required\. ]] || [[ "${__b3bp_tmp_line}" =~ \.\ *Required\. ]]; then
     # remember that this option requires an argument
     printf -v "__b3bp_tmp_has_arg_${__b3bp_tmp_opt:0:1}" '%s' "2"
   fi
@@ -380,7 +380,7 @@ info "arg_d: ${arg_d}"
 info "arg_v: ${arg_v}"
 info "arg_h: ${arg_h}"
 
-info "$(echo -e "multiple lines example - line #1\nmultiple lines example - line #2\nimagine logging the output of 'ls -al /path/'")"
+info "$(echo -e "multiple lines example - line #1\\nmultiple lines example - line #2\\nimagine logging the output of 'ls -al /path/'")"
 
 # All of these go to STDERR, so you can use STDOUT for piping machine readable information to other software
 debug "Info useful to developers for debugging the application, not useful during operations."
