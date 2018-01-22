@@ -164,6 +164,7 @@ We are looking for endorsements! Are you also using b3bp? [Let us know](https://
 - [@moviuro](https://github.com/moviuro) (feedback)
 - [Giovanni Saponaro](https://github.com/gsaponaro) (feedback)
 - [Germain Masse](https://github.com/gmasse)
+- [A. G. Madi](https://github.com/warpengineer)
 
 ## License
 

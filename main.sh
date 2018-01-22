@@ -257,8 +257,8 @@ if [[ "${__b3bp_tmp_opts:-}" ]]; then
     __b3bp_tmp_default="${!__b3bp_tmp_varname}"
 
     __b3bp_tmp_value="${OPTARG}"
-    if [[ -z "${OPTARG}" ]] && [[ "${__b3bp_tmp_default}" = "0" ]]; then
-      __b3bp_tmp_value="1"
+    if [[ -z "${OPTARG}" ]]; then
+      __b3bp_tmp_value=$((__b3bp_tmp_default + 1))
     fi
 
     printf -v "${__b3bp_tmp_varname}" '%s' "${__b3bp_tmp_value}"
