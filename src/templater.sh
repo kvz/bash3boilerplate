@@ -41,7 +41,7 @@ function templater() {
 
   cp -f "${templateSrc}" "${templateDst}"
   for var in $(env |awk -F= '{print $1}' |grep -E '^(_[A-Z0-9_]+|[A-Z0-9][A-Z0-9_]*)$'); do
-    sed -i.bak -e "s#\${${var}}#${!var}#g" "${templateDst}"
+    sed -i.bak -e "s#\${${var}}#${!var//#/\\#/}#g" "${templateDst}"
     # this .bak dance is done for BSD/GNU portability: http://stackoverflow.com/a/22084103/151666
     rm -f "${templateDst}.bak"
   done
