@@ -20,6 +20,7 @@ Released: TBA.
 - [x] Change `egrep` to `grep -E` in test and lib scripts to comply with ShellCheck (#92, @gmasse)
 - [x] Fix typo in FAQ (#92, @gmasse)
 - [x] Fix Travis CI failure on src/templater.sh (@gmasse)
+- [x] Add magic variable which contains full command invocation
 
 ## v2.3.0
 
