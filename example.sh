@@ -75,6 +75,7 @@ __b3bp_err_report() {
 # debug mode
 if [[ "${arg_d:?}" = "1" ]]; then
   set -o xtrace
+  PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
   LOG_LEVEL="7"
   # Enable error backtracing
   trap '__b3bp_err_report "${FUNCNAME:-.}" ${LINENO}' ERR
