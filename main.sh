@@ -23,6 +23,8 @@ set -o errtrace
 set -o nounset
 # Catch the error in case mysqldump fails (but gzip succeeds) in `mysqldump |gzip`
 set -o pipefail
+# Disable history substitution, will break things like echo `"Hello World!"`
+set +H
 # Turn on traces, useful while debugging but commented out by default
 # set -o xtrace
 
