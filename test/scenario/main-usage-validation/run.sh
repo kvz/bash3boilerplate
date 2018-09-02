@@ -56,3 +56,9 @@ echo "# complain about nothing"
   source "${__root}/main.sh" -3 arg3 -4 arg4 -5 arg5 -8 arg8 -d argd
   for argument in ${!arg_*}; do info "${argument}: ${!argument}"; done
 )
+
+echo "# test for issue #108"
+(
+  source "${__root}/main.sh" -3 arg3 -5 arg5 -8 arg8 -d argd --four value --zero
+  for argument in ${!arg_*}; do info "${argument}: ${!argument}"; done
+)
