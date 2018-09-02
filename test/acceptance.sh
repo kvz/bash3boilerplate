@@ -59,7 +59,7 @@ if [[ ! "$(command -v ${cmdTimeout})" ]]; then
   exit 1
 fi
 
-__node="$(which node)"
+__node="$(command -v node)"
 __arch="amd64"
 
 # explicitly setting NO_COLOR to false will make b3bp ignore TERM
@@ -195,6 +195,8 @@ done <<< "$(find "${__dir}/scenario" -type f -iname 'run.sh')"
 
 # Ensure correct syntax with all available bashes
 
+# shellcheck disable=SC2230
+# "command -v" is not a substitute for "which -a"
 while IFS=$'\n' read -r bash; do
   # shellcheck disable=SC2016
   echo "==> ${bash} -n $(${bash} -c 'echo "(${BASH_VERSION})"')"
