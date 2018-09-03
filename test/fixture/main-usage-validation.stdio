@@ -153,3 +153,17 @@ ACCPTST:STDIO_REPLACE_DATETIMES
 {datetime} UTC [     info] arg_b: do-b
 {datetime} UTC [     info] arg_c: do-c
 {datetime} UTC [     info] arg_d: argd
+# test for issue #108
+{datetime} UTC [     info] arg_0: 1
+{datetime} UTC [     info] arg_1: 0
+{datetime} UTC [     info] arg_2: 0
+{datetime} UTC [     info] arg_3: arg3
+{datetime} UTC [     info] arg_4: value
+{datetime} UTC [     info] arg_5: arg5
+{datetime} UTC [     info] arg_6: 
+{datetime} UTC [     info] arg_7: 
+{datetime} UTC [     info] arg_8: arg8
+{datetime} UTC [     info] arg_a: do-a
+{datetime} UTC [     info] arg_b: do-b
+{datetime} UTC [     info] arg_c: do-c
+{datetime} UTC [     info] arg_d: argd

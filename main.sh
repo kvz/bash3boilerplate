@@ -247,9 +247,11 @@ if [[ "${__b3bp_tmp_opts:-}" ]]; then
         printf -v "__b3bp_tmp_opt" '%s' "${!__b3bp_tmp_varname}"
         # Only assign OPTARG if option takes an argument
         __b3bp_tmp_varname="__b3bp_tmp_has_arg_${__b3bp_tmp_opt}"
-        printf -v "OPTARG" '%s' "${@:OPTIND:${!__b3bp_tmp_varname}}"
+        __b3bp_tmp_varvalue="${!__b3bp_tmp_varname}"
+        [[ "${__b3bp_tmp_varvalue}" != "0" ]] && __b3bp_tmp_varvalue="1"
+        printf -v "OPTARG" '%s' "${@:OPTIND:${__b3bp_tmp_varvalue}}"
         # shift over the argument if argument is expected
-        ((OPTIND+=__b3bp_tmp_has_arg_${__b3bp_tmp_opt}))
+        ((OPTIND+=__b3bp_tmp_varvalue))
       fi
       # we have set opt/OPTARG to the short value and the argument as OPTARG if it exists
     fi
