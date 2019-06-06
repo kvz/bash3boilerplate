@@ -74,9 +74,9 @@ function __b3bp_log () {
   # shellcheck disable=SC2034
   local color_critical="\\x1b[1;31m"
   # shellcheck disable=SC2034
-  local color_alert="\\x1b[1;33;41m"
+  local color_alert="\\x1b[1;37;41m"
   # shellcheck disable=SC2034
-  local color_emergency="\\x1b[1;4;5;33;41m"
+  local color_emergency="\\x1b[1;4;5;37;41m"
 
   local colorvar="color_${log_level}"
 
