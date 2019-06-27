@@ -130,7 +130,7 @@ while IFS=$'\n' read -r scenario; do
         "${curFile}"
       fi
       if grep -q 'ACCPTST:STDIO_REPLACE_DATETIMES' "${curFile}"; then
-        # Such as: 2016-02-10 15:38:44.420094
+        # Such as: 2019-06-27 23:45:21
         "${cmdSed}" -i \
           -r 's@[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}@{datetime}@g' \
         "${curFile}"

@@ -1,0 +1,192 @@
+ACCPTST:STDIO_REPLACE_DATETIMES
+{datetime} UTC [35m[    debug][0m cli arg arg_d = (0) -> 1
+{datetime} UTC [35m[    debug][0m cli arg arg_f = () -> {tmpdir}/x
++ LOG_LEVEL=7
++ [[ ! UTC = \U\T\C ]]
++ [[ false = \t\r\u\e ]]
++ export 'PS4=+\011\e[1;30m\D{%F %T %Z} \e[1;34m${BASH_SOURCE}\e[0m:\e[1;36m${LINENO}\e[0m \011 ${FUNCNAME[0]:+\e[0;35m${FUNCNAME[0]}\e[1;30m()\e[0m:\011 }'
++ PS4='+\011\e[1;30m\D{%F %T %Z} \e[1;34m${BASH_SOURCE}\e[0m:\e[1;36m${LINENO}\e[0m \011 ${FUNCNAME[0]:+\e[0;35m${FUNCNAME[0]}\e[1;30m()\e[0m:\011 }'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m400[0m 	 [0;35mmain[1;30m()[0m:	 trap '__b3bp_err_report "${FUNCNAME:-.}" ${LINENO}' ERR
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m404[0m 	 [0;35mmain[1;30m()[0m:	 [[ 0 = \1 ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m409[0m 	 [0;35mmain[1;30m()[0m:	 [[ 0 = \1 ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m418[0m 	 [0;35mmain[1;30m()[0m:	 [[ -n {tmpdir}/x ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m419[0m 	 [0;35mmain[1;30m()[0m:	 [[ -n 7 ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m425[0m 	 [0;35mmain[1;30m()[0m:	 info '__i_am_main_script: 1'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 [[ 7 -ge 6 ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 __b3bp_log info '__i_am_main_script: 1'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m63[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 [[ -o xtrace ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m64[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 local __b3bp_tmp_xtrace=1
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m65[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 set +o xtrace
+{datetime} UTC [32m[     info][0m __i_am_main_script: 1
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m105[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 unset -v __b3bp_tmp_xtrace
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 true
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m426[0m 	 [0;35mmain[1;30m()[0m:	 info '__file: {root}/main.sh'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 [[ 7 -ge 6 ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 __b3bp_log info '__file: {root}/main.sh'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m63[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 [[ -o xtrace ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m64[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 local __b3bp_tmp_xtrace=1
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m65[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 set +o xtrace
+{datetime} UTC [32m[     info][0m __file: {root}/main.sh
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m105[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 unset -v __b3bp_tmp_xtrace
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 true
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m427[0m 	 [0;35mmain[1;30m()[0m:	 info '__dir: {root}'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 [[ 7 -ge 6 ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 __b3bp_log info '__dir: {root}'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m63[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 [[ -o xtrace ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m64[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 local __b3bp_tmp_xtrace=1
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m65[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 set +o xtrace
+{datetime} UTC [32m[     info][0m __dir: {root}
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m105[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 unset -v __b3bp_tmp_xtrace
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 true
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m428[0m 	 [0;35mmain[1;30m()[0m:	 info '__base: main'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 [[ 7 -ge 6 ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 __b3bp_log info '__base: main'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m63[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 [[ -o xtrace ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m64[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 local __b3bp_tmp_xtrace=1
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m65[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 set +o xtrace
+{datetime} UTC [32m[     info][0m __base: main
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m105[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 unset -v __b3bp_tmp_xtrace
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 true
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m429[0m 	 [0;35mmain[1;30m()[0m:	 info 'OSTYPE: {OSTYPE}'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 [[ 7 -ge 6 ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 __b3bp_log info 'OSTYPE: {OSTYPE}'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m63[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 [[ -o xtrace ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m64[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 local __b3bp_tmp_xtrace=1
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m65[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 set +o xtrace
+{datetime} UTC [32m[     info][0m OSTYPE: {OSTYPE}
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m105[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 unset -v __b3bp_tmp_xtrace
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 true
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m431[0m 	 [0;35mmain[1;30m()[0m:	 info 'arg_f: {tmpdir}/x'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 [[ 7 -ge 6 ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 __b3bp_log info 'arg_f: {tmpdir}/x'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m63[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 [[ -o xtrace ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m64[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 local __b3bp_tmp_xtrace=1
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m65[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 set +o xtrace
+{datetime} UTC [32m[     info][0m arg_f: {tmpdir}/x
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m105[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 unset -v __b3bp_tmp_xtrace
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 true
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m432[0m 	 [0;35mmain[1;30m()[0m:	 info 'arg_d: 1'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 [[ 7 -ge 6 ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 __b3bp_log info 'arg_d: 1'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m63[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 [[ -o xtrace ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m64[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 local __b3bp_tmp_xtrace=1
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m65[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 set +o xtrace
+{datetime} UTC [32m[     info][0m arg_d: 1
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m105[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 unset -v __b3bp_tmp_xtrace
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 true
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m433[0m 	 [0;35mmain[1;30m()[0m:	 info 'arg_v: 0'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 [[ 7 -ge 6 ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 __b3bp_log info 'arg_v: 0'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m63[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 [[ -o xtrace ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m64[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 local __b3bp_tmp_xtrace=1
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m65[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 set +o xtrace
+{datetime} UTC [32m[     info][0m arg_v: 0
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m105[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 unset -v __b3bp_tmp_xtrace
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 true
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m434[0m 	 [0;35mmain[1;30m()[0m:	 info 'arg_h: 0'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 [[ 7 -ge 6 ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 __b3bp_log info 'arg_h: 0'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m63[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 [[ -o xtrace ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m64[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 local __b3bp_tmp_xtrace=1
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m65[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 set +o xtrace
+{datetime} UTC [32m[     info][0m arg_h: 0
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m105[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 unset -v __b3bp_tmp_xtrace
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 true
+++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m436[0m 	 [0;35mmain[1;30m()[0m:	 echo -e 'multiple lines example - line #1\nmultiple lines example - line #2\nimagine logging the output of '\''ls -al /path/'\'''
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m436[0m 	 [0;35mmain[1;30m()[0m:	 info 'multiple lines example - line #1
+multiple lines example - line #2
+imagine logging the output of '\''ls -al /path/'\'''
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 [[ 7 -ge 6 ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 __b3bp_log info 'multiple lines example - line #1
+multiple lines example - line #2
+imagine logging the output of '\''ls -al /path/'\'''
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m63[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 [[ -o xtrace ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m64[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 local __b3bp_tmp_xtrace=1
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m65[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 set +o xtrace
+{datetime} UTC [32m[     info][0m multiple lines example - line #1
+{datetime} UTC [32m[     info][0m multiple lines example - line #2
+{datetime} UTC [32m[     info][0m imagine logging the output of 'ls -al /path/'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m105[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 unset -v __b3bp_tmp_xtrace
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 true
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m439[0m 	 [0;35mmain[1;30m()[0m:	 debug 'Info useful to developers for debugging the application, not useful during operations.'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m116[0m 	 [0;35mdebug[1;30m()[0m:	 [[ 7 -ge 7 ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m116[0m 	 [0;35mdebug[1;30m()[0m:	 __b3bp_log debug 'Info useful to developers for debugging the application, not useful during operations.'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m63[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 [[ -o xtrace ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m64[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 local __b3bp_tmp_xtrace=1
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m65[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 set +o xtrace
+{datetime} UTC [35m[    debug][0m Info useful to developers for debugging the application, not useful during operations.
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m105[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 unset -v __b3bp_tmp_xtrace
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m116[0m 	 [0;35mdebug[1;30m()[0m:	 true
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m440[0m 	 [0;35mmain[1;30m()[0m:	 info 'Normal operational messages - may be harvested for reporting, measuring throughput, etc. - no action required.'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 [[ 7 -ge 6 ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 __b3bp_log info 'Normal operational messages - may be harvested for reporting, measuring throughput, etc. - no action required.'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m63[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 [[ -o xtrace ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m64[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 local __b3bp_tmp_xtrace=1
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m65[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 set +o xtrace
+{datetime} UTC [32m[     info][0m Normal operational messages - may be harvested for reporting, measuring throughput, etc. - no action required.
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m105[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 unset -v __b3bp_tmp_xtrace
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 true
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m441[0m 	 [0;35mmain[1;30m()[0m:	 notice 'Events that are unusual but not error conditions - might be summarized in an email to developers or admins to spot potential problems - no immediate action required.'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m114[0m 	 [0;35mnotice[1;30m()[0m:	 [[ 7 -ge 5 ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m114[0m 	 [0;35mnotice[1;30m()[0m:	 __b3bp_log notice 'Events that are unusual but not error conditions - might be summarized in an email to developers or admins to spot potential problems - no immediate action required.'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m63[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 [[ -o xtrace ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m64[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 local __b3bp_tmp_xtrace=1
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m65[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 set +o xtrace
+{datetime} UTC [34m[   notice][0m Events that are unusual but not error conditions - might be summarized in an email to developers or admins to spot potential problems - no immediate action required.
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m105[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 unset -v __b3bp_tmp_xtrace
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m114[0m 	 [0;35mnotice[1;30m()[0m:	 true
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m442[0m 	 [0;35mmain[1;30m()[0m:	 warning 'Warning messages, not an error, but indication that an error will occur if action is not taken, e.g. file system 85% full - each item must be resolved within a given time. This is a debug message'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m113[0m 	 [0;35mwarning[1;30m()[0m:	 [[ 7 -ge 4 ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m113[0m 	 [0;35mwarning[1;30m()[0m:	 __b3bp_log warning 'Warning messages, not an error, but indication that an error will occur if action is not taken, e.g. file system 85% full - each item must be resolved within a given time. This is a debug message'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m63[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 [[ -o xtrace ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m64[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 local __b3bp_tmp_xtrace=1
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m65[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 set +o xtrace
+{datetime} UTC [33m[  warning][0m Warning messages, not an error, but indication that an error will occur if action is not taken, e.g. file system 85% full - each item must be resolved within a given time. This is a debug message
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m105[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 unset -v __b3bp_tmp_xtrace
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m113[0m 	 [0;35mwarning[1;30m()[0m:	 true
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m443[0m 	 [0;35mmain[1;30m()[0m:	 error 'Non-urgent failures, these should be relayed to developers or admins; each item must be resolved within a given time.'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m112[0m 	 [0;35merror[1;30m()[0m:	 [[ 7 -ge 3 ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m112[0m 	 [0;35merror[1;30m()[0m:	 __b3bp_log error 'Non-urgent failures, these should be relayed to developers or admins; each item must be resolved within a given time.'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m63[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 [[ -o xtrace ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m64[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 local __b3bp_tmp_xtrace=1
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m65[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 set +o xtrace
+{datetime} UTC [31m[    error][0m Non-urgent failures, these should be relayed to developers or admins; each item must be resolved within a given time.
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m105[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 unset -v __b3bp_tmp_xtrace
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m112[0m 	 [0;35merror[1;30m()[0m:	 true
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m444[0m 	 [0;35mmain[1;30m()[0m:	 critical 'Should be corrected immediately, but indicates failure in a primary system, an example is a loss of a backup ISP connection.'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m111[0m 	 [0;35mcritical[1;30m()[0m:	 [[ 7 -ge 2 ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m111[0m 	 [0;35mcritical[1;30m()[0m:	 __b3bp_log critical 'Should be corrected immediately, but indicates failure in a primary system, an example is a loss of a backup ISP connection.'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m63[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 [[ -o xtrace ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m64[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 local __b3bp_tmp_xtrace=1
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m65[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 set +o xtrace
+{datetime} UTC [1;31m[ critical][0m Should be corrected immediately, but indicates failure in a primary system, an example is a loss of a backup ISP connection.
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m105[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 unset -v __b3bp_tmp_xtrace
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m111[0m 	 [0;35mcritical[1;30m()[0m:	 true
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m445[0m 	 [0;35mmain[1;30m()[0m:	 alert 'Should be corrected immediately, therefore notify staff who can fix the problem. An example would be the loss of a primary ISP connection.'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m110[0m 	 [0;35malert[1;30m()[0m:	 [[ 7 -ge 1 ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m110[0m 	 [0;35malert[1;30m()[0m:	 __b3bp_log alert 'Should be corrected immediately, therefore notify staff who can fix the problem. An example would be the loss of a primary ISP connection.'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m63[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 [[ -o xtrace ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m64[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 local __b3bp_tmp_xtrace=1
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m65[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 set +o xtrace
+{datetime} UTC [1;33;41m[    alert][0m Should be corrected immediately, therefore notify staff who can fix the problem. An example would be the loss of a primary ISP connection.
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m105[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 unset -v __b3bp_tmp_xtrace
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m110[0m 	 [0;35malert[1;30m()[0m:	 true
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m446[0m 	 [0;35mmain[1;30m()[0m:	 emergency 'A "panic" condition usually affecting multiple apps/servers/sites. At this level it would usually notify all tech staff on call.'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m109[0m 	 [0;35memergency[1;30m()[0m:	 __b3bp_log emergency 'A "panic" condition usually affecting multiple apps/servers/sites. At this level it would usually notify all tech staff on call.'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m63[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 [[ -o xtrace ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m64[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 local __b3bp_tmp_xtrace=1
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m65[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 set +o xtrace
+{datetime} UTC [1;4;5;33;41m[emergency][0m A "panic" condition usually affecting multiple apps/servers/sites. At this level it would usually notify all tech staff on call.
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m105[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 unset -v __b3bp_tmp_xtrace
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m109[0m 	 [0;35memergency[1;30m()[0m:	 exit 1
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m1[0m 	 [0;35memergency[1;30m()[0m:	 __b3bp_cleanup_before_exit
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m329[0m 	 [0;35m__b3bp_cleanup_before_exit[1;30m()[0m:	 (( __i_am_main_script ))
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m332[0m 	 [0;35m__b3bp_cleanup_before_exit[1;30m()[0m:	 info 'Cleaning up. Done'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 [[ 7 -ge 6 ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 __b3bp_log info 'Cleaning up. Done'
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m63[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 [[ -o xtrace ]]
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m64[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 local __b3bp_tmp_xtrace=1
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m65[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 set +o xtrace
+{datetime} UTC [32m[     info][0m Cleaning up. Done
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m105[0m 	 [0;35m__b3bp_log[1;30m()[0m:	 unset -v __b3bp_tmp_xtrace
++	[1;30m{datetime} UTC [1;34m{root}/main.sh[0m:[1;36m115[0m 	 [0;35minfo[1;30m()[0m:	 true

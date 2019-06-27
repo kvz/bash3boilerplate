@@ -4,16 +4,23 @@
 [For better viewing, including hyperlinks, read it online at  ]:#
 [https://github.com/kvz/bash3boilerplate/blob/master/README.md]:#
 
-* [Overview](#overview)
-* [Goals](#goals)
-* [Features](#features)
-* [Installation](#installation)
-* [Changelog](#changelog)
-* [Frequently Asked Questions](#frequently-asked-questions)
-* [Best Practices](#best-practices)
-* [Who uses b3bp](#who-uses-b3bp)
-* [Authors](#authors)
-* [License](#license)
+- [Overview](#overview)
+- [Goals](#goals)
+- [Features](#features)
+- [Installation](#installation)
+  - [Option 1: Download the main template](#option-1-download-the-main-template)
+  - [Option 2: Clone the entire project](#option-2-clone-the-entire-project)
+  - [Option 3: Require via npm](#option-3-require-via-npm)
+- [Changelog](#changelog)
+- [Frequently Asked Questions](#frequently-asked-questions)
+- [Best practices](#best-practices)
+  - [Function packaging](#function-packaging)
+  - [Scoping](#scoping)
+  - [Coding style](#coding-style)
+  - [Safety and Portability](#safety-and-portability)
+- [Who uses b3bp?](#who-uses-b3bp)
+- [Authors](#authors)
+- [License](#license)
 
 ## Overview
 
@@ -167,6 +174,7 @@ We are looking for endorsements! Are you also using b3bp? [Let us know](https://
 - [Germain Masse](https://github.com/gmasse)
 - [A. G. Madi](https://github.com/warpengineer)
 - [Lukas Stockner](mailto:oss@genesiscloud.com)
+- [Virgil](https://github.com/virgilwashere)
 
 ## License
 

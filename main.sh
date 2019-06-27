@@ -47,8 +47,13 @@ fi
 __dir="$(cd "$(dirname "${BASH_SOURCE[${__b3bp_tmp_source_idx:-0}]}")" && pwd)"
 __file="${__dir}/$(basename "${BASH_SOURCE[${__b3bp_tmp_source_idx:-0}]}")"
 __base="$(basename "${__file}" .sh)"
+<<<<<<< HEAD
 # shellcheck disable=SC2034,SC2015
 __invocation="$(printf %q "${__file}")$( (($#)) && printf ' %q' "$@" || true)"
+=======
+# shellcheck disable=SC2034
+__invocation="$( printf %q "${__file}")$( { (($#)) && printf ' %q' "$@"; } || true)"
+>>>>>>> feat(debug): Add color and line numbers to debug
 
 # Define the environment variables (and their defaults) that this script depends on
 LOG_LEVEL="${LOG_LEVEL:-6}" # 7 = debug -> 0 = emergency
@@ -59,6 +64,11 @@ NO_COLOR="${NO_COLOR:-}"    # true = disable color. otherwise autodetected
 ##############################################################################
 
 function __b3bp_log () {
+  # limit xtrace debug logging of the logging
+  if [[ -o xtrace ]]; then
+    local __b3bp_tmp_xtrace=1
+    set +o xtrace
+  fi
   local log_level="${1}"
   shift
 
@@ -80,7 +90,6 @@ function __b3bp_log () {
   local color_emergency="\\x1b[1;4;5;37;41m"
 
   local colorvar="color_${log_level}"
-
   local color="${!colorvar:-${color_error}}"
   local color_reset="\\x1b[0m"
 
@@ -93,11 +102,14 @@ function __b3bp_log () {
 
   # all remaining arguments are to be printed
   local log_line=""
-
   while IFS=$'\n' read -r log_line; do
-    echo -e "$(date -u +"%Y-%m-%d %H:%M:%S UTC") ${color}$(printf "[%9s]" "${log_level}")${color_reset} ${log_line}" 1>&2
+    TZ=UTC echo -e "$(date -u +"%F %T %Z")" "${color}$(printf "[%9s]" "${log_level}")${color_reset} ${log_line}" 1>&2
   done <<< "${@:-}"
+  # turn xtrace back on if we disabled it
+  ((${__b3bp_tmp_xtrace:-})) && set -o xtrace
+  unset -v __b3bp_tmp_xtrace
 }
+
 
 function emergency () {                                __b3bp_log emergency "${@}"; exit 1; }
 function alert ()     { [[ "${LOG_LEVEL:-0}" -ge 1 ]] && __b3bp_log alert "${@}"; true; }
@@ -354,6 +366,9 @@ fi
 ##############################################################################
 
 function __b3bp_cleanup_before_exit () {
+  if ! ((__i_am_main_script)); then
+    [[ -v __b3bp_tmp_tz ]] && TZ="${__b3bp_tmp_tz-}"
+  fi
   info "Cleaning up. Done"
 }
 trap __b3bp_cleanup_before_exit EXIT
@@ -362,7 +377,13 @@ trap __b3bp_cleanup_before_exit EXIT
 __b3bp_err_report() {
     local error_code
     error_code=${?}
-    error "Error in ${__file} in function ${1} on line ${2}"
+    # Disable the trap handler to prevent potential recursion
+    trap - ERR
+    # Consider any further errors non-fatal to ensure we run to completion
+    set +o errexit
+    set +o pipefail
+    error "Error in ${__file} in function ${1} on or around line ${2}"
+    # Exit with failure status
     exit ${error_code}
 }
 # Uncomment the following line for always providing an error backtrace
@@ -372,11 +393,49 @@ __b3bp_err_report() {
 ### Command-line argument switches (like -d for debugmode, -h for showing helppage)
 ##############################################################################
 
+# no color mode
+if [[ "${arg_n:?}" = "1" ]]; then
+  NO_COLOR="true"
+fi
+
 # debug mode
 if [[ "${arg_d:?}" = "1" ]]; then
   set -o xtrace
-  PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
   LOG_LEVEL="7"
+
+  ### PS4 - Debug prompt string  (when using `set -o xtrace`)
+  ##############################################################################
+
+  # When debugging a shell script via `set -x` or `set -o xtrace`
+  # this tricked-out prompt is used.
+  #
+  # The first character (+) is used and repeated for stack depth (subshells).
+  # Then insert a tab (\011), a timestamp (\D) in strftime(3),
+  # (source)filename, line number and function name
+  # And finally, the actual line of code.
+  # %F     Equivalent to %Y-%m-%d (the ISO 8601 date format). (C99)
+  # %T     The time in 24-hour notation (%H:%M:%S).  (SU)
+  # %Z     The timezone name or abbreviation.
+  #+       2019-06-27 23:45:21 UTC  ./main.sh:299         main():         help 'Option -f (--file) requires an argument'
+  #+       2019-06-27 23:45:21 UTC  ./main.sh:116         help():         echo ''
+
+  if [[ ! "${TZ-}" = "UTC" ]]; then
+    declare TZ
+    # save TZ if we are sourced
+    if ! ((__i_am_main_script)); then
+      declare __b3bp_tmp_tz
+      __b3bp_tmp_tz="${TZ-}"
+    fi
+    debug "Setting timezone to UTC for standardised logging"
+    TZ="UTC"
+  fi
+  if [[ "${NO_COLOR:-}" = "true" ]]; then
+    # [!] Don't change to double quotes
+    export PS4='+\011\D{%F %T %Z} ${BASH_SOURCE}:${LINENO} \011 ${FUNCNAME[0]:+${FUNCNAME[0]}:\011 }'
+  else
+    # the 'debug-so-fancy' coloured version. no double quotes here either
+    export PS4='+\011\e[1;30m\D{%F %T %Z} \e[1;34m${BASH_SOURCE}\e[0m:\e[1;36m${LINENO}\e[0m \011 ${FUNCNAME[0]:+\e[0;35m${FUNCNAME[0]}\e[1;30m()\e[0m:\011 }'
+  fi
   # Enable error backtracing
   trap '__b3bp_err_report "${FUNCNAME:-.}" ${LINENO}' ERR
 fi
@@ -384,11 +443,6 @@ fi
 # verbose mode
 if [[ "${arg_v:?}" = "1" ]]; then
   set -o verbose
-fi
-
-# no color mode
-if [[ "${arg_n:?}" = "1" ]]; then
-  NO_COLOR="true"
 fi
 
 # help mode

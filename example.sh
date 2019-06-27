@@ -74,11 +74,21 @@ __b3bp_err_report() {
 ### Command-line argument switches (like -d for debugmode, -h for showing helppage)
 ##############################################################################
 
+# no color mode
+if [[ "${arg_n:?}" = "1" ]]; then
+  NO_COLOR="true"
+fi
+
 # debug mode
 if [[ "${arg_d:?}" = "1" ]]; then
   set -o xtrace
-  PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
   LOG_LEVEL="7"
+  if [[ "${NO_COLOR:-}" = "true" ]]; then
+    # [!] Don't change to double quotes
+    export PS4='+\011\D{%F %T %Z} ${BASH_SOURCE}:${LINENO} \011 ${FUNCNAME[0]:+${FUNCNAME[0]}:\011 }'
+  else
+    export PS4='+\011\e[1;30m\D{%F %T %Z} \e[1;34m${BASH_SOURCE}\e[0m:\e[1;36m${LINENO}\e[0m \011 ${FUNCNAME[0]:+\e[0;35m${FUNCNAME[0]}\e[1;30m()\e[0m:\011 }'
+  fi
   # Enable error backtracing
   trap '__b3bp_err_report "${FUNCNAME:-.}" ${LINENO}' ERR
 fi
@@ -86,11 +96,6 @@ fi
 # verbose mode
 if [[ "${arg_v:?}" = "1" ]]; then
   set -o verbose
-fi
-
-# no color mode
-if [[ "${arg_n:?}" = "1" ]]; then
-  NO_COLOR="true"
 fi
 
 # help mode
