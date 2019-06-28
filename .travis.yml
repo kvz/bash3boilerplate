@@ -28,6 +28,7 @@ before_install:
 - if [ "$TRAVIS_OS_NAME" = "osx" ]; then which bundle || gem install bundler; fi
 - bash --version
 - awk --version
+- diff --version
 before_cache:
 - rm -f ./node_modules/.bin/which
 # cache:
