@@ -367,7 +367,7 @@ fi
 
 function __b3bp_cleanup_before_exit () {
   if ! ((__i_am_main_script)); then
-    [[ -v __b3bp_tmp_tz ]] && TZ="${__b3bp_tmp_tz-}"
+    [[ -n "${__b3bp_tmp_tz:-}" ]] && TZ="${__b3bp_tmp_tz:-}"
   fi
   info "Cleaning up. Done"
 }
@@ -419,12 +419,12 @@ if [[ "${arg_d:?}" = "1" ]]; then
   #+       2019-06-27 23:45:21 UTC  ./main.sh:299         main():         help 'Option -f (--file) requires an argument'
   #+       2019-06-27 23:45:21 UTC  ./main.sh:116         help():         echo ''
 
-  if [[ ! "${TZ-}" = "UTC" ]]; then
+  if [[ ! "${TZ:-}" = "UTC" ]]; then
     declare TZ
     # save TZ if we are sourced
     if ! ((__i_am_main_script)); then
       declare __b3bp_tmp_tz
-      __b3bp_tmp_tz="${TZ-}"
+      __b3bp_tmp_tz="${TZ:-}"
     fi
     debug "Setting timezone to UTC for standardised logging"
     TZ="UTC"
