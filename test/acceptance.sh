@@ -176,11 +176,7 @@ while IFS=$'\n' read -r scenario; do
         fi
       fi
 
-      set -o xtrace
-      if diff -w --strip-trailing-cr "${__dir}/fixture/${scenario}.${typ}" "${curFile}"; then
-        echo "Passes with --ignore-all-space"
-      fi
-      if ! diff --strip-trailing-cr "${__dir}/fixture/${scenario}.${typ}" "${curFile}"; then
+      if ! diff -w --strip-trailing-cr "${__dir}/fixture/${scenario}.${typ}" "${curFile}"; then
         echo -e "\\n\\n==> MISMATCH OF: ${scenario}.${typ} ---^"
         echo -e "\\n\\n==> EXPECTED STDIO: "
         cat "${__dir}/fixture/${scenario}.stdio" || true
@@ -188,7 +184,7 @@ while IFS=$'\n' read -r scenario; do
         cat "${__accptstTmpDir}/${scenario}.stdio" || true
         exit 1
       fi
-      set +o xtrace
+
       echo "✓"
     done
 
