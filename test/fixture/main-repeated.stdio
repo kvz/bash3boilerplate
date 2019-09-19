@@ -5,3 +5,5 @@ ACCPTST:STDIO_REPLACE_DATETIMES
 {datetime} UTC [32m[     info][0m  - input with spaces
 {datetime} UTC [32m[     info][0m  - input with "quotes"
 {datetime} UTC [32m[     info][0m  - last_input
+{datetime} UTC [32m[     info][0m arg_x: 3
+{datetime} UTC [32m[     info][0m arg_x: 4

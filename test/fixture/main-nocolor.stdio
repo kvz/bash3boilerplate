@@ -10,6 +10,7 @@ ACCPTST:STDIO_REPLACE_DATETIMES
 {datetime} UTC [     info] arg_v: 0
 {datetime} UTC [     info] arg_h: 0
 {datetime} UTC [     info] arg_i: 0
+{datetime} UTC [     info] arg_x: 0
 {datetime} UTC [     info] multiple lines example - line #1
 {datetime} UTC [     info] multiple lines example - line #2
 {datetime} UTC [     info] imagine logging the output of 'ls -al /path/'
