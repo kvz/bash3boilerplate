@@ -146,6 +146,7 @@ $ my_script some more args --blah
 - [OpenCoarrays](http://www.opencoarrays.org)
 - [Sourcery Institute](http://www.sourceryinstitute.org)
 - [Computational Brain Anatomy Laboratory](http://cobralab.ca/)
+- [Genesis Cloud](https://genesiscloud.com/)
 
 We are looking for endorsements! Are you also using b3bp? [Let us know](https://github.com/kvz/bash3boilerplate/issues/new?title=I%20use%20b3bp) and get listed.
 
@@ -165,6 +166,7 @@ We are looking for endorsements! Are you also using b3bp? [Let us know](https://
 - [Giovanni Saponaro](https://github.com/gsaponaro) (feedback)
 - [Germain Masse](https://github.com/gmasse)
 - [A. G. Madi](https://github.com/warpengineer)
+- [Lukas Stockner](mailto:oss@genesiscloud.com)
 
 ## License
 
