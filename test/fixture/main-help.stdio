@@ -9,6 +9,7 @@ ACCPTST:STDIO_REPLACE_DATETIMES
   -h --help        This page
   -n --no-color    Disable color output
   -1 --one         Do just one thing
+  -i --input [arg] File to process. Can be repeated.
 
  This is Bash3 Boilerplate's help text. Feel free to add any description of your
  program or elaborate more on command-line arguments. This section is not

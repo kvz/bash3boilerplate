@@ -143,6 +143,7 @@ function help () {
   -h --help        This page
   -n --no-color    Disable color output
   -1 --one         Do just one thing
+  -i --input [arg] File to process. Can be repeated.
 EOF
 
 # shellcheck disable=SC2015
@@ -401,6 +402,16 @@ info "arg_f: ${arg_f}"
 info "arg_d: ${arg_d}"
 info "arg_v: ${arg_v}"
 info "arg_h: ${arg_h}"
+if [[ -v arg_i ]]
+then
+  info "arg_i: ${#arg_i[@]}"
+  for input_file in "${arg_i[@]}"
+  do
+    info " - ${input_file}"
+  done
+else
+  info "arg_i: 0"
+fi
 
 info "$(echo -e "multiple lines example - line #1\\nmultiple lines example - line #2\\nimagine logging the output of 'ls -al /path/'")"
 

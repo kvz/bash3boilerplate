@@ -9,6 +9,7 @@ ACCPTST:STDIO_REPLACE_DATETIMES
 {datetime} UTC [32m[     info][0m arg_d: 0
 {datetime} UTC [32m[     info][0m arg_v: 0
 {datetime} UTC [32m[     info][0m arg_h: 0
+{datetime} UTC [32m[     info][0m arg_i: 0
 {datetime} UTC [32m[     info][0m multiple lines example - line #1
 {datetime} UTC [32m[     info][0m multiple lines example - line #2
 {datetime} UTC [32m[     info][0m imagine logging the output of 'ls -al /path/'
