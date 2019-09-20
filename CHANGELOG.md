@@ -21,6 +21,7 @@ Released: TBA.
 - [x] Fix typo in FAQ (#92, @gmasse)
 - [x] Fix Travis CI failure on src/templater.sh (@gmasse)
 - [x] Add magic variable which contains full command invocation
+- [x] More contrasted alert and emergency colors (#111 @gmeral)
 - [x] Add support for repeatable arguments (@genesiscloud)
 - [x] Fix remaining warnings with shellcheck v0.7.0 (#107, @genesiscloud)
 
