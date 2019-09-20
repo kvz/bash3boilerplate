@@ -14,13 +14,14 @@ Released: TBA.
 [Diff](https://github.com/kvz/bash3boilerplate/compare/v2.3.0...master).
 
 - [ ] Upgrade to `lanyon@0.0.55`
-- [ ] Allow counting how many times an argument is used
+- [x] Allow counting how many times an argument is used (@genesiscloud)
 - [x] Fix typos in megamount (thanks @gsaponaro)
 - [x] Enable color in screen or tmux (#92, @gmasse)
 - [x] Change `egrep` to `grep -E` in test and lib scripts to comply with ShellCheck (#92, @gmasse)
 - [x] Fix typo in FAQ (#92, @gmasse)
 - [x] Fix Travis CI failure on src/templater.sh (@gmasse)
 - [x] Add magic variable which contains full command invocation
+- [x] Add support for repeatable arguments (@genesiscloud)
 - [x] Fix remaining warnings with shellcheck v0.7.0 (#107, @genesiscloud)
 
 ## v2.3.0
