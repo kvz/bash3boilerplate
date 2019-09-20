@@ -22,6 +22,7 @@ Released: TBA.
 - [x] Fix Travis CI failure on src/templater.sh (@gmasse)
 - [x] Add magic variable which contains full command invocation
 - [x] Add support for repeatable arguments (@genesiscloud)
+- [x] Fix remaining warnings with shellcheck v0.7.0 (#107, @genesiscloud)
 
 ## v2.3.0
 
