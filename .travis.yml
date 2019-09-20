@@ -22,7 +22,7 @@ install:
 - npm install
 - if [ "$TRAVIS_OS_NAME" = "linux" ]; then npm run install:lanyon; fi
 before_install:
-- if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get install -y cabal-install; fi
+- if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get install --allow-unauthenticated -y cabal-install; fi
 - if [ "$TRAVIS_OS_NAME" = "linux" ]; then cabal update; fi
 - if [ "$TRAVIS_OS_NAME" = "linux" ]; then cabal install shellcheck; fi
 - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update; fi
