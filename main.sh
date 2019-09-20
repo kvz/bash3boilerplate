@@ -47,7 +47,8 @@ fi
 __dir="$(cd "$(dirname "${BASH_SOURCE[${__b3bp_tmp_source_idx:-0}]}")" && pwd)"
 __file="${__dir}/$(basename "${BASH_SOURCE[${__b3bp_tmp_source_idx:-0}]}")"
 __base="$(basename "${__file}" .sh)"
-__invocation="$(printf %q "${__file}")$((($#)) && printf ' %q' "$@" || true)"
+# shellcheck disable=SC2034,SC2015
+__invocation="$(printf %q "${__file}")$( (($#)) && printf ' %q' "$@" || true)"
 
 # Define the environment variables (and their defaults) that this script depends on
 LOG_LEVEL="${LOG_LEVEL:-6}" # 7 = debug -> 0 = emergency
@@ -83,7 +84,7 @@ function __b3bp_log () {
   local color="${!colorvar:-${color_error}}"
   local color_reset="\\x1b[0m"
 
-  if [[ "${NO_COLOR:-}" = "true" ]] || ( [[ "${TERM:-}" != "xterm"* ]] && [[ "${TERM:-}" != "screen"* ]] ) || [[ ! -t 2 ]]; then
+  if [[ "${NO_COLOR:-}" = "true" ]] || { [[ "${TERM:-}" != "xterm"* ]] && [[ "${TERM:-}" != "screen"* ]]; } || [[ ! -t 2 ]]; then
     if [[ "${NO_COLOR:-}" != "false" ]]; then
       # Don't use colors on pipes or non-recognized terminals
       color=""; color_reset=""
@@ -143,6 +144,8 @@ function help () {
   -h --help        This page
   -n --no-color    Disable color output
   -1 --one         Do just one thing
+  -i --input [arg] File to process. Can be repeated.
+  -x               Specify a flag. Can be repeated.
 EOF
 
 # shellcheck disable=SC2015
@@ -186,6 +189,13 @@ while read -r __b3bp_tmp_line; do
       printf -v "__b3bp_tmp_has_arg_${__b3bp_tmp_opt:0:1}" '%s' "0"
     fi
     __b3bp_tmp_opts="${__b3bp_tmp_opts:-}${__b3bp_tmp_opt}"
+
+    if [[ "${__b3bp_tmp_line}" =~ ^Can\ be\ repeated\. ]] || [[ "${__b3bp_tmp_line}" =~ \.\ *Can\ be\ repeated\. ]]; then
+      # remember that this option can be repeated
+      printf -v "__b3bp_tmp_is_array_${__b3bp_tmp_opt:0:1}" '%s' "1"
+    else
+      printf -v "__b3bp_tmp_is_array_${__b3bp_tmp_opt:0:1}" '%s' "0"
+    fi
   fi
 
   [[ "${__b3bp_tmp_opt:-}" ]] || continue
@@ -213,7 +223,8 @@ while read -r __b3bp_tmp_line; do
     printf -v "__b3bp_tmp_has_arg_${__b3bp_tmp_opt:0:1}" '%s' "2"
   fi
 
-  printf -v "arg_${__b3bp_tmp_opt:0:1}" '%s' "${__b3bp_tmp_init}"
+  __b3bp_tmp_varname="__b3bp_tmp_is_array_${__b3bp_tmp_opt:0:1}"
+  [[ "${!__b3bp_tmp_varname}" = "0" ]] && printf -v "arg_${__b3bp_tmp_opt:0:1}" '%s' "${__b3bp_tmp_init}"
 done <<< "${__usage:-}"
 
 # run getopts only if options were specified in __usage
@@ -255,16 +266,27 @@ if [[ "${__b3bp_tmp_opts:-}" ]]; then
       fi
       # we have set opt/OPTARG to the short value and the argument as OPTARG if it exists
     fi
-    __b3bp_tmp_varname="arg_${__b3bp_tmp_opt:0:1}"
-    __b3bp_tmp_default="${!__b3bp_tmp_varname}"
 
     __b3bp_tmp_value="${OPTARG}"
-    if [[ -z "${OPTARG}" ]]; then
-      __b3bp_tmp_value=$((__b3bp_tmp_default + 1))
-    fi
 
-    printf -v "${__b3bp_tmp_varname}" '%s' "${__b3bp_tmp_value}"
-    debug "cli arg ${__b3bp_tmp_varname} = (${__b3bp_tmp_default}) -> ${!__b3bp_tmp_varname}"
+    __b3bp_tmp_varname="__b3bp_tmp_is_array_${__b3bp_tmp_opt:0:1}"
+    if [[ "${!__b3bp_tmp_varname}" != "0" ]]; then
+      __b3bp_tmp_varname="arg_${__b3bp_tmp_opt:0:1}[@]"
+
+      # shellcheck disable=SC2016
+      declare -a "${__b3bp_tmp_varname}"='("${!__b3bp_tmp_varname}" "${__b3bp_tmp_value}")'
+      debug "cli arg ${__b3bp_tmp_varname} append ${__b3bp_tmp_value}"
+    else
+      __b3bp_tmp_varname="arg_${__b3bp_tmp_opt:0:1}"
+      __b3bp_tmp_default="${!__b3bp_tmp_varname}"
+
+      if [[ -z "${OPTARG}" ]]; then
+        __b3bp_tmp_value=$((__b3bp_tmp_default + 1))
+      fi
+
+      printf -v "${__b3bp_tmp_varname}" '%s' "${__b3bp_tmp_value}"
+      debug "cli arg ${__b3bp_tmp_varname} = (${__b3bp_tmp_default}) -> ${!__b3bp_tmp_varname}"
+    fi
   done
   set -o nounset # no more unbound variable references expected
 
@@ -382,6 +404,18 @@ info "arg_f: ${arg_f}"
 info "arg_d: ${arg_d}"
 info "arg_v: ${arg_v}"
 info "arg_h: ${arg_h}"
+if [[ -v arg_i ]]
+then
+  info "arg_i: ${#arg_i[@]}"
+  for input_file in "${arg_i[@]}"
+  do
+    info " - ${input_file}"
+  done
+else
+  info "arg_i: 0"
+fi
+# shellcheck disable=SC2015
+[[ -v arg_x ]] && info "arg_x: ${#arg_x[@]}" || info "arg_x: 0"
 
 info "$(echo -e "multiple lines example - line #1\\nmultiple lines example - line #2\\nimagine logging the output of 'ls -al /path/'")"
 
