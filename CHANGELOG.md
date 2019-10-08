@@ -11,9 +11,15 @@ Unplanned.
 ## master
 
 Released: TBA. 
-[Diff](https://github.com/kvz/bash3boilerplate/compare/v2.3.0...master).
+[Diff](https://github.com/kvz/bash3boilerplate/compare/v2.4.0...master).
 
 - [ ] Upgrade to `lanyon@0.0.55`
+
+## v2.4.0
+
+Released: 2016-12-21. 
+[Diff](https://github.com/kvz/bash3boilerplate/compare/v2.3.0...v2.4.0).
+
 - [x] Allow counting how many times an argument is used (@genesiscloud)
 - [x] Fix typos in megamount (thanks @gsaponaro)
 - [x] Enable color in screen or tmux (#92, @gmasse)
