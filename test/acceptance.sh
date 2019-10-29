@@ -229,7 +229,7 @@ done <<< "$(which -a bash 2>/dev/null)"
 
 # do some shellcheck linting
 if [[ "$(command -v shellcheck)" ]]; then
-  echo "==> Shellcheck"
+  echo "==> ShellCheck"
   pushd "${__root}" > /dev/null
 
   failed="false"
