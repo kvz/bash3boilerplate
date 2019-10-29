@@ -98,7 +98,7 @@ while IFS=$'\n' read -r scenario; do
         -e "s@${USER:-travis}@{user}@g" "${curFile}" \
         -e "s@travis@{user}@g" "${curFile}" \
         -e "s@kvz@{user}@g" "${curFile}" \
-        -e "s@{root}/node_modules/\.bin/node@{node}@g" "${curFile}" \
+        -e "s@{root}/node_modules/\\.bin/node@{node}@g" "${curFile}" \
         -e "s@{home}/build/{user}/fre{node}@{node}@g" "${curFile}" \
         -e "s@${HOSTNAME}@{hostname}@g" "${curFile}" \
         -e "s@${__arch}@{arch}@g" "${curFile}" \
