@@ -17,6 +17,7 @@
     "serve:production": "LANYON_ENV=production lanyon serve",
     "start:production": "npm-run-all build:production serve:production",
     "start": "lanyon start",
+    "test:isolate:repeated": "test/acceptance.sh main-repeated",
     "test:update": "cross-env SAVE_FIXTURES=true npm run test",
     "test": "test/acceptance.sh",
     "upgrade:modules": "next-update --keep true --tldr",
