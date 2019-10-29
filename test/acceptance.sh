@@ -236,7 +236,7 @@ if [[ "$(command -v shellcheck)" ]]; then
 
   while IFS=$'\n' read -r file; do
     [[ "${file}" =~ ^\./node_modules/ ]] && continue
-    [[ "${file}" =~ ^\./website/\.lanyon/ ]] && continue
+    [[ "${file}" =~ ^\./website/ ]] && continue
 
     echo -n "    ${file}.. "
 
