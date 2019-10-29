@@ -33,10 +33,10 @@ before_install:
 - awk --version
 before_cache:
 - rm -f ./node_modules/.bin/which
-cache:
-  apt: true
-  directories:
-  - .lanyon
+# cache:
+#   apt: true
+#   directories:
+#   - .lanyon
 script: test/acceptance.sh
 deploy:
   skip_cleanup: true

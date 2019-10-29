@@ -7,6 +7,7 @@
     "build": "lanyon build",
     "deploy": "lanyon deploy",
     "encrypt": "lanyon encrypt",
+    "inject": "./_scripts/inject.sh",
     "install:lanyon": "lanyon install",
     "lint": "shellcheck --shell=bash $(find . -name '*.sh' -maxdepth 2)",
     "release:major": "env SEMANTIC=major npm run release",
@@ -22,26 +23,16 @@
     "version:current": "node -e 'console.log(require(\"./package.json\").version)'",
     "version:replace": "replace 'v\\d+\\.\\d+\\.\\d+' \"v$(npm run --silent version:current)\" main.sh src/*.sh"
   },
-  "lanyon": {
-    "projectDir": "website",
-    "prebuild": "./_scripts/inject.sh",
-    "contentScandir": "../",
-    "contentIgnore": [
-      "website/*.md",
-      "website/main.sh"
-    ]
-  },
   "optionalDependencies": {
     "fsevents": "*"
   },
   "dependencies": {},
   "devDependencies": {
-    "browser-sync": "2.18.5",
     "cross-env": "3.1.3",
     "fakefile": "0.0.8",
-    "lanyon": "0.0.92",
+    "lanyon": "0.1.7",
     "next-update": "1.5.1",
     "npm-run-all": "3.1.2",
-    "replace": "^0.3.0"
+    "replace": "0.3.0"
   }
 }
