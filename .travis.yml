@@ -3,10 +3,10 @@ matrix:
   - os: linux
     sudo: false
     language: node_js
-    node_js: 6
+    node_js: 10
   - os: osx
     language: node_js
-    node_js: 6
+    node_js: 10
 env:
   global:
   - SCROLEX_MODE=passthru
