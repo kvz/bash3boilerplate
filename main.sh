@@ -404,18 +404,16 @@ info "arg_f: ${arg_f}"
 info "arg_d: ${arg_d}"
 info "arg_v: ${arg_v}"
 info "arg_h: ${arg_h}"
-if [[ -v arg_i ]]
-then
+if [[ -n "${arg_i:-}" ]]; then
   info "arg_i: ${#arg_i[@]}"
-  for input_file in "${arg_i[@]}"
-  do
+  for input_file in "${arg_i[@]}"; do
     info " - ${input_file}"
   done
 else
   info "arg_i: 0"
 fi
 # shellcheck disable=SC2015
-[[ -v arg_x ]] && info "arg_x: ${#arg_x[@]}" || info "arg_x: 0"
+[[ -n "${arg_x:-}" ]] && info "arg_x: ${#arg_x[@]}" || info "arg_x: 0"
 
 info "$(echo -e "multiple lines example - line #1\\nmultiple lines example - line #2\\nimagine logging the output of 'ls -al /path/'")"
 
