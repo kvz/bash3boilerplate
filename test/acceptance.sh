@@ -198,6 +198,9 @@ done <<< "$(find "${__dir}/scenario" -type f -iname 'run.sh')"
 # shellcheck disable=SC2230
 # "command -v" is not a substitute for "which -a"
 while IFS=$'\n' read -r bash; do
+  if [[ "${bash:-}" = "" ]]; then
+    continue
+  fi
   # shellcheck disable=SC2016
   echo "==> ${bash} -n $(${bash} -c 'echo "(${BASH_VERSION})"')"
   pushd "${__root}" > /dev/null
