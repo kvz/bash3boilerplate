@@ -203,13 +203,15 @@ while read -r __b3bp_tmp_line; do
   if [[ "${__b3bp_tmp_line}" =~ ^Default= ]] || [[ "${__b3bp_tmp_line}" =~ \.\ *Default= ]]; then
     # ignore default value if option does not have an argument
     __b3bp_tmp_varname="__b3bp_tmp_has_arg_${__b3bp_tmp_opt:0:1}"
-
     if [[ "${!__b3bp_tmp_varname}" != "0" ]]; then
+      # take default
       __b3bp_tmp_init="${__b3bp_tmp_line##*Default=}"
+      # strip double quotes from default argument
       __b3bp_tmp_re='^"(.*)"$'
       if [[ "${__b3bp_tmp_init}" =~ ${__b3bp_tmp_re} ]]; then
         __b3bp_tmp_init="${BASH_REMATCH[1]}"
       else
+        # strip single quotes from default argument
         __b3bp_tmp_re="^'(.*)'$"
         if [[ "${__b3bp_tmp_init}" =~ ${__b3bp_tmp_re} ]]; then
           __b3bp_tmp_init="${BASH_REMATCH[1]}"
@@ -223,6 +225,7 @@ while read -r __b3bp_tmp_line; do
     printf -v "__b3bp_tmp_has_arg_${__b3bp_tmp_opt:0:1}" '%s' "2"
   fi
 
+  # Init var with value unless it is an array / a repeatable
   __b3bp_tmp_varname="__b3bp_tmp_is_array_${__b3bp_tmp_opt:0:1}"
   [[ "${!__b3bp_tmp_varname}" = "0" ]] && printf -v "arg_${__b3bp_tmp_opt:0:1}" '%s' "${__b3bp_tmp_init}"
 done <<< "${__usage:-}"
@@ -271,12 +274,22 @@ if [[ "${__b3bp_tmp_opts:-}" ]]; then
 
     __b3bp_tmp_varname="__b3bp_tmp_is_array_${__b3bp_tmp_opt:0:1}"
     if [[ "${!__b3bp_tmp_varname}" != "0" ]]; then
-      __b3bp_tmp_varname="arg_${__b3bp_tmp_opt:0:1}[@]"
-
+      # repeatables
       # shellcheck disable=SC2016
-      declare -a "${__b3bp_tmp_varname}"='("${!__b3bp_tmp_varname}" "${__b3bp_tmp_value}")'
-      debug "cli arg ${__b3bp_tmp_varname} append ${__b3bp_tmp_value}"
+      if [[ -z "${OPTARG}" ]]; then
+        # repeatable flags, they increcemnt
+        __b3bp_tmp_varname="arg_${__b3bp_tmp_opt:0:1}"
+        debug "cli arg ${__b3bp_tmp_varname} = (${__b3bp_tmp_default}) -> ${!__b3bp_tmp_varname}"
+        __b3bp_tmp_value=$((${!__b3bp_tmp_varname} + 1))
+        printf -v "${__b3bp_tmp_varname}" '%s' "${__b3bp_tmp_value}"
+      else
+        # repeatable args, they get appended to an array
+        __b3bp_tmp_varname="arg_${__b3bp_tmp_opt:0:1}[@]"
+        debug "cli arg ${__b3bp_tmp_varname} append ${__b3bp_tmp_value}"
+        declare -a "${__b3bp_tmp_varname}"='("${!__b3bp_tmp_varname}" "${__b3bp_tmp_value}")'
+      fi
     else
+      # non-repeatables
       __b3bp_tmp_varname="arg_${__b3bp_tmp_opt:0:1}"
       __b3bp_tmp_default="${!__b3bp_tmp_varname}"
 
@@ -285,6 +298,7 @@ if [[ "${__b3bp_tmp_opts:-}" ]]; then
       fi
 
       printf -v "${__b3bp_tmp_varname}" '%s' "${__b3bp_tmp_value}"
+
       debug "cli arg ${__b3bp_tmp_varname} = (${__b3bp_tmp_default}) -> ${!__b3bp_tmp_varname}"
     fi
   done
@@ -404,18 +418,27 @@ info "arg_f: ${arg_f}"
 info "arg_d: ${arg_d}"
 info "arg_v: ${arg_v}"
 info "arg_h: ${arg_h}"
-if [[ -v arg_i ]]
-then
-  info "arg_i: ${#arg_i[@]}"
-  for input_file in "${arg_i[@]}"
-  do
+
+# shellcheck disable=SC2015
+if [[ -n "${arg_i:-}" ]] && declare -p arg_i 2> /dev/null | grep -q '^declare \-a'; then
+  info "arg_i:"
+  for input_file in "${arg_i[@]}"; do
     info " - ${input_file}"
   done
+elif [[ -n "${arg_i:-}" ]]; then
+  info "arg_i: ${arg_i}"
 else
   info "arg_i: 0"
 fi
+
 # shellcheck disable=SC2015
-[[ -v arg_x ]] && info "arg_x: ${#arg_x[@]}" || info "arg_x: 0"
+if [[ -n "${arg_x:-}" ]] && declare -p arg_x 2> /dev/null | grep -q '^declare \-a'; then
+  info "arg_x: ${#arg_x[@]}"
+elif [[ -n "${arg_x:-}" ]]; then
+  info "arg_x: ${arg_x}"
+else
+  info "arg_x: 0"
+fi
 
 info "$(echo -e "multiple lines example - line #1\\nmultiple lines example - line #2\\nimagine logging the output of 'ls -al /path/'")"
 

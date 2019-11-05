@@ -3,10 +3,10 @@ matrix:
   - os: linux
     sudo: false
     language: node_js
-    node_js: 6
+    node_js: 10
   - os: osx
     language: node_js
-    node_js: 6
+    node_js: 10
 env:
   global:
   - SCROLEX_MODE=passthru
@@ -18,13 +18,10 @@ addons:
   apt:
     sources:
     - debian-sid
-install:
-- npm install
-- if [ "$TRAVIS_OS_NAME" = "linux" ]; then npm run install:lanyon; fi
 before_install:
 - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get install --allow-unauthenticated -y cabal-install; fi
 - if [ "$TRAVIS_OS_NAME" = "linux" ]; then cabal update; fi
-- if [ "$TRAVIS_OS_NAME" = "linux" ]; then cabal install shellcheck; fi
+- if [ "$TRAVIS_OS_NAME" = "linux" ]; then cabal v1-install ShellCheck; fi
 - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update; fi
 - if [ "$TRAVIS_OS_NAME" = "osx" ]; then which gsed || brew install gnu-sed; fi
 - if [ "$TRAVIS_OS_NAME" = "osx" ]; then which gtimeout || brew install coreutils; fi
@@ -33,10 +30,10 @@ before_install:
 - awk --version
 before_cache:
 - rm -f ./node_modules/.bin/which
-cache:
-  apt: true
-  directories:
-  - .lanyon
+# cache:
+#   apt: true
+#   directories:
+#   - .lanyon
 script: test/acceptance.sh
 deploy:
   skip_cleanup: true

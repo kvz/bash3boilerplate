@@ -1,4 +1,4 @@
 title: BASH3 Boilerplate
 
-gems:
+plugins:
   - jekyll-redirect-from

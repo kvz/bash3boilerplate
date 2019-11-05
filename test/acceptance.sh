@@ -98,7 +98,7 @@ while IFS=$'\n' read -r scenario; do
         -e "s@${USER:-travis}@{user}@g" "${curFile}" \
         -e "s@travis@{user}@g" "${curFile}" \
         -e "s@kvz@{user}@g" "${curFile}" \
-        -e "s@{root}/node_modules/\.bin/node@{node}@g" "${curFile}" \
+        -e "s@{root}/node_modules/\\.bin/node@{node}@g" "${curFile}" \
         -e "s@{home}/build/{user}/fre{node}@{node}@g" "${curFile}" \
         -e "s@${HOSTNAME}@{hostname}@g" "${curFile}" \
         -e "s@${__arch}@{arch}@g" "${curFile}" \
@@ -198,6 +198,9 @@ done <<< "$(find "${__dir}/scenario" -type f -iname 'run.sh')"
 # shellcheck disable=SC2230
 # "command -v" is not a substitute for "which -a"
 while IFS=$'\n' read -r bash; do
+  if [[ "${bash:-}" = "" ]]; then
+    continue
+  fi
   # shellcheck disable=SC2016
   echo "==> ${bash} -n $(${bash} -c 'echo "(${BASH_VERSION})"')"
   pushd "${__root}" > /dev/null
@@ -229,14 +232,14 @@ done <<< "$(which -a bash 2>/dev/null)"
 
 # do some shellcheck linting
 if [[ "$(command -v shellcheck)" ]]; then
-  echo "==> Shellcheck"
+  echo "==> ShellCheck"
   pushd "${__root}" > /dev/null
 
   failed="false"
 
   while IFS=$'\n' read -r file; do
     [[ "${file}" =~ ^\./node_modules/ ]] && continue
-    [[ "${file}" =~ ^\./website/\.lanyon/ ]] && continue
+    [[ "${file}" =~ ^\./website/ ]] && continue
 
     echo -n "    ${file}.. "
 
