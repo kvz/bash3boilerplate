@@ -11,14 +11,14 @@ Unplanned.
 ## master
 
 Released: TBA. 
-[Diff](https://github.com/kvz/bash3boilerplate/compare/v2.4.0...master).
+[Diff](https://github.com/kvz/bash3boilerplate/compare/v2.4.1...master).
 
 - [ ]
 
-## v2.4.0
+## v2.4.1
 
 Released: 2019-11-07. 
-[Diff](https://github.com/kvz/bash3boilerplate/compare/v2.3.0...v2.4.0).
+[Diff](https://github.com/kvz/bash3boilerplate/compare/v2.3.0...v2.4.1).
 
 - [x] Upgrade to `lanyon@0.1.7`
 - [x] Allow counting how many times an argument is used (@genesiscloud)
