@@ -1,7 +1,7 @@
 {
   "name": "bash3boilerplate",
   "description": "Copypastable templates to write better bash scripts",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "scripts": {
     "build:production": "LANYON_ENV=production lanyon build",
     "build": "lanyon build",
