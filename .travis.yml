@@ -28,65 +28,48 @@ addons:
       - gnu-sed
       - gnu-tar
       - grep
+      - make
       - gawk
       - findutils
-      # - gnu-indent
-      # - gnutls
+      - gnu-which
+      - gnu-time
 
 git:
   depth: 3
 
 before_install:
+  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then type -P bundle || gem install bundler; fi
   - |
     if [ "$TRAVIS_OS_NAME" = "osx" ]; then
       if type brew &>/dev/null; then
-        HOMEBREW_PREFIX=$(brew --prefix)
-        # gnubin;
+        HOMEBREW_PREFIX=$(brew --prefix)  # add gnubin commands to PATH
         for d in ${HOMEBREW_PREFIX}/opt/*/libexec/gnubin; do export PATH=$d:$PATH; done
-        # gnuman
-        # for d in ${HOMEBREW_PREFIX}/opt/*/libexec/gnuman; do export MANPATH=$d:$MANPATH; done
       fi
     fi
   - |
-    echo ######################################
-    echo "Testing GNU binaries"
-    sha512sum --version || true
-    tar --version|| true
-    install --version || true
-    grep --version || true
-    sed --version || true
-    find --version || true
-    date --version || true
-    make --version || true
-    echo ######################################
-    echo
-  - |
-    sc_version="latest" # or "v0.7.0", or "stable"
-    if [ "$TRAVIS_OS_NAME" = "linux" ]; then sc_arch="linux";  fi
-    if [ "$TRAVIS_OS_NAME" = "osx"   ]; then sc_arch="darwin"; fi
-    if type shellcheck &>/dev/null; then
-      sc_bin="$(type -P shellcheck)"
-    else
-      sc_bin=/usr/bin/shellcheck
-    fi
+    sc_version="latest"                   # or "v0.7.0", or "stable"
+    sc_bin="/usr/local/bin/shellcheck"    # a default binary target
+    if type shellcheck &>/dev/null; then sc_bin="$(type -P shellcheck)"; fi
+    if [ "$TRAVIS_OS_NAME" = "linux" ]; then sc_os="linux";  fi
+    if [ "$TRAVIS_OS_NAME" = "osx"   ]; then sc_os="darwin"; fi
+    sc_tmp="$(mktemp -d || return)"
 
-    sc_tmp="$(mktemp -d)" && pushd "${sc_tmp}" > /dev/null || return
-    curl -k -sSLO "https://storage.googleapis.com/shellcheck/shellcheck-${sc_version?}.${sc_arch}.x86_64.tar.xz"
-    curl -k -sSLO "https://storage.googleapis.com/shellcheck/shellcheck-${sc_version?}.${sc_arch}.x86_64.tar.xz.sha512sum"
-    if sha512sum -c --quiet "shellcheck-${sc_version?}.${sc_arch}.x86_64.tar.xz.sha512sum"; then
-      tar -x --xz -f "shellcheck-${sc_version?}.${sc_arch}.x86_64.tar.xz"
+    pushd "${sc_tmp}" &>/dev/null || return
+    curl -k -sSLO "https://storage.googleapis.com/shellcheck/shellcheck-${sc_version?}.${sc_os}.x86_64.tar.xz"
+    curl -k -sSLO "https://storage.googleapis.com/shellcheck/shellcheck-${sc_version?}.${sc_os}.x86_64.tar.xz.sha512sum"
+    if sha512sum -c --quiet "shellcheck-${sc_version?}.${sc_os}.x86_64.tar.xz.sha512sum"; then
+      tar -x --xz -f "shellcheck-${sc_version?}.${sc_os}.x86_64.tar.xz"
       sudo install -v -m0755 "${sc_tmp}/shellcheck-${sc_version}/shellcheck" "$sc_bin"
-      echo ######################################
       grep 'binary was compiled' "${sc_tmp}/shellcheck-${sc_version}/README.txt"
-      "$sc_bin" --version || shellcheck --version  || true
     fi
-    popd > /dev/null || return
-  - if [ "$TRAVIS_OS_NAME" = "osx" ]; then type -P bundle || gem install bundler; fi
-
+    popd &>/dev/null || return
 
 before_script:
-  - bash --version
-  - awk --version
+  - bash --version || true
+  - awk  --version || true
+  - sed  --version || true
+  - make --version || true
+  - shellcheck --version || true
 
 before_cache:
   - rm -f ./node_modules/.bin/which
