@@ -7,6 +7,7 @@ matrix:
   - os: osx
     language: node_js
     node_js: 10
+
 env:
   global:
   - SCROLEX_MODE=passthru
@@ -14,17 +15,20 @@ env:
   - secure: RJ5UpdXms9QkraylZ11OBfmcRrmKnb254Yj0yCDAvZmg+n+3jSTwMgGvPY8Ih8X/R1JeW3VTtFDkJXXPnjjfpNg1M91u4CAEUOMPciCudYcoF6GKb8psnOzneTTX5M7zuJSzknGdpv/foldxiPYxiY5Hn5bfjmikhAEl+QX/R0Y=
   - secure: BXf2buPt/DA09M5ZUdp/LpOWtUuz1mfCBopLyxvHv3Sl3ln+Az57wWsM2+Re+77lUOgihR2f6lXYfNUmQuSUo157rZPunQCqM/DJhK69KhREEB6SJDaJF3FVlnGla+Cwwb1IQUtMopqX9pBYD7w/zyWQFJCi20O57JEVIdfZZS8=
   - secure: AaDI3OLTcwau2tu9jTtR0eHpylSUudYua9aKH3C540Lm2scQhQcT4IbMa6KXgrY+1UchapS9gUuClH8QwgJo61tJjtOqvmCgZ2EkmZg68pzw/25zwv7LSzYASbZvKahulV/giZdxFLGOpPhNhKbG70/owYXjKFENi5LoZKc8Y+c=
+
 addons:
   apt:
-    sources:
-    - debian-sid
+    update: true
+  homebrew:
+    update: true
+    packages:
+      - coreutils
+      - gnu-sed
+
 before_install:
 - if [ "$TRAVIS_OS_NAME" = "linux" ]; then sudo apt-get install --allow-unauthenticated -y cabal-install; fi
 - if [ "$TRAVIS_OS_NAME" = "linux" ]; then cabal update; fi
 - if [ "$TRAVIS_OS_NAME" = "linux" ]; then cabal v1-install ShellCheck; fi
-- if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update; fi
-- if [ "$TRAVIS_OS_NAME" = "osx" ]; then which gsed || brew install gnu-sed; fi
-- if [ "$TRAVIS_OS_NAME" = "osx" ]; then which gtimeout || brew install coreutils; fi
 - if [ "$TRAVIS_OS_NAME" = "osx" ]; then which bundle || gem install bundler; fi
 - bash --version
 - awk --version
