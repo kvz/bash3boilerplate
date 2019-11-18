@@ -167,6 +167,8 @@ We are looking for endorsements! Are you also using b3bp? [Let us know](https://
 - [Germain Masse](https://github.com/gmasse)
 - [A. G. Madi](https://github.com/warpengineer)
 - [Lukas Stockner](mailto:oss@genesiscloud.com)
+- [Gert Goet](https://github.com/eval)
+
 
 ## License
 
