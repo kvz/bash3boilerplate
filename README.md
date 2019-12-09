@@ -98,7 +98,7 @@ As of `v1.0.3`, b3bp offers some nice re-usable libraries in `./src`. In order t
 It is nice to have a Bash package that can not only be used in the terminal, but also invoked as a command line function. In order to achieve this, the exporting of your functionality *should* follow this pattern:
 
 ```bash
-if [ "${BASH_SOURCE[0]}" != "${0}" ]; then
+if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
   export -f my_script
 else
   my_script "${@}"
@@ -138,7 +138,7 @@ $ my_script some more args --blah
 1. Use `set`, rather than relying on a shebang like `#!/usr/bin/env bash -e`, since that is neutralized when someone runs your script as `bash yourscript.sh`.
 1. Use `#!/usr/bin/env bash`, as it is more portable than `#!/bin/bash`.
 1. Use `${BASH_SOURCE[0]}` if you refer to current file, even if it is sourced by a parent script. In other cases, use `${0}`.
-1. Use `:-` if you want to test variables that could be undeclared. For instance, with `if [ "${NAME:-}" = "Kevin" ]`, `$NAME` will evaluate to `Kevin` if the variable is empty. The variable itself will remain unchanged. The syntax to assign a default value is `${NAME:=Kevin}`.
+1. Use `:-` if you want to test variables that could be undeclared. For instance, with `if [[ "${NAME:-}" = "Kevin" ]]`, `$NAME` will evaluate to `Kevin` if the variable is empty. The variable itself will remain unchanged. The syntax to assign a default value is `${NAME:=Kevin}`.
 
 ## Who uses b3bp?
 
