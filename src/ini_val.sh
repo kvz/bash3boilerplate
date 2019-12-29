@@ -41,8 +41,7 @@ function ini_val() {
     section=""
   fi
 
-  local current
-  current=$(awk -F "${delim}" "/^${key}${delim}/ {for (i=2; i<NF; i++) printf \$i \" \"; print \$NF}" "${file}")
+  local current=$(sed -rn "/^\[/{h;d};G;s/^${key}(.*)=(.*)\n\[${section}\]$/\2/p" "${file}"|awk '{$1=$1};1')
 
   if [[ ! "${val}" ]]; then
     # get a value
