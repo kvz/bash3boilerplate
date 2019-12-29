@@ -33,16 +33,30 @@ function ini_val() {
   local delim=" = "
   local section=""
   local key=""
+  local current=""
+  # add default section
+  local section_default="default"
+
+  if [ ! -f "${file}" ]; then
+    # touch file if not exists
+    touch ${file}
+  fi
 
   # Split on . for section. However, section is optional
   IFS='.' read -r section key <<< "${sectionkey}"
   if [[ ! "${key}" ]]; then
     key="${section}"
-    section=""
+    # default section if not given
+    section="${section_default}"
   fi
 
-  local current
-  current=$(awk -F "${delim}" "/^${key}${delim}/ {for (i=2; i<NF; i++) printf \$i \" \"; print \$NF}" "${file}")
+  current=$(sed -rn "/^\[/{h;d};G;s/^${key}(.*)${delim}(.*)\n\[${section}\]$/\2/p" "${file}"|awk '{$1=$1};1')
+
+  if ! grep -q "\[${section}\]" ${file}; then
+    # create section if not exists (empty line to seperate new section)
+    echo  >> "${file}"
+    echo "[${section}]" >> "${file}"
+  fi
 
   if [[ ! "${val}" ]]; then
     # get a value
@@ -51,19 +65,17 @@ function ini_val() {
     # set a value
     if [[ ! "${current}" ]]; then
       # doesn't exist yet, add
-
       if [[ ! "${section}" ]]; then
-        # no section was given, add to bottom of file
-        echo "${key}${delim}${val}" >> "${file}"
-      else
-        # add to section
-        sed -i.bak -e "/\\[${section}\\]/a ${key}${delim}${val}" "${file}"
-        # this .bak dance is done for BSD/GNU portability: http://stackoverflow.com/a/22084103/151666
-        rm -f "${file}.bak"
+        # if no section is given, propagate the default section
+        section=${section_default}
       fi
+      # add to section
+      sed -i.bak -e "/\\[${section}\\]/a ${key}${delim}${val}" "${file}"
+      # this .bak dance is done for BSD/GNU portability: http://stackoverflow.com/a/22084103/151666
+      rm -f "${file}.bak"
     else
-      # replace existing
-      sed -i.bak -e "/^${key}${delim}/s/${delim}.*/${delim}${val}/" "${file}"
+      # replace existing (modified to replace only keys in given destion)
+      sed -i.bak -e "/^\[${section}\]/,/^\[.*\]/ s|^\(${key}[ \t]*${delim}[ \t]*\).*$|\1${val}|" "${file}"
       # this .bak dance is done for BSD/GNU portability: http://stackoverflow.com/a/22084103/151666
       rm -f "${file}.bak"
     fi
