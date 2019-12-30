@@ -37,7 +37,7 @@ function ini_val() {
   # add default section
   local section_default="default"
 
-  if [ ! -f "${file}" ]; then
+  if [[ ! -f "${file}" ]]; then
     # touch file if not exists
     touch ${file}
   fi
