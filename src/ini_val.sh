@@ -76,7 +76,7 @@ ${key}${delim}${val}"
       # this .bak dance is done for BSD/GNU portability: http://stackoverflow.com/a/22084103/151666
       rm -f "${file}.bak"
     else
-      # replace existing (modified to replace only keys in given destion)
+      # replace existing (modified to replace only keys in given section)
       sed -i.bak -e "/^\[${section}\]/,/^\[.*\]/ s|^\(${key}[ \t]*${delim}[ \t]*\).*$|\1${val}|" "${file}"
       # this .bak dance is done for BSD/GNU portability: http://stackoverflow.com/a/22084103/151666
       rm -f "${file}.bak"
