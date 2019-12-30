@@ -50,7 +50,7 @@ function ini_val() {
     section="${section_default}"
   fi
 
-  current=$(sed -rn "/^\[/{h;d};G;s/^${key}(.*)${delim}(.*)\n\[${section}\]$/\2/p" "${file}"|awk '{$1=$1};1')
+  current=$(sed -En "/^\[/{h;d;};G;s/^${key}(.*)${delim}(.*)\n\[${section}\]$/\2/p" "${file}"|awk '{$1=$1};1')
 
   if ! grep -q "\[${section}\]" ${file}; then
     # create section if not exists (empty line to seperate new section)
@@ -70,7 +70,9 @@ function ini_val() {
         section=${section_default}
       fi
       # add to section
-      sed -i.bak -e "/\\[${section}\\]/a ${key}${delim}${val}" "${file}"
+      RET="/\\[${section}\\]/a\\
+${key}${delim}${val}"
+      sed -i.bak -e "${RET}" "${file}"
       # this .bak dance is done for BSD/GNU portability: http://stackoverflow.com/a/22084103/151666
       rm -f "${file}.bak"
     else
