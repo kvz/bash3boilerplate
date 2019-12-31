@@ -14,7 +14,7 @@ Released: TBA.
 [Diff](https://github.com/kvz/bash3boilerplate/compare/v2.4.1...master).
 
 - [x] Capture correct error_code in err_report (#124, @eval)
-- [ ]
+- [x] Enhanced ini file handling: create new file, create new sections, handle default section, read key from given section (@rfuehrer)
 
 ## v2.4.1
 
