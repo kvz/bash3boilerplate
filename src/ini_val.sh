@@ -30,7 +30,7 @@ function ini_val() {
   local file="${1:-}"
   local sectionkey="${2:-}"
   local val="${3:-}"
-  local delim=" = "
+  local delim="="
   local section=""
   local key=""
   local current=""
@@ -39,7 +39,7 @@ function ini_val() {
 
   if [[ ! -f "${file}" ]]; then
     # touch file if not exists
-    touch ${file}
+    touch "${file}"
   fi
 
   # Split on . for section. However, section is optional
@@ -50,9 +50,9 @@ function ini_val() {
     section="${section_default}"
   fi
 
-  current=$(sed -En "/^\[/{h;d;};G;s/^${key}(.*)${delim}(.*)\n\[${section}\]$/\2/p" "${file}"|awk '{$1=$1};1')
+  current=$(sed -En "/^\[/{h;d;};G;s/^${key}([[:blank:]]*)${delim}(.*)\n\[${section}\]$/\2/p" "${file}"|awk '{$1=$1};1')
 
-  if ! grep -q "\[${section}\]" ${file}; then
+  if ! grep -q "\[${section}\]" "${file}"; then
     # create section if not exists (empty line to seperate new section)
     echo  >> "${file}"
     echo "[${section}]" >> "${file}"
