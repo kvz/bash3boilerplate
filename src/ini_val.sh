@@ -7,16 +7,17 @@
 #
 # Limitations:
 #
-#  - All keys inside the .ini file must be unique, regardless of the use of sections
+#  - All keys inside a section of the .ini file must be unique
+#  - Optional comment parameter for the creation of new entries
 #
 # Usage as a function:
 #
 #  source ini_val.sh
-#  ini_val data.ini connection.host 127.0.0.1
+#  ini_val data.ini connection.host 127.0.0.1 "Host name or IP address"
 #
 # Usage as a command:
 #
-#  ini_val.sh data.ini connection.host 127.0.0.1
+#  ini_val.sh data.ini connection.host 127.0.0.1 "Host name or IP address"
 #
 # Based on a template by BASH3 Boilerplate v2.4.1
 # http://bash3boilerplate.sh/#authors
@@ -30,7 +31,9 @@ function ini_val() {
   local file="${1:-}"
   local sectionkey="${2:-}"
   local val="${3:-}"
+  local comment="${4:-}"
   local delim="="
+  local comment_delim=";"
   local section=""
   local key=""
   local current=""
@@ -70,8 +73,16 @@ function ini_val() {
         section=${section_default}
       fi
       # add to section
-      RET="/\\[${section}\\]/a\\
+      if [[ ! "${comment}" ]]; then
+        # add new key/value without comment
+        RET="/\\[${section}\\]/a\\
 ${key}${delim}${val}"
+      else
+        # add new key/value with preceeding comment
+        RET="/\\[${section}\\]/a\\
+${comment_delim}[${key}] ${comment}\\
+${key}${delim}${val}"
+      fi
       sed -i.bak -e "${RET}" "${file}"
       # this .bak dance is done for BSD/GNU portability: http://stackoverflow.com/a/22084103/151666
       rm -f "${file}.bak"
