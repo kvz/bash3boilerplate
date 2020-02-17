@@ -98,12 +98,11 @@ As of `v1.0.3`, b3bp offers some nice re-usable libraries in `./src`. In order t
 It is nice to have a Bash package that can not only be used in the terminal, but also invoked as a command line function. In order to achieve this, the exporting of your functionality *should* follow this pattern:
 
 ```bash
-if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
-  export -f my_script
-else
+if [[ "${BASH_SOURCE[0]}" = "${0}" ]]; then
   my_script "${@}"
   exit $?
 fi
+export -f my_script
 ```
 
 This allows a user to `source` your script or invoke it as a script.
