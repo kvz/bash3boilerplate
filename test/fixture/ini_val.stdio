@@ -4,33 +4,39 @@ exists
 nginx, nodejs
 
 --> command: Replace three values in-place and show result
+
 [default]
-orphan = no more
+orphan=no more
 
 [connection]
-host = 192.168.0.1
+host=192.168.0.1
 
 [software]
-packages = vim
+packages=vim
 
 [comment]
-;[command] this key is commented
-command=commented
+;[command] got this new comment
+command=works like a chame
+;[new_command] last addition will be moved downwards again after next command
+new_command=commented too
 --> function: Read 3 values
 exists
 127.0.0.1
 nginx, nodejs
 
 --> function: Replace three values in-place and show result
+
 [default]
-orphan = no more
+orphan=no more
 
 [connection]
-host = 192.168.0.1
+host=192.168.0.1
 
 [software]
-packages = vim
+packages=vim
 
 [comment]
-;[command] this key is commented
-command=commented
+;[command] got this new comment
+command=works like a chame
+;[new_command] last addition will be moved downwards again after next command
+new_command=commented too

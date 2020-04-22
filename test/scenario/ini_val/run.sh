@@ -23,7 +23,10 @@ echo "--> command: Replace three values in-place and show result"
 bash "${__root}/src/ini_val.sh" ./dummy.ini orphan "no more"
 bash "${__root}/src/ini_val.sh" ./dummy.ini connection.host "192.168.0.1"
 bash "${__root}/src/ini_val.sh" ./dummy.ini software.packages "vim"
+
 bash "${__root}/src/ini_val.sh" ./dummy.ini comment.command "commented" "this key is commented"
+bash "${__root}/src/ini_val.sh" ./dummy.ini comment.new_command "commented too" "last addition will be moved downwards again after next command"
+bash "${__root}/src/ini_val.sh" ./dummy.ini comment.command "works like a chame" "got this new comment"
 cat dummy.ini
 rm -f dummy.ini
 
@@ -43,6 +46,9 @@ echo "--> function: Replace three values in-place and show result"
 ini_val ./dummy.ini orphan "no more"
 ini_val ./dummy.ini connection.host "192.168.0.1"
 ini_val ./dummy.ini software.packages "vim"
-ini_val ./dummy.ini comment.command "commented" "this key is commented"
+
+ini_val ./dummy.ini comment.command "commented" "this key is commited"
+ini_val ./dummy.ini comment.new_command "commented too" "last addition will be moved downwards again after next command"
+ini_val ./dummy.ini comment.command "works like a chame" "got this new comment"
 cat dummy.ini
 rm -f dummy.ini

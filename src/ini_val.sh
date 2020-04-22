@@ -53,10 +53,13 @@ function ini_val() {
     section="${section_default}"
   fi
 
+  # get current value (if exists)
   current=$(sed -En "/^\[/{h;d;};G;s/^${key}([[:blank:]]*)${delim}(.*)\n\[${section}\]$/\2/p" "${file}"|awk '{$1=$1};1')
+  # get current comment (if exists)
+  current_comment=$(sed -En "/^\[${section}\]/,/^\[.*\]/ s|^(${comment_delim}\[${key}\])(.*)|\2|p" "${file}"|awk '{$1=$1};1')
 
   if ! grep -q "\[${section}\]" "${file}"; then
-    # create section if not exists (empty line to seperate new section)
+    # create section if not exists (empty line to seperate new section for better readability)
     echo  >> "${file}"
     echo "[${section}]" >> "${file}"
   fi
@@ -66,32 +69,39 @@ function ini_val() {
     echo "${current}"
   else
     # set a value
-    if [[ ! "${current}" ]]; then
-      # doesn't exist yet, add
-      if [[ ! "${section}" ]]; then
-        # if no section is given, propagate the default section
-        section=${section_default}
-      fi
-      # add to section
-      if [[ ! "${comment}" ]]; then
-        # add new key/value without comment
-        RET="/\\[${section}\\]/a\\
+    if [[ ! "${section}" ]]; then
+      # if no section is given, propagate the default section
+      section=${section_default}
+    fi
+
+    if [[ ! "${comment}" ]]; then
+      # if no comment given, keep old comment
+      comment="${current_comment}"
+    fi
+    # maintenance area
+    # a) remove comment if new given / respect section
+    sed -i.bak "/^\[${section}\]/,/^\[.*\]/ s|^\(${comment_delim}\[${key}\] \).*$||" "${file}"
+    # b) remove old key / respect section
+    sed -i.bak "/^\[${section}\]/,/^\[.*\]/ s|^\(${key}=\).*$||" "${file}"
+    # c) remove all empty lines in ini file
+    sed -i.bak '/^[[:space:]]*$/d' "${file}"
+    # d) insert line break before every section for better readability
+    sed -i.bak $'s/^\\[/\\\n\\[/g' "${file}"
+
+    # add to section
+    if [[ ! "${comment}" ]]; then
+      # add new key/value _without_ comment
+      RET="/\\[${section}\\]/a\\
 ${key}${delim}${val}"
-      else
-        # add new key/value with preceeding comment
-        RET="/\\[${section}\\]/a\\
+    else
+      # add new key/value _with_ preceeding comment
+      RET="/\\[${section}\\]/a\\
 ${comment_delim}[${key}] ${comment}\\
 ${key}${delim}${val}"
-      fi
-      sed -i.bak -e "${RET}" "${file}"
-      # this .bak dance is done for BSD/GNU portability: http://stackoverflow.com/a/22084103/151666
-      rm -f "${file}.bak"
-    else
-      # replace existing (modified to replace only keys in given section)
-      sed -i.bak -e "/^\[${section}\]/,/^\[.*\]/ s|^\(${key}[ \t]*${delim}[ \t]*\).*$|\1${val}|" "${file}"
-      # this .bak dance is done for BSD/GNU portability: http://stackoverflow.com/a/22084103/151666
-      rm -f "${file}.bak"
     fi
+    sed -i.bak -e "${RET}" "${file}"
+    # this .bak dance is done for BSD/GNU portability: http://stackoverflow.com/a/22084103/151666
+    rm -f "${file}.bak"
   fi
 }
 
