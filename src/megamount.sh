@@ -20,7 +20,7 @@
 #
 #  megamount.sh smb://janedoe:abc123@192.168.0.1/documents /mnt/documents
 #
-# Based on a template by BASH3 Boilerplate v2.3.0
+# Based on a template by BASH3 Boilerplate v2.4.1
 # http://bash3boilerplate.sh/#authors
 #
 # The MIT License (MIT)

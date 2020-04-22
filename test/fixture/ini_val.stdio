@@ -2,7 +2,9 @@
 exists
 127.0.0.1
 nginx, nodejs
+
 --> command: Replace three values in-place and show result
+[default]
 orphan = no more
 
 [connection]
@@ -10,11 +12,17 @@ host = 192.168.0.1
 
 [software]
 packages = vim
+
+[comment]
+;[command] this key is commented
+command=commented
 --> function: Read 3 values
 exists
 127.0.0.1
 nginx, nodejs
+
 --> function: Replace three values in-place and show result
+[default]
 orphan = no more
 
 [connection]
@@ -22,3 +30,7 @@ host = 192.168.0.1
 
 [software]
 packages = vim
+
+[comment]
+;[command] this key is commented
+command=commented

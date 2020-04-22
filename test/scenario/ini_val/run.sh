@@ -17,11 +17,13 @@ echo "--> command: Read 3 values"
 bash "${__root}/src/ini_val.sh" ./dummy.ini orphan
 bash "${__root}/src/ini_val.sh" ./dummy.ini connection.host
 bash "${__root}/src/ini_val.sh" ./dummy.ini software.packages
+bash "${__root}/src/ini_val.sh" ./dummy.ini comment.command
 
 echo "--> command: Replace three values in-place and show result"
 bash "${__root}/src/ini_val.sh" ./dummy.ini orphan "no more"
 bash "${__root}/src/ini_val.sh" ./dummy.ini connection.host "192.168.0.1"
 bash "${__root}/src/ini_val.sh" ./dummy.ini software.packages "vim"
+bash "${__root}/src/ini_val.sh" ./dummy.ini comment.command "commented" "this key is commented"
 cat dummy.ini
 rm -f dummy.ini
 
@@ -35,10 +37,12 @@ echo "--> function: Read 3 values"
 ini_val ./dummy.ini orphan
 ini_val ./dummy.ini connection.host
 ini_val ./dummy.ini software.packages
+ini_val ./dummy.ini comment.command
 
 echo "--> function: Replace three values in-place and show result"
 ini_val ./dummy.ini orphan "no more"
 ini_val ./dummy.ini connection.host "192.168.0.1"
 ini_val ./dummy.ini software.packages "vim"
+ini_val ./dummy.ini comment.command "commented" "this key is commented"
 cat dummy.ini
 rm -f dummy.ini

@@ -11,15 +11,23 @@ Unplanned.
 ## master
 
 Released: TBA. 
-[Diff](https://github.com/kvz/bash3boilerplate/compare/v2.4.0...master).
+[Diff](https://github.com/kvz/bash3boilerplate/compare/v2.4.2...master).
 
+## v2.4.2
 
-## v2.4.0
+Released: 2019-11-07. 
+[Diff](https://github.com/kvz/bash3boilerplate/compare/v2.4.1...v2.4.2).
 
-Released: 2016-12-21. 
-[Diff](https://github.com/kvz/bash3boilerplate/compare/v2.3.0...v2.4.0).
+- [x] Upgrade to `lanyon@0.1.16`
+- [x] Capture correct error_code in err_report (#124, @eval)
+- [x] Enhanced ini file handling: create new file, create new sections, handle default section, read key from given section (@rfuehrer)
 
-- [x] Upgrade to `lanyon@0.0.143`
+## v2.4.1
+
+Released: 2019-11-07. 
+[Diff](https://github.com/kvz/bash3boilerplate/compare/v2.3.0...v2.4.1).
+
+- [x] Upgrade to `lanyon@0.1.7`
 - [x] Allow counting how many times an argument is used (@genesiscloud)
 - [x] Fix typos in megamount (thanks @gsaponaro)
 - [x] Enable color in screen or tmux (#92, @gmasse)
@@ -30,6 +38,13 @@ Released: 2016-12-21.
 - [x] More contrasted alert and emergency colors (#111 @gmeral)
 - [x] Add support for repeatable arguments (@genesiscloud)
 - [x] Fix remaining warnings with shellcheck v0.7.0 (#107, @genesiscloud)
+
+## v2.4.0
+
+Released: 2016-12-21. 
+[Diff](https://github.com/kvz/bash3boilerplate/compare/v2.3.0...v2.4.0).
+
+- [x] Upgrade to `lanyon@0.0.143`
 
 ## v2.3.0
 

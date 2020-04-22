@@ -7,7 +7,7 @@
 #
 #  LOG_LEVEL=7 ./main.sh -f /tmp/x -d (change this for your script)
 #
-# Based on a template by BASH3 Boilerplate v2.3.0
+# Based on a template by BASH3 Boilerplate v2.4.1
 # http://bash3boilerplate.sh/#authors
 #
 # The MIT License (MIT)
@@ -360,8 +360,7 @@ trap __b3bp_cleanup_before_exit EXIT
 
 # requires `set -o errtrace`
 __b3bp_err_report() {
-    local error_code
-    error_code=${?}
+    local error_code=${?}
     error "Error in ${__file} in function ${1} on line ${2}"
     exit ${error_code}
 }
