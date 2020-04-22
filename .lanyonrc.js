@@ -42,6 +42,8 @@ module.exports.overrideRuntime = function ({ runtime, toolkit }) {
 module.exports.overrideConfig = function ({ config, toolkit }) {
   if (config.runtime.isDev) {
     config.jekyll.url = 'http://localhost:3000'
+  } else {
+    config.jekyll.url = ''
   }
 
   config.jekyll.profile = true

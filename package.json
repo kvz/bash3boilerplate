@@ -7,7 +7,7 @@
     "build": "lanyon build",
     "deploy": "lanyon deploy",
     "encrypt": "lanyon encrypt",
-    "inject": "./_scripts/inject.sh",
+    "inject": "./website/_scripts/inject.sh",
     "install:lanyon": "lanyon install",
     "lint": "shellcheck --shell=bash $(find . -name '*.sh' -maxdepth 2)",
     "release:major": "env SEMANTIC=major npm run release",
