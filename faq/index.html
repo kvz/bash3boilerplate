@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+      <title>Faq | BASH3 Boilerplate – Template for writing better Bash scripts | BASH3 Boilerplate</title>
+    
+
+    <meta name="keywords" content="bash, template, scripting, command-line">
+    <meta name="description" content="BASH3 Boilerplate">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/build/app.a6d50511e193d4224561.css" media="screen" charset="utf-8">
+  </head>
+  <body>
+    <header>
+      <div id="header-overlay"></div>
+      <a href="/">
+        <span id="logo"></span>
+      </a>
+      <div id="menu">
+        <i class="material-icons">menu</i>
+        <ul id="menu-items">
+        </ul>
+      </div>
+      <span id="more">
+        <i class="material-icons">expand_more</i>
+      </span>
+    </header>
+    <section id="content">
+      
+
+      <h1 id="frequently-asked-questions">Frequently Asked Questions</h1>
+
+<h2 id="what-is-a-cli">What is a CLI?</h2>
+
+<p>A “CLI” is a <a href="https://en.wikipedia.org/wiki/Command-line_interface">command-line interface</a>.</p>
+
+<h2 id="how-do-i-incorporate-bash3-boilerplate-into-my-own-project">How do I incorporate BASH3 Boilerplate into my own project?</h2>
+
+<p>You can incorporate BASH3 Boilerplate into your project in one of two ways:</p>
+
+<ol>
+  <li>Copy the desired portions of <a href="http://bash3boilerplate.sh/main.sh"><code class="highlighter-rouge">main.sh</code></a> into your own script.</li>
+  <li>Download <a href="http://bash3boilerplate.sh/main.sh"><code class="highlighter-rouge">main.sh</code></a> and start pressing the delete-key to remove unwanted things</li>
+</ol>
+
+<p>Once the <code class="highlighter-rouge">main.sh</code> has been tailor-made for your project, you can either append your own script in the same file, or source it in the following ways:</p>
+
+<ol>
+  <li>Copy <a href="http://bash3boilerplate.sh/main.sh"><code class="highlighter-rouge">main.sh</code></a> into the same directory as your script and then edit and embed it into your script using Bash’s <code class="highlighter-rouge">source</code> include feature, e.g.:</li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/usr/bin/env bash</span>
+<span class="nb">source </span>main.sh
+</code></pre></div></div>
+
+<ol>
+  <li>Source <a href="http://bash3boilerplate.sh/main.sh"><code class="highlighter-rouge">main.sh</code></a> in your script or at the command line:</li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/usr/bin/env bash</span>
+<span class="nb">source </span>main.sh
+</code></pre></div></div>
+
+<h2 id="how-do-i-add-a-command-line-flag">How do I add a command-line flag?</h2>
+
+<ol>
+  <li>Copy the line from the <code class="highlighter-rouge">main.sh</code> <a href="https://github.com/kvz/bash3boilerplate/blob/v2.1.0/main.sh#L109-L115">read block</a> that most resembles the desired behavior and paste the line into the same block.</li>
+  <li>Edit the single-character (e.g., <code class="highlighter-rouge">-d</code>) and, if present, the multi-character (e.g., <code class="highlighter-rouge">--debug</code>) versions of the flag in the copied line.</li>
+  <li>Omit the <code class="highlighter-rouge">[arg]</code> text in the copied line, if the desired flag takes no arguments.</li>
+  <li>Omit or edit the text after <code class="highlighter-rouge">Default=</code> to set or not set default values, respectively.</li>
+  <li>Omit the <code class="highlighter-rouge">Required.</code> text, if the flag is optional.</li>
+</ol>
+
+<h2 id="how-do-i-access-the-value-of-a-command-line-argument">How do I access the value of a command-line argument?</h2>
+
+<p>To find out the value of an argument, append the corresponding single-character flag to the text <code class="highlighter-rouge">$arg_</code>.  For example, if the [read block]
+contains the line</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="nt">-t</span> <span class="nt">--temp</span>  <span class="o">[</span>arg] Location of tempfile. <span class="nv">Default</span><span class="o">=</span><span class="s2">"/tmp/bar"</span>
+</code></pre></div></div>
+
+<p>then you can evaluate the corresponding argument and assign it to a variable as follows:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">__temp_file_name</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">arg_t</span><span class="k">}</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<h2 id="what-is-a-magic-variable">What is a magic variable?</h2>
+
+<p>The <a href="https://github.com/kvz/bash3boilerplate/blob/v2.1.0/main.sh#L26-L28">magic variables</a> in <code class="highlighter-rouge">main.sh</code> are special in that they have a different value, depending on your environment. You can use <code class="highlighter-rouge">${__file}</code> to get a reference to your current script, and <code class="highlighter-rouge">${__dir}</code> to get a reference to the directory it lives in. This is not to be confused with the location of the calling script that might be sourcing the <code class="highlighter-rouge">${__file}</code>, which is accessible via <code class="highlighter-rouge">${0}</code>, or the current directory of the administrator running the script, accessible via <code class="highlighter-rouge">$(pwd)</code>.</p>
+
+<h2 id="how-do-i-submit-an-issue-report">How do I submit an issue report?</h2>
+
+<p>Please visit our <a href="https://github.com/kvz/bash3boilerplate/issues">Issues</a> page.</p>
+
+<h2 id="how-can-i-contribute-to-this-project">How can I contribute to this project?</h2>
+
+<p>Please fork this repository.  After that, create a branch containing your suggested changes and submit a pull request based on the master branch
+of <a href="https://github.com/kvz/bash3boilerplate/">https://github.com/kvz/bash3boilerplate/</a>. We are always more than happy to accept your contributions!</p>
+
+<h2 id="why-are-you-typing-bash-in-all-caps">Why are you typing BASH in all caps?</h2>
+
+<p>As an acronym, Bash stands for Bourne-again shell, and is usually written with one uppercase.
+This project’s name, however, is “BASH3 Boilerplate”. It is a reference to
+“<a href="https://html5boilerplate.com/">HTML5 Boilerplate</a>”, which was founded to serve a similar purpose,
+only for crafting webpages.
+Somewhat inconsistent – but true to Unix ancestry – the abbreviation for our project is “b3bp”.</p>
+
+<h2 id="how-can-i-locally-develop-and-preview-the-b3bp-website">How can I locally develop and preview the b3bp website?</h2>
+
+<p>You should have a working Node.js &gt;=10, Ruby &gt;=2 and <a href="https://yarnpkg.com">YARN</a> install on your workstation. When that is the case, you can run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yarn <span class="nb">install
+</span>npm run start
+</code></pre></div></div>
+
+<p>This will install and start all required services and automatically open a webbrowser that reloads as soon as you make any changes to the source.</p>
+
+<p>The source mainly consists of:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">./README.md</code> (Front page)</li>
+  <li><code class="highlighter-rouge">./FAQ.md</code> (FAQ page)</li>
+  <li><code class="highlighter-rouge">./CHANGELOG.md</code> (changelog page)</li>
+  <li><code class="highlighter-rouge">./website/_layouts/default.html</code> (the design in which all pages are rendered)</li>
+  <li><code class="highlighter-rouge">./website/assets/app.js</code> (main JS file)</li>
+  <li><code class="highlighter-rouge">./website/assets/style.css</code> (main CSS file)</li>
+</ul>
+
+<p>The rest is dark magic from which you should probably steer clear. : )</p>
+
+<p>Any changes should be proposed as PRs. Anything added to <code class="highlighter-rouge">master</code> is automatically deployed using a combination of Travis CI and GitHub Pages.</p>
+
+<h2 id="you-are-saying-you-are-portable-but-why-wont-b3bp-code-run-in-dash--busybox--posh--ksh--mksh--zsh">You are saying you are portable, but why won’t b3bp code run in dash / busybox / posh / ksh / mksh / zsh?</h2>
+
+<p>When we say <em>portable</em>, we mean across Bash versions. Bash is widespread and most systems
+offer at least version 3 of it. Make sure you have that available and b3bp will work for you.</p>
+
+<p>We run automated tests to make sure that it will. Here is some proof for the following platforms:</p>
+
+<ul>
+  <li><a href="https://travis-ci.org/kvz/bash3boilerplate/jobs/109804166#L91-L94">Linux</a> <code class="highlighter-rouge">GNU bash, version 4.2.25(1)-release (x86_64-pc-linux-gnu)</code></li>
+  <li><a href="https://travis-ci.org/kvz/bash3boilerplate/jobs/109804167#L2453-L2455">OSX</a> <code class="highlighter-rouge">GNU bash, version 3.2.51(1)-release (x86_64-apple-darwin13)</code></li>
+</ul>
+
+<p>This portability, however, does not mean that we try to be compatible with
+KornShell, Zsh, posh, yash, dash, or other shells. We allow syntax that would explode if
+you pasted it in anything but Bash 3 and up.</p>
+
+<h2 id="how-do-i-do-operating-system-detection">How do I do Operating System detection?</h2>
+
+<p>We used to offer a magic <code class="highlighter-rouge">__os</code> variable, but we quickly <a href="https://github.com/kvz/bash3boilerplate/issues/38">discovered</a> that it would be hard
+to create a satisfactory abstraction that is not only correct, but also covers enough use-cases,
+while still having a relatively small footprint in <code class="highlighter-rouge">main.sh</code>.</p>
+
+<p>For simple OS detection, we recommend using the <code class="highlighter-rouge">${OSTYPE}</code> variable available in Bash as
+is demoed in <a href="http://stackoverflow.com/a/8597411/151666">this stackoverflow post</a>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">[[</span> <span class="s2">"</span><span class="k">${</span><span class="nv">OSTYPE</span><span class="k">}</span><span class="s2">"</span> <span class="o">=</span> <span class="s2">"linux-gnu"</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then
+  </span><span class="nb">echo</span> <span class="s2">"GNU Linux"</span>
+<span class="k">elif</span> <span class="o">[[</span> <span class="s2">"</span><span class="k">${</span><span class="nv">OSTYPE</span><span class="k">}</span><span class="s2">"</span> <span class="o">=</span> <span class="s2">"darwin"</span><span class="k">*</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then
+  </span><span class="nb">echo</span> <span class="s2">"Mac OSX"</span>
+<span class="k">elif</span> <span class="o">[[</span> <span class="s2">"</span><span class="k">${</span><span class="nv">OSTYPE</span><span class="k">}</span><span class="s2">"</span> <span class="o">=</span> <span class="s2">"cygwin"</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then
+  </span><span class="nb">echo</span> <span class="s2">"POSIX compatibility layer and Linux environment emulation for Windows"</span>
+<span class="k">elif</span> <span class="o">[[</span> <span class="s2">"</span><span class="k">${</span><span class="nv">OSTYPE</span><span class="k">}</span><span class="s2">"</span> <span class="o">=</span> <span class="s2">"msys"</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then
+  </span><span class="nb">echo</span> <span class="s2">"Lightweight shell and GNU utilities compiled for Windows (part of MinGW)"</span>
+<span class="k">elif</span> <span class="o">[[</span> <span class="s2">"</span><span class="k">${</span><span class="nv">OSTYPE</span><span class="k">}</span><span class="s2">"</span> <span class="o">=</span> <span class="s2">"win32"</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then
+  </span><span class="nb">echo</span> <span class="s2">"I'm not sure this can happen."</span>
+<span class="k">elif</span> <span class="o">[[</span> <span class="s2">"</span><span class="k">${</span><span class="nv">OSTYPE</span><span class="k">}</span><span class="s2">"</span> <span class="o">=</span> <span class="s2">"freebsd"</span><span class="k">*</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then
+  </span><span class="nb">echo</span> <span class="s2">"..."</span>
+<span class="k">else
+  </span><span class="nb">echo</span> <span class="s2">"Unknown."</span>
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<h2 id="how-do-i-access-a-potentially-unset-environment-variable">How do I access a potentially unset (environment) variable?</h2>
+
+<p>The set -o nounset line in <code class="highlighter-rouge">main.sh</code> causes error termination when an unset environment variables is detected as unbound. There are multiple ways to avoid this.</p>
+
+<p>Some code to illustrate:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># method 1</span>
+<span class="nb">echo</span> <span class="k">${</span><span class="nv">NAME1</span><span class="k">:-</span><span class="nv">Damian</span><span class="k">}</span> <span class="c"># echos Damian, $NAME1 is still unset</span>
+<span class="c"># method 2</span>
+<span class="nb">echo</span> <span class="k">${</span><span class="nv">NAME2</span>:<span class="p">=Damian</span><span class="k">}</span> <span class="c"># echos Damian, $NAME2 is set to Damian</span>
+<span class="c"># method 3</span>
+<span class="nv">NAME3</span><span class="o">=</span><span class="k">${</span><span class="nv">NAME3</span><span class="k">:-</span><span class="nv">Damian</span><span class="k">}</span><span class="p">;</span> <span class="nb">echo</span> <span class="k">${</span><span class="nv">NAME3</span><span class="k">}</span> <span class="c"># echos Damian, $NAME3 is set to Damian</span>
+</code></pre></div></div>
+
+<p>This subject is briefly touched on as well in the <a href="README.md#safety-and-portability">Safety and Portability section under point 5</a>. b3bp currently uses <a href="https://github.com/kvz/bash3boilerplate/blob/v2.1.0/main.sh#L252">method 1</a> when we want to access a variable that could be undeclared, and <a href="https://github.com/kvz/bash3boilerplate/blob/v2.1.0/main.sh#L31">method 3</a> when we also want to set a default to an undeclared variable, because we feel it is more readable than method 2. We feel <code class="highlighter-rouge">:=</code> is easily overlooked, and not very beginner friendly. Method 3 seems more explicit in that regard in our humble opinion.</p>
+
+<h2 id="how-can-i-detect-or-trap-ctrl-c-and-other-signals">How can I detect or trap Ctrl-C and other signals?</h2>
+
+<p>You can trap <a href="https://en.wikipedia.org/wiki/Unix_signal">Unix signals</a> like <a href="https://en.wikipedia.org/wiki/Control-C">Ctrl-C</a> with code similar to:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># trap ctrl-c and call ctrl_c()</span>
+<span class="nb">trap </span>ctrl_c INT
+
+<span class="k">function </span>ctrl_c<span class="o">()</span> <span class="o">{</span>
+        <span class="nb">echo</span> <span class="s2">"** Trapped CTRL-C"</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>See http://mywiki.wooledge.org/SignalTrap for a list of signals, examples, and an in depth discussion.</p>
+
+<h2 id="how-can-i-get-the-pid-of-my-running-script">How can I get the PID of my running script?</h2>
+
+<p>The PID of a running script is contained in the <code class="highlighter-rouge">${$}</code> variable. This is <em>not</em> the pid of any subshells. With Bash 4 you can get the PID of your subshell with <code class="highlighter-rouge">${BASHPID}</code>. For a comprehensive list of Bash built in variables see, e.g., http://www.tldp.org/LDP/abs/html/internalvariables.html</p>
+
+<p><a href="/">« Home</a></p>
+
+
+      
+
+      <div class="Social">
+        <iframe src="http://ghbtns.com/github-btn.html?user=kvz&repo=bash3boilerplate&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100" height="20"></iframe>
+      </div>
+
+      <p>
+        <small>
+          <hr />
+          Website design based on
+          the wonderful <a href="http://apex.run">apex.run</a>
+          with <a href="https://twitter.com/tjholowaychuk/status/744909762865696769">the author's consent</a>.
+        </small>
+      </p>
+    </section>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/languages/bash.min.js"></script>
+  <script async src="/assets/build/app.a6d50511e193d4224561.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-63083-13', 'auto');
+    ga('send', 'pageview');
+  </script>
+</html>

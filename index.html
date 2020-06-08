@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+      <title>BASH3 Boilerplate – Template for writing better Bash scripts</title>
+    
+
+    <meta name="keywords" content="bash, template, scripting, command-line">
+    <meta name="description" content="BASH3 Boilerplate">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/build/app.a6d50511e193d4224561.css" media="screen" charset="utf-8">
+  </head>
+  <body>
+    <header>
+      <div id="header-overlay"></div>
+      <a href="/">
+        <span id="logo"></span>
+      </a>
+      <div id="menu">
+        <i class="material-icons">menu</i>
+        <ul id="menu-items">
+        </ul>
+      </div>
+      <span id="more">
+        <i class="material-icons">expand_more</i>
+      </span>
+    </header>
+    <section id="content">
+      
+        <div class="Social">
+          <iframe src="http://ghbtns.com/github-btn.html?user=kvz&repo=bash3boilerplate&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100" height="20"></iframe>
+          <a href="https://travis-ci.org/kvz/bash3boilerplate"><img src="https://travis-ci.org/kvz/bash3boilerplate.svg" alt="Build Status"></a>
+        </div>
+      
+
+      <p>When hacking up Bash scripts, there are often things such as logging or command-line argument parsing that:</p>
+
+<ul>
+  <li>You need every time</li>
+  <li>Come with a number of pitfalls you want to avoid</li>
+  <li>Keep you from your actual work</li>
+</ul>
+
+<p>Here’s an attempt to bundle those things in a generalized way so that
+they are reusable as-is in most scripts.</p>
+
+<p>We call it “BASH3 Boilerplate” or b3bp for short.</p>
+
+<h2 id="goals">Goals</h2>
+
+<p>Delete-Key-<strong>Friendly</strong>. Instead of introducing packages, includes, compilers, etc., we propose using <a href="http://bash3boilerplate.sh/main.sh"><code class="highlighter-rouge">main.sh</code></a> as a base and removing the parts you don’t need.
+While this may feel a bit archaic at first, it is exactly the strength of Bash scripts that we should want to embrace.</p>
+
+<p><strong>Portable</strong>. We are targeting Bash 3 (OSX still ships
+with 3, for instance). If you are going to ask people to install
+Bash 4 first, you might as well pick a more advanced language as a
+dependency.</p>
+
+<h2 id="features">Features</h2>
+
+<ul>
+  <li>Conventions that will make sure that all your scripts follow the same, battle-tested structure</li>
+  <li>Safe by default (break on error, pipefail, etc.)</li>
+  <li>Configuration by environment variables</li>
+  <li>Simple command-line argument parsing that requires no external dependencies. Definitions are parsed from help info, ensuring there will be no duplication</li>
+  <li>Helpful magic variables like <code class="highlighter-rouge">__file</code> and <code class="highlighter-rouge">__dir</code></li>
+  <li>Logging that supports colors and is compatible with <a href="http://en.wikipedia.org/wiki/Syslog#Severity_levels">Syslog Severity levels</a>, as well as the <a href="http://12factor.net/">twelve-factor</a> guidelines</li>
+</ul>
+
+<h2 id="installation">Installation</h2>
+
+<p>There are three different ways to install b3bp:</p>
+
+<h3 id="option-1-download-the-main-template">Option 1: Download the main template</h3>
+
+<p>Use curl or wget to download the source and save it as your script. Then you can start deleting the unwanted bits, and adding your own logic.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget http://bash3boilerplate.sh/main.sh
+vim main.sh
+</code></pre></div></div>
+
+<h3 id="option-2-clone-the-entire-project">Option 2: Clone the entire project</h3>
+
+<p>Besides <code class="highlighter-rouge">main.sh</code>, this will also get you the entire b3bp repository. This includes a few extra functions that we keep in the <code class="highlighter-rouge">./src</code> directory.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone git@github.com:kvz/bash3boilerplate.git
+</code></pre></div></div>
+
+<h3 id="option-3-require-via-npm">Option 3: Require via npm</h3>
+
+<p>As of <code class="highlighter-rouge">v1.0.3</code>, b3bp can also be installed as a Node module, meaning you can define it as a dependency in <code class="highlighter-rouge">package.json</code> via:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm init
+npm <span class="nb">install</span> <span class="nt">--save</span> <span class="nt">--save-exact</span> bash3boilerplate
+</code></pre></div></div>
+
+<p>Even though this option introduces a Node.js dependency, it does allow for easy version pinning and distribution in environments that already have this prerequisite. This is, however, entirely optional and nothing prevents you from ignoring this possibility.</p>
+
+<h2 id="changelog">Changelog</h2>
+
+<p>Please see the <a href="./CHANGELOG.md">CHANGELOG.md</a> file.</p>
+
+<h2 id="frequently-asked-questions">Frequently Asked Questions</h2>
+
+<p>Please see the <a href="./FAQ.md">FAQ.md</a> file.</p>
+
+<h2 id="best-practices">Best practices</h2>
+
+<p>As of <code class="highlighter-rouge">v1.0.3</code>, b3bp offers some nice re-usable libraries in <code class="highlighter-rouge">./src</code>. In order to make the snippets in <code class="highlighter-rouge">./src</code> more useful, we recommend the following guidelines.</p>
+
+<h3 id="function-packaging">Function packaging</h3>
+
+<p>It is nice to have a Bash package that can not only be used in the terminal, but also invoked as a command line function. In order to achieve this, the exporting of your functionality <em>should</em> follow this pattern:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="o">[[</span> <span class="s2">"</span><span class="k">${</span><span class="nv">BASH_SOURCE</span><span class="p">[0]</span><span class="k">}</span><span class="s2">"</span> <span class="o">=</span> <span class="s2">"</span><span class="k">${</span><span class="nv">0</span><span class="k">}</span><span class="s2">"</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then
+  </span>my_script <span class="s2">"</span><span class="k">${</span><span class="p">@</span><span class="k">}</span><span class="s2">"</span>
+  <span class="nb">exit</span> <span class="nv">$?</span>
+<span class="k">fi
+</span><span class="nb">export</span> <span class="nt">-f</span> my_script
+</code></pre></div></div>
+
+<p>This allows a user to <code class="highlighter-rouge">source</code> your script or invoke it as a script.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Running as a script</span>
+<span class="nv">$ </span>./my_script.sh some args <span class="nt">--blah</span>
+<span class="c"># Sourcing the script</span>
+<span class="nv">$ </span><span class="nb">source </span>my_script.sh
+<span class="nv">$ </span>my_script some more args <span class="nt">--blah</span>
+</code></pre></div></div>
+
+<p>(taken from the <a href="https://raw.githubusercontent.com/bpkg/bpkg/master/README.md">bpkg</a> project)</p>
+
+<h3 id="scoping">Scoping</h3>
+
+<ol>
+  <li>In functions, use <code class="highlighter-rouge">local</code> before every variable declaration.</li>
+  <li>Use <code class="highlighter-rouge">UPPERCASE_VARS</code> to indicate environment variables that can be controlled outside your script.</li>
+  <li>Use <code class="highlighter-rouge">__double_underscore_prefixed_vars</code> to indicate global variables that are solely controlled inside your script, with the exception of arguments that are already prefixed with <code class="highlighter-rouge">arg_</code>, as well as functions, over which b3bp poses no restrictions.</li>
+</ol>
+
+<h3 id="coding-style">Coding style</h3>
+
+<ol>
+  <li>Use two spaces for tabs, do not use tab characters.</li>
+  <li>Do not introduce whitespace at the end of lines or on blank lines as they obfuscate version control diffs.</li>
+  <li>Use long options (<code class="highlighter-rouge">logger --priority</code> vs <code class="highlighter-rouge">logger -p</code>). If you are on the CLI, abbreviations make sense for efficiency. Nevertheless, when you are writing reusable scripts, a few extra keystrokes will pay off in readability and avoid ventures into man pages in the future, either by you or your collaborators. Similarly, we prefer <code class="highlighter-rouge">set -o nounset</code> over <code class="highlighter-rouge">set -u</code>.</li>
+  <li>Use a single equal sign when checking <code class="highlighter-rouge">if [[ "${NAME}" = "Kevin" ]]</code>; double or triple signs are not needed.</li>
+  <li>Use the new bash builtin test operator (<code class="highlighter-rouge">[[ ... ]]</code>) rather than the old single square bracket test operator or explicit call to <code class="highlighter-rouge">test</code>.</li>
+</ol>
+
+<h3 id="safety-and-portability">Safety and Portability</h3>
+
+<ol>
+  <li>Use <code class="highlighter-rouge">{}</code> to enclose your variables. Otherwise, Bash will try to access the <code class="highlighter-rouge">$ENVIRONMENT_app</code> variable in <code class="highlighter-rouge">/srv/$ENVIRONMENT_app</code>, whereas you probably intended <code class="highlighter-rouge">/srv/${ENVIRONMENT}_app</code>. Since it is easy to miss cases like this, we recommend that you make enclosing a habit.</li>
+  <li>Use <code class="highlighter-rouge">set</code>, rather than relying on a shebang like <code class="highlighter-rouge"><span class="c">#!/usr/bin/env bash -e</span></code>, since that is neutralized when someone runs your script as <code class="highlighter-rouge">bash yourscript.sh</code>.</li>
+  <li>Use <code class="highlighter-rouge"><span class="c">#!/usr/bin/env bash</span></code>, as it is more portable than <code class="highlighter-rouge"><span class="c">#!/bin/bash</span></code>.</li>
+  <li>Use <code class="highlighter-rouge">${BASH_SOURCE[0]}</code> if you refer to current file, even if it is sourced by a parent script. In other cases, use <code class="highlighter-rouge">${0}</code>.</li>
+  <li>Use <code class="highlighter-rouge">:-</code> if you want to test variables that could be undeclared. For instance, with <code class="highlighter-rouge">if [[ "${NAME:-}" = "Kevin" ]]</code>, <code class="highlighter-rouge">$NAME</code> will evaluate to <code class="highlighter-rouge">Kevin</code> if the variable is empty. The variable itself will remain unchanged. The syntax to assign a default value is <code class="highlighter-rouge">${NAME:=Kevin}</code>.</li>
+</ol>
+
+<h2 id="who-uses-b3bp">Who uses b3bp?</h2>
+
+<ul>
+  <li><a href="https://transloadit.com">Transloadit</a></li>
+  <li><a href="http://www.opencoarrays.org">OpenCoarrays</a></li>
+  <li><a href="http://www.sourceryinstitute.org">Sourcery Institute</a></li>
+  <li><a href="http://cobralab.ca/">Computational Brain Anatomy Laboratory</a></li>
+  <li><a href="https://genesiscloud.com/">Genesis Cloud</a></li>
+</ul>
+
+<p>We are looking for endorsements! Are you also using b3bp? <a href="https://github.com/kvz/bash3boilerplate/issues/new?title=I%20use%20b3bp">Let us know</a> and get listed.</p>
+
+<h2 id="authors">Authors</h2>
+
+<ul>
+  <li><a href="http://kvz.io">Kevin van Zonneveld</a></li>
+  <li><a href="https://izaakbeekman.com/">Izaak Beekman</a></li>
+  <li><a href="https://github.com/mstreuhofer">Manuel Streuhofer</a></li>
+  <li><a href="mailto:Alexander.Rathai@gmail.com">Alexander Rathai</a></li>
+  <li><a href="http://www.sourceryinstitute.org/">Dr. Damian Rouson</a> (documentation, feedback)</li>
+  <li><a href="https://github.com/jokajak">@jokajak</a> (documentation)</li>
+  <li><a href="http://staticwave.ca/">Gabriel A. Devenyi</a> (feedback)</li>
+  <li><a href="https://github.com/bravo-kernel">@bravo-kernel</a> (feedback)</li>
+  <li><a href="https://github.com/skanga">@skanga</a> (feedback)</li>
+  <li><a href="https://www.reddit.com/user/galaktos">galaktos</a> (feedback)</li>
+  <li><a href="https://github.com/moviuro">@moviuro</a> (feedback)</li>
+  <li><a href="https://github.com/gsaponaro">Giovanni Saponaro</a> (feedback)</li>
+  <li><a href="https://github.com/gmasse">Germain Masse</a></li>
+  <li><a href="https://github.com/warpengineer">A. G. Madi</a></li>
+  <li><a href="mailto:oss@genesiscloud.com">Lukas Stockner</a></li>
+  <li><a href="https://github.com/eval">Gert Goet</a></li>
+  <li><a href="https://github.com/rfuehrer">@rfuehrer</a></li>
+</ul>
+
+<h2 id="license">License</h2>
+
+<p>Copyright (c) 2013 Kevin van Zonneveld and <a href="https://github.com/kvz/bash3boilerplate#authors">contributors</a>.
+Licensed under <a href="https://raw.githubusercontent.com/kvz/bash3boilerplate/master/LICENSE">MIT</a>.
+You are not obligated to bundle the LICENSE file with your b3bp projects as long
+as you leave these references intact in the header comments of your source files.</p>
+
+
+
+      
+        <h2 id="activity-feed">On GitHub</h2>
+        <p>
+          BASH3 Boilerplate is a friendly group of folks further developing our
+          re-usable templates as we go.
+          We'd love to hear what you think <a href="https://github.com/kvz/bash3boilerplate">on GitHub</a>.
+          Here's what's been going on recently.
+        </p>
+        <div class="on-the-githubs" data-event-source="repos/kvz/bash3boilerplate">Loading...</div>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="//kvz.github.io/on-the-githubs/js/jquery.on-the-githubs.min.js"></script>
+        <script type="text/javascript">
+          $('.on-the-githubs').onthegithubs();
+        </script>
+      
+
+      <div class="Social">
+        <iframe src="http://ghbtns.com/github-btn.html?user=kvz&repo=bash3boilerplate&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100" height="20"></iframe>
+      </div>
+
+      <p>
+        <small>
+          <hr />
+          Website design based on
+          the wonderful <a href="http://apex.run">apex.run</a>
+          with <a href="https://twitter.com/tjholowaychuk/status/744909762865696769">the author's consent</a>.
+        </small>
+      </p>
+    </section>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/languages/bash.min.js"></script>
+  <script async src="/assets/build/app.a6d50511e193d4224561.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-63083-13', 'auto');
+    ga('send', 'pageview');
+  </script>
+</html>
