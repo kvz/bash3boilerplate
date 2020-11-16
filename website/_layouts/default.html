@@ -12,7 +12,7 @@
     <meta name="description" content="BASH3 Boilerplate">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="{{site.lanyon_assets.app.css}}" media="screen" charset="utf-8">
+    {%include _generated_assets/app-{{jekyll.environment}}-head.html%}
   </head>
   <body>
     <header>
@@ -71,7 +71,7 @@
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/languages/bash.min.js"></script>
-  <script async src="{{site.lanyon_assets.app.js}}"></script>
+  {%include _generated_assets/app-{{jekyll.environment}}-body.html%}
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
