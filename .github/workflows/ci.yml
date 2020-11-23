@@ -1,4 +1,4 @@
-name: Locutus CI
+name: b3bp CI
 on:
   push:
     branches:
