@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/kvz/bash3boilerplate.svg?branch=master)](https://travis-ci.org/kvz/bash3boilerplate)
-
 [This document is formatted with GitHub-Flavored Markdown.    ]:#
 [For better viewing, including hyperlinks, read it online at  ]:#
 [https://github.com/kvz/bash3boilerplate/blob/master/README.md]:#

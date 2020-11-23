@@ -116,7 +116,7 @@ The source mainly consists of:
 
 The rest is dark magic from which you should probably steer clear. : )
 
-Any changes should be proposed as PRs. Anything added to `master` is automatically deployed using a combination of Travis CI and GitHub Pages.
+Any changes should be proposed as PRs. Anything added to `master` is automatically deployed using a combination of GitHub Actions and Pages.
 
 ## You are saying you are portable, but why won't b3bp code run in dash / busybox / posh / ksh / mksh / zsh?
 
