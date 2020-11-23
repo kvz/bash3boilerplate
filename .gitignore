@@ -17,3 +17,5 @@ website/changelog.md
 website/faq.md
 website/index.md
 website/main.sh
+website/_includes/_generated_assets/app-production-body.html
+website/_includes/_generated_assets/app-production-head.html
