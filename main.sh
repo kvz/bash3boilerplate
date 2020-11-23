@@ -280,6 +280,7 @@ if [[ "${__b3bp_tmp_opts:-}" ]]; then
         # repeatable flags, they increcemnt
         __b3bp_tmp_varname="arg_${__b3bp_tmp_opt:0:1}"
         debug "cli arg ${__b3bp_tmp_varname} = (${__b3bp_tmp_default}) -> ${!__b3bp_tmp_varname}"
+          # shellcheck disable=SC2004
         __b3bp_tmp_value=$((${!__b3bp_tmp_varname} + 1))
         printf -v "${__b3bp_tmp_varname}" '%s' "${__b3bp_tmp_value}"
       else
