@@ -31,7 +31,7 @@ jobs:
           frozen-lockfile: true
       - name: Test
         run : |
-          ./test/acceptance.sh
+          yarn test
       - name: Website Build
         if  : github.ref != 'refs/heads/master'
         run : |
