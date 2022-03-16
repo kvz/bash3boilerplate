@@ -166,6 +166,7 @@ We are looking for endorsements! Are you also using b3bp? [Let us know](https://
 - [Lukas Stockner](mailto:oss@genesiscloud.com)
 - [Gert Goet](https://github.com/eval)
 - [@rfuehrer](https://github.com/rfuehrer)
+- [@efelon](https://github.com/efelon)
 
 
 ## License

@@ -14,6 +14,7 @@ Released: TBA.
 [Diff](https://github.com/kvz/bash3boilerplate/compare/v2.4.2...master).
 
 - [x] Add feature to edit/update comments in ini file (#132, @rfuehrer)
+- [x] New magic variable `__origin` when called via symlink (@efelon)
 
 ## v2.4.2
 
