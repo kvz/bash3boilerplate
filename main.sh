@@ -446,7 +446,7 @@ info "$(echo -e "multiple lines example - line #1\\nmultiple lines example - lin
 debug "Info useful to developers for debugging the application, not useful during operations."
 info "Normal operational messages - may be harvested for reporting, measuring throughput, etc. - no action required."
 notice "Events that are unusual but not error conditions - might be summarized in an email to developers or admins to spot potential problems - no immediate action required."
-warning "Warning messages, not an error, but indication that an error will occur if action is not taken, e.g. file system 85% full - each item must be resolved within a given time."
+warning "Warning messages, not an error, but indication that an error will occur if action is not taken, e.g. file system 85% full - each item must be resolved within a given time. This is a debug message"
 error "Non-urgent failures, these should be relayed to developers or admins; each item must be resolved within a given time."
 critical "Should be corrected immediately, but indicates failure in a primary system, an example is a loss of a backup ISP connection."
 alert "Should be corrected immediately, therefore notify staff who can fix the problem. An example would be the loss of a primary ISP connection."
