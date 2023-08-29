@@ -47,6 +47,7 @@ fi
 __dir="$(cd "$(dirname "${BASH_SOURCE[${__b3bp_tmp_source_idx:-0}]}")" && pwd)"
 __file="${__dir}/$(basename "${BASH_SOURCE[${__b3bp_tmp_source_idx:-0}]}")"
 __base="$(basename "${__file}" .sh)"
+__origin="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[${__b3bp_tmp_source_idx:-0}]}")")" && pwd)"
 # shellcheck disable=SC2034,SC2015
 __invocation="$(printf %q "${__file}")$( (($#)) && printf ' %q' "$@" || true)"
 
@@ -412,6 +413,7 @@ info "__i_am_main_script: ${__i_am_main_script}"
 info "__file: ${__file}"
 info "__dir: ${__dir}"
 info "__base: ${__base}"
+info "__origin: ${__origin}"
 info "OSTYPE: ${OSTYPE}"
 
 info "arg_f: ${arg_f}"
