@@ -19,7 +19,7 @@
 #
 #  ini_val.sh data.ini connection.host 127.0.0.1 "Host name or IP address"
 #
-# Based on a template by BASH3 Boilerplate vv2.7.0
+# Based on a template by BASH3 Boilerplate vv2.7.1
 # http://bash3boilerplate.sh/#authors
 #
 # The MIT License (MIT)
