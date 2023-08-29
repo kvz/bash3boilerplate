@@ -17,6 +17,9 @@ jobs:
       - uses: actions/setup-node@master
         with:
           node-version: 18.x
+      - name: Install
+        run: |
+          corepack yarn
       - name: Test
         run: |
           corepack yarn test
