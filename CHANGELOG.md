@@ -8,16 +8,16 @@ Unplanned.
 
 - [ ] Better style guide checking (#84)
 
-## master
+## main
 
-Released: TBA. 
-[Diff](https://github.com/kvz/bash3boilerplate/compare/v2.4.2...master).
+Released: TBA.
+[Diff](https://github.com/kvz/bash3boilerplate/compare/v2.4.2...main).
 
 - [x] Add feature to edit/update comments in ini file (#132, @rfuehrer)
 
 ## v2.4.2
 
-Released: 2019-11-07. 
+Released: 2019-11-07.
 [Diff](https://github.com/kvz/bash3boilerplate/compare/v2.4.1...v2.4.2).
 
 - [x] Upgrade to `lanyon@0.1.16`
@@ -26,7 +26,7 @@ Released: 2019-11-07.
 
 ## v2.4.1
 
-Released: 2019-11-07. 
+Released: 2019-11-07.
 [Diff](https://github.com/kvz/bash3boilerplate/compare/v2.3.0...v2.4.1).
 
 - [x] Upgrade to `lanyon@0.1.7`
@@ -43,14 +43,14 @@ Released: 2019-11-07.
 
 ## v2.4.0
 
-Released: 2016-12-21. 
+Released: 2016-12-21.
 [Diff](https://github.com/kvz/bash3boilerplate/compare/v2.3.0...v2.4.0).
 
 - [x] Upgrade to `lanyon@0.0.143`
 
 ## v2.3.0
 
-Released: 2016-12-21. 
+Released: 2016-12-21.
 [Diff](https://github.com/kvz/bash3boilerplate/compare/v2.2.0...v2.3.0).
 
 - [x] Add magic variable `__i_am_main_script` to distinguish if b3bp is being sourced or called directly (#45, @zbeekman)
@@ -62,7 +62,7 @@ Released: 2016-12-21.
 
 ## v2.2.0
 
-Released: 2016-12-21. 
+Released: 2016-12-21.
 [Diff](https://github.com/kvz/bash3boilerplate/compare/v2.1.0...v2.2.0).
 
 - [x] README and FAQ improvements (#66, @mstreuhofer)
@@ -84,7 +84,7 @@ Released: 2016-12-21.
 
 ## v2.1.0
 
-Released: 2016-11-08. 
+Released: 2016-11-08.
 [Diff](https://github.com/kvz/bash3boilerplate/compare/v2.0.0...v2.1.0).
 
 - [x] Cleanup b3bp variables (adds prefixes across the board) (thanks @mstreuhofer)
@@ -111,7 +111,7 @@ Released: 2016-11-08.
 
 ## v2.0.0
 
-Released: 2016-02-17. 
+Released: 2016-02-17.
 [Diff](https://github.com/kvz/bash3boilerplate/compare/v1.2.1...v2.0.0).
 
 - [x] Add tests for `templater` and follow Library export best practices
@@ -123,14 +123,14 @@ Released: 2016-02-17.
 
 ## v1.2.1
 
-Released: 2016-02-17. 
+Released: 2016-02-17.
 [Diff](https://github.com/kvz/bash3boilerplate/compare/v1.2.0...v1.2.1).
 
 - [x] Add Travis CI automated testing for OSX (thanks @zbeekman)
 
 ## v1.2.0
 
-Released: 2016-02-16. 
+Released: 2016-02-16.
 [Diff](https://github.com/kvz/bash3boilerplate/compare/v1.1.0...v1.2.0).
 
 - [x] Allow disabling colors via `NO_COLOR` environment variable
@@ -144,7 +144,7 @@ Released: 2016-02-16.
 
 ## v1.1.0
 
-Released: 2015-06-29. 
+Released: 2015-06-29.
 [Diff](https://github.com/kvz/bash3boilerplate/compare/v1.0.3...v1.1.0).
 
 - [x] Add `ALLOW_REMAINDERS` configuration to templater
@@ -153,7 +153,7 @@ Released: 2015-06-29.
 
 ## v1.0.3
 
-Released: 2014-11-02. 
+Released: 2014-11-02.
 [Diff](https://github.com/kvz/bash3boilerplate/compare/5db569125319a89b9561b434db84e4d91faefb63...v1.0.3).
 
 - [x] Add `ini_val`, `megamount`, `parse_url`

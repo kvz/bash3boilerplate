@@ -2,21 +2,17 @@
   "name": "bash3boilerplate",
   "description": "Copypastable templates to write better bash scripts",
   "version": "2.4.1",
+  "packageManager": "yarn@3.6.0+sha224.19e47520fa56c6146388fdeb438d9dcf6630c3f277a2e1180995c3bb",
+  "engines": {
+    "node": ">= 18",
+    "yarn": "3.6.0"
+  },
   "scripts": {
-    "build:production": "LANYON_ENV=production lanyon build",
-    "build": "lanyon build",
-    "deploy": "lanyon deploy",
-    "encrypt": "lanyon encrypt",
-    "inject": "./website/_scripts/inject.sh",
-    "install:lanyon": "lanyon install",
     "lint": "shellcheck --shell=bash $(find . -name '*.sh' -maxdepth 2)",
     "release:major": "env SEMANTIC=major npm run release",
     "release:minor": "env SEMANTIC=minor npm run release",
     "release:patch": "env SEMANTIC=patch npm run release",
     "release": "npm version ${SEMANTIC:-patch} -m \"Release %s\" && npm run version:replace && git commit main.sh src/*.sh -m 'Update version' && git push && git push --tags && npm publish",
-    "serve:production": "LANYON_ENV=production lanyon serve",
-    "start:production": "npm-run-all build:production serve:production",
-    "start": "lanyon start",
     "test:debug:main:repeated": "cross-env LOG_LEVEL=7 test/acceptance.sh main-repeated",
     "test:update": "cross-env SAVE_FIXTURES=true npm run test",
     "test": "test/acceptance.sh",
@@ -27,11 +23,9 @@
   "optionalDependencies": {
     "fsevents": "*"
   },
-  "dependencies": {},
   "devDependencies": {
     "cross-env": "3.1.3",
     "fakefile": "0.0.8",
-    "lanyon": "0.2.31",
     "next-update": "1.5.1",
     "npm-run-all": "3.1.2",
     "replace": "0.3.0"

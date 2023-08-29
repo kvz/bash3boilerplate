@@ -1,23 +1,22 @@
-[This document is formatted with GitHub-Flavored Markdown.   ]:#
-[For better viewing, including hyperlinks, read it online at ]:#
-[https://github.com/kvz/bash3boilerplate/blob/master/FAQ.md  ]:#
+[This document is formatted with GitHub-Flavored Markdown. ]: #
+[For better viewing, including hyperlinks, read it online at ]: #
+[https://github.com/kvz/bash3boilerplate/blob/HEAD/FAQ.md ]: #
 
 ## Contents
 
-* [What is a CLI](#what-is-a-cli)?
-* [How do I incorporate BASH3 Boilerplate into my own project](#how-do-i-incorporate-bash3-boilerplate-into-my-own-project)?
-* [How do I add a command-line flag](#how-do-i-add-a-command-line-flag)?
-* [How do I access the value of a command-line argument](#how-do-i-access-the-value-of-a-command-line-argument)?
-* [What is a magic variable](#what-is-a-magic-variable)?
-* [How do I submit an issue report](#how-do-i-submit-an-issue-report)?
-* [How can I contribute to this project](#how-can-i-contribute-to-this-project)?
-* [Why are you typing BASH in all caps](#why-are-you-typing-bash-in-all-caps)?
-* [How can I locally develop and preview the b3bp website](#how-can-i-locally-develop-and-preview-the-b3bp-website)?
-* [You are saying you are portable, but why won't b3bp code run in dash / busybox / posh / ksh / mksh / zsh](#you-are-saying-you-are-portable-but-why-wont-b3bp-code-run-in-dash--busybox--posh--ksh--mksh--zsh)?
-* [How do I do Operating System detection](#how-do-i-do-operating-system-detection)?
-* [How do I access a potentially unset (environment) variable](#how-do-i-access-a-potentially-unset-environment-variable)?
-* [How can I detect or trap CTRL-C and other signals](#how-can-i-detect-or-trap-ctrl-c-and-other-signals)?
-* [How can I get the PID of my running script](how-can-i-get-the-pid-of-my-running-script)?
+- [What is a CLI](#what-is-a-cli)?
+- [How do I incorporate BASH3 Boilerplate into my own project](#how-do-i-incorporate-bash3-boilerplate-into-my-own-project)?
+- [How do I add a command-line flag](#how-do-i-add-a-command-line-flag)?
+- [How do I access the value of a command-line argument](#how-do-i-access-the-value-of-a-command-line-argument)?
+- [What is a magic variable](#what-is-a-magic-variable)?
+- [How do I submit an issue report](#how-do-i-submit-an-issue-report)?
+- [How can I contribute to this project](#how-can-i-contribute-to-this-project)?
+- [Why are you typing BASH in all caps](#why-are-you-typing-bash-in-all-caps)?
+- [You are saying you are portable, but why won't b3bp code run in dash / busybox / posh / ksh / mksh / zsh](#you-are-saying-you-are-portable-but-why-wont-b3bp-code-run-in-dash--busybox--posh--ksh--mksh--zsh)?
+- [How do I do Operating System detection](#how-do-i-do-operating-system-detection)?
+- [How do I access a potentially unset (environment) variable](#how-do-i-access-a-potentially-unset-environment-variable)?
+- [How can I detect or trap CTRL-C and other signals](#how-can-i-detect-or-trap-ctrl-c-and-other-signals)?
+- [How can I get the PID of my running script](how-can-i-get-the-pid-of-my-running-script)?
 
 <!--more-->
 
@@ -60,7 +59,7 @@ source main.sh
 
 ## How do I access the value of a command-line argument?
 
-To find out the value of an argument, append the corresponding single-character flag to the text `$arg_`.  For example, if the [read block]
+To find out the value of an argument, append the corresponding single-character flag to the text `$arg_`. For example, if the [read block]
 contains the line
 
 ```bash
@@ -83,7 +82,7 @@ Please visit our [Issues](https://github.com/kvz/bash3boilerplate/issues) page.
 
 ## How can I contribute to this project?
 
-Please fork this repository.  After that, create a branch containing your suggested changes and submit a pull request based on the master branch
+Please fork this repository. After that, create a branch containing your suggested changes and submit a pull request based on the main branch
 of <https://github.com/kvz/bash3boilerplate/>. We are always more than happy to accept your contributions!
 
 ## Why are you typing BASH in all caps?
@@ -93,30 +92,6 @@ This project's name, however, is "BASH3 Boilerplate". It is a reference to
 "[HTML5 Boilerplate](https://html5boilerplate.com/)", which was founded to serve a similar purpose,
 only for crafting webpages.
 Somewhat inconsistent – but true to Unix ancestry – the abbreviation for our project is "b3bp".
-
-## How can I locally develop and preview the b3bp website?
-
-You should have a working Node.js >=10, Ruby >=2 and [YARN](https://yarnpkg.com) install on your workstation. When that is the case, you can run:
-
-```bash
-yarn install
-npm run start
-```
-
-This will install and start all required services and automatically open a webbrowser that reloads as soon as you make any changes to the source.
-
-The source mainly consists of:
-
-- `./README.md` (Front page)
-- `./FAQ.md` (FAQ page)
-- `./CHANGELOG.md` (changelog page)
-- `./website/_layouts/default.html` (the design in which all pages are rendered)
-- `./website/assets/app.js` (main JS file)
-- `./website/assets/style.css` (main CSS file)
-
-The rest is dark magic from which you should probably steer clear. : )
-
-Any changes should be proposed as PRs. Anything added to `master` is automatically deployed using a combination of GitHub Actions and Pages.
 
 ## You are saying you are portable, but why won't b3bp code run in dash / busybox / posh / ksh / mksh / zsh?
 
@@ -193,4 +168,4 @@ See http://mywiki.wooledge.org/SignalTrap for a list of signals, examples, and a
 
 ## How can I get the PID of my running script?
 
-The PID of a running script is contained in the `${$}` variable. This is *not* the pid of any subshells. With Bash 4 you can get the PID of your subshell with `${BASHPID}`. For a comprehensive list of Bash built in variables see, e.g., http://www.tldp.org/LDP/abs/html/internalvariables.html
+The PID of a running script is contained in the `${$}` variable. This is _not_ the pid of any subshells. With Bash 4 you can get the PID of your subshell with `${BASHPID}`. For a comprehensive list of Bash built in variables see, e.g., http://www.tldp.org/LDP/abs/html/internalvariables.html

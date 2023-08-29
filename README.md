@@ -1,17 +1,17 @@
-[This document is formatted with GitHub-Flavored Markdown.    ]:#
-[For better viewing, including hyperlinks, read it online at  ]:#
-[https://github.com/kvz/bash3boilerplate/blob/master/README.md]:#
+[This document is formatted with GitHub-Flavored Markdown. ]: #
+[For better viewing, including hyperlinks, read it online at ]: #
+[https://github.com/kvz/bash3boilerplate/blob/HEAD/README.md]: #
 
-* [Overview](#overview)
-* [Goals](#goals)
-* [Features](#features)
-* [Installation](#installation)
-* [Changelog](#changelog)
-* [Frequently Asked Questions](#frequently-asked-questions)
-* [Best Practices](#best-practices)
-* [Who uses b3bp](#who-uses-b3bp)
-* [Authors](#authors)
-* [License](#license)
+- [Overview](#overview)
+- [Goals](#goals)
+- [Features](#features)
+- [Installation](#installation)
+- [Changelog](#changelog)
+- [Frequently Asked Questions](#frequently-asked-questions)
+- [Best Practices](#best-practices)
+- [Who uses b3bp](#who-uses-b3bp)
+- [Authors](#authors)
+- [License](#license)
 
 ## Overview
 
@@ -19,10 +19,10 @@
 
 When hacking up Bash scripts, there are often things such as logging or command-line argument parsing that:
 
- - You need every time
- - Come with a number of pitfalls you want to avoid
- - Keep you from your actual work
- 
+- You need every time
+- Come with a number of pitfalls you want to avoid
+- Keep you from your actual work
+
 Here's an attempt to bundle those things in a generalized way so that
 they are reusable as-is in most scripts.
 
@@ -93,7 +93,7 @@ As of `v1.0.3`, b3bp offers some nice re-usable libraries in `./src`. In order t
 
 ### Function packaging
 
-It is nice to have a Bash package that can not only be used in the terminal, but also invoked as a command line function. In order to achieve this, the exporting of your functionality *should* follow this pattern:
+It is nice to have a Bash package that can not only be used in the terminal, but also invoked as a command line function. In order to achieve this, the exporting of your functionality _should_ follow this pattern:
 
 ```bash
 if [[ "${BASH_SOURCE[0]}" = "${0}" ]]; then
@@ -113,7 +113,7 @@ $ source my_script.sh
 $ my_script some more args --blah
 ```
 
-(taken from the [bpkg](https://raw.githubusercontent.com/bpkg/bpkg/master/README.md) project)
+(taken from the [bpkg](https://raw.githubusercontent.com/bpkg/bpkg/HEAD/README.md) project)
 
 ### Scoping
 
@@ -167,10 +167,9 @@ We are looking for endorsements! Are you also using b3bp? [Let us know](https://
 - [Gert Goet](https://github.com/eval)
 - [@rfuehrer](https://github.com/rfuehrer)
 
-
 ## License
 
 Copyright (c) 2013 Kevin van Zonneveld and [contributors](https://github.com/kvz/bash3boilerplate#authors).
-Licensed under [MIT](https://raw.githubusercontent.com/kvz/bash3boilerplate/master/LICENSE).
+Licensed under [MIT](https://raw.githubusercontent.com/kvz/bash3boilerplate/HEAD/LICENSE).
 You are not obligated to bundle the LICENSE file with your b3bp projects as long
 as you leave these references intact in the header comments of your source files.

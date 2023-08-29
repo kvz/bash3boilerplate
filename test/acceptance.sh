@@ -209,7 +209,6 @@ while IFS=$'\n' read -r bash; do
 
   while IFS=$'\n' read -r file; do
     [[ "${file}" =~ ^\./node_modules/ ]] && continue
-    [[ "${file}" =~ ^\./website/\.lanyon/ ]] && continue
 
     echo -n "    ${file}.. "
 
@@ -269,7 +268,6 @@ failed="false"
 
 while IFS=$'\n' read -r file; do
   [[ "${file}" =~ ^\./node_modules/ ]] && continue
-  [[ "${file}" =~ ^\./website/\.lanyon/ ]] && continue
 
   echo -n "    ${file}.. "
 
