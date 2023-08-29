@@ -1,7 +1,7 @@
 {
   "name": "bash3boilerplate",
   "description": "Copypastable templates to write better bash scripts",
-  "version": "2.7.0",
+  "version": "2.7.1",
   "packageManager": "yarn@3.6.0+sha224.19e47520fa56c6146388fdeb438d9dcf6630c3f277a2e1180995c3bb",
   "engines": {
     "node": ">= 18",
