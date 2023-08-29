@@ -11,10 +11,10 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 1
-      - uses: actions/setup-node@master
+      - uses: actions/setup-node@v1
         with:
           node-version: 18.x
       - name: Install
@@ -26,7 +26,3 @@ jobs:
       - name: Test
         run: |
           corepack yarn test
-      - name: Website Build
-        if: github.ref == 'refs/heads/main'
-        run: |
-          cp README.md docs/
