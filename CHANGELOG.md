@@ -11,14 +11,14 @@ Unplanned.
 ## main
 
 Released: TBA.
-[Diff](https://github.com/kvz/bash3boilerplate/compare/v2.6.0...main).
+[Diff](https://github.com/kvz/bash3boilerplate/compare/2.7.2...main).
 
 - [ ]
 
-## v2.6.0
+## 2.7.2
 
 Released: 2023-08-29
-[Diff](https://github.com/kvz/bash3boilerplate/compare/v2.4.1...v2.6.0).
+[Diff](https://github.com/kvz/bash3boilerplate/compare/v2.4.1...2.7.2).
 
 - [x] Upgrade and cleanup node dependencies
 - [x] Remove lanyon-based website in favor of simple redirect to github for bash3boilerplate.sh
