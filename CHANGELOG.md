@@ -11,9 +11,23 @@ Unplanned.
 ## main
 
 Released: TBA.
-[Diff](https://github.com/kvz/bash3boilerplate/compare/v2.4.2...main).
+[Diff](https://github.com/kvz/bash3boilerplate/compare/v2.6.0...main).
 
+- [ ]
+
+## v2.6.0
+
+Released: 2023-08-29
+[Diff](https://github.com/kvz/bash3boilerplate/compare/v2.4.1...v2.6.0).
+
+- [x] Upgrade and cleanup node dependencies
+- [x] Remove lanyon-based website in favor of simple redirect to github for bash3boilerplate.sh
+- [x] Make tests pass again
+- [x] Make linting and style checking separate actions
 - [x] Add feature to edit/update comments in ini file (#132, @rfuehrer)
+- [x] Upgrade to `lanyon@0.1.16`
+- [x] Capture correct error_code in err_report (#124, @eval)
+- [x] Enhanced ini file handling: create new file, create new sections, handle default section, read key from given section (@rfuehrer)
 
 ## v2.4.2
 
