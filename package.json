@@ -19,7 +19,7 @@
     "test:update": "env SAVE_FIXTURES=true yarn test",
     "test": "test/acceptance.sh",
     "version:current": "node -e 'console.log(require(\"./package.json\").version)'",
-    "version:replace": "replace 'v\\d+\\.\\d+\\.\\d+' \"v$(yarn --silent version:current)\" main.sh src/*.sh"
+    "version:replace": "replace 'v\\d+\\.\\d+\\.\\d+' \"v$(npm run --silent version:current)\" main.sh src/*.sh"
   },
   "devDependencies": {
     "fakefile": "1.1.0",
