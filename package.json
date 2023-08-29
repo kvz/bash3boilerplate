@@ -15,19 +15,16 @@
     "release:minor": "env SEMANTIC=minor yarn release",
     "release:patch": "env SEMANTIC=patch yarn release",
     "release": "npm version ${SEMANTIC:-patch} -m \"Release %s\" && yarn version:replace && git commit main.sh src/*.sh -m 'Update version' && git push && git push --tags && npm publish",
-    "test:debug:main:repeated": "cross-env LOG_LEVEL=7 test/acceptance.sh main-repeated",
-    "test:update": "cross-env SAVE_FIXTURES=true yarn test",
+    "test:debug:main:repeated": "env LOG_LEVEL=7 test/acceptance.sh main-repeated",
+    "test:update": "env SAVE_FIXTURES=true yarn test",
     "test": "test/acceptance.sh",
     "upgrade:modules": "next-update --keep true --tldr",
     "version:current": "node -e 'console.log(require(\"./package.json\").version)'",
     "version:replace": "replace 'v\\d+\\.\\d+\\.\\d+' \"v$(yarn --silent version:current)\" main.sh src/*.sh"
   },
-  "optionalDependencies": {
-    "fsevents": "*"
-  },
   "devDependencies": {
-    "fakefile": "0.0.8",
-    "next-update": "1.5.1",
-    "replace": "0.3.0"
+    "fakefile": "1.1.0",
+    "npm-run-all": "4.1.5",
+    "replace": "1.2.2"
   }
 }
