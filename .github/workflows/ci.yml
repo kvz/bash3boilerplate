@@ -20,10 +20,13 @@ jobs:
       - name: Install
         run: |
           corepack yarn
+      - name: Lint
+        run: |
+          corepack yarn lint
       - name: Test
         run: |
           corepack yarn test
       - name: Website Build
         if: github.ref == 'refs/heads/main'
         run: |
-          cp README.md website/
+          cp README.md docs/
