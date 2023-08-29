@@ -16,7 +16,7 @@
 #
 #  ALLOW_REMAINDERS=1 templater.sh input.cfg output.cfg
 #
-# Based on a template by BASH3 Boilerplate vv2.6.0
+# Based on a template by BASH3 Boilerplate vv2.7.0
 # http://bash3boilerplate.sh/#authors
 #
 # The MIT License (MIT)
