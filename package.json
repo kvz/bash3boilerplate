@@ -18,7 +18,6 @@
     "test:debug:main:repeated": "env LOG_LEVEL=7 test/acceptance.sh main-repeated",
     "test:update": "env SAVE_FIXTURES=true yarn test",
     "test": "test/acceptance.sh",
-    "upgrade:modules": "next-update --keep true --tldr",
     "version:current": "node -e 'console.log(require(\"./package.json\").version)'",
     "version:replace": "replace 'v\\d+\\.\\d+\\.\\d+' \"v$(yarn --silent version:current)\" main.sh src/*.sh"
   },
