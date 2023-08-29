@@ -8,7 +8,7 @@
     "yarn": "3.6.0"
   },
   "scripts": {
-    "lint:shellcheck": "SEV=info; if [ \"${CI:-false}\" = \"true\" ]; then SEV=warning; fi; shellcheck --severity=${SEV} $(find . -name '*.sh' -maxdepth 2)",
+    "lint:shellcheck": "shellcheck --severity=${SHELLCHECK_SEVERITY:-info} $(find . -name '*.sh' -maxdepth 2)",
     "lint:style": "test/style.pl $(find . -name '*.sh' -maxdepth 2)",
     "lint": "npm-run-all -l 'lint:**'",
     "release:major": "env SEMANTIC=major yarn release",

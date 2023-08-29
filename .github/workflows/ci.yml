@@ -21,6 +21,8 @@ jobs:
         run: |
           corepack yarn
       - name: Lint
+        env:
+          SHELLCHECK_SEVERITY: warning
         run: |
           corepack yarn lint
       - name: Test
