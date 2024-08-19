@@ -30,7 +30,7 @@ We call it "BASH3 Boilerplate" or b3bp for short.
 
 ## Goals
 
-Delete-Key-**Friendly**. Instead of introducing packages, includes, compilers, etc., we propose using [`main.sh`](http://bash3boilerplate.sh/main.sh) as a base and removing the parts you don't need.
+Delete-Key-**Friendly**. Instead of introducing packages, includes, compilers, etc., we propose using [`main.sh`](https://bash3boilerplate.sh/main.sh) as a base and removing the parts you don't need.
 While this may feel a bit archaic at first, it is exactly the strength of Bash scripts that we should want to embrace.
 
 **Portable**. We are targeting Bash 3 (OSX still ships
@@ -45,7 +45,7 @@ dependency.
 - Configuration by environment variables
 - Simple command-line argument parsing that requires no external dependencies. Definitions are parsed from help info, ensuring there will be no duplication
 - Helpful magic variables like `__file` and `__dir`
-- Logging that supports colors and is compatible with [Syslog Severity levels](http://en.wikipedia.org/wiki/Syslog#Severity_levels), as well as the [twelve-factor](http://12factor.net/) guidelines
+- Logging that supports colors and is compatible with [Syslog Severity levels](https://en.wikipedia.org/wiki/Syslog#Severity_levels), as well as the [twelve-factor](https://12factor.net/) guidelines
 
 ## Installation
 
@@ -56,7 +56,7 @@ There are three different ways to install b3bp:
 Use curl or wget to download the source and save it as your script. Then you can start deleting the unwanted bits, and adding your own logic.
 
 ```bash
-wget http://bash3boilerplate.sh/main.sh
+wget https://bash3boilerplate.sh/main.sh
 vim main.sh
 ```
 
@@ -140,22 +140,22 @@ $ my_script some more args --blah
 ## Who uses b3bp?
 
 - [Transloadit](https://transloadit.com)
-- [OpenCoarrays](http://www.opencoarrays.org)
-- [Sourcery Institute](http://www.sourceryinstitute.org)
-- [Computational Brain Anatomy Laboratory](http://cobralab.ca/)
+- [OpenCoarrays](https://www.opencoarrays.org)
+- [Sourcery Institute](https://www.sourceryinstitute.org)
+- [Computational Brain Anatomy Laboratory](https://cobralab.ca/)
 - [Genesis Cloud](https://genesiscloud.com/)
 
 We are looking for endorsements! Are you also using b3bp? [Let us know](https://github.com/kvz/bash3boilerplate/issues/new?title=I%20use%20b3bp) and get listed.
 
 ## Authors
 
-- [Kevin van Zonneveld](http://kvz.io)
+- [Kevin van Zonneveld](https://kvz.io)
 - [Izaak Beekman](https://izaakbeekman.com/)
 - [Manuel Streuhofer](https://github.com/mstreuhofer)
 - [Alexander Rathai](mailto:Alexander.Rathai@gmail.com)
-- [Dr. Damian Rouson](http://www.sourceryinstitute.org/) (documentation, feedback)
+- [Dr. Damian Rouson](https://www.sourceryinstitute.org/) (documentation, feedback)
 - [@jokajak](https://github.com/jokajak) (documentation)
-- [Gabriel A. Devenyi](http://staticwave.ca/) (feedback)
+- [Gabriel A. Devenyi](https://staticwave.ca/) (feedback)
 - [@bravo-kernel](https://github.com/bravo-kernel) (feedback)
 - [@skanga](https://github.com/skanga) (feedback)
 - [galaktos](https://www.reddit.com/user/galaktos) (feedback)
