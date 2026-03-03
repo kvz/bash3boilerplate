@@ -19,7 +19,7 @@ docker run --rm \
     set -o nounset
     set -o pipefail
 
-    apk add --no-cache coreutils diffutils nodejs perl >/dev/null
+    apk add --no-cache coreutils diffutils git nodejs perl >/dev/null
     bash --version
     test/acceptance.sh
   '

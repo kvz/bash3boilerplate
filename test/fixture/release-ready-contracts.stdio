@@ -1,0 +1,3 @@
+exit=1
+stdout=empty
+branch-guard=present

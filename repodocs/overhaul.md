@@ -257,3 +257,31 @@
 - Validation: `yarn test` passes.
 - Validation: `yarn test:bash3:docker` passes.
 - Key learning: Explicitly testing stderr/stdout separation and level gating catches regressions that fixture-based message comparisons alone might miss.
+
+## Iteration 25
+- Date: 2026-03-03.
+- Plan: Add explicit contract scenarios for release governance (`release-ready` guard behavior) and keep outputs deterministic.
+- Plan: Include release governance scenario in `test:fast` to catch regressions earlier.
+- Plan: Update README behavior-contract mapping to include release governance contracts.
+- Plan: Validate with lint, full acceptance suite, and Docker Bash 3 lane.
+
+## Iteration 26
+- Date: 2026-03-03.
+- Plan: Finalize release governance contract coverage by committing the new `release-ready-contracts` scenario and fixture set.
+- Plan: Fix Docker Bash 3 lane prerequisites for new contracts by ensuring `git` is present in the container test runtime.
+- Plan: Re-validate fast checks, lint lanes, full acceptance suite, and Docker Bash 3 suite before pushing.
+- Plan: Push branch updates and confirm draft PR CI status is green.
+
+## Iteration 27
+- Date: 2026-03-03.
+- Progress: Added `test/scenario/release-ready-contracts/run.sh` with deterministic assertions for non-`main` branch guard behavior in `test/release-ready.sh`.
+- Progress: Added `test/fixture/release-ready-contracts.stdio` and `test/fixture/release-ready-contracts.exitcode` and included the scenario in `test:fast`.
+- Progress: Updated README behavior-contract mapping with a release governance contract subsection and scenario linkage.
+- Progress: Updated `test/bash3-docker.sh` to install `git`, which is required by the new isolated-repo contract scenario.
+- Validation: `yarn test:fast` passes.
+- Validation: `SHELLCHECK_SEVERITY=warning yarn lint:shellcheck` passes.
+- Validation: `yarn lint:style` passes.
+- Validation: `yarn lint:docs` passes.
+- Validation: `yarn test` passes.
+- Validation: `yarn test:bash3:docker` passes.
+- Key learning: Contract scenarios that spin up isolated git repos should explicitly declare git availability in every execution lane, including Docker-based Bash 3 runs.
