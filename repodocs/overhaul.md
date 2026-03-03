@@ -111,3 +111,21 @@
 - Validation: `yarn test:bash3:docker` passes.
 - Key learning: Function-scoped strict mode gives consistent behavior whether functions are called from sourced scripts or direct execution, while protecting caller shell option state.
 - Key learning: Subshell-scoped function execution is safe for these utilities because they do not need to mutate caller variables.
+
+## Iteration 10
+- Date: 2026-03-03.
+- Plan: Add `repodocs/design-principles.md` to formalize b3bp’s operating model.
+- Plan: Define explicit script archetypes (`entrypoint` vs `library`) and map strict-mode expectations to each.
+- Plan: Clarify policy for `exit` vs `return`, `export -f`, parser contract ownership, and portability boundaries.
+- Plan: Align `README.md` and `FAQ.md` so user-facing guidance points to the same principles.
+
+## Iteration 11
+- Date: 2026-03-03.
+- Progress: Added `repodocs/design-principles.md` as the canonical reference for script archetypes, strict-mode scope, parser contract, portability boundaries, and documentation rules.
+- Progress: Updated `README.md` to include a new `Design Principles` section and linked guidance.
+- Progress: Updated `README.md` function-packaging example to use function-scoped strict mode and defensive source-vs-exec guard.
+- Progress: Updated `FAQ.md` with new entries for `entrypoint vs library` and `when to use export -f`.
+- Progress: Updated `FAQ.md` CI wording to match current runner naming (`macos-latest`).
+- Validation: `SHELLCHECK_SEVERITY=warning yarn lint:shellcheck` passes.
+- Validation: `yarn test` passes.
+- Key learning: Formalizing archetypes in one canonical document reduces contradictory guidance across README, FAQ, and code examples.

@@ -8,6 +8,7 @@
 - [Installation](#installation)
 - [Changelog](#changelog)
 - [Testing](#testing)
+- [Design Principles](#design-principles)
 - [Frequently Asked Questions](#frequently-asked-questions)
 - [Best Practices](#best-practices)
 - [Who uses b3bp](#who-uses-b3bp)
@@ -100,6 +101,16 @@ yarn test:bash3:docker
 
 This Docker lane complements native macOS CI coverage; it does not replace it.
 
+## Design Principles
+
+The canonical script model and maintenance rules are documented in [repodocs/design-principles.md](./repodocs/design-principles.md).
+
+In short:
+
+- b3bp distinguishes between `entrypoint` scripts and `library` scripts.
+- Library scripts should be safe to source and avoid mutating parent shell options.
+- Parser behavior and portability boundaries are treated as explicit, tested contracts.
+
 ## Frequently Asked Questions
 
 Please see the [FAQ.md](./FAQ.md) file.
@@ -108,17 +119,31 @@ Please see the [FAQ.md](./FAQ.md) file.
 
 As of `v1.0.3`, b3bp offers some nice re-usable libraries in `./src`. In order to make the snippets in `./src` more useful, we recommend the following guidelines.
 
+For the full rationale, see [repodocs/design-principles.md](./repodocs/design-principles.md).
+
 ### Function packaging
 
-It is nice to have a Bash package that can not only be used in the terminal, but also invoked as a command line function. In order to achieve this, the exporting of your functionality _should_ follow this pattern:
+It is nice to have a Bash package that can not only be used in the terminal, but also invoked as a command line function. In order to achieve this, the exporting of your functionality should follow this pattern:
 
 ```bash
-if [[ "${BASH_SOURCE[0]}" = "${0}" ]]; then
-  my_script "${@}"
-  exit $?
+my_script() (
+  set -o errexit
+  set -o errtrace
+  set -o nounset
+  set -o pipefail
+
+  # function body
+)
+
+if [[ "${BASH_SOURCE[0]:-}" != "${0}" ]]; then
+  export -f my_script
+else
+  my_script "$@"
+  exit
 fi
-export -f my_script
 ```
+
+Use `export -f` only when child Bash processes must inherit the function.
 
 This allows a user to `source` your script or invoke it as a script.
 

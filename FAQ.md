@@ -6,6 +6,8 @@
 
 - [What is a CLI](#what-is-a-cli)?
 - [How do I incorporate BASH3 Boilerplate into my own project](#how-do-i-incorporate-bash3-boilerplate-into-my-own-project)?
+- [What is the difference between an entrypoint script and a library script](#what-is-the-difference-between-an-entrypoint-script-and-a-library-script)?
+- [When should I use export -f](#when-should-i-use-export--f)?
 - [How do I add a command-line flag](#how-do-i-add-a-command-line-flag)?
 - [How do I access the value of a command-line argument](#how-do-i-access-the-value-of-a-command-line-argument)?
 - [What is a magic variable](#what-is-a-magic-variable)?
@@ -48,6 +50,21 @@ source main.sh
 #!/usr/bin/env bash
 source main.sh
 ```
+
+## What is the difference between an entrypoint script and a library script?
+
+In b3bp, these are two different archetypes:
+
+1. Entrypoint scripts own CLI parsing and process lifecycle, and may use top-level strict shell options.
+1. Library scripts are safe to source, should avoid top-level side effects, and should scope strict-mode behavior to function execution.
+
+See [repodocs/design-principles.md](./repodocs/design-principles.md) for the full model.
+
+## When should I use export -f?
+
+Use `export -f` only when child Bash processes must inherit a function.
+
+If you only need functions in the current shell after sourcing, `export -f` is not required.
 
 ## How do I add a command-line flag?
 
@@ -101,7 +118,7 @@ offer at least version 3 of it. Make sure you have that available and b3bp will 
 We run automated tests to make sure that it will. Continuous integration currently runs on:
 
 - Linux (`ubuntu-latest`, modern Bash)
-- macOS (`macos-13`, Bash `3.2.57`)
+- macOS (`macos-latest`, Bash `3.2.57`)
 
 This portability, however, does not mean that we try to be compatible with
 KornShell, Zsh, posh, yash, dash, or other shells. We allow syntax that would explode if
