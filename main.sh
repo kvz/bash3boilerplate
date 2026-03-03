@@ -123,6 +123,21 @@ function help () {
   exit 1
 }
 
+function __b3bp_set_opt_display_suffix () {
+  local __b3bp_tmp_short_opt="${1}"
+  local __b3bp_tmp_out_varname="${2}"
+  local __b3bp_tmp_varname="__b3bp_tmp_opt_short2long_${__b3bp_tmp_short_opt}"
+  local __b3bp_tmp_opt_long=""
+
+  printf -v "__b3bp_tmp_opt_long" '%s' "${!__b3bp_tmp_varname:-}"
+
+  if [[ "${__b3bp_tmp_opt_long:-}" ]]; then
+    printf -v "${__b3bp_tmp_out_varname}" ' (--%s)' "${__b3bp_tmp_opt_long//_/-}"
+  else
+    printf -v "${__b3bp_tmp_out_varname}" '%s' ""
+  fi
+}
+
 
 ### Parse commandline options
 ##############################################################################
@@ -234,6 +249,7 @@ done <<< "${__usage:-}"
 if [[ "${__b3bp_tmp_opts:-}" ]]; then
   # Allow long options like --this
   __b3bp_tmp_opts="${__b3bp_tmp_opts}-:"
+  __b3bp_tmp_opt_long_suffix=""
 
   # Reset in case getopts has been used previously in the shell.
   OPTIND=1
@@ -274,10 +290,8 @@ if [[ "${__b3bp_tmp_opts:-}" ]]; then
       if [[ "${__b3bp_tmp_varvalue}" = "0" ]]; then
         # Flags are not allowed to receive a value in --flag=value syntax.
         if [[ "${__b3bp_tmp_optarg_has_explicit}" = "1" ]]; then
-          __b3bp_tmp_varname="__b3bp_tmp_opt_short2long_${__b3bp_tmp_opt}"
-          printf -v "__b3bp_tmp_opt_long" '%s' "${!__b3bp_tmp_varname:-}"
-          [[ "${__b3bp_tmp_opt_long:-}" ]] && __b3bp_tmp_opt_long=" (--${__b3bp_tmp_opt_long//_/-})"
-          help "Option -${__b3bp_tmp_opt}${__b3bp_tmp_opt_long:-} does not take an argument"
+          __b3bp_set_opt_display_suffix "${__b3bp_tmp_opt}" "__b3bp_tmp_opt_long_suffix"
+          help "Option -${__b3bp_tmp_opt}${__b3bp_tmp_opt_long_suffix} does not take an argument"
         fi
         OPTARG=""
       else
@@ -287,10 +301,8 @@ if [[ "${__b3bp_tmp_opts:-}" ]]; then
           # --key value format: consume next token only if it is not another option.
           printf -v "__b3bp_tmp_optarg_value" '%s' "${@:OPTIND:1}"
           if [[ -z "${__b3bp_tmp_optarg_value}" ]] || [[ "${__b3bp_tmp_optarg_value}" = "-"* ]] ; then
-            __b3bp_tmp_varname="__b3bp_tmp_opt_short2long_${__b3bp_tmp_opt}"
-            printf -v "__b3bp_tmp_opt_long" '%s' "${!__b3bp_tmp_varname:-}"
-            [[ "${__b3bp_tmp_opt_long:-}" ]] && __b3bp_tmp_opt_long=" (--${__b3bp_tmp_opt_long//_/-})"
-            help "Option -${__b3bp_tmp_opt}${__b3bp_tmp_opt_long:-} requires an argument"
+            __b3bp_set_opt_display_suffix "${__b3bp_tmp_opt}" "__b3bp_tmp_opt_long_suffix"
+            help "Option -${__b3bp_tmp_opt}${__b3bp_tmp_opt_long_suffix} requires an argument"
           fi
           OPTARG="${__b3bp_tmp_optarg_value}"
           ((OPTIND+=1))
@@ -353,11 +365,8 @@ for __b3bp_tmp_varname in ${!__b3bp_tmp_has_arg_*}; do
   __b3bp_tmp_varname="arg_${__b3bp_tmp_opt_short}"
   [[ "${!__b3bp_tmp_varname}" ]] && continue
 
-  __b3bp_tmp_varname="__b3bp_tmp_opt_short2long_${__b3bp_tmp_opt_short}"
-  printf -v "__b3bp_tmp_opt_long" '%s' "${!__b3bp_tmp_varname}"
-  [[ "${__b3bp_tmp_opt_long:-}" ]] && __b3bp_tmp_opt_long=" (--${__b3bp_tmp_opt_long//_/-})"
-
-  help "Option -${__b3bp_tmp_opt_short}${__b3bp_tmp_opt_long:-} requires an argument"
+  __b3bp_set_opt_display_suffix "${__b3bp_tmp_opt_short}" "__b3bp_tmp_opt_long_suffix"
+  help "Option -${__b3bp_tmp_opt_short}${__b3bp_tmp_opt_long_suffix} requires an argument"
 done
 
 

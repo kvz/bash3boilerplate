@@ -291,3 +291,24 @@
 - Progress: Pushed commit `037e3a3` to `maintainer/overhaul-pass-1` for release-governance contracts and Docker Bash 3 prerequisites.
 - Validation: PR `#172` checks passed on commit `037e3a3` (`ci (ubuntu-latest)`, `ci (macos-latest)`, `ci-bash3-docker`).
 - Key learning: Tracking PR-level CI outcomes inside the overhaul log keeps implementation and verification history in one append-only timeline.
+
+## Iteration 29
+- Date: 2026-03-03.
+- Plan: Implement council item `3` by deduplicating long-option display-name formatting in parser error paths in `main.sh`.
+- Plan: Implement council item `1` by making release-ready repository slug resolution format-agnostic via `gh` instead of manual remote URL parsing.
+- Plan: Implement council item `2` by removing fixed `/tmp` docs-lint temp file usage and making checks per-run safe.
+- Plan: Validate with `yarn test:fast`, `SHELLCHECK_SEVERITY=warning yarn lint:shellcheck`, `yarn lint:style`, `yarn lint:docs`, `yarn test`, and `yarn test:bash3:docker`.
+
+## Iteration 30
+- Date: 2026-03-03.
+- Progress: Implemented council item `3` by adding `__b3bp_set_opt_display_suffix` in `main.sh` and reusing it across long-option argument error paths to remove duplicated formatting logic.
+- Progress: Implemented council item `1` by replacing manual `origin` URL parsing in `test/release-ready.sh` with `gh repo view --json nameWithOwner --jq '.nameWithOwner'` for format-agnostic repository resolution.
+- Progress: Implemented council item `2` by removing fixed `/tmp/b3bp-docs-lint.out` usage in `test/docs-lint.sh` and switching to per-check in-memory capture.
+- Validation: `yarn test:fast` passes.
+- Validation: `SHELLCHECK_SEVERITY=warning yarn lint:shellcheck` passes.
+- Validation: `yarn lint:style` passes.
+- Validation: `yarn lint:docs` passes.
+- Validation: `yarn test` passes.
+- Validation: `yarn test:bash3:docker` passes.
+- Key learning: Small Bash helper functions plus explicit variable initialization can improve parser maintainability without regressing ShellCheck strictness.
+- Key learning: Using `gh` to resolve repo context avoids brittle assumptions about allowed remote URL string formats.

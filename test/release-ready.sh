@@ -20,21 +20,8 @@ git diff --cached --quiet || fail "working tree has staged but uncommitted chang
 command -v gh > /dev/null || fail "GitHub CLI (gh) is required"
 gh auth status > /dev/null 2>&1 || fail "gh is not authenticated"
 
-origin_url="$(git config --get remote.origin.url || true)"
-[[ -n "${origin_url}" ]] || fail "remote.origin.url is not configured"
-
-repo_slug=""
-if [[ "${origin_url}" = git@github.com:* ]]; then
-  repo_slug="${origin_url#git@github.com:}"
-elif [[ "${origin_url}" = https://github.com/* ]]; then
-  repo_slug="${origin_url#https://github.com/}"
-elif [[ "${origin_url}" = http://github.com/* ]]; then
-  repo_slug="${origin_url#http://github.com/}"
-else
-  fail "unsupported remote format for origin: ${origin_url}"
-fi
-repo_slug="${repo_slug%.git}"
-[[ -n "${repo_slug}" ]] || fail "unable to parse repository slug from origin"
+repo_slug="$(gh repo view --json nameWithOwner --jq '.nameWithOwner' 2> /dev/null || true)"
+[[ -n "${repo_slug}" ]] || fail "unable to resolve repository slug via gh repo view"
 
 sha="$(git rev-parse HEAD)"
 status_state="$(gh api "repos/${repo_slug}/commits/${sha}/status" --jq '.state')"

@@ -14,10 +14,12 @@ failed=0
 function check_pattern() {
   local pattern="${1}"
   local message="${2}"
+  local matches=""
 
-  if grep -nE "${pattern}" "${files[@]}" > /tmp/b3bp-docs-lint.out; then
+  matches="$(grep -nE "${pattern}" "${files[@]}" || true)"
+  if [[ -n "${matches}" ]]; then
     echo "docs-lint: ${message}" 1>&2
-    cat /tmp/b3bp-docs-lint.out 1>&2
+    echo "${matches}" 1>&2
     failed=1
   fi
 }
@@ -30,8 +32,6 @@ check_pattern 'github\.com/[^ )]+/blob/v[0-9]+\.[0-9]+\.[0-9]+/[^ )]*#L[0-9]+' "
 
 # Avoid line-number anchors even on moving branches, as line numbers are brittle.
 check_pattern 'github\.com/[^ )]+/blob/(HEAD|main)/[^ )]*#L[0-9]+' "GitHub line-number anchors are not allowed; link to behavior sections instead"
-
-rm -f /tmp/b3bp-docs-lint.out
 
 if [[ "${failed}" = "1" ]]; then
   exit 1
