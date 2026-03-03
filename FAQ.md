@@ -97,8 +97,7 @@ Please visit our [Issues](https://github.com/kvz/bash3boilerplate/issues) page.
 
 ## How can I contribute to this project?
 
-Please fork this repository. After that, create a branch containing your suggested changes and submit a pull request based on the main branch
-of <https://github.com/kvz/bash3boilerplate/>. We are always more than happy to accept your contributions!
+Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines on testing, coding standards, and releasing.
 
 ## Why are you typing BASH in all caps?
 
