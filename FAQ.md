@@ -58,7 +58,7 @@ In b3bp, these are two different archetypes:
 1. Entrypoint scripts own CLI parsing and process lifecycle, and may use top-level strict shell options.
 1. Library scripts are safe to source, should avoid top-level side effects, and should scope strict-mode behavior to function execution.
 
-See [repodocs/design-principles.md](./repodocs/design-principles.md) for the full model.
+See the [Design Principles section in README](./README.md#design-principles) for the full model.
 
 ## When should I use export -f?
 

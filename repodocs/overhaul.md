@@ -129,3 +129,21 @@
 - Validation: `SHELLCHECK_SEVERITY=warning yarn lint:shellcheck` passes.
 - Validation: `yarn test` passes.
 - Key learning: Formalizing archetypes in one canonical document reduces contradictory guidance across README, FAQ, and code examples.
+
+## Iteration 12
+- Date: 2026-03-03.
+- Plan: Condense design principles and fold them directly into `README.md`.
+- Plan: Remove duplicate principles doc from `repodocs/` to avoid maintenance drift.
+- Plan: Add a concrete two-week next-level execution roadmap to `README.md`.
+- Plan: Repoint FAQ references to the README principles section.
+- Plan: Re-run lint and tests to validate documentation edits do not break existing checks.
+
+## Iteration 13
+- Date: 2026-03-03.
+- Progress: Folded the design principles content directly into the `README.md` `Design Principles` section.
+- Progress: Added a concrete `Next-Level Roadmap` section to `README.md` with week-by-week execution steps.
+- Progress: Updated `FAQ.md` to reference `README.md#design-principles` instead of a separate design-principles file.
+- Progress: Removed `repodocs/design-principles.md` to eliminate duplicate-document drift.
+- Validation: `SHELLCHECK_SEVERITY=warning yarn lint:shellcheck` passes.
+- Validation: `yarn test` passes.
+- Key learning: A single canonical principles location in README reduces inconsistency and lowers documentation maintenance overhead.

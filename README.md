@@ -9,6 +9,7 @@
 - [Changelog](#changelog)
 - [Testing](#testing)
 - [Design Principles](#design-principles)
+- [Next-Level Roadmap](#next-level-roadmap)
 - [Frequently Asked Questions](#frequently-asked-questions)
 - [Best Practices](#best-practices)
 - [Who uses b3bp](#who-uses-b3bp)
@@ -103,13 +104,38 @@ This Docker lane complements native macOS CI coverage; it does not replace it.
 
 ## Design Principles
 
-The canonical script model and maintenance rules are documented in [repodocs/design-principles.md](./repodocs/design-principles.md).
+1. Script archetypes:
+Entrypoint scripts (`main.sh` style) own CLI parsing and process lifecycle. Library scripts (`src/*.sh`) are safe to source and should avoid top-level side effects.
+1. Strict mode policy:
+Entrypoints may enable strict options at top level. Libraries should scope strict mode to function execution so parent shell options are not mutated.
+1. Exit semantics:
+Entrypoints may `exit`; reusable functions should communicate failures through status codes and local command failures.
+1. Function packaging:
+Reusable scripts should support both source and execute modes with a defensive guard and predictable invocation behavior.
+1. `export -f` policy:
+Use `export -f` only when child Bash processes must inherit functions.
+1. Parser as contract:
+Unknown options, missing values, and long-option formats are testable behavior guarantees and should be covered by tests.
+1. Portability boundary:
+b3bp targets Bash 3+ compatibility, not shell-agnostic compatibility (`dash`, `zsh`, `ksh`, etc. are out of scope).
+1. Compatibility matrix:
+Use both native macOS CI and Linux Docker Bash 3 lanes. They are complementary and catch different classes of portability issues.
 
-In short:
+## Next-Level Roadmap
 
-- b3bp distinguishes between `entrypoint` scripts and `library` scripts.
-- Library scripts should be safe to source and avoid mutating parent shell options.
-- Parser behavior and portability boundaries are treated as explicit, tested contracts.
+### Week 1
+
+1. Define parser/logging behavior spec and map existing acceptance scenarios to named contracts.
+1. Add focused parser edge-case tests (unknown long opts, missing values, invalid `--flag=value`, `--` separator behavior).
+1. Add focused library robustness tests (`ini_val`, `parse_url`, `templater`) for malformed and boundary inputs.
+1. Introduce a fast local target set (`make test-fast`, `make test-all`) for contributor ergonomics.
+
+### Week 2
+
+1. Add a release checklist that enforces green CI and changelog quality before tagging.
+1. Tighten documentation by replacing brittle line-link references with stable behavior documentation.
+1. Add a migration section for older b3bp usage patterns to current recommended patterns.
+1. Review and trim inconsistent style guidance so all “preached” rules are enforceable in CI.
 
 ## Frequently Asked Questions
 
@@ -118,8 +144,6 @@ Please see the [FAQ.md](./FAQ.md) file.
 ## Best practices
 
 As of `v1.0.3`, b3bp offers some nice re-usable libraries in `./src`. In order to make the snippets in `./src` more useful, we recommend the following guidelines.
-
-For the full rationale, see [repodocs/design-principles.md](./repodocs/design-principles.md).
 
 ### Function packaging
 
