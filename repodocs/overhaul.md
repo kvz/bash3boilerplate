@@ -60,3 +60,10 @@
 - Progress: Identified CI failure root cause from check annotations: runner config `macos-13-us-default` is unsupported in this environment.
 - Progress: Updated workflow matrix macOS label from `macos-13` to `macos-latest`.
 - Key learning: Runner-label support is environment-specific; use CI annotations to validate labels before assuming availability.
+
+## Iteration 5
+- Date: 2026-03-03.
+- Plan: Confirm final draft PR health and CI result.
+- Progress: Verified draft PR #172 is open and up to date with branch head `9d243a7`.
+- Progress: Verified CI run `22615452357` completed successfully on both `ci (ubuntu-latest)` and `ci (macos-latest)`.
+- Key learning: `gh pr checks --watch` gives a reliable end-to-end view once check runs have been registered for the latest commit.
