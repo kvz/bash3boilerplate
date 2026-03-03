@@ -237,3 +237,23 @@
 - Validation: `yarn test` passes.
 - Validation: `yarn test:bash3:docker` passes.
 - Key learning: Treating docs hygiene as a CI gate prevents stale references from quietly returning over time.
+
+## Iteration 23
+- Date: 2026-03-03.
+- Plan: Add an explicit logging-contract scenario for STDERR-only output and log-level gating behavior.
+- Plan: Include the logging-contract scenario in `test:fast` so contract regressions are caught earlier.
+- Plan: Update README behavior-contract mapping to include the new logging scenario.
+- Plan: Validate with lint, full acceptance suite, and Docker Bash 3 lane.
+
+## Iteration 24
+- Date: 2026-03-03.
+- Progress: Added `test/scenario/main-logging-contracts/run.sh` and fixtures to validate STDERR-only logging, LOG_LEVEL gating, and expected non-zero exit behavior.
+- Progress: Added `main-logging-contracts` to `test:fast` in `package.json`.
+- Progress: Updated README logging contract scenario mapping to include `test/scenario/main-logging-contracts/run.sh`.
+- Validation: `yarn test:fast` passes.
+- Validation: `SHELLCHECK_SEVERITY=warning yarn lint:shellcheck` passes.
+- Validation: `yarn lint:style` passes.
+- Validation: `yarn lint:docs` passes.
+- Validation: `yarn test` passes.
+- Validation: `yarn test:bash3:docker` passes.
+- Key learning: Explicitly testing stderr/stdout separation and level gating catches regressions that fixture-based message comparisons alone might miss.

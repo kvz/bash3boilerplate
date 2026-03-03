@@ -1,0 +1,5 @@
+exit=1
+stdout=empty
+info=absent
+warning=present
+emergency=present

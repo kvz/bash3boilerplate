@@ -177,6 +177,7 @@ Scenario coverage:
 
 - `test/scenario/main-debug/run.sh`
 - `test/scenario/main-nocolor/run.sh`
+- `test/scenario/main-logging-contracts/run.sh`
 - `test/scenario/double-source/run.sh`
 
 ### Library robustness contracts
