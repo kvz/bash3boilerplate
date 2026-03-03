@@ -7,8 +7,8 @@
 #
 #  LOG_LEVEL=7 ./main.sh -f /tmp/x -d (change this for your script)
 #
-# Based on a template by BASH3 Boilerplate vv2.7.2
-# http://bash3boilerplate.sh/#authors
+# Based on a template by BASH3 Boilerplate v2.7.2
+# https://bash3boilerplate.sh/#authors
 #
 # The MIT License (MIT)
 # Copyright (c) 2013 Kevin van Zonneveld and contributors
@@ -246,26 +246,55 @@ if [[ "${__b3bp_tmp_opts:-}" ]]; then
     [[ "${__b3bp_tmp_opt}" = "?" ]] && help "Invalid use of script: ${*} "
 
     if [[ "${__b3bp_tmp_opt}" = "-" ]]; then
+      __b3bp_tmp_optarg_has_explicit=0
+      __b3bp_tmp_optarg_value=""
+
       # OPTARG is long-option-name or long-option=value
       if [[ "${OPTARG}" =~ .*=.* ]]; then
         # --key=value format
-        __b3bp_tmp_long_opt=${OPTARG/=*/}
-        # Set opt to the short option corresponding to the long option
-        __b3bp_tmp_varname="__b3bp_tmp_opt_long2short_${__b3bp_tmp_long_opt//-/_}"
-        printf -v "__b3bp_tmp_opt" '%s' "${!__b3bp_tmp_varname}"
-        OPTARG=${OPTARG#*=}
+        __b3bp_tmp_long_opt="${OPTARG%%=*}"
+        __b3bp_tmp_optarg_value="${OPTARG#*=}"
+        __b3bp_tmp_optarg_has_explicit=1
       else
         # --key value format
-        # Map long name to short version of option
-        __b3bp_tmp_varname="__b3bp_tmp_opt_long2short_${OPTARG//-/_}"
-        printf -v "__b3bp_tmp_opt" '%s' "${!__b3bp_tmp_varname}"
-        # Only assign OPTARG if option takes an argument
-        __b3bp_tmp_varname="__b3bp_tmp_has_arg_${__b3bp_tmp_opt}"
-        __b3bp_tmp_varvalue="${!__b3bp_tmp_varname}"
-        [[ "${__b3bp_tmp_varvalue}" != "0" ]] && __b3bp_tmp_varvalue="1"
-        printf -v "OPTARG" '%s' "${@:OPTIND:${__b3bp_tmp_varvalue}}"
-        # shift over the argument if argument is expected
-        ((OPTIND+=__b3bp_tmp_varvalue))
+        __b3bp_tmp_long_opt="${OPTARG}"
+      fi
+
+      # Set opt to the short option corresponding to the long option
+      __b3bp_tmp_varname="__b3bp_tmp_opt_long2short_${__b3bp_tmp_long_opt//-/_}"
+      if [[ -z "${!__b3bp_tmp_varname:-}" ]]; then
+        help "Invalid use of script: --${__b3bp_tmp_long_opt}"
+      fi
+      printf -v "__b3bp_tmp_opt" '%s' "${!__b3bp_tmp_varname}"
+
+      # Decide whether this long option may/must receive an argument.
+      __b3bp_tmp_varname="__b3bp_tmp_has_arg_${__b3bp_tmp_opt}"
+      __b3bp_tmp_varvalue="${!__b3bp_tmp_varname:-0}"
+
+      if [[ "${__b3bp_tmp_varvalue}" = "0" ]]; then
+        # Flags are not allowed to receive a value in --flag=value syntax.
+        if [[ "${__b3bp_tmp_optarg_has_explicit}" = "1" ]]; then
+          __b3bp_tmp_varname="__b3bp_tmp_opt_short2long_${__b3bp_tmp_opt}"
+          printf -v "__b3bp_tmp_opt_long" '%s' "${!__b3bp_tmp_varname:-}"
+          [[ "${__b3bp_tmp_opt_long:-}" ]] && __b3bp_tmp_opt_long=" (--${__b3bp_tmp_opt_long//_/-})"
+          help "Option -${__b3bp_tmp_opt}${__b3bp_tmp_opt_long:-} does not take an argument"
+        fi
+        OPTARG=""
+      else
+        if [[ "${__b3bp_tmp_optarg_has_explicit}" = "1" ]]; then
+          OPTARG="${__b3bp_tmp_optarg_value}"
+        else
+          # --key value format: consume next token only if it is not another option.
+          printf -v "__b3bp_tmp_optarg_value" '%s' "${@:OPTIND:1}"
+          if [[ -z "${__b3bp_tmp_optarg_value}" ]] || [[ "${__b3bp_tmp_optarg_value}" = "-"* ]] ; then
+            __b3bp_tmp_varname="__b3bp_tmp_opt_short2long_${__b3bp_tmp_opt}"
+            printf -v "__b3bp_tmp_opt_long" '%s' "${!__b3bp_tmp_varname:-}"
+            [[ "${__b3bp_tmp_opt_long:-}" ]] && __b3bp_tmp_opt_long=" (--${__b3bp_tmp_opt_long//_/-})"
+            help "Option -${__b3bp_tmp_opt}${__b3bp_tmp_opt_long:-} requires an argument"
+          fi
+          OPTARG="${__b3bp_tmp_optarg_value}"
+          ((OPTIND+=1))
+        fi
       fi
       # we have set opt/OPTARG to the short value and the argument as OPTARG if it exists
     fi

@@ -1,0 +1,9 @@
+# unknown-long-option
+exit: 1
+ Invalid use of script: --unknown
+# missing-value-consumes-option
+exit: 1
+ Option -f (--file) requires an argument
+# missing-value-end-of-input
+exit: 1
+ Option -f (--file) requires an argument

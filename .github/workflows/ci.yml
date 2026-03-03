@@ -9,18 +9,29 @@ on:
       - synchronize
 jobs:
   ci:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-13
+    runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v4
         with:
           node-version: 18.x
+      - name: Install macOS test dependencies
+        if: runner.os == 'macOS'
+        run: |
+          brew install gnu-sed coreutils
       - name: Install
         run: |
-          corepack yarn
+          corepack enable
+          corepack yarn install --immutable
       - name: Lint
+        if: runner.os == 'Linux'
         env:
           SHELLCHECK_SEVERITY: warning
         run: |

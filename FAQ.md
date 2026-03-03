@@ -16,7 +16,7 @@
 - [How do I do Operating System detection](#how-do-i-do-operating-system-detection)?
 - [How do I access a potentially unset (environment) variable](#how-do-i-access-a-potentially-unset-environment-variable)?
 - [How can I detect or trap CTRL-C and other signals](#how-can-i-detect-or-trap-ctrl-c-and-other-signals)?
-- [How can I get the PID of my running script](how-can-i-get-the-pid-of-my-running-script)?
+- [How can I get the PID of my running script](#how-can-i-get-the-pid-of-my-running-script)?
 
 <!--more-->
 
@@ -30,19 +30,19 @@ A "CLI" is a [command-line interface](https://en.wikipedia.org/wiki/Command-line
 
 You can incorporate BASH3 Boilerplate into your project in one of two ways:
 
-1. Copy the desired portions of [`main.sh`](http://bash3boilerplate.sh/main.sh) into your own script.
-1. Download [`main.sh`](http://bash3boilerplate.sh/main.sh) and start pressing the delete-key to remove unwanted things
+1. Copy the desired portions of [`main.sh`](https://bash3boilerplate.sh/main.sh) into your own script.
+1. Download [`main.sh`](https://bash3boilerplate.sh/main.sh) and start pressing the delete-key to remove unwanted things
 
 Once the `main.sh` has been tailor-made for your project, you can either append your own script in the same file, or source it in the following ways:
 
-1. Copy [`main.sh`](http://bash3boilerplate.sh/main.sh) into the same directory as your script and then edit and embed it into your script using Bash's `source` include feature, e.g.:
+1. Copy [`main.sh`](https://bash3boilerplate.sh/main.sh) into the same directory as your script and then edit and embed it into your script using Bash's `source` include feature, e.g.:
 
 ```bash
 #!/usr/bin/env bash
 source main.sh
 ```
 
-1. Source [`main.sh`](http://bash3boilerplate.sh/main.sh) in your script or at the command line:
+1. Source [`main.sh`](https://bash3boilerplate.sh/main.sh) in your script or at the command line:
 
 ```bash
 #!/usr/bin/env bash
@@ -51,7 +51,7 @@ source main.sh
 
 ## How do I add a command-line flag?
 
-1. Copy the line from the `main.sh` [read block](https://github.com/kvz/bash3boilerplate/blob/v2.1.0/main.sh#L109-L115) that most resembles the desired behavior and paste the line into the same block.
+1. Copy the line from the `main.sh` [read block](https://github.com/kvz/bash3boilerplate/blob/HEAD/main.sh#L139-L147) that most resembles the desired behavior and paste the line into the same block.
 1. Edit the single-character (e.g., `-d`) and, if present, the multi-character (e.g., `--debug`) versions of the flag in the copied line.
 1. Omit the `[arg]` text in the copied line, if the desired flag takes no arguments.
 1. Omit or edit the text after `Default=` to set or not set default values, respectively.
@@ -74,7 +74,7 @@ __temp_file_name="${arg_t}"
 
 ## What is a magic variable?
 
-The [magic variables](https://github.com/kvz/bash3boilerplate/blob/v2.1.0/main.sh#L26-L28) in `main.sh` are special in that they have a different value, depending on your environment. You can use `${__file}` to get a reference to your current script, and `${__dir}` to get a reference to the directory it lives in. This is not to be confused with the location of the calling script that might be sourcing the `${__file}`, which is accessible via `${0}`, or the current directory of the administrator running the script, accessible via `$(pwd)`.
+The [magic variables](https://github.com/kvz/bash3boilerplate/blob/HEAD/main.sh#L47-L50) in `main.sh` are special in that they have a different value, depending on your environment. You can use `${__file}` to get a reference to your current script, and `${__dir}` to get a reference to the directory it lives in. This is not to be confused with the location of the calling script that might be sourcing the `${__file}`, which is accessible via `${0}`, or the current directory of the administrator running the script, accessible via `$(pwd)`.
 
 ## How do I submit an issue report?
 
@@ -98,10 +98,10 @@ Somewhat inconsistent – but true to Unix ancestry – the abbreviation for our
 When we say _portable_, we mean across Bash versions. Bash is widespread and most systems
 offer at least version 3 of it. Make sure you have that available and b3bp will work for you.
 
-We run automated tests to make sure that it will. Here is some proof for the following platforms:
+We run automated tests to make sure that it will. Continuous integration currently runs on:
 
-- [Linux](https://travis-ci.org/kvz/bash3boilerplate/jobs/109804166#L91-L94) `GNU bash, version 4.2.25(1)-release (x86_64-pc-linux-gnu)`
-- [OSX](https://travis-ci.org/kvz/bash3boilerplate/jobs/109804167#L2453-L2455) `GNU bash, version 3.2.51(1)-release (x86_64-apple-darwin13)`
+- Linux (`ubuntu-latest`, modern Bash)
+- macOS (`macos-13`, Bash `3.2.57`)
 
 This portability, however, does not mean that we try to be compatible with
 KornShell, Zsh, posh, yash, dash, or other shells. We allow syntax that would explode if
@@ -114,7 +114,7 @@ to create a satisfactory abstraction that is not only correct, but also covers e
 while still having a relatively small footprint in `main.sh`.
 
 For simple OS detection, we recommend using the `${OSTYPE}` variable available in Bash as
-is demoed in [this stackoverflow post](http://stackoverflow.com/a/8597411/151666):
+is demoed in [this Stack Overflow post](https://stackoverflow.com/a/8597411/151666):
 
 ```bash
 if [[ "${OSTYPE}" = "linux-gnu" ]]; then
@@ -149,7 +149,7 @@ echo ${NAME2:=Damian} # echos Damian, $NAME2 is set to Damian
 NAME3=${NAME3:-Damian}; echo ${NAME3} # echos Damian, $NAME3 is set to Damian
 ```
 
-This subject is briefly touched on as well in the [Safety and Portability section under point 5](README.md#safety-and-portability). b3bp currently uses [method 1](https://github.com/kvz/bash3boilerplate/blob/v2.1.0/main.sh#L252) when we want to access a variable that could be undeclared, and [method 3](https://github.com/kvz/bash3boilerplate/blob/v2.1.0/main.sh#L31) when we also want to set a default to an undeclared variable, because we feel it is more readable than method 2. We feel `:=` is easily overlooked, and not very beginner friendly. Method 3 seems more explicit in that regard in our humble opinion.
+This subject is briefly touched on as well in the [Safety and Portability section under point 5](README.md#safety-and-portability). b3bp currently uses [method 1](https://github.com/kvz/bash3boilerplate/blob/HEAD/main.sh#L47-L51) when we want to access a variable that could be undeclared, and [method 3](https://github.com/kvz/bash3boilerplate/blob/HEAD/main.sh#L54-L55) when we also want to set a default to an undeclared variable, because we feel it is more readable than method 2. We feel `:=` is easily overlooked, and not very beginner friendly. Method 3 seems more explicit in that regard in our humble opinion.
 
 ## How can I detect or trap Ctrl-C and other signals?
 
@@ -164,8 +164,8 @@ function ctrl_c() {
 }
 ```
 
-See http://mywiki.wooledge.org/SignalTrap for a list of signals, examples, and an in depth discussion.
+See https://mywiki.wooledge.org/SignalTrap for a list of signals, examples, and an in depth discussion.
 
 ## How can I get the PID of my running script?
 
-The PID of a running script is contained in the `${$}` variable. This is _not_ the pid of any subshells. With Bash 4 you can get the PID of your subshell with `${BASHPID}`. For a comprehensive list of Bash built in variables see, e.g., http://www.tldp.org/LDP/abs/html/internalvariables.html
+The PID of a running script is contained in the `${$}` variable. This is _not_ the pid of any subshells. With Bash 4 you can get the PID of your subshell with `${BASHPID}`. For a comprehensive list of Bash built in variables see, e.g., https://tldp.org/LDP/abs/html/internalvariables.html

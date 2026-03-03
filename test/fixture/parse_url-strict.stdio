@@ -1,0 +1,8 @@
+# strict-http-host
+example.com
+# strict-https-port
+443
+# strict-mysql-default-port
+3306
+# strict-no-proto-host
+example.com

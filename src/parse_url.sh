@@ -7,7 +7,7 @@
 #
 # Based on:
 #
-#  - http://stackoverflow.com/a/6174447/151666
+#  - https://stackoverflow.com/a/6174447/151666
 #
 # Usage as a function:
 #
@@ -18,8 +18,8 @@
 #
 #  parse_url.sh 'http://johndoe:abc123@example.com:8080/index.html'
 #
-# Based on a template by BASH3 Boilerplate vv2.7.2
-# http://bash3boilerplate.sh/#authors
+# Based on a template by BASH3 Boilerplate v2.7.2
+# https://bash3boilerplate.sh/#authors
 #
 # The MIT License (MIT)
 # Copyright (c) 2013 Kevin van Zonneveld and contributors
@@ -30,25 +30,46 @@ function parse_url() {
   local parse="${1}"
   local need="${2:-}"
 
-  local proto
+  local proto=""
   local url
-  local userpass
-  local user
-  local pass
+  local userpass=""
+  local user=""
+  local pass=""
   local hostport
-  local host
-  local port
-  local path
+  local host=""
+  local port=""
+  local path=""
 
-  proto="$(echo "${parse}" | grep :// | sed -e's,^\(.*://\).*,\1,g')"
-  url="${parse/${proto}/}"
-  userpass="$(echo "${url}" | grep @ | cut -d@ -f1)"
-  user="$(echo "${userpass}" | grep : | cut -d: -f1)"
-  pass="$(echo "${userpass}" | grep : | cut -d: -f2)"
-  hostport="$(echo "${url/${userpass}@/}" | cut -d/ -f1)"
-  host="$(echo "${hostport}" | grep : | cut -d: -f1)"
-  port="$(echo "${hostport}" | grep : | cut -d: -f2)"
-  path="$(echo "${url}" | grep / | cut -d/ -f2-)"
+  url="${parse}"
+
+  if [[ "${url}" = *"://"* ]]; then
+    proto="${url%%://*}://"
+    url="${url#*://}"
+  fi
+
+  if [[ "${url}" = *"@"* ]]; then
+    userpass="${url%%@*}"
+    url="${url#*@}"
+  fi
+
+  hostport="${url%%/*}"
+  if [[ "${url}" = */* ]]; then
+    path="${url#*/}"
+  fi
+
+  if [[ "${userpass}" = *":"* ]]; then
+    user="${userpass%%:*}"
+    pass="${userpass#*:}"
+  else
+    user="${userpass}"
+  fi
+
+  if [[ "${hostport}" = *":"* ]]; then
+    host="${hostport%%:*}"
+    port="${hostport#*:}"
+  else
+    host="${hostport}"
+  fi
 
   [[ ! "${user}" ]] && user="${userpass}"
   [[ ! "${host}" ]] && host="${hostport}"
