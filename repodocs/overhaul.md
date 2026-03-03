@@ -360,3 +360,9 @@
 - Validation: `yarn test` passes.
 - Validation: `yarn test:bash3:docker` passes.
 - Key learning: A dedicated contract around release-command ordering catches subtle tag/commit sequencing regressions that CI green checks alone do not detect.
+
+## Iteration 36
+- Date: 2026-03-03.
+- Progress: Pushed council-review implementation commit `35344cf` to `maintainer/overhaul-pass-1`.
+- Validation: PR `#172` checks passed on commit `35344cf` (`ci (ubuntu-latest)`, `ci (macos-latest)`, `ci-bash3-docker`).
+- Key learning: Re-checking PR status after each contract-first fix batch keeps risk contained while the overhaul branch continues evolving.
