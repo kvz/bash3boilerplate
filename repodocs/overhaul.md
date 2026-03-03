@@ -89,3 +89,25 @@
 - Validation: `yarn test` passes locally.
 - Key learning: The official `bash:3.2.57` image is Alpine-based, so BusyBox tool behavior differs from GNU utilities used by the acceptance harness.
 - Key learning: A Docker Bash 3 lane is practical and reproducible, but native macOS CI still remains necessary for macOS-specific behavior.
+
+## Iteration 8
+- Date: 2026-03-03.
+- Plan: Apply consistent function-packaging pattern across reusable `src/*.sh` scripts.
+- Plan: Keep strict shell options scoped to function execution so sourced scripts do not mutate caller shell options.
+- Plan: Use defensive sourced-vs-executed guard (`${BASH_SOURCE[0]:-}`), `[[ ... ]]`, and simplify `exit $?` to `exit`.
+- Plan: Re-run lint and acceptance tests (including Docker Bash 3 lane) after refactor.
+
+## Iteration 9
+- Date: 2026-03-03.
+- Progress: Updated `src/templater.sh` to run strict mode (`errexit`, `errtrace`, `nounset`, `pipefail`) inside function scope via subshell execution.
+- Progress: Updated `src/parse_url.sh` to run strict mode inside function scope and switched positional read to `${1:-}` for defensive invocation.
+- Progress: Updated `src/ini_val.sh` to run strict mode inside function scope and declared missing locals (`current_comment`, `RET`).
+- Progress: Updated `src/megamount.sh` to run strict mode inside function scope and use defensive argument reads (`${1:-}`, `${2:-}`).
+- Progress: Standardized source-vs-exec guards to `[[ "${BASH_SOURCE[0]:-}" != "${0}" ]]` across all reusable `src/*.sh` scripts.
+- Progress: Simplified direct-execution epilogues from `exit $?` to `exit` after function invocation.
+- Validation: `SHELLCHECK_SEVERITY=warning yarn lint:shellcheck` passes.
+- Validation: `yarn lint:style` passes.
+- Validation: `yarn test` passes.
+- Validation: `yarn test:bash3:docker` passes.
+- Key learning: Function-scoped strict mode gives consistent behavior whether functions are called from sourced scripts or direct execution, while protecting caller shell option state.
+- Key learning: Subshell-scoped function execution is safe for these utilities because they do not need to mutate caller variables.

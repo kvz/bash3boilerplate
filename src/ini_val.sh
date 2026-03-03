@@ -27,7 +27,12 @@
 # You are not obligated to bundle the LICENSE file with your b3bp projects as long
 # as you leave these references intact in the header comments of your source files.
 
-function ini_val() {
+function ini_val() (
+  set -o errexit
+  set -o errtrace
+  set -o nounset
+  set -o pipefail
+
   local file="${1:-}"
   local sectionkey="${2:-}"
   local val="${3:-}"
@@ -37,6 +42,8 @@ function ini_val() {
   local section=""
   local key=""
   local current=""
+  local current_comment=""
+  local RET=""
   # add default section
   local section_default="default"
 
@@ -103,11 +110,11 @@ ${key}${delim}${val}"
     # this .bak dance is done for BSD/GNU portability: https://stackoverflow.com/a/22084103/151666
     rm -f "${file}.bak"
   fi
-}
+)
 
-if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
+if [[ "${BASH_SOURCE[0]:-}" != "${0}" ]]; then
   export -f ini_val
 else
-  ini_val "${@}"
-  exit ${?}
+  ini_val "$@"
+  exit
 fi

@@ -24,11 +24,16 @@
 # You are not obligated to bundle the LICENSE file with your b3bp projects as long
 # as you leave these references intact in the header comments of your source files.
 
-function templater() {
-  ALLOW_REMAINDERS="${ALLOW_REMAINDERS:-0}"
+function templater() (
+  set -o errexit
+  set -o errtrace
+  set -o nounset
+  set -o pipefail
 
-  templateSrc="${1:-}"
-  templateDst="${2:-}"
+  local ALLOW_REMAINDERS="${ALLOW_REMAINDERS:-0}"
+  local templateSrc="${1:-}"
+  local templateDst="${2:-}"
+  local var=""
 
   if [[ ! -f "${templateSrc}" ]]; then
     echo "ERROR: Template source '${templateSrc}' needs to exist"
@@ -58,11 +63,11 @@ function templater() {
     echo "ERROR: Unable to replace the above template vars"
     exit 1
   fi
-}
+)
 
-if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
+if [[ "${BASH_SOURCE[0]:-}" != "${0}" ]]; then
   export -f templater
 else
-  templater "${@}"
-  exit ${?}
+  templater "$@"
+  exit
 fi

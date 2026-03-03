@@ -33,9 +33,14 @@ __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=src/parse_url.sh
 source "${__dir}/parse_url.sh"
 
-function megamount () {
-  local url="${1}"
-  local target="${2}"
+function megamount () (
+  set -o errexit
+  set -o errtrace
+  set -o nounset
+  set -o pipefail
+
+  local url="${1:-}"
+  local target="${2:-}"
 
   local proto
   local user
@@ -68,11 +73,11 @@ function megamount () {
 
   # chmod 777 "${target}"
   ls -al "${target}/"
-}
+)
 
-if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
+if [[ "${BASH_SOURCE[0]:-}" != "${0}" ]]; then
   export -f megamount
 else
-  megamount "${@}"
-  exit ${?}
+  megamount "$@"
+  exit
 fi

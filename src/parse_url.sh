@@ -26,8 +26,13 @@
 # You are not obligated to bundle the LICENSE file with your b3bp projects as long
 # as you leave these references intact in the header comments of your source files.
 
-function parse_url() {
-  local parse="${1}"
+function parse_url() (
+  set -o errexit
+  set -o errtrace
+  set -o nounset
+  set -o pipefail
+
+  local parse="${1:-}"
   local need="${2:-}"
 
   local proto=""
@@ -95,11 +100,11 @@ function parse_url() {
     echo "   path:  ${path}"
     echo ""
   fi
-}
+)
 
-if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
+if [[ "${BASH_SOURCE[0]:-}" != "${0}" ]]; then
   export -f parse_url
 else
-  parse_url "${@}"
-  exit ${?}
+  parse_url "$@"
+  exit
 fi
