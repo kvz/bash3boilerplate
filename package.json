@@ -10,6 +10,7 @@
   "scripts": {
     "lint:shellcheck": "shellcheck --severity=${SHELLCHECK_SEVERITY:-info} $(find . -type f -name '*.sh' -not -path './node_modules/*')",
     "lint:style": "test/style.pl $(find . -type f -name '*.sh' -not -path './node_modules/*')",
+    "lint:docs": "test/docs-lint.sh",
     "lint": "npm-run-all -l 'lint:**'",
     "release:major": "env SEMANTIC=major yarn release",
     "release:minor": "env SEMANTIC=minor yarn release",

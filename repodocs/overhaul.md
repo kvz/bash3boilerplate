@@ -220,3 +220,20 @@
 - Validation: `yarn test` passes.
 - Validation: `yarn test:bash3:docker` passes.
 - Key learning: Converting release assumptions into an executable gate catches process issues earlier and makes release criteria auditable.
+
+## Iteration 21
+- Date: 2026-03-03.
+- Plan: Add an automated docs-lint check for brittle historical references (legacy Travis links and version-pinned GitHub line links).
+- Plan: Wire docs-lint into the existing `yarn lint` pipeline so documentation guidance is enforceable.
+- Plan: Validate the new lint check alongside existing shell/test lanes.
+
+## Iteration 22
+- Date: 2026-03-03.
+- Progress: Added `test/docs-lint.sh` to detect legacy Travis links and brittle GitHub line-number links in `README.md` and `FAQ.md`.
+- Progress: Added `lint:docs` to `package.json` and integrated it into `yarn lint` via existing `lint:**` script expansion.
+- Validation: `yarn lint:docs` passes.
+- Validation: `SHELLCHECK_SEVERITY=warning yarn lint:shellcheck` passes.
+- Validation: `yarn lint:style` passes.
+- Validation: `yarn test` passes.
+- Validation: `yarn test:bash3:docker` passes.
+- Key learning: Treating docs hygiene as a CI gate prevents stale references from quietly returning over time.
