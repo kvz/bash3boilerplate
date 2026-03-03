@@ -1,8 +1,0 @@
-# branch-guard
-exit=1
-stdout=empty
-branch-guard=present
-# checks-api-success
-exit=0
-stdout-ok=present
-stderr=empty

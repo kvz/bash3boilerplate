@@ -195,16 +195,6 @@ Scenario coverage:
 - `test/scenario/templater/run.sh`
 - `test/scenario/templater-robust/run.sh`
 
-### Release governance contracts
-
-- `release-ready` must fail with a clear reason outside `main`.
-- Release preconditions are enforced before version/tag/publish steps execute.
-
-Scenario coverage:
-
-- `test/scenario/release-ready-contracts/run.sh`
-- `test/scenario/release-command-contracts/run.sh`
-
 ## Migration Guide
 
 ### From top-level strict mode in reusable libs

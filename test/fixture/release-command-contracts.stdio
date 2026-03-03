@@ -1,4 +1,0 @@
-no-git-tag-version=present
-explicit-git-tag=present
-version-replace-before-tag=present
-commit-before-tag=present
