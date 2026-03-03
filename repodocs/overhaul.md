@@ -197,3 +197,26 @@
 - Validation: `yarn test` passes.
 - Validation: `yarn test:bash3:docker` passes.
 - Key learning: Adding targeted edge-case scenarios around reusable libraries improves confidence without needing to make full acceptance fixtures more brittle.
+
+## Iteration 19
+- Date: 2026-03-03.
+- Plan: Implement Week 2 release governance by adding a release-ready gate that checks branch cleanliness, CI status on HEAD, and changelog quality in `## main`.
+- Plan: Add a README release checklist section that mirrors and explains the release-ready gate.
+- Plan: Add a README migration guide section that maps older packaging/style patterns to current recommended patterns.
+- Plan: Trim style guidance so the explicitly required rules are CI-enforced, and label remaining items as recommendations.
+- Plan: Replace brittle FAQ line links with stable behavior-oriented references.
+
+## Iteration 20
+- Date: 2026-03-03.
+- Progress: Added `test/release-ready.sh` to gate releases on branch cleanliness, `main` branch requirement, GitHub check success for HEAD, and `CHANGELOG.md` `## main` checklist quality.
+- Progress: Wired `yarn release:ready` into `package.json` and made `release` depend on it.
+- Progress: Added `Release Checklist` section to README and documented the automated release gate command.
+- Progress: Added `Migration Guide` section to README with old-to-new patterns for strict mode scope, source/execute guard, and CI-enforced style rules.
+- Progress: Trimmed README style language so explicitly required rules are CI-enforced and clearly labeled.
+- Progress: Replaced brittle FAQ line-number links with behavior-based stable references.
+- Validation: `yarn release:ready` fails correctly on non-`main` branch with an explicit message.
+- Validation: `SHELLCHECK_SEVERITY=warning yarn lint:shellcheck` passes.
+- Validation: `yarn lint:style` passes.
+- Validation: `yarn test` passes.
+- Validation: `yarn test:bash3:docker` passes.
+- Key learning: Converting release assumptions into an executable gate catches process issues earlier and makes release criteria auditable.

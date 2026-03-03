@@ -68,7 +68,7 @@ If you only need functions in the current shell after sourcing, `export -f` is n
 
 ## How do I add a command-line flag?
 
-1. Copy the line from the `main.sh` [read block](https://github.com/kvz/bash3boilerplate/blob/HEAD/main.sh#L139-L147) that most resembles the desired behavior and paste the line into the same block.
+1. Copy the line from the `__usage` block in `main.sh` that most resembles the desired behavior and paste the line into the same block.
 1. Edit the single-character (e.g., `-d`) and, if present, the multi-character (e.g., `--debug`) versions of the flag in the copied line.
 1. Omit the `[arg]` text in the copied line, if the desired flag takes no arguments.
 1. Omit or edit the text after `Default=` to set or not set default values, respectively.
@@ -91,7 +91,7 @@ __temp_file_name="${arg_t}"
 
 ## What is a magic variable?
 
-The [magic variables](https://github.com/kvz/bash3boilerplate/blob/HEAD/main.sh#L47-L50) in `main.sh` are special in that they have a different value, depending on your environment. You can use `${__file}` to get a reference to your current script, and `${__dir}` to get a reference to the directory it lives in. This is not to be confused with the location of the calling script that might be sourcing the `${__file}`, which is accessible via `${0}`, or the current directory of the administrator running the script, accessible via `$(pwd)`.
+The magic variables in `main.sh` are special in that they have a different value, depending on your environment. You can use `${__file}` to get a reference to your current script, and `${__dir}` to get a reference to the directory it lives in. This is not to be confused with the location of the calling script that might be sourcing the `${__file}`, which is accessible via `${0}`, or the current directory of the administrator running the script, accessible via `$(pwd)`.
 
 ## How do I submit an issue report?
 
@@ -166,7 +166,7 @@ echo ${NAME2:=Damian} # echos Damian, $NAME2 is set to Damian
 NAME3=${NAME3:-Damian}; echo ${NAME3} # echos Damian, $NAME3 is set to Damian
 ```
 
-This subject is briefly touched on as well in the [Safety and Portability section under point 5](README.md#safety-and-portability). b3bp currently uses [method 1](https://github.com/kvz/bash3boilerplate/blob/HEAD/main.sh#L47-L51) when we want to access a variable that could be undeclared, and [method 3](https://github.com/kvz/bash3boilerplate/blob/HEAD/main.sh#L54-L55) when we also want to set a default to an undeclared variable, because we feel it is more readable than method 2. We feel `:=` is easily overlooked, and not very beginner friendly. Method 3 seems more explicit in that regard in our humble opinion.
+This subject is briefly touched on as well in the [Safety and Portability section under point 5](README.md#safety-and-portability). b3bp currently uses method 1 when we want to access a variable that could be undeclared, and method 3 when we also want to set a default to an undeclared variable, because we feel it is more readable than method 2. We feel `:=` is easily overlooked, and not very beginner friendly. Method 3 seems more explicit in that regard in our humble opinion.
 
 ## How can I detect or trap Ctrl-C and other signals?
 
