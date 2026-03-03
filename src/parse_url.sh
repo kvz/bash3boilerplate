@@ -18,7 +18,7 @@
 #
 #  parse_url.sh 'http://johndoe:abc123@example.com:8080/index.html'
 #
-# Based on a template by BASH3 Boilerplate v2.7.2
+# Based on a template by BASH3 Boilerplate v2.8.0
 # https://bash3boilerplate.sh/#authors
 #
 # The MIT License (MIT)

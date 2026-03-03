@@ -7,7 +7,7 @@
 #
 #  LOG_LEVEL=7 ./main.sh -f /tmp/x -d (change this for your script)
 #
-# Based on a template by BASH3 Boilerplate v2.7.2
+# Based on a template by BASH3 Boilerplate v2.8.0
 # https://bash3boilerplate.sh/#authors
 #
 # The MIT License (MIT)
