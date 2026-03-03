@@ -1,0 +1,15 @@
+# command-mode-default-section
+value-with-hyphen
+# command-mode-comment-roundtrip
+value-two
+# source-mode-default-section
+from-source
+# final-ini
+
+[default]
+source_only=from-source
+orphan=value-with-hyphen
+
+[section]
+;[key] section key comment
+key=value-two

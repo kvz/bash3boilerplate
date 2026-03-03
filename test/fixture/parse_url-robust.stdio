@@ -1,0 +1,14 @@
+# no-proto-with-path
+host=example.com
+path=path/to/resource
+# https-default-port
+port=443
+# redis-default-port
+port=6379
+# user-without-pass
+user=jane
+pass=
+# explicit-port-no-path
+host=api.example.org
+port=9000
+path=

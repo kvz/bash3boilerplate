@@ -161,6 +161,21 @@ Scenario coverage:
 - `test/scenario/main-nocolor/run.sh`
 - `test/scenario/double-source/run.sh`
 
+### Library robustness contracts
+
+- `parse_url` handles missing optional URL components without failing in strict mode.
+- `ini_val` handles default-section keys and comment-preserving updates consistently.
+- `templater` handles special-character values and expected missing-template failures deterministically.
+
+Scenario coverage:
+
+- `test/scenario/parse_url-strict/run.sh`
+- `test/scenario/parse_url-robust/run.sh`
+- `test/scenario/ini_val/run.sh`
+- `test/scenario/ini_val-robust/run.sh`
+- `test/scenario/templater/run.sh`
+- `test/scenario/templater-robust/run.sh`
+
 ## Next-Level Roadmap
 
 ### Week 1

@@ -176,3 +176,24 @@
 - Validation: `yarn test` passes.
 - Validation: `yarn test:bash3:docker` passes.
 - Key learning: Explicit contract mapping in README improves discoverability of why each scenario exists and which behavior it protects.
+
+## Iteration 17
+- Date: 2026-03-03.
+- Plan: Add focused library robustness scenarios for `parse_url`, `ini_val`, and `templater`.
+- Plan: Cover boundary inputs (missing optional URL parts, default section behavior, special-character templating values, and expected failure modes).
+- Plan: Update README contract mapping to include library robustness contracts and their scenario coverage.
+- Plan: Validate with lint, full acceptance, and Docker Bash 3 lane.
+
+## Iteration 18
+- Date: 2026-03-03.
+- Progress: Added `test/scenario/parse_url-robust/run.sh` and fixtures to cover missing protocol, default ports, user-without-pass, and explicit-port/no-path behavior.
+- Progress: Added `test/scenario/ini_val-robust/run.sh` and fixtures to cover default-section keys, comment-preserving key updates, and sourced usage reads/writes.
+- Progress: Added `test/scenario/templater-robust/run.sh` and fixtures to cover special-character replacement values, sourced invocation, and missing-template failure handling.
+- Progress: Expanded `test:fast` in `package.json` to include new robustness scenarios.
+- Progress: Updated README `Behavior Contracts` section with a `Library robustness contracts` subsection and scenario mapping.
+- Validation: `yarn test:fast` passes.
+- Validation: `SHELLCHECK_SEVERITY=warning yarn lint:shellcheck` passes.
+- Validation: `yarn lint:style` passes.
+- Validation: `yarn test` passes.
+- Validation: `yarn test:bash3:docker` passes.
+- Key learning: Adding targeted edge-case scenarios around reusable libraries improves confidence without needing to make full acceptance fixtures more brittle.
