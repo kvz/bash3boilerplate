@@ -21,7 +21,7 @@ set -o errexit
 set -o errtrace
 # Do not allow use of undefined vars. Use ${VAR:-} to use an undefined VAR
 set -o nounset
-# Catch the error in case mysqldump fails (but gzip succeeds) in `mysqldump |gzip`
+# Catch the error in a pipe e.g. `mysqldump |gzip` returns mysqldump's exit code, not gzip's
 set -o pipefail
 # Turn on traces, useful while debugging but commented out by default
 # set -o xtrace
@@ -63,28 +63,18 @@ function __b3bp_log () {
   shift
 
   # shellcheck disable=SC2034
-  local color_debug="\\x1b[35m"
-  # shellcheck disable=SC2034
-  local color_info="\\x1b[32m"
-  # shellcheck disable=SC2034
-  local color_notice="\\x1b[34m"
-  # shellcheck disable=SC2034
-  local color_warning="\\x1b[33m"
-  # shellcheck disable=SC2034
-  local color_error="\\x1b[31m"
-  # shellcheck disable=SC2034
-  local color_critical="\\x1b[1;31m"
-  # shellcheck disable=SC2034
-  local color_alert="\\x1b[1;37;41m"
-  # shellcheck disable=SC2034
-  local color_emergency="\\x1b[1;4;5;37;41m"
+  local color_debug="\\x1b[35m"   color_info="\\x1b[32m"      color_notice="\\x1b[34m"  \
+        color_warning="\\x1b[33m" color_error="\\x1b[31m"     color_critical="\\x1b[1;31m" \
+        color_alert="\\x1b[1;37;41m" color_emergency="\\x1b[1;4;5;37;41m"
 
   local colorvar="color_${log_level}"
 
   local color="${!colorvar:-${color_error}}"
   local color_reset="\\x1b[0m"
 
-  if [[ "${NO_COLOR:-}" = "true" ]] || { [[ "${TERM:-}" != "xterm"* ]] && [[ "${TERM:-}" != "screen"* ]]; } || [[ ! -t 2 ]]; then
+  if [[ "${NO_COLOR:-}" = "true" ]] \
+    || { [[ "${TERM:-}" != "xterm"* ]] && [[ "${TERM:-}" != "screen"* ]]; } \
+    || [[ ! -t 2 ]]; then
     if [[ "${NO_COLOR:-}" != "false" ]]; then
       # Don't use colors on pipes or non-recognized terminals
       color=""; color_reset=""
@@ -257,8 +247,7 @@ if [[ "${__b3bp_tmp_opts:-}" ]]; then
   OPTIND=1
 
   # start parsing command line
-  set +o nounset # unexpected arguments will cause unbound variables
-                 # to be dereferenced
+  set +o nounset # getopts may reference unbound OPTARG / positional params
   # Overwrite $arg_<flag> defaults with the actual CLI options
   while getopts "${__b3bp_tmp_opts}" __b3bp_tmp_opt; do
     [[ "${__b3bp_tmp_opt}" = "?" ]] && help "Invalid use of script: ${*} "
@@ -406,10 +395,10 @@ function __b3bp_cleanup_before_exit () {
 trap __b3bp_cleanup_before_exit EXIT
 
 # requires `set -o errtrace`
-__b3bp_err_report() {
-    local error_code=${?}
-    error "Error in ${__file} in function ${1} on line ${2}"
-    exit ${error_code}
+function __b3bp_err_report () {
+  local error_code="${?}"
+  error "Error in ${__file} in function ${1} on line ${2}"
+  exit "${error_code}"
 }
 # Uncomment the following line for always providing an error backtrace
 # trap '__b3bp_err_report "${FUNCNAME:-.}" ${LINENO}' ERR
@@ -465,26 +454,16 @@ info "arg_d: ${arg_d}"
 info "arg_v: ${arg_v}"
 info "arg_h: ${arg_h}"
 
-# shellcheck disable=SC2015
-if [[ -n "${arg_i:-}" ]] && declare -p arg_i 2> /dev/null | grep -q '^declare \-a'; then
+if [[ -n "${arg_i:-}" ]]; then
   info "arg_i:"
   for input_file in "${arg_i[@]}"; do
     info " - ${input_file}"
   done
-elif [[ -n "${arg_i:-}" ]]; then
-  info "arg_i: ${arg_i}"
 else
   info "arg_i: 0"
 fi
 
-# shellcheck disable=SC2015
-if [[ -n "${arg_x:-}" ]] && declare -p arg_x 2> /dev/null | grep -q '^declare \-a'; then
-  info "arg_x: ${#arg_x[@]}"
-elif [[ -n "${arg_x:-}" ]]; then
-  info "arg_x: ${arg_x}"
-else
-  info "arg_x: 0"
-fi
+info "arg_x: ${arg_x:-0}"
 
 info "$(echo -e "multiple lines example - line #1\\nmultiple lines example - line #2\\nimagine logging the output of 'ls -al /path/'")"
 
