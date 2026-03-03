@@ -55,10 +55,8 @@ source main.sh
 
 In b3bp, these are two different archetypes:
 
-1. Entrypoint scripts own CLI parsing and process lifecycle, and may use top-level strict shell options.
-1. Library scripts are safe to source, should avoid top-level side effects, and should scope strict-mode behavior to function execution.
-
-See the [Design Principles section in README](./README.md#design-principles) for the full model.
+1. **Entrypoint scripts** (`main.sh` style) own CLI parsing and process lifecycle. They may enable strict options (`set -o errexit`, etc.) at top level and may call `exit`.
+1. **Library scripts** (`src/*.sh`) are safe to source and should avoid top-level side effects. They should scope strict mode to function execution (using a subshell body `()`) so parent shell options are not mutated, and communicate failures through return codes rather than `exit`.
 
 ## When should I use export -f?
 

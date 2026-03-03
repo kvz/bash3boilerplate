@@ -9,7 +9,6 @@
 - [Changelog](#changelog)
 - [Testing](#testing)
 - [Release Checklist](#release-checklist)
-- [Design Principles](#design-principles)
 - [Frequently Asked Questions](#frequently-asked-questions)
 - [Best Practices](#best-practices)
 - [Who uses b3bp](#who-uses-b3bp)
@@ -112,7 +111,7 @@ Run all checks used for release confidence:
 yarn test:all
 ```
 
-This Docker lane complements native macOS CI coverage; it does not replace it.
+CI runs on Linux (`ubuntu-latest`), macOS (`macos-latest`, Bash 3.2), and a Docker Bash 3.2.57 lane. The native and Docker lanes are complementary and catch different classes of portability issues.
 
 ## Release Checklist
 
@@ -129,25 +128,6 @@ yarn release:ready
 ```
 
 The `release` script runs this gate automatically before tagging/publishing.
-
-## Design Principles
-
-1. Script archetypes:
-Entrypoint scripts (`main.sh` style) own CLI parsing and process lifecycle. Library scripts (`src/*.sh`) are safe to source and should avoid top-level side effects.
-1. Strict mode policy:
-Entrypoints may enable strict options at top level. Libraries should scope strict mode to function execution so parent shell options are not mutated.
-1. Exit semantics:
-Entrypoints may `exit`; reusable functions should communicate failures through status codes and local command failures.
-1. Function packaging:
-Reusable scripts should support both source and execute modes with a defensive guard and predictable invocation behavior.
-1. `export -f` policy:
-Use `export -f` only when child Bash processes must inherit functions.
-1. Parser as contract:
-Unknown options, missing values, and long-option formats are testable behavior guarantees and should be covered by tests.
-1. Portability boundary:
-b3bp targets Bash 3+ compatibility, not shell-agnostic compatibility (`dash`, `zsh`, `ksh`, etc. are out of scope).
-1. Compatibility matrix:
-Use both native macOS CI and Linux Docker Bash 3 lanes. They are complementary and catch different classes of portability issues.
 
 ## Frequently Asked Questions
 
