@@ -285,3 +285,9 @@
 - Validation: `yarn test` passes.
 - Validation: `yarn test:bash3:docker` passes.
 - Key learning: Contract scenarios that spin up isolated git repos should explicitly declare git availability in every execution lane, including Docker-based Bash 3 runs.
+
+## Iteration 28
+- Date: 2026-03-03.
+- Progress: Pushed commit `037e3a3` to `maintainer/overhaul-pass-1` for release-governance contracts and Docker Bash 3 prerequisites.
+- Validation: PR `#172` checks passed on commit `037e3a3` (`ci (ubuntu-latest)`, `ci (macos-latest)`, `ci-bash3-docker`).
+- Key learning: Tracking PR-level CI outcomes inside the overhaul log keeps implementation and verification history in one append-only timeline.
