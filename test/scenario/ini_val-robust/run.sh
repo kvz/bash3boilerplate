@@ -8,7 +8,7 @@ __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 __root="$(cd "$(dirname "$(dirname "$(dirname "${__dir}")")")" && pwd)"
 
 __ini_tmp="$(mktemp "${TMPDIR:-/tmp}/ini-val-robust.XXXXXX")"
-function cleanup_before_exit () { rm -f "${__ini_tmp:?}"; }
+function cleanup_before_exit() { rm -f "${__ini_tmp:?}"; }
 trap cleanup_before_exit EXIT
 
 echo "# command-mode-default-section"

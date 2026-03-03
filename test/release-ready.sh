@@ -17,15 +17,15 @@ branch="$(git rev-parse --abbrev-ref HEAD)"
 git diff --quiet || fail "working tree has unstaged changes"
 git diff --cached --quiet || fail "working tree has staged but uncommitted changes"
 
-command -v gh > /dev/null || fail "GitHub CLI (gh) is required"
-gh auth status > /dev/null 2>&1 || fail "gh is not authenticated"
+command -v gh >/dev/null || fail "GitHub CLI (gh) is required"
+gh auth status >/dev/null 2>&1 || fail "gh is not authenticated"
 
-repo_slug="$(gh repo view --json nameWithOwner --jq '.nameWithOwner' 2> /dev/null || true)"
+repo_slug="$(gh repo view --json nameWithOwner --jq '.nameWithOwner' 2>/dev/null || true)"
 [[ -n "${repo_slug}" ]] || fail "unable to resolve repository slug via gh repo view"
 
 sha="$(git rev-parse HEAD)"
 check_runs_total="$(
-  gh api "repos/${repo_slug}/commits/${sha}/check-runs" --jq '.total_count' 2> /dev/null || true
+  gh api "repos/${repo_slug}/commits/${sha}/check-runs" --jq '.total_count' 2>/dev/null || true
 )"
 [[ -n "${check_runs_total}" ]] || fail "unable to read check-runs for HEAD commit"
 [[ "${check_runs_total}" != "0" ]] || fail "HEAD commit has no check-runs"

@@ -11,12 +11,12 @@ __template_tmp="$(mktemp "${TMPDIR:-/tmp}/templater-robust-template.XXXXXX")"
 __output_tmp="$(mktemp "${TMPDIR:-/tmp}/templater-robust-output.XXXXXX")"
 __error_tmp="$(mktemp "${TMPDIR:-/tmp}/templater-robust-error.XXXXXX")"
 
-function cleanup_before_exit () {
+function cleanup_before_exit() {
   rm -f "${__template_tmp:?}" "${__output_tmp:?}" "${__error_tmp:?}"
 }
 trap cleanup_before_exit EXIT
 
-cat > "${__template_tmp}" <<-'EOF'
+cat >"${__template_tmp}" <<-'EOF'
 line1=${VALUE_ONE}
 line2=${VALUE_TWO}
 line3=${UNSET_VALUE}
@@ -35,7 +35,7 @@ cat "${__output_tmp}"
 
 echo "# command-mode-missing-template"
 set +o errexit
-bash "${__root}/src/templater.sh" ./does-not-exist.template "${__output_tmp}" > "${__error_tmp}" 2>&1
+bash "${__root}/src/templater.sh" ./does-not-exist.template "${__output_tmp}" >"${__error_tmp}" 2>&1
 __rc=$?
 set -o errexit
 echo "exit: ${__rc}"

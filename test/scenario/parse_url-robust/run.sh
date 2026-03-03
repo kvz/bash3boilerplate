@@ -9,7 +9,7 @@ __root="$(cd "$(dirname "$(dirname "$(dirname "${__dir}")")")" && pwd)"
 __stdout_tmp="$(mktemp "${TMPDIR:-/tmp}/parse-url-robust-stdout.XXXXXX")"
 __stderr_tmp="$(mktemp "${TMPDIR:-/tmp}/parse-url-robust-stderr.XXXXXX")"
 
-function cleanup_before_exit () {
+function cleanup_before_exit() {
   rm -f "${__stdout_tmp:?}" "${__stderr_tmp:?}"
 }
 trap cleanup_before_exit EXIT
@@ -38,7 +38,7 @@ echo "path=$(parse_url 'http://api.example.org:9000' path)"
 
 echo "# unknown-selector"
 set +o errexit
-parse_url 'https://example.org' bogus > "${__stdout_tmp}" 2> "${__stderr_tmp}"
+parse_url 'https://example.org' bogus >"${__stdout_tmp}" 2>"${__stderr_tmp}"
 __rc=$?
 set -o errexit
 echo "exit=${__rc}"

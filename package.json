@@ -9,8 +9,10 @@
   },
   "scripts": {
     "lint:shellcheck": "shellcheck --severity=${SHELLCHECK_SEVERITY:-info} $(find . -type f -name '*.sh' -not -path './node_modules/*')",
+    "lint:shfmt": "test/shfmt.sh lint",
     "lint:style": "test/style.pl $(find . -type f -name '*.sh' -not -path './node_modules/*')",
     "lint": "npm-run-all -l 'lint:**'",
+    "fix:shfmt": "test/shfmt.sh fix",
     "release:major": "env SEMANTIC=major yarn release",
     "release:minor": "env SEMANTIC=minor yarn release",
     "release:patch": "env SEMANTIC=patch yarn release",

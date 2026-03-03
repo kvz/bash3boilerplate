@@ -11,7 +11,7 @@ __base="$(basename "${__file}" .sh)"
 __root="$(cd "$(dirname "$(dirname "$(dirname "${__dir}")")")" && pwd)"
 
 __templaterTmpFile=$(mktemp "${TMPDIR:-/tmp}/${__base}.XXXXXX")
-function cleanup_before_exit () { rm "${__templaterTmpFile:?}"; }
+function cleanup_before_exit() { rm "${__templaterTmpFile:?}"; }
 trap cleanup_before_exit EXIT
 
 echo "--"

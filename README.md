@@ -135,7 +135,7 @@ $ my_script some more args --blah
 
 ### Coding style
 
-1. Use two spaces for indentation; do not use tab characters.
+1. Format with [shfmt](https://github.com/mvdan/sh) (`shfmt -i 2 -bn`): two-space indent, binary operators may start a line.
 1. Do not introduce trailing whitespace on lines.
 1. Use a single equal sign when checking `if [[ "${NAME}" = "Kevin" ]]`.
 1. Use the bash test operator (`[[ ... ]]`) rather than `[` or `test`.

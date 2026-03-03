@@ -79,7 +79,7 @@ function parse_url() (
   [[ ! "${user}" ]] && user="${userpass}"
   [[ ! "${host}" ]] && host="${hostport}"
   if [[ ! "${port}" ]]; then
-    [[ "${proto}" = "http://" ]]  && port="80"
+    [[ "${proto}" = "http://" ]] && port="80"
     [[ "${proto}" = "https://" ]] && port="443"
     [[ "${proto}" = "mysql://" ]] && port="3306"
     [[ "${proto}" = "redis://" ]] && port="6379"
@@ -87,13 +87,13 @@ function parse_url() (
 
   if [[ "${need}" ]]; then
     case "${need}" in
-      proto|user|pass|host|port|path)
-        echo "${!need}"
-        ;;
-      *)
-        echo "parse_url: unknown field selector: ${need}" 1>&2
-        return 1
-        ;;
+    proto | user | pass | host | port | path)
+      echo "${!need}"
+      ;;
+    *)
+      echo "parse_url: unknown field selector: ${need}" 1>&2
+      return 1
+      ;;
     esac
   else
     echo ""

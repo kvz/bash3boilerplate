@@ -33,7 +33,7 @@ __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=src/parse_url.sh
 source "${__dir}/parse_url.sh"
 
-function megamount () (
+function megamount() (
   set -o errexit
   set -o errtrace
   set -o nounset
@@ -56,7 +56,7 @@ function megamount () (
   port=$(parse_url "${url}" "port")
   path=$(parse_url "${url}" "path")
 
-  (umount -lf "${target}" || umount -f "${target}") > /dev/null 2>&1 || true
+  (umount -lf "${target}" || umount -f "${target}") >/dev/null 2>&1 || true
   mkdir -p "${target}"
   if [[ "${proto}" = "smb://" ]]; then
     mount -t cifs --verbose -o "username=${user},password=${pass},hard" "//${host}/${path}" "${target}"

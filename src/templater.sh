@@ -45,11 +45,11 @@ function templater() (
   fi
 
   if [[ "$(command -v perl)" ]]; then
-    perl -p -e 's/\$\{(\w+)\}/(exists $ENV{$1} ? $ENV{$1} : "\${$1}")/eg' < "${templateSrc}" > "${templateDst}"
+    perl -p -e 's/\$\{(\w+)\}/(exists $ENV{$1} ? $ENV{$1} : "\${$1}")/eg' <"${templateSrc}" >"${templateDst}"
   else
     cp -f "${templateSrc}" "${templateDst}"
 
-    for var in $(env |awk -F= '{print $1}' |grep -E '^(_[A-Z0-9_]+|[A-Z0-9][A-Z0-9_]*)$'); do
+    for var in $(env | awk -F= '{print $1}' | grep -E '^(_[A-Z0-9_]+|[A-Z0-9][A-Z0-9_]*)$'); do
       sed -i.bak -e "s#\${${var}}#${!var//#/\\#/}#g" "${templateDst}"
       # this .bak dance is done for BSD/GNU portability: https://stackoverflow.com/a/22084103/151666
       rm -f "${templateDst}.bak"

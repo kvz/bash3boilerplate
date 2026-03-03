@@ -16,7 +16,7 @@ function run_case() {
   output_file="$(mktemp "${TMPDIR:-/tmp}/main-longopt-errors.XXXXXX")"
 
   set +o errexit
-  "$@" > "${output_file}" 2>&1
+  "$@" >"${output_file}" 2>&1
   local rc="${?}"
   set -o errexit
 

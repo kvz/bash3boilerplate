@@ -53,7 +53,7 @@ function ini_val() (
   fi
 
   # Split on . for section. However, section is optional
-  IFS='.' read -r section key <<< "${sectionkey}"
+  IFS='.' read -r section key <<<"${sectionkey}"
   if [[ ! "${key}" ]]; then
     key="${section}"
     # default section if not given
@@ -61,14 +61,14 @@ function ini_val() (
   fi
 
   # get current value (if exists)
-  current=$(sed -En "/^\[/{h;d;};G;s/^${key}([[:blank:]]*)${delim}(.*)\n\[${section}\]$/\2/p" "${file}"|awk '{$1=$1};1')
+  current=$(sed -En "/^\[/{h;d;};G;s/^${key}([[:blank:]]*)${delim}(.*)\n\[${section}\]$/\2/p" "${file}" | awk '{$1=$1};1')
   # get current comment (if exists)
-  current_comment=$(sed -En "/^\[${section}\]/,/^\[.*\]/ s|^(${comment_delim}\[${key}\])(.*)|\2|p" "${file}"|awk '{$1=$1};1')
+  current_comment=$(sed -En "/^\[${section}\]/,/^\[.*\]/ s|^(${comment_delim}\[${key}\])(.*)|\2|p" "${file}" | awk '{$1=$1};1')
 
   if ! grep -q "\[${section}\]" "${file}"; then
     # create section if not exists (empty line to seperate new section for better readability)
-    echo  >> "${file}"
-    echo "[${section}]" >> "${file}"
+    echo >>"${file}"
+    echo "[${section}]" >>"${file}"
   fi
 
   if [[ ! "${val}" ]]; then
