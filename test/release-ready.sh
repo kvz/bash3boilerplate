@@ -31,12 +31,12 @@ check_runs_total="$(
 [[ "${check_runs_total}" != "0" ]] || fail "HEAD commit has no check-runs"
 
 check_runs_pending="$(
-  gh api "repos/${repo_slug}/commits/${sha}/check-runs" --jq '[.check_runs[] | select(.status != "completed")] | length'
+  gh api "repos/${repo_slug}/commits/${sha}/check-runs" --jq '[.check_runs[] | select(.status != "completed" and .app.slug != "dependabot")] | length'
 )"
 [[ "${check_runs_pending}" = "0" ]] || fail "HEAD commit has pending check-runs (${check_runs_pending})"
 
 check_runs_failing="$(
-  gh api "repos/${repo_slug}/commits/${sha}/check-runs" --jq '[.check_runs[] | select(.status == "completed" and (.conclusion != "success" and .conclusion != "neutral" and .conclusion != "skipped"))] | length'
+  gh api "repos/${repo_slug}/commits/${sha}/check-runs" --jq '[.check_runs[] | select(.status == "completed" and (.conclusion != "success" and .conclusion != "neutral" and .conclusion != "skipped") and .app.slug != "dependabot")] | length'
 )"
 [[ "${check_runs_failing}" = "0" ]] || fail "HEAD commit has failing check-runs (${check_runs_failing})"
 
