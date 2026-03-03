@@ -52,3 +52,11 @@
 - Key learning: Parser correctness needed explicit argument-token validation for long options to avoid ambiguous consumption.
 - Key learning: Strict mode (`set -e`) can make command-substitution pipelines fragile in utility functions even when behavior appears correct in non-strict shells.
 - Key learning: The previous lint pipeline created false confidence by scanning only shallow paths and style-checking a single file.
+
+## Iteration 4
+- Date: 2026-03-03.
+- Plan: Get draft PR CI to green status.
+- Progress: Opened draft PR #172 from `maintainer/overhaul-pass-1`.
+- Progress: Identified CI failure root cause from check annotations: runner config `macos-13-us-default` is unsupported in this environment.
+- Progress: Updated workflow matrix macOS label from `macos-13` to `macos-latest`.
+- Key learning: Runner-label support is environment-specific; use CI annotations to validate labels before assuming availability.
