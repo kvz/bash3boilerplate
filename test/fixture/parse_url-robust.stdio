@@ -12,3 +12,7 @@ pass=
 host=api.example.org
 port=9000
 path=
+# unknown-selector
+exit=1
+stdout=empty
+selector-guard=present

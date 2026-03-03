@@ -276,6 +276,10 @@ if [[ "${__b3bp_tmp_opts:-}" ]]; then
         __b3bp_tmp_long_opt="${OPTARG}"
       fi
 
+      if [[ ! "${__b3bp_tmp_long_opt}" =~ ^[a-zA-Z0-9][a-zA-Z0-9-]*$ ]]; then
+        help "Invalid use of script: --${__b3bp_tmp_long_opt}"
+      fi
+
       # Set opt to the short option corresponding to the long option
       __b3bp_tmp_varname="__b3bp_tmp_opt_long2short_${__b3bp_tmp_long_opt//-/_}"
       if [[ -z "${!__b3bp_tmp_varname:-}" ]]; then
@@ -298,12 +302,12 @@ if [[ "${__b3bp_tmp_opts:-}" ]]; then
         if [[ "${__b3bp_tmp_optarg_has_explicit}" = "1" ]]; then
           OPTARG="${__b3bp_tmp_optarg_value}"
         else
-          # --key value format: consume next token only if it is not another option.
-          printf -v "__b3bp_tmp_optarg_value" '%s' "${@:OPTIND:1}"
-          if [[ -z "${__b3bp_tmp_optarg_value}" ]] || [[ "${__b3bp_tmp_optarg_value}" = "-"* ]] ; then
+          # --key value format: consume next token as-is, including empty or hyphen-prefixed values.
+          if [[ "${!OPTIND+x}" != "x" ]]; then
             __b3bp_set_opt_display_suffix "${__b3bp_tmp_opt}" "__b3bp_tmp_opt_long_suffix"
             help "Option -${__b3bp_tmp_opt}${__b3bp_tmp_opt_long_suffix} requires an argument"
           fi
+          printf -v "__b3bp_tmp_optarg_value" '%s' "${!OPTIND-}"
           OPTARG="${__b3bp_tmp_optarg_value}"
           ((OPTIND+=1))
         fi
@@ -312,12 +316,14 @@ if [[ "${__b3bp_tmp_opts:-}" ]]; then
     fi
 
     __b3bp_tmp_value="${OPTARG}"
+    __b3bp_tmp_varname="__b3bp_tmp_has_arg_${__b3bp_tmp_opt:0:1}"
+    __b3bp_tmp_opt_has_arg="${!__b3bp_tmp_varname:-0}"
 
     __b3bp_tmp_varname="__b3bp_tmp_is_array_${__b3bp_tmp_opt:0:1}"
     if [[ "${!__b3bp_tmp_varname}" != "0" ]]; then
       # repeatables
       # shellcheck disable=SC2016
-      if [[ -z "${OPTARG}" ]]; then
+      if [[ "${__b3bp_tmp_opt_has_arg}" = "0" ]]; then
         # repeatable flags, they increcemnt
         __b3bp_tmp_varname="arg_${__b3bp_tmp_opt:0:1}"
         debug "cli arg ${__b3bp_tmp_varname} = (${__b3bp_tmp_default}) -> ${!__b3bp_tmp_varname}"
@@ -335,7 +341,7 @@ if [[ "${__b3bp_tmp_opts:-}" ]]; then
       __b3bp_tmp_varname="arg_${__b3bp_tmp_opt:0:1}"
       __b3bp_tmp_default="${!__b3bp_tmp_varname}"
 
-      if [[ -z "${OPTARG}" ]]; then
+      if [[ "${__b3bp_tmp_opt_has_arg}" = "0" ]]; then
         __b3bp_tmp_value=$((__b3bp_tmp_default + 1))
       fi
 

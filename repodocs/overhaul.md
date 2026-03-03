@@ -318,3 +318,45 @@
 - Progress: Pushed council refactor implementation commit `c4bcf74` on `maintainer/overhaul-pass-1`.
 - Validation: PR `#172` checks passed on commit `c4bcf74` (`ci (ubuntu-latest)`, `ci (macos-latest)`, `ci-bash3-docker`).
 - Key learning: Parser maintainability refactors can stay low-risk when backed by contract scenarios and Bash3 Docker coverage.
+
+## Iteration 32
+- Date: 2026-03-03.
+- Plan: Execute `council-review` findings by first adding failing contract coverage for parser long-option edge cases, release-ready check API behavior, and `parse_url` unknown selector handling.
+- Plan: Implement fixes for valid findings in `main.sh`, `test/release-ready.sh`, and `src/parse_url.sh` while preserving Bash3 compatibility.
+- Plan: Validate with repo-required checks (`yarn check`) plus existing lint/test/Docker Bash3 lanes.
+
+## Iteration 33
+- Date: 2026-03-03.
+- Progress: Added failing-first coverage for council findings across `main-longopt-errors`, `parse_url-robust`, and `release-ready-contracts` scenarios.
+- Progress: Fixed long-option parser behavior to accept hyphen-prefixed values and explicit empty-string values, and to reject invalid long-option tokens before indirect expansion.
+- Progress: Replaced release gate commit-status check with check-runs based validation in `test/release-ready.sh`.
+- Progress: Added explicit unknown-selector guard in `src/parse_url.sh` with deterministic error output.
+- Validation: `yarn check` is not available in this repository (no such script); validated with project lanes instead.
+- Validation: `SHELLCHECK_SEVERITY=warning yarn lint:shellcheck` passes.
+- Validation: `yarn lint:style` passes.
+- Validation: `yarn lint:docs` passes.
+- Validation: `yarn test:fast` passes.
+- Validation: `yarn test` passes.
+- Validation: `yarn test:bash3:docker` passes.
+- Key learning: Contract scenarios are effective for proving parser and release-gate edge cases without introducing brittle fixture coupling.
+
+## Iteration 34
+- Date: 2026-03-03.
+- Plan: Address remaining council finding on release tagging order by adding a fail-first contract scenario for `package.json` `release` command semantics.
+- Plan: Update release command to defer tag creation until after version replacements are committed.
+- Plan: Re-run fast/full/Bash3 test lanes and lint checks after the release script change.
+
+## Iteration 35
+- Date: 2026-03-03.
+- Progress: Re-ran `council-review`; it repeated previously addressed findings and surfaced one additional release-tag ordering risk.
+- Progress: Added `test/scenario/release-command-contracts/run.sh` with fixtures to enforce release command ordering and explicit post-commit tag creation.
+- Progress: Updated `package.json` `release` script to use `npm version --no-git-tag-version`, then `yarn version:replace`, commit versioned files, create git tag, and push.
+- Progress: Updated README release governance contract mapping to include `release-command-contracts` scenario.
+- Validation: `test/acceptance.sh release-command-contracts` fails before release script fix and passes after fix.
+- Validation: `SHELLCHECK_SEVERITY=warning yarn lint:shellcheck` passes.
+- Validation: `yarn lint:style` passes.
+- Validation: `yarn lint:docs` passes.
+- Validation: `yarn test:fast` passes.
+- Validation: `yarn test` passes.
+- Validation: `yarn test:bash3:docker` passes.
+- Key learning: A dedicated contract around release-command ordering catches subtle tag/commit sequencing regressions that CI green checks alone do not detect.

@@ -24,8 +24,21 @@ repo_slug="$(gh repo view --json nameWithOwner --jq '.nameWithOwner' 2> /dev/nul
 [[ -n "${repo_slug}" ]] || fail "unable to resolve repository slug via gh repo view"
 
 sha="$(git rev-parse HEAD)"
-status_state="$(gh api "repos/${repo_slug}/commits/${sha}/status" --jq '.state')"
-[[ "${status_state}" = "success" ]] || fail "HEAD commit checks must be green (state: ${status_state})"
+check_runs_total="$(
+  gh api "repos/${repo_slug}/commits/${sha}/check-runs" --jq '.total_count' 2> /dev/null || true
+)"
+[[ -n "${check_runs_total}" ]] || fail "unable to read check-runs for HEAD commit"
+[[ "${check_runs_total}" != "0" ]] || fail "HEAD commit has no check-runs"
+
+check_runs_pending="$(
+  gh api "repos/${repo_slug}/commits/${sha}/check-runs" --jq '[.check_runs[] | select(.status != "completed")] | length'
+)"
+[[ "${check_runs_pending}" = "0" ]] || fail "HEAD commit has pending check-runs (${check_runs_pending})"
+
+check_runs_failing="$(
+  gh api "repos/${repo_slug}/commits/${sha}/check-runs" --jq '[.check_runs[] | select(.status == "completed" and (.conclusion != "success" and .conclusion != "neutral" and .conclusion != "skipped"))] | length'
+)"
+[[ "${check_runs_failing}" = "0" ]] || fail "HEAD commit has failing check-runs (${check_runs_failing})"
 
 main_section="$(
   awk '

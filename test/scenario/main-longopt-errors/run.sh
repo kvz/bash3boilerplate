@@ -22,13 +22,16 @@ function run_case() {
 
   echo "# ${label}"
   echo "exit: ${rc}"
-  grep -E 'Invalid use of script: --|requires an argument|does not take an argument|arg_f:|arg_d:' "${output_file}" || true
+  grep -E 'Invalid use of script: --|requires an argument|does not take an argument|arg_f:|arg_d:' "${output_file}" \
+    | grep -Ev '^\+\(' || true
 
   rm -f "${output_file}"
 }
 
 run_case "unknown-long-option" bash "${__root}/main.sh" --unknown -f /tmp/x
-run_case "missing-value-consumes-option" bash "${__root}/main.sh" --file --debug
+run_case "unknown-long-option-invalid-chars" bash "${__root}/main.sh" --invalid.option -f /tmp/x
+run_case "hyphen-prefixed-value" bash "${__root}/main.sh" --file - --debug
+run_case "empty-string-value" bash "${__root}/main.sh" -f /tmp/x --temp "" --debug
 run_case "missing-value-end-of-input" bash "${__root}/main.sh" --file
 run_case "flag-assignment-on-boolean" bash "${__root}/main.sh" -f /tmp/x --debug=true
 run_case "double-dash-separator" bash "${__root}/main.sh" -f /tmp/x -- --debug

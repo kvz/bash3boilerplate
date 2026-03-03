@@ -203,6 +203,7 @@ Scenario coverage:
 Scenario coverage:
 
 - `test/scenario/release-ready-contracts/run.sh`
+- `test/scenario/release-command-contracts/run.sh`
 
 ## Migration Guide
 

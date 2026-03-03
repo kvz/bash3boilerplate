@@ -2,9 +2,17 @@ ACCPTST:STDIO_REPLACE_DATETIMES
 # unknown-long-option
 exit: 1
  Invalid use of script: --unknown
-# missing-value-consumes-option
+# unknown-long-option-invalid-chars
 exit: 1
- Option -f (--file) requires an argument
+ Invalid use of script: --invalid.option
+# hyphen-prefixed-value
+exit: 1
+{datetime} UTC [32m[     info][0m arg_f: -
+{datetime} UTC [32m[     info][0m arg_d: 1
+# empty-string-value
+exit: 1
+{datetime} UTC [32m[     info][0m arg_f: {tmpdir}/x
+{datetime} UTC [32m[     info][0m arg_d: 1
 # missing-value-end-of-input
 exit: 1
  Option -f (--file) requires an argument

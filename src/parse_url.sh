@@ -86,7 +86,15 @@ function parse_url() (
   fi
 
   if [[ "${need}" ]]; then
-    echo "${!need}"
+    case "${need}" in
+      proto|user|pass|host|port|path)
+        echo "${!need}"
+        ;;
+      *)
+        echo "parse_url: unknown field selector: ${need}" 1>&2
+        return 1
+        ;;
+    esac
   else
     echo ""
     echo " Use second argument to return just 1 variable."
