@@ -47,8 +47,6 @@ fi
 __dir="$(cd "$(dirname "${BASH_SOURCE[${__b3bp_tmp_source_idx:-0}]}")" && pwd)"
 __file="${__dir}/$(basename "${BASH_SOURCE[${__b3bp_tmp_source_idx:-0}]}")"
 __base="$(basename "${__file}" .sh)"
-# shellcheck disable=SC2034,SC2015
-__invocation="$(printf %q "${__file}")$( (($#)) && printf ' %q' "$@" || true)"
 
 # Define the environment variables (and their defaults) that this script depends on
 LOG_LEVEL="${LOG_LEVEL:-6}" # 7 = debug -> 0 = emergency
@@ -84,9 +82,10 @@ function __b3bp_log () {
   local color="${!colorvar:-${color_error}}"
   local color_reset="\\x1b[0m"
 
+  # Disable color when: NO_COLOR=true, TERM is not xterm/screen, or stderr
+  # is not a terminal. Setting NO_COLOR=false forces color on regardless.
   if [[ "${NO_COLOR:-}" = "true" ]] || { [[ "${TERM:-}" != "xterm"* ]] && [[ "${TERM:-}" != "screen"* ]]; } || [[ ! -t 2 ]]; then
     if [[ "${NO_COLOR:-}" != "false" ]]; then
-      # Don't use colors on pipes or non-recognized terminals
       color=""; color_reset=""
     fi
   fi
@@ -99,6 +98,8 @@ function __b3bp_log () {
   done <<< "${@:-}"
 }
 
+# The `; true` ensures the function exits 0 even when the log level check
+# short-circuits the && chain, preventing failures under `set -o errexit`.
 function emergency () {                                __b3bp_log emergency "${@}"; exit 1; }
 function alert ()     { [[ "${LOG_LEVEL:-0}" -ge 1 ]] && __b3bp_log alert "${@}"; true; }
 function critical ()  { [[ "${LOG_LEVEL:-0}" -ge 2 ]] && __b3bp_log critical "${@}"; true; }
@@ -324,7 +325,7 @@ if [[ "${__b3bp_tmp_opts:-}" ]]; then
       # repeatables
       # shellcheck disable=SC2016
       if [[ "${__b3bp_tmp_opt_has_arg}" = "0" ]]; then
-        # repeatable flags, they increcemnt
+        # repeatable flags, they increment
         __b3bp_tmp_varname="arg_${__b3bp_tmp_opt:0:1}"
         debug "cli arg ${__b3bp_tmp_varname} = (${__b3bp_tmp_default}) -> ${!__b3bp_tmp_varname}"
           # shellcheck disable=SC2004
@@ -437,7 +438,6 @@ fi
 
 # help mode
 if [[ "${arg_h:?}" = "1" ]]; then
-  # Help exists with code 1
   help "Help using ${0}"
 fi
 

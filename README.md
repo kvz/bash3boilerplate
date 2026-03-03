@@ -10,9 +10,6 @@
 - [Testing](#testing)
 - [Release Checklist](#release-checklist)
 - [Design Principles](#design-principles)
-- [Behavior Contracts](#behavior-contracts)
-- [Migration Guide](#migration-guide)
-- [Next-Level Roadmap](#next-level-roadmap)
 - [Frequently Asked Questions](#frequently-asked-questions)
 - [Best Practices](#best-practices)
 - [Who uses b3bp](#who-uses-b3bp)
@@ -49,9 +46,9 @@ dependency.
 - Conventions that will make sure that all your scripts follow the same, battle-tested structure
 - Safe by default (break on error, pipefail, etc.)
 - Configuration by environment variables
-- Simple command-line argument parsing that requires no external dependencies. Definitions are parsed from help info, ensuring there will be no duplication
+- Simple command-line argument parsing that requires no external dependencies. Definitions are parsed from help info, ensuring there will be no duplication. Unknown options fail with a clear error, missing values fail fast, and `--` stops option parsing.
 - Helpful magic variables like `__file` and `__dir`
-- Logging that supports colors and is compatible with [Syslog Severity levels](https://en.wikipedia.org/wiki/Syslog#Severity_levels), as well as the [twelve-factor](https://12factor.net/) guidelines
+- Logging to STDERR, with colors and [Syslog Severity levels](https://en.wikipedia.org/wiki/Syslog#Severity_levels). Supports `NO_COLOR` and [twelve-factor](https://12factor.net/) guidelines.
 
 ## Installation
 
@@ -152,124 +149,6 @@ b3bp targets Bash 3+ compatibility, not shell-agnostic compatibility (`dash`, `z
 1. Compatibility matrix:
 Use both native macOS CI and Linux Docker Bash 3 lanes. They are complementary and catch different classes of portability issues.
 
-## Behavior Contracts
-
-### Parser contracts
-
-- Unknown options fail with a clear error.
-- Required option values fail fast and do not consume the next option token.
-- Flags reject `--flag=value` assignment when no value is allowed.
-- `--` separator stops option parsing.
-
-Scenario coverage:
-
-- `test/scenario/main-longopt/run.sh`
-- `test/scenario/main-longopt-errors/run.sh`
-- `test/scenario/main-usage-validation/run.sh`
-
-### Logging contracts
-
-- Log output is written to STDERR.
-- Log levels gate output consistently (`debug`..`emergency`).
-- Color handling supports `NO_COLOR` semantics and terminal detection.
-
-Scenario coverage:
-
-- `test/scenario/main-debug/run.sh`
-- `test/scenario/main-nocolor/run.sh`
-- `test/scenario/main-logging-contracts/run.sh`
-- `test/scenario/double-source/run.sh`
-
-### Library robustness contracts
-
-- `parse_url` handles missing optional URL components without failing in strict mode.
-- `ini_val` handles default-section keys and comment-preserving updates consistently.
-- `templater` handles special-character values and expected missing-template failures deterministically.
-
-Scenario coverage:
-
-- `test/scenario/parse_url-strict/run.sh`
-- `test/scenario/parse_url-robust/run.sh`
-- `test/scenario/ini_val/run.sh`
-- `test/scenario/ini_val-robust/run.sh`
-- `test/scenario/templater/run.sh`
-- `test/scenario/templater-robust/run.sh`
-
-## Migration Guide
-
-### From top-level strict mode in reusable libs
-
-Old pattern:
-
-```bash
-set -o errexit
-set -o nounset
-set -o pipefail
-```
-
-New pattern for reusable `src/*.sh` functions:
-
-```bash
-my_fn() (
-  set -o errexit
-  set -o errtrace
-  set -o nounset
-  set -o pipefail
-  # body
-)
-```
-
-### From brittle source/execute guards
-
-Old pattern:
-
-```bash
-if [[ "${BASH_SOURCE[0]}" = "${0}" ]]; then
-  my_fn "$@"
-  exit $?
-fi
-export -f my_fn
-```
-
-New pattern:
-
-```bash
-if [[ "${BASH_SOURCE[0]:-}" != "${0}" ]]; then
-  export -f my_fn
-else
-  my_fn "$@"
-  exit
-fi
-```
-
-### Style Rules
-
-CI-enforced rules:
-
-1. Brace variable expansions (for example `${VAR}` instead of `$VAR`).
-1. Prefer `[[ ... ]]` over `[ ... ]`.
-1. Use single `=` in `[[ ... ]]` comparisons.
-1. Avoid leading tab characters and trailing whitespace.
-1. Keep ShellCheck clean at the configured CI severity.
-
-Additional recommendations may exist, but only the above are required by CI.
-
-## Next-Level Roadmap
-
-### Week 1
-
-1. Define parser/logging behavior spec and map existing acceptance scenarios to named contracts.
-1. Add focused parser edge-case tests (unknown long opts, missing values, invalid `--flag=value`, `--` separator behavior).
-1. Add focused library robustness tests (`ini_val`, `parse_url`, `templater`) for malformed and boundary inputs.
-1. Introduce a fast local target set (`make test-fast`, `make test-all`) for contributor ergonomics.
-
-### Week 2
-
-1. Add a release checklist that enforces green CI and changelog quality before tagging.
-1. Tighten documentation by replacing brittle line-link references with stable behavior documentation.
-1. Add a migration section for older b3bp usage patterns to current recommended patterns.
-1. Review and trim inconsistent style guidance so all “preached” rules are enforceable in CI.
-
 ## Frequently Asked Questions
 
 Please see the [FAQ.md](./FAQ.md) file.
@@ -322,11 +201,14 @@ $ my_script some more args --blah
 
 ### Coding style
 
+These rules are CI-enforced:
+
 1. Use two spaces for indentation; do not use tab characters.
 1. Do not introduce trailing whitespace on lines.
 1. Use a single equal sign when checking `if [[ "${NAME}" = "Kevin" ]]`.
 1. Use the bash test operator (`[[ ... ]]`) rather than `[` or `test`.
 1. Use braces around variable expansions: `${VAR}`.
+1. Keep ShellCheck clean at the configured CI severity.
 
 ### Safety and Portability
 

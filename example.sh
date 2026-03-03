@@ -51,7 +51,8 @@ EOF
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/main.sh"
 
 
-### Signal trapping and backtracing
+### Overrides — these sections duplicate main.sh defaults intentionally,
+### showing how a sourcing script can customize traps and argument handling.
 ##############################################################################
 
 function __b3bp_cleanup_before_exit () {
@@ -94,7 +95,6 @@ fi
 
 # help mode
 if [[ "${arg_h:?}" = "1" ]]; then
-  # Help exists with code 1
   help "Help using ${0}"
 fi
 

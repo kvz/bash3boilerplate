@@ -36,11 +36,11 @@ function templater() (
   local var=""
 
   if [[ ! -f "${templateSrc}" ]]; then
-    echo "ERROR: Template source '${templateSrc}' needs to exist"
+    echo "ERROR: Template source '${templateSrc}' needs to exist" 1>&2
     exit 1
   fi
   if [[ ! "${templateDst}" ]]; then
-    echo "ERROR: Template destination '${templateDst}' needs to be specified"
+    echo "ERROR: Template destination '${templateDst}' needs to be specified" 1>&2
     exit 1
   fi
 

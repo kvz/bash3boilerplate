@@ -7,7 +7,7 @@
 #
 # Usage:
 #
-#  ./deploy.sh
+#  ./acceptance.sh
 #
 # Based on a template by BASH3 Boilerplate v2.0.0
 # https://bash3boilerplate.sh/#authors
@@ -94,12 +94,10 @@ while IFS=$'\n' read -r scenario; do
         -e "s@${__root}@{root}@g" "${curFile}" \
         -e "s@${__sysTmpDir}@{tmpdir}@g" "${curFile}" \
         -e "s@/tmp@{tmpdir}@g" "${curFile}" \
-        -e "s@${HOME:-/home/travis}@{home}@g" "${curFile}" \
-        -e "s@${USER:-travis}@{user}@g" "${curFile}" \
-        -e "s@travis@{user}@g" "${curFile}" \
+        -e "s@${HOME:-/home/runner}@{home}@g" "${curFile}" \
+        -e "s@${USER:-runner}@{user}@g" "${curFile}" \
         -e "s@kvz@{user}@g" "${curFile}" \
         -e "s@{root}/node_modules/\\.bin/node@{node}@g" "${curFile}" \
-        -e "s@{home}/build/{user}/fre{node}@{node}@g" "${curFile}" \
         -e "s@${HOSTNAME}@{hostname}@g" "${curFile}" \
         -e "s@${__arch}@{arch}@g" "${curFile}" \
         -e "s@${OSTYPE}@{OSTYPE}@g" "${curFile}" \
