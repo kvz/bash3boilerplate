@@ -67,3 +67,25 @@
 - Progress: Verified draft PR #172 is open and up to date with branch head `9d243a7`.
 - Progress: Verified CI run `22615452357` completed successfully on both `ci (ubuntu-latest)` and `ci (macos-latest)`.
 - Key learning: `gh pr checks --watch` gives a reliable end-to-end view once check runs have been registered for the latest commit.
+
+## Iteration 6
+- Date: 2026-03-03.
+- Plan: Add a Dockerized Bash 3.2.57 test lane runnable locally and in CI.
+- Plan: Keep native macOS CI coverage and use Docker lane as Linux-reproducible complement.
+- Plan: Add documented local commands for running Bash 3 tests in Docker.
+- Plan: Wire CI to execute the Docker Bash 3 lane on pull requests.
+
+## Iteration 7
+- Date: 2026-03-03.
+- Progress: Verified `bash:3.2.57` image availability and confirmed runtime `GNU bash, version 3.2.57(1)-release`.
+- Progress: Added `test/bash3-docker.sh` to run acceptance tests inside Docker with Bash 3.2.57.
+- Progress: Added `test:bash3:docker` npm script for local maintainers.
+- Progress: Added `ci-bash3-docker` GitHub Actions job to run Docker Bash 3 tests on pull requests.
+- Progress: Fixed Alpine tool incompatibilities by installing GNU `coreutils` and `diffutils` in the Docker test environment.
+- Progress: Added README testing instructions for regular and Docker Bash 3 test lanes.
+- Validation: `yarn test:bash3:docker` passes locally.
+- Validation: `SHELLCHECK_SEVERITY=warning yarn lint:shellcheck` passes locally.
+- Validation: `yarn lint:style` passes locally.
+- Validation: `yarn test` passes locally.
+- Key learning: The official `bash:3.2.57` image is Alpine-based, so BusyBox tool behavior differs from GNU utilities used by the acceptance harness.
+- Key learning: A Docker Bash 3 lane is practical and reproducible, but native macOS CI still remains necessary for macOS-specific behavior.

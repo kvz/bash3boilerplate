@@ -39,3 +39,13 @@ jobs:
       - name: Test
         run: |
           corepack yarn test
+
+  ci-bash3-docker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Test In Docker (Bash 3.2.57)
+        run: |
+          test/bash3-docker.sh

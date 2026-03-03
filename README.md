@@ -7,6 +7,7 @@
 - [Features](#features)
 - [Installation](#installation)
 - [Changelog](#changelog)
+- [Testing](#testing)
 - [Frequently Asked Questions](#frequently-asked-questions)
 - [Best Practices](#best-practices)
 - [Who uses b3bp](#who-uses-b3bp)
@@ -82,6 +83,22 @@ Even though this option introduces a Node.js dependency, it does allow for easy 
 ## Changelog
 
 Please see the [CHANGELOG.md](./CHANGELOG.md) file.
+
+## Testing
+
+Run the regular test suite:
+
+```bash
+yarn test
+```
+
+Run the Bash 3.2.57 compatibility suite in Docker:
+
+```bash
+yarn test:bash3:docker
+```
+
+This Docker lane complements native macOS CI coverage; it does not replace it.
 
 ## Frequently Asked Questions
 
