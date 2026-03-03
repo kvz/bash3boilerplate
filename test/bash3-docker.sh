@@ -20,6 +20,6 @@ docker run --rm \
     set -o pipefail
 
     apk add --no-cache coreutils diffutils nodejs perl >/dev/null
-    bash --version | head -n 1
+    bash --version
     test/acceptance.sh
   '

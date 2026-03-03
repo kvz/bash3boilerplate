@@ -147,3 +147,12 @@
 - Validation: `SHELLCHECK_SEVERITY=warning yarn lint:shellcheck` passes.
 - Validation: `yarn test` passes.
 - Key learning: A single canonical principles location in README reduces inconsistency and lowers documentation maintenance overhead.
+
+## Iteration 14
+- Date: 2026-03-03.
+- Progress: Investigated failing `ci-bash3-docker` run on PR head `1e53e28`; root cause was `pipefail` + `bash --version | head -n 1` causing SIGPIPE exit code `141`.
+- Progress: Updated `test/bash3-docker.sh` to avoid the pipe and print `bash --version` directly.
+- Validation: `yarn test:bash3:docker` passes.
+- Validation: `SHELLCHECK_SEVERITY=warning yarn lint:shellcheck` passes.
+- Validation: `yarn test` passes.
+- Key learning: Under `pipefail`, convenience pipes in diagnostics can become hard failures in CI even if they look harmless locally.
