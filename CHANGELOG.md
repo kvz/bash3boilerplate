@@ -9,7 +9,14 @@ Unplanned.
 ## main
 
 Released: TBA.
-[Diff](https://github.com/kvz/bash3boilerplate/compare/2.7.2...main).
+[Diff](https://github.com/kvz/bash3boilerplate/compare/v2.8.0...main).
+
+- [ ]
+
+## 2.8.0
+
+Released: 2026-03-03.
+[Diff](https://github.com/kvz/bash3boilerplate/compare/2.7.2...v2.8.0).
 
 - [x] Add shfmt formatter (`shfmt -i 2 -bn`) with CI-enforced lint gate (#84)
 - [x] Fix long-option parser edge cases: unknown options, missing values, invalid `--flag=value` on booleans
