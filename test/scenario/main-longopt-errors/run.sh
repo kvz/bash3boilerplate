@@ -7,6 +7,8 @@ set -o nounset
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 __root="$(cd "$(dirname "$(dirname "$(dirname "${__dir}")")")" && pwd)"
 
+echo "ACCPTST:STDIO_REPLACE_DATETIMES"
+
 function run_case() {
   local label="${1}"
   shift
@@ -20,7 +22,7 @@ function run_case() {
 
   echo "# ${label}"
   echo "exit: ${rc}"
-  grep -E 'Invalid use of script: --|requires an argument|arg_f:|arg_d:' "${output_file}" || true
+  grep -E 'Invalid use of script: --|requires an argument|does not take an argument|arg_f:|arg_d:' "${output_file}" || true
 
   rm -f "${output_file}"
 }
@@ -28,3 +30,5 @@ function run_case() {
 run_case "unknown-long-option" bash "${__root}/main.sh" --unknown -f /tmp/x
 run_case "missing-value-consumes-option" bash "${__root}/main.sh" --file --debug
 run_case "missing-value-end-of-input" bash "${__root}/main.sh" --file
+run_case "flag-assignment-on-boolean" bash "${__root}/main.sh" -f /tmp/x --debug=true
+run_case "double-dash-separator" bash "${__root}/main.sh" -f /tmp/x -- --debug

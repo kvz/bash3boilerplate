@@ -1,3 +1,4 @@
+ACCPTST:STDIO_REPLACE_DATETIMES
 # unknown-long-option
 exit: 1
  Invalid use of script: --unknown
@@ -7,3 +8,10 @@ exit: 1
 # missing-value-end-of-input
 exit: 1
  Option -f (--file) requires an argument
+# flag-assignment-on-boolean
+exit: 1
+ Option -d (--debug) does not take an argument
+# double-dash-separator
+exit: 1
+{datetime} UTC [32m[     info][0m arg_f: {tmpdir}/x
+{datetime} UTC [32m[     info][0m arg_d: 0

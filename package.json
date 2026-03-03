@@ -15,6 +15,8 @@
     "release:minor": "env SEMANTIC=minor yarn release",
     "release:patch": "env SEMANTIC=patch yarn release",
     "release": "npm version ${SEMANTIC:-patch} -m \"Release %s\" && yarn version:replace && git commit main.sh src/*.sh -m 'Update version' && git push && git push --tags && npm publish",
+    "test:fast": "test/acceptance.sh main-longopt-errors && test/acceptance.sh parse_url-strict",
+    "test:all": "yarn lint && yarn test && yarn test:bash3:docker",
     "test:debug:main:repeated": "env LOG_LEVEL=7 test/acceptance.sh main-repeated",
     "test:bash3:docker": "test/bash3-docker.sh",
     "test:update": "env SAVE_FIXTURES=true yarn test",

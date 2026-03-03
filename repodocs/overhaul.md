@@ -156,3 +156,23 @@
 - Validation: `SHELLCHECK_SEVERITY=warning yarn lint:shellcheck` passes.
 - Validation: `yarn test` passes.
 - Key learning: Under `pipefail`, convenience pipes in diagnostics can become hard failures in CI even if they look harmless locally.
+
+## Iteration 15
+- Date: 2026-03-03.
+- Plan: Start roadmap Week 1 by adding a lightweight parser/logging behavior spec and mapping existing scenarios to explicit contracts.
+- Plan: Add parser edge-case coverage for `--` separator behavior and invalid long-option assignment to flags.
+- Plan: Add contributor-friendly fast/all test commands through npm scripts (`test:fast`, `test:all`).
+- Plan: Validate with lint, normal tests, and Docker Bash 3 tests.
+
+## Iteration 16
+- Date: 2026-03-03.
+- Progress: Extended `test/scenario/main-longopt-errors/run.sh` with two new parser contract cases: `flag-assignment-on-boolean` and `double-dash-separator`.
+- Progress: Updated `test/fixture/main-longopt-errors.stdio` with deterministic datetime replacement marker and new expected outputs.
+- Progress: Added npm scripts `test:fast` and `test:all` in `package.json` for contributor ergonomics and release-confidence runs.
+- Progress: Added `Behavior Contracts` section to `README.md`, including parser/logging contracts and scenario mapping.
+- Validation: `yarn test:fast` passes.
+- Validation: `SHELLCHECK_SEVERITY=warning yarn lint:shellcheck` passes.
+- Validation: `yarn lint:style` passes.
+- Validation: `yarn test` passes.
+- Validation: `yarn test:bash3:docker` passes.
+- Key learning: Explicit contract mapping in README improves discoverability of why each scenario exists and which behavior it protects.

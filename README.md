@@ -9,6 +9,7 @@
 - [Changelog](#changelog)
 - [Testing](#testing)
 - [Design Principles](#design-principles)
+- [Behavior Contracts](#behavior-contracts)
 - [Next-Level Roadmap](#next-level-roadmap)
 - [Frequently Asked Questions](#frequently-asked-questions)
 - [Best Practices](#best-practices)
@@ -94,10 +95,22 @@ Run the regular test suite:
 yarn test
 ```
 
+Run a fast contract-focused subset:
+
+```bash
+yarn test:fast
+```
+
 Run the Bash 3.2.57 compatibility suite in Docker:
 
 ```bash
 yarn test:bash3:docker
+```
+
+Run all checks used for release confidence:
+
+```bash
+yarn test:all
 ```
 
 This Docker lane complements native macOS CI coverage; it does not replace it.
@@ -120,6 +133,33 @@ Unknown options, missing values, and long-option formats are testable behavior g
 b3bp targets Bash 3+ compatibility, not shell-agnostic compatibility (`dash`, `zsh`, `ksh`, etc. are out of scope).
 1. Compatibility matrix:
 Use both native macOS CI and Linux Docker Bash 3 lanes. They are complementary and catch different classes of portability issues.
+
+## Behavior Contracts
+
+### Parser contracts
+
+- Unknown options fail with a clear error.
+- Required option values fail fast and do not consume the next option token.
+- Flags reject `--flag=value` assignment when no value is allowed.
+- `--` separator stops option parsing.
+
+Scenario coverage:
+
+- `test/scenario/main-longopt/run.sh`
+- `test/scenario/main-longopt-errors/run.sh`
+- `test/scenario/main-usage-validation/run.sh`
+
+### Logging contracts
+
+- Log output is written to STDERR.
+- Log levels gate output consistently (`debug`..`emergency`).
+- Color handling supports `NO_COLOR` semantics and terminal detection.
+
+Scenario coverage:
+
+- `test/scenario/main-debug/run.sh`
+- `test/scenario/main-nocolor/run.sh`
+- `test/scenario/double-source/run.sh`
 
 ## Next-Level Roadmap
 
