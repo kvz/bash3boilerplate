@@ -6,14 +6,23 @@ Here's is a combined todo/done list. You can see what todos are planned for the 
 
 Unplanned.
 
-- [ ] Better style guide checking (#84)
-
 ## main
 
 Released: TBA.
 [Diff](https://github.com/kvz/bash3boilerplate/compare/2.7.2...main).
 
-- [ ]
+- [x] Add shfmt formatter (`shfmt -i 2 -bn`) with CI-enforced lint gate (#84)
+- [x] Fix long-option parser edge cases: unknown options, missing values, invalid `--flag=value` on booleans
+- [x] Scope strict mode in `src/*.sh` libraries to function execution via subshell bodies
+- [x] Refactor `parse_url.sh` to be strict-mode-safe without grep pipelines
+- [x] Add Dockerized Bash 3.2.57 test lane for local and CI
+- [x] Add release-ready gate (`yarn release:ready`) with branch, CI, and changelog checks
+- [x] Add acceptance scenarios: long-option errors, logging contracts, parse_url/ini_val/templater robustness
+- [x] Add `yarn test:fast` for quick contract-focused subset
+- [x] Clean up `main.sh` readability: consolidated shellcheck disables, consistent formatting, improved comments
+- [x] Trim README from 374 to ~190 lines; move contributor content to new CONTRIBUTING.md
+- [x] Enrich FAQ with entrypoint-vs-library guidance and strict-mode scoping
+- [x] Add Linux + macOS CI matrix with macOS dependency installation
 
 ## 2.7.2
 

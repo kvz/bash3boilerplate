@@ -7,7 +7,7 @@
 #
 # Based on:
 #
-#  - http://stackoverflow.com/a/6174447/151666
+#  - https://stackoverflow.com/a/6174447/151666
 #
 # Usage as a function:
 #
@@ -18,49 +18,83 @@
 #
 #  parse_url.sh 'http://johndoe:abc123@example.com:8080/index.html'
 #
-# Based on a template by BASH3 Boilerplate vv2.7.2
-# http://bash3boilerplate.sh/#authors
+# Based on a template by BASH3 Boilerplate v2.7.2
+# https://bash3boilerplate.sh/#authors
 #
 # The MIT License (MIT)
 # Copyright (c) 2013 Kevin van Zonneveld and contributors
 # You are not obligated to bundle the LICENSE file with your b3bp projects as long
 # as you leave these references intact in the header comments of your source files.
 
-function parse_url() {
-  local parse="${1}"
+function parse_url() (
+  set -o errexit
+  set -o errtrace
+  set -o nounset
+  set -o pipefail
+
+  local parse="${1:-}"
   local need="${2:-}"
 
-  local proto
+  local proto=""
   local url
-  local userpass
-  local user
-  local pass
+  local userpass=""
+  local user=""
+  local pass=""
   local hostport
-  local host
-  local port
-  local path
+  local host=""
+  local port=""
+  local path=""
 
-  proto="$(echo "${parse}" | grep :// | sed -e's,^\(.*://\).*,\1,g')"
-  url="${parse/${proto}/}"
-  userpass="$(echo "${url}" | grep @ | cut -d@ -f1)"
-  user="$(echo "${userpass}" | grep : | cut -d: -f1)"
-  pass="$(echo "${userpass}" | grep : | cut -d: -f2)"
-  hostport="$(echo "${url/${userpass}@/}" | cut -d/ -f1)"
-  host="$(echo "${hostport}" | grep : | cut -d: -f1)"
-  port="$(echo "${hostport}" | grep : | cut -d: -f2)"
-  path="$(echo "${url}" | grep / | cut -d/ -f2-)"
+  url="${parse}"
+
+  if [[ "${url}" = *"://"* ]]; then
+    proto="${url%%://*}://"
+    url="${url#*://}"
+  fi
+
+  if [[ "${url}" = *"@"* ]]; then
+    userpass="${url%%@*}"
+    url="${url#*@}"
+  fi
+
+  hostport="${url%%/*}"
+  if [[ "${url}" = */* ]]; then
+    path="${url#*/}"
+  fi
+
+  if [[ "${userpass}" = *":"* ]]; then
+    user="${userpass%%:*}"
+    pass="${userpass#*:}"
+  else
+    user="${userpass}"
+  fi
+
+  if [[ "${hostport}" = *":"* ]]; then
+    host="${hostport%%:*}"
+    port="${hostport#*:}"
+  else
+    host="${hostport}"
+  fi
 
   [[ ! "${user}" ]] && user="${userpass}"
   [[ ! "${host}" ]] && host="${hostport}"
   if [[ ! "${port}" ]]; then
-    [[ "${proto}" = "http://" ]]  && port="80"
+    [[ "${proto}" = "http://" ]] && port="80"
     [[ "${proto}" = "https://" ]] && port="443"
     [[ "${proto}" = "mysql://" ]] && port="3306"
     [[ "${proto}" = "redis://" ]] && port="6379"
   fi
 
   if [[ "${need}" ]]; then
-    echo "${!need}"
+    case "${need}" in
+    proto | user | pass | host | port | path)
+      echo "${!need}"
+      ;;
+    *)
+      echo "parse_url: unknown field selector: ${need}" 1>&2
+      return 1
+      ;;
+    esac
   else
     echo ""
     echo " Use second argument to return just 1 variable."
@@ -74,11 +108,11 @@ function parse_url() {
     echo "   path:  ${path}"
     echo ""
   fi
-}
+)
 
-if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
+if [[ "${BASH_SOURCE[0]:-}" != "${0}" ]]; then
   export -f parse_url
 else
-  parse_url "${@}"
-  exit ${?}
+  parse_url "$@"
+  exit
 fi

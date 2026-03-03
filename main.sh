@@ -7,8 +7,8 @@
 #
 #  LOG_LEVEL=7 ./main.sh -f /tmp/x -d (change this for your script)
 #
-# Based on a template by BASH3 Boilerplate vv2.7.2
-# http://bash3boilerplate.sh/#authors
+# Based on a template by BASH3 Boilerplate v2.7.2
+# https://bash3boilerplate.sh/#authors
 #
 # The MIT License (MIT)
 # Copyright (c) 2013 Kevin van Zonneveld and contributors
@@ -21,7 +21,7 @@ set -o errexit
 set -o errtrace
 # Do not allow use of undefined vars. Use ${VAR:-} to use an undefined VAR
 set -o nounset
-# Catch the error in case mysqldump fails (but gzip succeeds) in `mysqldump |gzip`
+# Catch the error in a pipe e.g. `mysqldump |gzip` returns mysqldump's exit code, not gzip's
 set -o pipefail
 # Turn on traces, useful while debugging but commented out by default
 # set -o xtrace
@@ -54,40 +54,30 @@ __invocation="$(printf %q "${__file}")$( (($#)) && printf ' %q' "$@" || true)"
 LOG_LEVEL="${LOG_LEVEL:-6}" # 7 = debug -> 0 = emergency
 NO_COLOR="${NO_COLOR:-}"    # true = disable color. otherwise autodetected
 
-
 ### Functions
 ##############################################################################
 
-function __b3bp_log () {
+function __b3bp_log() {
   local log_level="${1}"
   shift
 
   # shellcheck disable=SC2034
-  local color_debug="\\x1b[35m"
-  # shellcheck disable=SC2034
-  local color_info="\\x1b[32m"
-  # shellcheck disable=SC2034
-  local color_notice="\\x1b[34m"
-  # shellcheck disable=SC2034
-  local color_warning="\\x1b[33m"
-  # shellcheck disable=SC2034
-  local color_error="\\x1b[31m"
-  # shellcheck disable=SC2034
-  local color_critical="\\x1b[1;31m"
-  # shellcheck disable=SC2034
-  local color_alert="\\x1b[1;37;41m"
-  # shellcheck disable=SC2034
-  local color_emergency="\\x1b[1;4;5;37;41m"
+  local color_debug="\\x1b[35m" color_info="\\x1b[32m" color_notice="\\x1b[34m" \
+    color_warning="\\x1b[33m" color_error="\\x1b[31m" color_critical="\\x1b[1;31m" \
+    color_alert="\\x1b[1;37;41m" color_emergency="\\x1b[1;4;5;37;41m"
 
   local colorvar="color_${log_level}"
 
   local color="${!colorvar:-${color_error}}"
   local color_reset="\\x1b[0m"
 
-  if [[ "${NO_COLOR:-}" = "true" ]] || { [[ "${TERM:-}" != "xterm"* ]] && [[ "${TERM:-}" != "screen"* ]]; } || [[ ! -t 2 ]]; then
+  if [[ "${NO_COLOR:-}" = "true" ]] \
+    || { [[ "${TERM:-}" != "xterm"* ]] && [[ "${TERM:-}" != "screen"* ]]; } \
+    || [[ ! -t 2 ]]; then
     if [[ "${NO_COLOR:-}" != "false" ]]; then
       # Don't use colors on pipes or non-recognized terminals
-      color=""; color_reset=""
+      color=""
+      color_reset=""
     fi
   fi
 
@@ -96,19 +86,45 @@ function __b3bp_log () {
 
   while IFS=$'\n' read -r log_line; do
     echo -e "$(date -u +"%Y-%m-%d %H:%M:%S UTC") ${color}$(printf "[%9s]" "${log_level}")${color_reset} ${log_line}" 1>&2
-  done <<< "${@:-}"
+  done <<<"${@:-}"
 }
 
-function emergency () {                                __b3bp_log emergency "${@}"; exit 1; }
-function alert ()     { [[ "${LOG_LEVEL:-0}" -ge 1 ]] && __b3bp_log alert "${@}"; true; }
-function critical ()  { [[ "${LOG_LEVEL:-0}" -ge 2 ]] && __b3bp_log critical "${@}"; true; }
-function error ()     { [[ "${LOG_LEVEL:-0}" -ge 3 ]] && __b3bp_log error "${@}"; true; }
-function warning ()   { [[ "${LOG_LEVEL:-0}" -ge 4 ]] && __b3bp_log warning "${@}"; true; }
-function notice ()    { [[ "${LOG_LEVEL:-0}" -ge 5 ]] && __b3bp_log notice "${@}"; true; }
-function info ()      { [[ "${LOG_LEVEL:-0}" -ge 6 ]] && __b3bp_log info "${@}"; true; }
-function debug ()     { [[ "${LOG_LEVEL:-0}" -ge 7 ]] && __b3bp_log debug "${@}"; true; }
+# The `; true` ensures the function exits 0 even when the log level check
+# short-circuits the && chain, preventing failures under `set -o errexit`.
+function emergency() {
+  __b3bp_log emergency "${@}"
+  exit 1
+}
+function alert() {
+  [[ "${LOG_LEVEL:-0}" -ge 1 ]] && __b3bp_log alert "${@}"
+  true
+}
+function critical() {
+  [[ "${LOG_LEVEL:-0}" -ge 2 ]] && __b3bp_log critical "${@}"
+  true
+}
+function error() {
+  [[ "${LOG_LEVEL:-0}" -ge 3 ]] && __b3bp_log error "${@}"
+  true
+}
+function warning() {
+  [[ "${LOG_LEVEL:-0}" -ge 4 ]] && __b3bp_log warning "${@}"
+  true
+}
+function notice() {
+  [[ "${LOG_LEVEL:-0}" -ge 5 ]] && __b3bp_log notice "${@}"
+  true
+}
+function info() {
+  [[ "${LOG_LEVEL:-0}" -ge 6 ]] && __b3bp_log info "${@}"
+  true
+}
+function debug() {
+  [[ "${LOG_LEVEL:-0}" -ge 7 ]] && __b3bp_log debug "${@}"
+  true
+}
 
-function help () {
+function help() {
   echo "" 1>&2
   echo " ${*}" 1>&2
   echo "" 1>&2
@@ -123,6 +139,20 @@ function help () {
   exit 1
 }
 
+function __b3bp_set_opt_display_suffix() {
+  local __b3bp_tmp_short_opt="${1}"
+  local __b3bp_tmp_out_varname="${2}"
+  local __b3bp_tmp_varname="__b3bp_tmp_opt_short2long_${__b3bp_tmp_short_opt}"
+  local __b3bp_tmp_opt_long=""
+
+  printf -v "__b3bp_tmp_opt_long" '%s' "${!__b3bp_tmp_varname:-}"
+
+  if [[ "${__b3bp_tmp_opt_long:-}" ]]; then
+    printf -v "${__b3bp_tmp_out_varname}" ' (--%s)' "${__b3bp_tmp_opt_long//_/-}"
+  else
+    printf -v "${__b3bp_tmp_out_varname}" '%s' ""
+  fi
+}
 
 ### Parse commandline options
 ##############################################################################
@@ -177,11 +207,11 @@ while read -r __b3bp_tmp_line; do
     # check if option takes an argument
     if [[ "${__b3bp_tmp_line}" =~ \[.*\] ]]; then
       __b3bp_tmp_opt="${__b3bp_tmp_opt}:" # add : if opt has arg
-      __b3bp_tmp_init=""  # it has an arg. init with ""
+      __b3bp_tmp_init=""                  # it has an arg. init with ""
       printf -v "__b3bp_tmp_has_arg_${__b3bp_tmp_opt:0:1}" '%s' "1"
     elif [[ "${__b3bp_tmp_line}" =~ \{.*\} ]]; then
       __b3bp_tmp_opt="${__b3bp_tmp_opt}:" # add : if opt has arg
-      __b3bp_tmp_init=""  # it has an arg. init with ""
+      __b3bp_tmp_init=""                  # it has an arg. init with ""
       # remember that this option requires an argument
       printf -v "__b3bp_tmp_has_arg_${__b3bp_tmp_opt:0:1}" '%s' "2"
     else
@@ -228,59 +258,90 @@ while read -r __b3bp_tmp_line; do
   # Init var with value unless it is an array / a repeatable
   __b3bp_tmp_varname="__b3bp_tmp_is_array_${__b3bp_tmp_opt:0:1}"
   [[ "${!__b3bp_tmp_varname}" = "0" ]] && printf -v "arg_${__b3bp_tmp_opt:0:1}" '%s' "${__b3bp_tmp_init}"
-done <<< "${__usage:-}"
+done <<<"${__usage:-}"
 
 # run getopts only if options were specified in __usage
 if [[ "${__b3bp_tmp_opts:-}" ]]; then
   # Allow long options like --this
   __b3bp_tmp_opts="${__b3bp_tmp_opts}-:"
+  __b3bp_tmp_opt_long_suffix=""
 
   # Reset in case getopts has been used previously in the shell.
   OPTIND=1
 
   # start parsing command line
-  set +o nounset # unexpected arguments will cause unbound variables
-                 # to be dereferenced
+  set +o nounset # getopts may reference unbound OPTARG / positional params
   # Overwrite $arg_<flag> defaults with the actual CLI options
   while getopts "${__b3bp_tmp_opts}" __b3bp_tmp_opt; do
     [[ "${__b3bp_tmp_opt}" = "?" ]] && help "Invalid use of script: ${*} "
 
     if [[ "${__b3bp_tmp_opt}" = "-" ]]; then
+      __b3bp_tmp_optarg_has_explicit=0
+      __b3bp_tmp_optarg_value=""
+
       # OPTARG is long-option-name or long-option=value
       if [[ "${OPTARG}" =~ .*=.* ]]; then
         # --key=value format
-        __b3bp_tmp_long_opt=${OPTARG/=*/}
-        # Set opt to the short option corresponding to the long option
-        __b3bp_tmp_varname="__b3bp_tmp_opt_long2short_${__b3bp_tmp_long_opt//-/_}"
-        printf -v "__b3bp_tmp_opt" '%s' "${!__b3bp_tmp_varname}"
-        OPTARG=${OPTARG#*=}
+        __b3bp_tmp_long_opt="${OPTARG%%=*}"
+        __b3bp_tmp_optarg_value="${OPTARG#*=}"
+        __b3bp_tmp_optarg_has_explicit=1
       else
         # --key value format
-        # Map long name to short version of option
-        __b3bp_tmp_varname="__b3bp_tmp_opt_long2short_${OPTARG//-/_}"
-        printf -v "__b3bp_tmp_opt" '%s' "${!__b3bp_tmp_varname}"
-        # Only assign OPTARG if option takes an argument
-        __b3bp_tmp_varname="__b3bp_tmp_has_arg_${__b3bp_tmp_opt}"
-        __b3bp_tmp_varvalue="${!__b3bp_tmp_varname}"
-        [[ "${__b3bp_tmp_varvalue}" != "0" ]] && __b3bp_tmp_varvalue="1"
-        printf -v "OPTARG" '%s' "${@:OPTIND:${__b3bp_tmp_varvalue}}"
-        # shift over the argument if argument is expected
-        ((OPTIND+=__b3bp_tmp_varvalue))
+        __b3bp_tmp_long_opt="${OPTARG}"
+      fi
+
+      if [[ ! "${__b3bp_tmp_long_opt}" =~ ^[a-zA-Z0-9][a-zA-Z0-9-]*$ ]]; then
+        help "Invalid use of script: --${__b3bp_tmp_long_opt}"
+      fi
+
+      # Set opt to the short option corresponding to the long option
+      __b3bp_tmp_varname="__b3bp_tmp_opt_long2short_${__b3bp_tmp_long_opt//-/_}"
+      if [[ -z "${!__b3bp_tmp_varname:-}" ]]; then
+        help "Invalid use of script: --${__b3bp_tmp_long_opt}"
+      fi
+      printf -v "__b3bp_tmp_opt" '%s' "${!__b3bp_tmp_varname}"
+
+      # Decide whether this long option may/must receive an argument.
+      __b3bp_tmp_varname="__b3bp_tmp_has_arg_${__b3bp_tmp_opt}"
+      __b3bp_tmp_varvalue="${!__b3bp_tmp_varname:-0}"
+
+      if [[ "${__b3bp_tmp_varvalue}" = "0" ]]; then
+        # Flags are not allowed to receive a value in --flag=value syntax.
+        if [[ "${__b3bp_tmp_optarg_has_explicit}" = "1" ]]; then
+          __b3bp_set_opt_display_suffix "${__b3bp_tmp_opt}" "__b3bp_tmp_opt_long_suffix"
+          help "Option -${__b3bp_tmp_opt}${__b3bp_tmp_opt_long_suffix} does not take an argument"
+        fi
+        OPTARG=""
+      else
+        if [[ "${__b3bp_tmp_optarg_has_explicit}" = "1" ]]; then
+          OPTARG="${__b3bp_tmp_optarg_value}"
+        else
+          # --key value format: consume next token as-is, including empty or hyphen-prefixed values.
+          if [[ "${!OPTIND+x}" != "x" ]]; then
+            __b3bp_set_opt_display_suffix "${__b3bp_tmp_opt}" "__b3bp_tmp_opt_long_suffix"
+            help "Option -${__b3bp_tmp_opt}${__b3bp_tmp_opt_long_suffix} requires an argument"
+          fi
+          printf -v "__b3bp_tmp_optarg_value" '%s' "${!OPTIND-}"
+          OPTARG="${__b3bp_tmp_optarg_value}"
+          ((OPTIND += 1))
+        fi
       fi
       # we have set opt/OPTARG to the short value and the argument as OPTARG if it exists
     fi
 
     __b3bp_tmp_value="${OPTARG}"
+    __b3bp_tmp_varname="__b3bp_tmp_has_arg_${__b3bp_tmp_opt:0:1}"
+    __b3bp_tmp_opt_has_arg="${!__b3bp_tmp_varname:-0}"
 
     __b3bp_tmp_varname="__b3bp_tmp_is_array_${__b3bp_tmp_opt:0:1}"
     if [[ "${!__b3bp_tmp_varname}" != "0" ]]; then
       # repeatables
       # shellcheck disable=SC2016
-      if [[ -z "${OPTARG}" ]]; then
-        # repeatable flags, they increcemnt
+      if [[ "${__b3bp_tmp_opt_has_arg}" = "0" ]]; then
+        # repeatable flags, they increment
         __b3bp_tmp_varname="arg_${__b3bp_tmp_opt:0:1}"
         debug "cli arg ${__b3bp_tmp_varname} = (${__b3bp_tmp_default}) -> ${!__b3bp_tmp_varname}"
-          # shellcheck disable=SC2004
+        # shellcheck disable=SC2004
         __b3bp_tmp_value=$((${!__b3bp_tmp_varname} + 1))
         printf -v "${__b3bp_tmp_varname}" '%s' "${__b3bp_tmp_value}"
       else
@@ -294,7 +355,7 @@ if [[ "${__b3bp_tmp_opts:-}" ]]; then
       __b3bp_tmp_varname="arg_${__b3bp_tmp_opt:0:1}"
       __b3bp_tmp_default="${!__b3bp_tmp_varname}"
 
-      if [[ -z "${OPTARG}" ]]; then
+      if [[ "${__b3bp_tmp_opt_has_arg}" = "0" ]]; then
         __b3bp_tmp_value=$((__b3bp_tmp_default + 1))
       fi
 
@@ -305,13 +366,12 @@ if [[ "${__b3bp_tmp_opts:-}" ]]; then
   done
   set -o nounset # no more unbound variable references expected
 
-  shift $((OPTIND-1))
+  shift $((OPTIND - 1))
 
-  if [[ "${1:-}" = "--" ]] ; then
+  if [[ "${1:-}" = "--" ]]; then
     shift
   fi
 fi
-
 
 ### Automatic validation of required option arguments
 ##############################################################################
@@ -324,13 +384,9 @@ for __b3bp_tmp_varname in ${!__b3bp_tmp_has_arg_*}; do
   __b3bp_tmp_varname="arg_${__b3bp_tmp_opt_short}"
   [[ "${!__b3bp_tmp_varname}" ]] && continue
 
-  __b3bp_tmp_varname="__b3bp_tmp_opt_short2long_${__b3bp_tmp_opt_short}"
-  printf -v "__b3bp_tmp_opt_long" '%s' "${!__b3bp_tmp_varname}"
-  [[ "${__b3bp_tmp_opt_long:-}" ]] && __b3bp_tmp_opt_long=" (--${__b3bp_tmp_opt_long//_/-})"
-
-  help "Option -${__b3bp_tmp_opt_short}${__b3bp_tmp_opt_long:-} requires an argument"
+  __b3bp_set_opt_display_suffix "${__b3bp_tmp_opt_short}" "__b3bp_tmp_opt_long_suffix"
+  help "Option -${__b3bp_tmp_opt_short}${__b3bp_tmp_opt_long_suffix} requires an argument"
 done
-
 
 ### Cleanup Environment variables
 ##############################################################################
@@ -341,7 +397,6 @@ done
 
 unset -v __tmp_varname
 
-
 ### Externally supplied __usage. Nothing else to do here
 ##############################################################################
 
@@ -350,24 +405,22 @@ if [[ "${__b3bp_external_usage:-}" = "true" ]]; then
   return
 fi
 
-
 ### Signal trapping and backtracing
 ##############################################################################
 
-function __b3bp_cleanup_before_exit () {
+function __b3bp_cleanup_before_exit() {
   info "Cleaning up. Done"
 }
 trap __b3bp_cleanup_before_exit EXIT
 
 # requires `set -o errtrace`
-__b3bp_err_report() {
-    local error_code=${?}
-    error "Error in ${__file} in function ${1} on line ${2}"
-    exit ${error_code}
+function __b3bp_err_report() {
+  local error_code="${?}"
+  error "Error in ${__file} in function ${1} on line ${2}"
+  exit "${error_code}"
 }
 # Uncomment the following line for always providing an error backtrace
 # trap '__b3bp_err_report "${FUNCNAME:-.}" ${LINENO}' ERR
-
 
 ### Command-line argument switches (like -d for debugmode, -h for showing helppage)
 ##############################################################################
@@ -397,13 +450,11 @@ if [[ "${arg_h:?}" = "1" ]]; then
   help "Help using ${0}"
 fi
 
-
 ### Validation. Error out if the things required for your script are not present
 ##############################################################################
 
-[[ "${arg_f:-}" ]]     || help      "Setting a filename with -f or --file is required"
+[[ "${arg_f:-}" ]] || help "Setting a filename with -f or --file is required"
 [[ "${LOG_LEVEL:-}" ]] || emergency "Cannot continue without LOG_LEVEL. "
-
 
 ### Runtime
 ##############################################################################
@@ -419,26 +470,16 @@ info "arg_d: ${arg_d}"
 info "arg_v: ${arg_v}"
 info "arg_h: ${arg_h}"
 
-# shellcheck disable=SC2015
-if [[ -n "${arg_i:-}" ]] && declare -p arg_i 2> /dev/null | grep -q '^declare \-a'; then
+if [[ -n "${arg_i:-}" ]]; then
   info "arg_i:"
   for input_file in "${arg_i[@]}"; do
     info " - ${input_file}"
   done
-elif [[ -n "${arg_i:-}" ]]; then
-  info "arg_i: ${arg_i}"
 else
   info "arg_i: 0"
 fi
 
-# shellcheck disable=SC2015
-if [[ -n "${arg_x:-}" ]] && declare -p arg_x 2> /dev/null | grep -q '^declare \-a'; then
-  info "arg_x: ${#arg_x[@]}"
-elif [[ -n "${arg_x:-}" ]]; then
-  info "arg_x: ${arg_x}"
-else
-  info "arg_x: 0"
-fi
+info "arg_x: ${arg_x:-0}"
 
 info "$(echo -e "multiple lines example - line #1\\nmultiple lines example - line #2\\nimagine logging the output of 'ls -al /path/'")"
 

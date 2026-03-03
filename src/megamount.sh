@@ -20,8 +20,8 @@
 #
 #  megamount.sh smb://janedoe:abc123@192.168.0.1/documents /mnt/documents
 #
-# Based on a template by BASH3 Boilerplate vv2.7.2
-# http://bash3boilerplate.sh/#authors
+# Based on a template by BASH3 Boilerplate v2.7.2
+# https://bash3boilerplate.sh/#authors
 #
 # The MIT License (MIT)
 # Copyright (c) 2013 Kevin van Zonneveld and contributors
@@ -33,9 +33,14 @@ __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=src/parse_url.sh
 source "${__dir}/parse_url.sh"
 
-function megamount () {
-  local url="${1}"
-  local target="${2}"
+function megamount() (
+  set -o errexit
+  set -o errtrace
+  set -o nounset
+  set -o pipefail
+
+  local url="${1:-}"
+  local target="${2:-}"
 
   local proto
   local user
@@ -51,7 +56,7 @@ function megamount () {
   port=$(parse_url "${url}" "port")
   path=$(parse_url "${url}" "path")
 
-  (umount -lf "${target}" || umount -f "${target}") > /dev/null 2>&1 || true
+  (umount -lf "${target}" || umount -f "${target}") >/dev/null 2>&1 || true
   mkdir -p "${target}"
   if [[ "${proto}" = "smb://" ]]; then
     mount -t cifs --verbose -o "username=${user},password=${pass},hard" "//${host}/${path}" "${target}"
@@ -68,11 +73,11 @@ function megamount () {
 
   # chmod 777 "${target}"
   ls -al "${target}/"
-}
+)
 
-if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
+if [[ "${BASH_SOURCE[0]:-}" != "${0}" ]]; then
   export -f megamount
 else
-  megamount "${@}"
-  exit ${?}
+  megamount "$@"
+  exit
 fi

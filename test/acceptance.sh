@@ -7,10 +7,10 @@
 #
 # Usage:
 #
-#  ./deploy.sh
+#  ./acceptance.sh
 #
 # Based on a template by BASH3 Boilerplate v2.0.0
-# http://bash3boilerplate.sh/#authors
+# https://bash3boilerplate.sh/#authors
 #
 # The MIT License (MIT)
 # Copyright (c) 2013 Kevin van Zonneveld and contributors
@@ -38,7 +38,7 @@ __sysTmpDir="${TMPDIR:-/tmp}"
 __sysTmpDir="${__sysTmpDir%/}" # <-- remove trailing slash on macosx
 __accptstTmpDir=$(mktemp -d "${__sysTmpDir}/${__base}.XXXXXX")
 
-function cleanup_before_exit () { rm -r "${__accptstTmpDir:?}"; }
+function cleanup_before_exit() { rm -r "${__accptstTmpDir:?}"; }
 trap cleanup_before_exit EXIT
 
 cmdSed="sed"
@@ -78,118 +78,117 @@ while IFS=$'\n' read -r scenario; do
   [[ "${1:-}" ]] && [[ "${scenario}" != "${1}" ]] && continue
 
   echo "==> Scenario: ${scenario}"
-  pushd "${__dir}/scenario/${scenario}" > /dev/null
+  pushd "${__dir}/scenario/${scenario}" >/dev/null
 
-    # Run scenario
-    (${cmdTimeout} --kill-after=6m 5m bash ./run.sh \
-      > "${__accptstTmpDir}/${scenario}.stdio" 2>&1; \
-      echo "${?}" > "${__accptstTmpDir}/${scenario}.exitcode" \
-    ) || true
+  # Run scenario
+  (
+    ${cmdTimeout} --kill-after=6m 5m bash ./run.sh \
+      >"${__accptstTmpDir}/${scenario}.stdio" 2>&1
+    echo "${?}" >"${__accptstTmpDir}/${scenario}.exitcode"
+  ) || true
 
-    # Clear out environmental specifics
-    for typ in stdio exitcode; do
-      curFile="${__accptstTmpDir}/${scenario}.${typ}"
-      "${cmdSed}" -i \
-        -e "s@${__node}@{node}@g" "${curFile}" \
-        -e "s@${__root}@{root}@g" "${curFile}" \
-        -e "s@${__sysTmpDir}@{tmpdir}@g" "${curFile}" \
-        -e "s@/tmp@{tmpdir}@g" "${curFile}" \
-        -e "s@${HOME:-/home/travis}@{home}@g" "${curFile}" \
-        -e "s@${USER:-travis}@{user}@g" "${curFile}" \
-        -e "s@travis@{user}@g" "${curFile}" \
-        -e "s@kvz@{user}@g" "${curFile}" \
-        -e "s@{root}/node_modules/\\.bin/node@{node}@g" "${curFile}" \
-        -e "s@{home}/build/{user}/fre{node}@{node}@g" "${curFile}" \
-        -e "s@${HOSTNAME}@{hostname}@g" "${curFile}" \
-        -e "s@${__arch}@{arch}@g" "${curFile}" \
-        -e "s@${OSTYPE}@{OSTYPE}@g" "${curFile}" \
-        -e "s@OSX@{os}@g" "${curFile}" \
-        -e "s@Linux@{os}@g" "${curFile}" \
+  # Clear out environmental specifics
+  for typ in stdio exitcode; do
+    curFile="${__accptstTmpDir}/${scenario}.${typ}"
+    "${cmdSed}" -i \
+      -e "s@${__node}@{node}@g" "${curFile}" \
+      -e "s@${__root}@{root}@g" "${curFile}" \
+      -e "s@${__sysTmpDir}@{tmpdir}@g" "${curFile}" \
+      -e "s@/tmp@{tmpdir}@g" "${curFile}" \
+      -e "s@${HOME:-/home/runner}@{home}@g" "${curFile}" \
+      -e "s@${USER:-runner}@{user}@g" "${curFile}" \
+      -e "s@kvz@{user}@g" "${curFile}" \
+      -e "s@{root}/node_modules/\\.bin/node@{node}@g" "${curFile}" \
+      -e "s@${HOSTNAME}@{hostname}@g" "${curFile}" \
+      -e "s@${__arch}@{arch}@g" "${curFile}" \
+      -e "s@${OSTYPE}@{OSTYPE}@g" "${curFile}" \
+      -e "s@OSX@{os}@g" "${curFile}" \
+      -e "s@Linux@{os}@g" "${curFile}" \
       || false
 
-      if grep -q 'ACCPTST:STDIO_REPLACE_IPS' "${curFile}"; then
-        "${cmdSed}" -i \
-          -r 's@[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}@{ip}@g' \
+    if grep -q 'ACCPTST:STDIO_REPLACE_IPS' "${curFile}"; then
+      "${cmdSed}" -i \
+        -r 's@[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}@{ip}@g' \
         "${curFile}"
 
-        # IPs vary in length. Ansible uses padding. {ip} does not vary in length
-        # so kill the padding after it for consistent output
-        "${cmdSed}" -i \
-          -r 's@\{ip\}\s+@{ip} @g' \
+      # IPs vary in length. Ansible uses padding. {ip} does not vary in length
+      # so kill the padding after it for consistent output
+      "${cmdSed}" -i \
+        -r 's@\{ip\}\s+@{ip} @g' \
         "${curFile}"
-      fi
-      if grep -q 'ACCPTST:STDIO_REPLACE_UUIDS' "${curFile}"; then
-        "${cmdSed}" -i \
-          -r 's@[0-9a-f\-]{32,40}@{uuid}@g' \
-        "${curFile}"
-      fi
-      if grep -q 'ACCPTST:STDIO_REPLACE_BIGINTS' "${curFile}"; then
-        # Such as: 3811298194
-        "${cmdSed}" -i \
-          -r 's@[0-9]{7,64}@{bigint}@g' \
-        "${curFile}"
-      fi
-      if grep -q 'ACCPTST:STDIO_REPLACE_DATETIMES' "${curFile}"; then
-        # Such as: 2016-02-10 15:38:44.420094
-        "${cmdSed}" -i \
-          -r 's@[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}@{datetime}@g' \
-        "${curFile}"
-      fi
-      if grep -q 'ACCPTST:STDIO_REPLACE_LONGTIMES' "${curFile}"; then
-        # Such as: 2016-02-10 15:38:44.420094
-        "${cmdSed}" -i \
-          -r 's@[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{6}@{longtime}@g' \
-        "${curFile}"
-      fi
-      if grep -q 'ACCPTST:STDIO_REPLACE_DURATIONS' "${curFile}"; then
-        # Such as: 0:00:00.001991
-        "${cmdSed}" -i \
-          -r 's@[0-9]{1,2}:[0-9]{2}:[0-9]{2}.[0-9]{6}@{duration}@g' \
-        "${curFile}"
-      fi
-      if grep -q 'ACCPTST:STDIO_REPLACE_REMOTE_EXEC' "${curFile}"; then
-        grep -Ev 'remote-exec\): [ a-zA-Z]' "${curFile}" > "${__sysTmpDir}/accptst-filtered.txt"
-        mv "${__sysTmpDir}/accptst-filtered.txt" "${curFile}"
-      fi
-    done
-
-    # Save these as new fixtures?
-    if [[ "${SAVE_FIXTURES:-}" = "true" ]]; then
-      for typ in stdio exitcode; do
-        curFile="${__accptstTmpDir}/${scenario}.${typ}"
-        cp -f \
-          "${curFile}" \
-          "${__dir}/fixture/${scenario}.${typ}"
-      done
     fi
+    if grep -q 'ACCPTST:STDIO_REPLACE_UUIDS' "${curFile}"; then
+      "${cmdSed}" -i \
+        -r 's@[0-9a-f\-]{32,40}@{uuid}@g' \
+        "${curFile}"
+    fi
+    if grep -q 'ACCPTST:STDIO_REPLACE_BIGINTS' "${curFile}"; then
+      # Such as: 3811298194
+      "${cmdSed}" -i \
+        -r 's@[0-9]{7,64}@{bigint}@g' \
+        "${curFile}"
+    fi
+    if grep -q 'ACCPTST:STDIO_REPLACE_DATETIMES' "${curFile}"; then
+      # Such as: 2016-02-10 15:38:44.420094
+      "${cmdSed}" -i \
+        -r 's@[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}@{datetime}@g' \
+        "${curFile}"
+    fi
+    if grep -q 'ACCPTST:STDIO_REPLACE_LONGTIMES' "${curFile}"; then
+      # Such as: 2016-02-10 15:38:44.420094
+      "${cmdSed}" -i \
+        -r 's@[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{6}@{longtime}@g' \
+        "${curFile}"
+    fi
+    if grep -q 'ACCPTST:STDIO_REPLACE_DURATIONS' "${curFile}"; then
+      # Such as: 0:00:00.001991
+      "${cmdSed}" -i \
+        -r 's@[0-9]{1,2}:[0-9]{2}:[0-9]{2}.[0-9]{6}@{duration}@g' \
+        "${curFile}"
+    fi
+    if grep -q 'ACCPTST:STDIO_REPLACE_REMOTE_EXEC' "${curFile}"; then
+      grep -Ev 'remote-exec\): [ a-zA-Z]' "${curFile}" >"${__sysTmpDir}/accptst-filtered.txt"
+      mv "${__sysTmpDir}/accptst-filtered.txt" "${curFile}"
+    fi
+  done
 
-    # Compare
+  # Save these as new fixtures?
+  if [[ "${SAVE_FIXTURES:-}" = "true" ]]; then
     for typ in stdio exitcode; do
       curFile="${__accptstTmpDir}/${scenario}.${typ}"
-
-      echo -n "    comparing ${typ}.. "
-
-      if [[ "${typ}" = "stdio" ]]; then
-        if grep -q 'ACCPTST:STDIO_SKIP_COMPARE' "${curFile}"; then
-          echo "skip"
-          continue
-        fi
-      fi
-
-      if ! diff --strip-trailing-cr "${__dir}/fixture/${scenario}.${typ}" "${curFile}"; then
-        echo -e "\\n\\n==> MISMATCH OF: ${scenario}.${typ} ---^"
-        echo -e "\\n\\n==> EXPECTED STDIO: "
-        cat "${__dir}/fixture/${scenario}.stdio" || true
-        echo -e "\\n\\n==> ACTUAL STDIO: "
-        cat "${__accptstTmpDir}/${scenario}.stdio" || true
-        exit 1
-      fi
-
-      echo "✓"
+      cp -f \
+        "${curFile}" \
+        "${__dir}/fixture/${scenario}.${typ}"
     done
+  fi
 
-  popd > /dev/null
-done <<< "$(find "${__dir}/scenario" -type f -iname 'run.sh')"
+  # Compare
+  for typ in stdio exitcode; do
+    curFile="${__accptstTmpDir}/${scenario}.${typ}"
+
+    echo -n "    comparing ${typ}.. "
+
+    if [[ "${typ}" = "stdio" ]]; then
+      if grep -q 'ACCPTST:STDIO_SKIP_COMPARE' "${curFile}"; then
+        echo "skip"
+        continue
+      fi
+    fi
+
+    if ! diff --strip-trailing-cr "${__dir}/fixture/${scenario}.${typ}" "${curFile}"; then
+      echo -e "\\n\\n==> MISMATCH OF: ${scenario}.${typ} ---^"
+      echo -e "\\n\\n==> EXPECTED STDIO: "
+      cat "${__dir}/fixture/${scenario}.stdio" || true
+      echo -e "\\n\\n==> ACTUAL STDIO: "
+      cat "${__accptstTmpDir}/${scenario}.stdio" || true
+      exit 1
+    fi
+
+    echo "✓"
+  done
+
+  popd >/dev/null
+done <<<"$(find "${__dir}/scenario" -type f -iname 'run.sh')"
 
 [[ "${1:-}" ]] && exit 0
 
@@ -203,7 +202,7 @@ while IFS=$'\n' read -r bash; do
   fi
   # shellcheck disable=SC2016
   echo "==> ${bash} -n $(${bash} -c 'echo "(${BASH_VERSION})"')"
-  pushd "${__root}" > /dev/null
+  pushd "${__root}" >/dev/null
 
   failed="false"
 
@@ -212,21 +211,21 @@ while IFS=$'\n' read -r bash; do
 
     echo -n "    ${file}.. "
 
-    if ! "${bash}" -n "${file}" 2>> "${__accptstTmpDir}/${bash//\//.}.err"; then
+    if ! "${bash}" -n "${file}" 2>>"${__accptstTmpDir}/${bash//\//.}.err"; then
       echo "✗"
       failed="true"
       continue
     fi
 
     echo "✓"
-  done <<< "$(find . -type f -iname '*.sh')"
+  done <<<"$(find . -type f -iname '*.sh')"
 
-  popd > /dev/null
+  popd >/dev/null
 
   if [[ "${failed}" = "true" ]]; then
     cat "${__accptstTmpDir}/${bash//\//.}.err"
     exit 1
   fi
-done <<< "$(which -a bash 2>/dev/null)"
+done <<<"$(which -a bash 2>/dev/null)"
 
 exit 0

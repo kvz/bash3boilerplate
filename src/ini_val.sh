@@ -19,15 +19,20 @@
 #
 #  ini_val.sh data.ini connection.host 127.0.0.1 "Host name or IP address"
 #
-# Based on a template by BASH3 Boilerplate vv2.7.2
-# http://bash3boilerplate.sh/#authors
+# Based on a template by BASH3 Boilerplate v2.7.2
+# https://bash3boilerplate.sh/#authors
 #
 # The MIT License (MIT)
 # Copyright (c) 2013 Kevin van Zonneveld and contributors
 # You are not obligated to bundle the LICENSE file with your b3bp projects as long
 # as you leave these references intact in the header comments of your source files.
 
-function ini_val() {
+function ini_val() (
+  set -o errexit
+  set -o errtrace
+  set -o nounset
+  set -o pipefail
+
   local file="${1:-}"
   local sectionkey="${2:-}"
   local val="${3:-}"
@@ -37,6 +42,8 @@ function ini_val() {
   local section=""
   local key=""
   local current=""
+  local current_comment=""
+  local RET=""
   # add default section
   local section_default="default"
 
@@ -46,7 +53,7 @@ function ini_val() {
   fi
 
   # Split on . for section. However, section is optional
-  IFS='.' read -r section key <<< "${sectionkey}"
+  IFS='.' read -r section key <<<"${sectionkey}"
   if [[ ! "${key}" ]]; then
     key="${section}"
     # default section if not given
@@ -54,14 +61,14 @@ function ini_val() {
   fi
 
   # get current value (if exists)
-  current=$(sed -En "/^\[/{h;d;};G;s/^${key}([[:blank:]]*)${delim}(.*)\n\[${section}\]$/\2/p" "${file}"|awk '{$1=$1};1')
+  current=$(sed -En "/^\[/{h;d;};G;s/^${key}([[:blank:]]*)${delim}(.*)\n\[${section}\]$/\2/p" "${file}" | awk '{$1=$1};1')
   # get current comment (if exists)
-  current_comment=$(sed -En "/^\[${section}\]/,/^\[.*\]/ s|^(${comment_delim}\[${key}\])(.*)|\2|p" "${file}"|awk '{$1=$1};1')
+  current_comment=$(sed -En "/^\[${section}\]/,/^\[.*\]/ s|^(${comment_delim}\[${key}\])(.*)|\2|p" "${file}" | awk '{$1=$1};1')
 
   if ! grep -q "\[${section}\]" "${file}"; then
     # create section if not exists (empty line to seperate new section for better readability)
-    echo  >> "${file}"
-    echo "[${section}]" >> "${file}"
+    echo >>"${file}"
+    echo "[${section}]" >>"${file}"
   fi
 
   if [[ ! "${val}" ]]; then
@@ -100,14 +107,14 @@ ${comment_delim}[${key}] ${comment}\\
 ${key}${delim}${val}"
     fi
     sed -i.bak -e "${RET}" "${file}"
-    # this .bak dance is done for BSD/GNU portability: http://stackoverflow.com/a/22084103/151666
+    # this .bak dance is done for BSD/GNU portability: https://stackoverflow.com/a/22084103/151666
     rm -f "${file}.bak"
   fi
-}
+)
 
-if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
+if [[ "${BASH_SOURCE[0]:-}" != "${0}" ]]; then
   export -f ini_val
 else
-  ini_val "${@}"
-  exit ${?}
+  ini_val "$@"
+  exit
 fi

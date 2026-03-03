@@ -43,9 +43,9 @@ dependency.
 - Conventions that will make sure that all your scripts follow the same, battle-tested structure
 - Safe by default (break on error, pipefail, etc.)
 - Configuration by environment variables
-- Simple command-line argument parsing that requires no external dependencies. Definitions are parsed from help info, ensuring there will be no duplication
+- Simple command-line argument parsing that requires no external dependencies. Definitions are parsed from help info, ensuring there will be no duplication. Unknown options fail with a clear error, missing values fail fast, and `--` stops option parsing.
 - Helpful magic variables like `__file` and `__dir`
-- Logging that supports colors and is compatible with [Syslog Severity levels](https://en.wikipedia.org/wiki/Syslog#Severity_levels), as well as the [twelve-factor](https://12factor.net/) guidelines
+- Logging to STDERR, with colors and [Syslog Severity levels](https://en.wikipedia.org/wiki/Syslog#Severity_levels). Supports `NO_COLOR` and [twelve-factor](https://12factor.net/) guidelines.
 
 ## Installation
 
@@ -89,19 +89,31 @@ Please see the [FAQ.md](./FAQ.md) file.
 
 ## Best practices
 
-As of `v1.0.3`, b3bp offers some nice re-usable libraries in `./src`. In order to make the snippets in `./src` more useful, we recommend the following guidelines.
+b3bp includes re-usable libraries in `./src`. We recommend the following guidelines for your scripts.
 
 ### Function packaging
 
-It is nice to have a Bash package that can not only be used in the terminal, but also invoked as a command line function. In order to achieve this, the exporting of your functionality _should_ follow this pattern:
+It is nice to have a Bash package that can not only be used in the terminal, but also invoked as a command line function. In order to achieve this, the exporting of your functionality should follow this pattern:
 
 ```bash
-if [[ "${BASH_SOURCE[0]}" = "${0}" ]]; then
-  my_script "${@}"
-  exit $?
+my_script() (
+  set -o errexit
+  set -o errtrace
+  set -o nounset
+  set -o pipefail
+
+  # function body
+)
+
+if [[ "${BASH_SOURCE[0]:-}" != "${0}" ]]; then
+  export -f my_script
+else
+  my_script "$@"
+  exit
 fi
-export -f my_script
 ```
+
+Use `export -f` only when child Bash processes must inherit the function.
 
 This allows a user to `source` your script or invoke it as a script.
 
@@ -123,11 +135,12 @@ $ my_script some more args --blah
 
 ### Coding style
 
-1. Use two spaces for tabs, do not use tab characters.
-1. Do not introduce whitespace at the end of lines or on blank lines as they obfuscate version control diffs.
-1. Use long options (`logger --priority` vs `logger -p`). If you are on the CLI, abbreviations make sense for efficiency. Nevertheless, when you are writing reusable scripts, a few extra keystrokes will pay off in readability and avoid ventures into man pages in the future, either by you or your collaborators. Similarly, we prefer `set -o nounset` over `set -u`.
-1. Use a single equal sign when checking `if [[ "${NAME}" = "Kevin" ]]`; double or triple signs are not needed.
-1. Use the new bash builtin test operator (`[[ ... ]]`) rather than the old single square bracket test operator or explicit call to `test`.
+1. Format with [shfmt](https://github.com/mvdan/sh) (`shfmt -i 2 -bn`): two-space indent, binary operators may start a line.
+1. Do not introduce trailing whitespace on lines.
+1. Use a single equal sign when checking `if [[ "${NAME}" = "Kevin" ]]`.
+1. Use the bash test operator (`[[ ... ]]`) rather than `[` or `test`.
+1. Use braces around variable expansions: `${VAR}`.
+1. Run [ShellCheck](https://www.shellcheck.net/) on your scripts.
 
 ### Safety and Portability
 

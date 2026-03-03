@@ -7,14 +7,13 @@
 #
 #  LOG_LEVEL=7 ./example.sh -f /tmp/x -d (change this for your script)
 #
-# Based on a template by BASH3 Boilerplate v2.3.0
-# http://bash3boilerplate.sh/#authors
+# Based on a template by BASH3 Boilerplate v2.7.2
+# https://bash3boilerplate.sh/#authors
 #
 # The MIT License (MIT)
 # Copyright (c) 2013 Kevin van Zonneveld and contributors
 # You are not obligated to bundle the LICENSE file with your b3bp projects as long
 # as you leave these references intact in the header comments of your source files.
-
 
 ### BASH3 Boilerplate (b3bp) Header
 ##############################################################################
@@ -50,25 +49,24 @@ EOF
 # shellcheck source=main.sh
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/main.sh"
 
-
-### Signal trapping and backtracing
+### Overrides — these sections duplicate main.sh defaults intentionally,
+### showing how a sourcing script can customize traps and argument handling.
 ##############################################################################
 
-function __b3bp_cleanup_before_exit () {
+function __b3bp_cleanup_before_exit() {
   info "Cleaning up. Done"
 }
 trap __b3bp_cleanup_before_exit EXIT
 
 # requires `set -o errtrace`
 __b3bp_err_report() {
-    local error_code=${?}
-    # shellcheck disable=SC2154
-    error "Error in ${__file} in function ${1} on line ${2}"
-    exit ${error_code}
+  local error_code=${?}
+  # shellcheck disable=SC2154
+  error "Error in ${__file} in function ${1} on line ${2}"
+  exit ${error_code}
 }
 # Uncomment the following line for always providing an error backtrace
 # trap '__b3bp_err_report "${FUNCNAME:-.}" ${LINENO}' ERR
-
 
 ### Command-line argument switches (like -d for debugmode, -h for showing helppage)
 ##############################################################################
@@ -94,17 +92,14 @@ fi
 
 # help mode
 if [[ "${arg_h:?}" = "1" ]]; then
-  # Help exists with code 1
   help "Help using ${0}"
 fi
-
 
 ### Validation. Error out if the things required for your script are not present
 ##############################################################################
 
-[[ "${arg_f:-}" ]]     || help      "Setting a filename with -f or --file is required"
+[[ "${arg_f:-}" ]] || help "Setting a filename with -f or --file is required"
 [[ "${LOG_LEVEL:-}" ]] || emergency "Cannot continue without LOG_LEVEL. "
-
 
 ### Runtime
 ##############################################################################

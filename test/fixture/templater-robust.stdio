@@ -1,0 +1,13 @@
+# command-mode-special-values
+line3=${UNSET_VALUE}
+line1=a&b/c#d
+line2=value with spaces
+line3=${UNSET_VALUE}
+# source-mode-special-values
+line3=${UNSET_VALUE}
+line1=x-y-z
+line2=another value
+line3=${UNSET_VALUE}
+# command-mode-missing-template
+exit: 1
+ERROR: Template source './does-not-exist.template' needs to exist

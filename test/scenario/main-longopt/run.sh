@@ -10,7 +10,7 @@ __root="$(cd "$(dirname "$(dirname "$(dirname "${__dir}")")")" && pwd)"
 echo "ACCPTST:STDIO_REPLACE_DATETIMES"
 
 (
-  env LOG_LEVEL=6 bash "${__root}/main.sh" --file /tmp/x;
-  env LOG_LEVEL=6 bash "${__root}/main.sh" --file=/tmp/x;
+  env LOG_LEVEL=6 bash "${__root}/main.sh" --file /tmp/x
+  env LOG_LEVEL=6 bash "${__root}/main.sh" --file=/tmp/x
   env LOG_LEVEL=6 bash "${__root}/main.sh" -f /tmp/x
-) 2>&1 |grep arg_f
+) 2>&1 | grep arg_f

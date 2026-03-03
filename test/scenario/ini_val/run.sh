@@ -10,7 +10,6 @@ __root="$(cd "$(dirname "$(dirname "$(dirname "${__dir}")")")" && pwd)"
 
 # echo "ACCPTST:STDIO_REPLACE_DATETIMES"
 
-
 # Use as standalone:
 cp -f data.ini dummy.ini
 echo "--> command: Read 3 values"
