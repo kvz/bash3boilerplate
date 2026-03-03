@@ -21,7 +21,65 @@ __root="$(cd "$(dirname "${__dir}")" && pwd)"
 ### Ensure shfmt is available at the expected version
 ##############################################################################
 
+__cleanup_webi_envman() {
+  # Migrate away from old webi/envman-based installs.
+  local marker='[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"'
+  local comment='# Generated for envman. Do not edit.'
+  local file=""
+  local tmp=""
+  local source_abs
+  source_abs="${HOME}/.config/envman/load.sh"
+
+  for file in "${HOME}/.bashrc" "${HOME}/.profile"; do
+    if [[ ! -f "${file}" ]]; then
+      continue
+    fi
+
+    if ! grep -Fq "${marker}" "${file}"; then
+      continue
+    fi
+
+    tmp="$(mktemp)"
+    awk -v marker="${marker}" -v comment="${comment}" '
+      {
+        if ($0 == marker || $0 == comment) {
+          next
+        }
+        print
+      }
+    ' "${file}" >"${tmp}"
+    mv "${tmp}" "${file}"
+    echo "Removed envman shell hook from ${file}"
+  done
+
+  if [[ -d "${HOME}/.config/envman" ]]; then
+    rm -rf "${HOME}/.config/envman"
+    echo "Removed ${HOME}/.config/envman"
+  fi
+
+  if [[ -x "${HOME}/.local/bin/webi" || -L "${HOME}/.local/bin/webi" ]]; then
+    rm -f "${HOME}/.local/bin/webi"
+    echo "Removed ${HOME}/.local/bin/webi"
+  fi
+
+  if [[ -L "${HOME}/.local/bin/shfmt" ]]; then
+    local linked
+    linked="$(readlink -f "${HOME}/.local/bin/shfmt" || true)"
+    if [[ "${linked}" == "${HOME}/.local/opt/shfmt-"*"/bin/shfmt" ]]; then
+      rm -f "${HOME}/.local/bin/shfmt"
+      rm -rf "$(dirname "$(dirname "${linked}")")"
+      echo "Removed old webi-managed shfmt"
+    fi
+  fi
+
+  if [[ -f "${source_abs}" ]]; then
+    rm -f "${source_abs}"
+  fi
+}
+
 __shfmt_ensure() {
+  __cleanup_webi_envman
+
   if command -v shfmt >/dev/null 2>&1; then
     local current
     current="$(shfmt --version 2>/dev/null || true)"
