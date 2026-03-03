@@ -312,3 +312,9 @@
 - Validation: `yarn test:bash3:docker` passes.
 - Key learning: Small Bash helper functions plus explicit variable initialization can improve parser maintainability without regressing ShellCheck strictness.
 - Key learning: Using `gh` to resolve repo context avoids brittle assumptions about allowed remote URL string formats.
+
+## Iteration 31
+- Date: 2026-03-03.
+- Progress: Pushed council refactor implementation commit `c4bcf74` on `maintainer/overhaul-pass-1`.
+- Validation: PR `#172` checks passed on commit `c4bcf74` (`ci (ubuntu-latest)`, `ci (macos-latest)`, `ci-bash3-docker`).
+- Key learning: Parser maintainability refactors can stay low-risk when backed by contract scenarios and Bash3 Docker coverage.
