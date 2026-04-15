@@ -21,7 +21,7 @@
 # The benefits of this wrapper are:
 #
 # - You get to keep the the scripts package.json, which is more portable
-#   (Makefiles & Windows are harder to mix)
+#   (Makefiles & Windows are harder to mix)..
 # - Offer a polite way into the project for developers coming from different
 #   languages (npm scripts is obviously very Node centric)
 # - Profit from better autocomplete (make <TAB><TAB>) than npm currently offers.
