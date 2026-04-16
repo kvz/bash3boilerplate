@@ -26,7 +26,7 @@
 
 ## What is a CLI?
 
-A "CLI" is a [command-line interface](https://en.wikipedia.org/wiki/Command-line_interface).
+A "CLI" stands for Command-Line Interface. It allows users to interact with a program using text-based commands(https://en.wikipedia.org/wiki/Command-line_interface).
 
 ## How do I incorporate BASH3 Boilerplate into my own project?
 
@@ -60,9 +60,9 @@ In b3bp, these are two different archetypes:
 
 ## When should I use export -f?
 
-Use `export -f` only when child Bash processes must inherit a function.
+Use `export -f` only when child Bash processes need to inherit a function.
 
-If you only need functions in the current shell after sourcing, `export -f` is not required.
+If functions are only required in the current shell after sourcing, `export -f` is not necessary.
 
 ## How do I add a command-line flag?
 
@@ -101,7 +101,7 @@ Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines on testing, codin
 
 ## Why are you typing BASH in all caps?
 
-As an acronym, Bash stands for Bourne-again shell, and is usually written with one uppercase.
+As an acronym, Bash stands for "Bourne Again Shell" and is typically written with only the first letter capitalized.
 This project's name, however, is "BASH3 Boilerplate". It is a reference to
 "[HTML5 Boilerplate](https://html5boilerplate.com/)", which was founded to serve a similar purpose,
 only for crafting webpages.
