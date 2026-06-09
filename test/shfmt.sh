@@ -40,14 +40,7 @@ __cleanup_webi_envman() {
     fi
 
     tmp="$(mktemp)"
-    awk -v marker="${marker}" -v comment="${comment}" '
-      {
-        if ($0 == marker || $0 == comment) {
-          next
-        }
-        print
-      }
-    ' "${file}" >"${tmp}"
+    grep -Fvx -e "${marker}" -e "${comment}" "${file}" >"${tmp}" || true
     mv "${tmp}" "${file}"
     echo "Removed envman shell hook from ${file}"
   done
@@ -65,7 +58,7 @@ __cleanup_webi_envman() {
   if [[ -L "${HOME}/.local/bin/shfmt" ]]; then
     local linked
     linked="$(readlink -f "${HOME}/.local/bin/shfmt" || true)"
-    if [[ "${linked}" == "${HOME}/.local/opt/shfmt-"*"/bin/shfmt" ]]; then
+    if [[ "${linked}" = "${HOME}/.local/opt/shfmt-"*"/bin/shfmt" ]]; then
       rm -f "${HOME}/.local/bin/shfmt"
       rm -rf "$(dirname "$(dirname "${linked}")")"
       echo "Removed old webi-managed shfmt"
