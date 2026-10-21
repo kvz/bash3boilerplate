@@ -21,7 +21,7 @@ jobs:
           fetch-depth: 1
       - uses: actions/setup-node@v6
         with:
-          node-version: '^22.23.4'
+          node-version: '^26.12.1'
           check-latest: true
       - name: Install macOS test dependencies
         if: runner.os == 'macOS'
@@ -29,6 +29,7 @@ jobs:
           brew install gnu-sed coreutils
       - name: Install
         run: |
+          npm install --global corepack@0.36.0
           corepack enable
           corepack yarn install --immutable
       - name: Lint
